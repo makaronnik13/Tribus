@@ -11,8 +11,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: CactoosDesert
   m_EditorClassIdentifier: 
-  X: 866
-  Y: 281
+  StateName: 
+  X: 720
+  Y: 297
   prefab: {fileID: 1516397814323408, guid: 487c5b9d6635b47a1a82548b5bf3d9a1, type: 2}
+  Radius: 1
+  types: 
   income: []
   combinations: []
+  buffs:
+  - radius: 1
+    buffType: 1
+    characteristic: 2
+    states: []
+    bioms: 
+    resoureTypes: 

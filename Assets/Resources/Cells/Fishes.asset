@@ -11,8 +11,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: Fishes
   m_EditorClassIdentifier: 
-  X: 161
-  Y: 250
+  StateName: 
+  X: 390
+  Y: 50
   prefab: {fileID: 1631047360611590, guid: 4416e0b2ac7a343169aab398f435ddcc, type: 2}
+  Radius: 1
+  types: 
   income: []
-  combinations: []
+  combinations:
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: 644e338a9b3c84712ad45f6a53c22221, type: 2}
+    skillLevel: 1
+  - skill: 2
+    ResultState: {fileID: 11400000, guid: 43cdeee40ef5e4b55b23df3d1b4b6d3d, type: 2}
+    skillLevel: 1
+  buffs: []

@@ -72,4 +72,13 @@ public class BlocksField : Singleton<BlocksField> {
 			blocksInfos.Find (h=>Vector3.Distance(h.transform.position, b.transform.position)<1).Show(b);
 		}
 	}
+
+    public void Emmit()
+    {
+        foreach (Block b in FindObjectsOfType<Block>())
+        {
+            blocksInfos.Find(h => Vector3.Distance(h.transform.position, b.transform.position) < 1).Emmit(b);
+        }
+    }
+
 }

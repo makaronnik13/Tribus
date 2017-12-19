@@ -1063,7 +1063,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1129927188
+  randomSeed: 246725693
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4437,8 +4437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6d2ee50a8af41659db1e7a181e5cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 5
-  height: 5
+  width: 7
+  height: 7
   cellSize: 2
   baseBlocks:
   - {fileID: 1581244916507290, guid: 88a9c0b01980e440da34407e96903d1b, type: 2}
@@ -4498,6 +4498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b2a0cf920ba645c98e9c0199291bbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incomeRate: 3
   currentResources: []
 --- !u!114 &1317540313
 MonoBehaviour:

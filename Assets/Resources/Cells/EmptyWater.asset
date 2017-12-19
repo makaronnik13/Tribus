@@ -11,12 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: EmptyWater
   m_EditorClassIdentifier: 
-  X: 78
-  Y: 70
+  StateName: "\u0412\u043E\u0434\u0430"
+  X: 47
+  Y: 62
   prefab: {fileID: 1425154205955338, guid: 8c6dddf36a3bd4679b53d7028b305952, type: 2}
-  income:
-  - resource: 4
-    value: 1
+  Radius: 1
+  types: 
+  income: []
   combinations:
   - skill: 1
     ResultState: {fileID: 11400000, guid: 08d5322d3e8254a9f9e60a20a8e19753, type: 2}

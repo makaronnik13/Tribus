@@ -11,12 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: SeaWeed
   m_EditorClassIdentifier: 
-  X: 23
-  Y: 243
+  StateName: "\u0412\u043E\u0434\u043E\u0440\u043E\u0441\u043B\u0438"
+  X: 146
+  Y: 260
   prefab: {fileID: 1533824811129888, guid: 4a58a749a57684a81acb6a9b905d8cbe, type: 2}
-  income:
-  - resource: 0
-    value: 5
-  - resource: 1
-    value: 3
+  Radius: 1
+  types: 
+  income: []
   combinations: []
+  buffs: []

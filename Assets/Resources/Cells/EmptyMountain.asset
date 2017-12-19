@@ -11,16 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: EmptyMountain
   m_EditorClassIdentifier: 
-  X: 413
-  Y: -1
+  StateName: 
+  X: 89
+  Y: 101
   prefab: {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
-  income:
-  - resource: 3
-    value: 1
-  - resource: 0
-    value: 1
+  Radius: 1
+  types: 
+  income: []
   combinations:
-  - skill: 3
+  - skill: 1
     ResultState: {fileID: 11400000, guid: fb4148cad244946099a784cea7d76561, type: 2}
     skillLevel: 1
   - skill: 2

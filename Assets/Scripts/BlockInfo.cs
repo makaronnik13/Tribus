@@ -8,12 +8,13 @@ public class BlockInfo : MonoBehaviour {
 	private GameObject canvas;
 	public GameObject infoBlockRow;
 	public Transform content;
+    public GameObject popupInfo;
 
 	private bool showing = false;
 
 	// Use this for initialization
 	void Start () {
-		canvas = transform.GetChild (0).gameObject;
+		canvas = transform.GetChild (0).GetChild(0).gameObject;
 		canvas.SetActive (false);
 	}
 	
@@ -34,7 +35,7 @@ public class BlockInfo : MonoBehaviour {
 			GameObject newRaw = Instantiate (infoBlockRow, content);
 			newRaw.GetComponentInChildren<Image> ().sprite = CombineModel.GetResourceImage(inc.resource);
 
-			newRaw.GetComponentInChildren<Text> ().text = inc.value+"";
+			newRaw.GetComponentInChildren<Text> ().text = inc.SkillLevel+"";
 		}
 		canvas.SetActive (true);
 		showing = true;
@@ -44,7 +45,25 @@ public class BlockInfo : MonoBehaviour {
 		}
 	}
 
-	public void Hide()
+    public void Emmit(Block b)
+    {
+        if (b.CurrentIncome.Count == 0)
+        {
+            return;
+        }
+  
+        foreach (Inkome inc in b.CurrentIncome)
+        {
+            GameObject newRaw = Instantiate(infoBlockRow, popupInfo.transform);
+            newRaw.GetComponentInChildren<Image>().sprite = CombineModel.GetResourceImage(inc.resource);
+
+            newRaw.GetComponentInChildren<Text>().text = inc.SkillLevel + "";
+        }
+
+        popupInfo.GetComponent<PopupInfoPanel>().Emmit();
+    }
+
+    public void Hide()
 	{
 		if(!showing)
 		{

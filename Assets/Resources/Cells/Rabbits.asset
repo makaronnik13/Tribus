@@ -11,8 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: Rabbits
   m_EditorClassIdentifier: 
-  X: 608
-  Y: 314
+  StateName: 
+  X: 359
+  Y: 261
   prefab: {fileID: 1512567867838884, guid: 2691fb33168004e38bd93f9c9b9e1624, type: 2}
+  Radius: 1
+  types: 
   income: []
   combinations: []
+  buffs: []

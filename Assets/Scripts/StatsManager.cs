@@ -6,8 +6,8 @@ using System;
 public class StatsManager : Singleton<StatsManager> {
 
 	public Action OnStatChanged;
-
-	public List<Inkome> currentResources = new List<Inkome>();
+    public float incomeRate = 3;
+    public List<Inkome> currentResources = new List<Inkome>();
 	public List<Inkome> incomes 
 	{
 		get
@@ -22,12 +22,14 @@ public class StatsManager : Singleton<StatsManager> {
 					if (result.Find (inca => inca.resource == inc.resource) == null) {
 						Inkome newInc = new Inkome ();
 						newInc.resource = inc.resource;
-						newInc.value = inc.value;
+						newInc.SkillLevel = inc.SkillLevel;
 						result.Add (newInc);
 					} else {
-						result.Find (r => r.resource == inc.resource).value += inc.value;
+						result.Find (r => r.resource == inc.resource).SkillLevel += inc.SkillLevel;
 					}
 				}
+
+                
 			}
 
 			return result;
@@ -39,12 +41,12 @@ public class StatsManager : Singleton<StatsManager> {
 		foreach (CombineModel.GameResource r in Enum.GetValues(typeof(CombineModel.GameResource)))
 		{
 			Inkome inc = new Inkome();
-			inc.value = 0;
+			inc.SkillLevel = 0;
 			inc.resource = r;
 			currentResources.Add (inc);
 		}
 		OnStatChanged.Invoke ();
-		InvokeRepeating ("ApplyIncome", 1,5 );
+		InvokeRepeating ("ApplyIncome", 1, incomeRate);
 	}
 
 	public void ApplyIncome()
@@ -53,9 +55,11 @@ public class StatsManager : Singleton<StatsManager> {
 		{
 			foreach(Inkome inc in b.CurrentIncome)
 			{
-				currentResources.Find (r=>r.resource == inc.resource).value+=inc.value;
+				currentResources.Find (r=>r.resource == inc.resource).SkillLevel+=inc.SkillLevel;
 			}
-		}
+
+           BlocksField.Instance.Emmit();
+        }
 
 		if (OnStatChanged != null) {
 			OnStatChanged.Invoke ();

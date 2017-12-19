@@ -26,7 +26,14 @@ public class StatsPanel : MonoBehaviour {
 		{
 			GameObject newRaw = Instantiate (rawPrefab, content);
 			newRaw.transform.GetChild(0).GetComponent<Image> ().sprite = CombineModel.GetResourceImage (inc.resource);
-			newRaw.GetComponentInChildren<Text>().text = inc.value + " ("+ incomes.Find(i=>i.resource == inc.resource).value+")";
+            try
+            {
+                newRaw.GetComponentInChildren<Text>().text = inc.SkillLevel + " (" + incomes.Find(i => i.resource == inc.resource).SkillLevel + ")";
+            }
+            catch
+            {
+
+            }
 		}
 	}
 }

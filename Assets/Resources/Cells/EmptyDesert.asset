@@ -11,14 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: EmptyDesert
   m_EditorClassIdentifier: 
-  X: 873
-  Y: -18
+  StateName: "\u041F\u0443\u0441\u0442\u044B\u043D\u044F"
+  X: 721
+  Y: 40
   prefab: {fileID: 1131976619537840, guid: 521d5667699954e4abac4ace15587b7c, type: 2}
-  income:
-  - resource: 2
-    value: 1
-  - resource: 0
-    value: 2
+  Radius: 1
+  types: 
+  income: []
   combinations:
   - skill: 1
     ResultState: {fileID: 11400000, guid: 10f1fdcd79d42416482206de5e1194af, type: 2}
@@ -26,4 +25,11 @@ MonoBehaviour:
   - skill: 2
     ResultState: {fileID: 11400000, guid: 644e338a9b3c84712ad45f6a53c22221, type: 2}
     skillLevel: 1
-  buffs: []
+  buffs:
+  - radius: 1
+    buffType: 1
+    characteristic: 0
+    states:
+    - {fileID: 11400000, guid: 43cdeee40ef5e4b55b23df3d1b4b6d3d, type: 2}
+    bioms: 
+    resoureTypes: 

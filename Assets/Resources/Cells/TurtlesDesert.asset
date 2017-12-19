@@ -11,8 +11,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: TurtlesDesert
   m_EditorClassIdentifier: 
-  X: 1008
-  Y: 120
+  StateName: 
+  X: 851
+  Y: 267
   prefab: {fileID: 1226900945793532, guid: f6b9b016d86154a6485f6f760a7f468e, type: 2}
+  Radius: 1
+  types: 
   income: []
   combinations: []
+  buffs:
+  - radius: 0
+    buffType: 0
+    characteristic: 2
+    states:
+    - {fileID: 11400000, guid: 24ba045e628e34901be0b198f519ea90, type: 2}
+    bioms: 
+    resoureTypes: 

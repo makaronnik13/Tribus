@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,5 +8,6 @@ using UnityEngine;
 public class Inkome
 {
 		public CombineModel.GameResource resource;
-		public int value;
+
+    public int SkillLevel;
 }

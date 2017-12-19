@@ -7,12 +7,13 @@ using System.Linq;
     public class CombinationsEditor : EditorWindow
     {
 	private Dictionary<CombineModel.Skills, Color> skillsCollors = new Dictionary<CombineModel.Skills, Color> () {
-		{CombineModel.Skills.None, Color.white/8},
+		{CombineModel.Skills.None, Color.white/2},
 		{CombineModel.Skills.Flora, Color.green},
 		{CombineModel.Skills.Fauna, Color.yellow},
-		{CombineModel.Skills.Minerals, Color.gray}
+		{CombineModel.Skills.Minerals, Color.magenta}
 	};
-		
+
+    private Combination selectedPath;
 	private Vector2 lastMousePosition;
 
 	private List<KeyValuePair<CellState, GUIDraggableObject>> statesPositions = new List<KeyValuePair<CellState, GUIDraggableObject>> ();
@@ -69,30 +70,87 @@ using System.Linq;
 
 	
 		Event currentEvent = Event.current;
-		if (currentEvent.button == 1) {
-			if (currentEvent.type == EventType.MouseDown) {
-				if (position.Contains (currentEvent.mousePosition)) {
-					lastMousePosition = currentEvent.mousePosition;
-				}
-			} else if (currentEvent.type == EventType.MouseDrag) {
+        if (currentEvent.button == 1 || currentEvent.button == 2)
+        {
+            if (currentEvent.type == EventType.MouseDown)
+            {
 
-				Vector2 mouseMovementDifference = (currentEvent.mousePosition - lastMousePosition);
-				foreach(KeyValuePair<CellState, GUIDraggableObject> node in StatesPositions)
-				{
-					node.Value.Position+= new Vector2 (mouseMovementDifference.x, mouseMovementDifference.y);
-				}
+                selectedPath = null;
+                    lastMousePosition = currentEvent.mousePosition;          
+            }
+            else if (currentEvent.type == EventType.MouseDrag)
+            {
 
-				lastMousePosition = currentEvent.mousePosition;
-				currentEvent.Use ();
-			}
-		}
+                Vector2 mouseMovementDifference = (currentEvent.mousePosition - lastMousePosition);
 
 
+                foreach (KeyValuePair<CellState, GUIDraggableObject> node in StatesPositions)
+                {
+                    node.Value.Position += new Vector2(mouseMovementDifference.x, mouseMovementDifference.y);
+                }
 
-            DrowChainsWindow();
+                lastMousePosition = currentEvent.mousePosition;
+                currentEvent.Use();
+            }
+            
         }
 
-        void DrowChainsWindow()
+      
+        DrowChainsWindow();
+            DrawCreatingLine();
+        }
+
+    private void DrawCreatingLine()
+    {
+      
+
+        if (selectedPath!=null && Event.current.type == EventType.keyDown && Event.current.keyCode == KeyCode.Delete)
+        {
+
+            foreach (KeyValuePair<CellState, GUIDraggableObject> p in StatesPositions)
+            {
+                if (p.Key.Combinations.Contains(selectedPath))
+                {
+                    p.Key.RemoveCombination(p.Key.Combinations.ToList().IndexOf(selectedPath));
+                }
+            }
+
+            selectedPath= null;
+            Repaint();
+        }
+
+        if (selectedPath != null)
+        {
+           
+            Rect start = new Rect();
+            foreach (KeyValuePair<CellState, GUIDraggableObject> p in StatesPositions)
+            {
+                float s = 70;
+                int i = 0;
+                foreach (Combination c in p.Key.Combinations)
+                {
+                    float offset = s * i / (p.Key.Combinations.Count() - 1);
+                    if (p.Key.Combinations.Count() == 1)
+                    {
+                        offset = 100f / 2 - 5;
+                    }
+                    if (c== selectedPath)
+                    {         
+                        start = new Rect(p.Value.Position.x - 100f / 2 + 5 + offset, p.Value.Position.y + 115 / 2f, 100.0f, 115.0f);
+                    }
+                   
+                    i++;
+                }
+            }
+            Handles.BeginGUI();
+            DrawNodeCurve(start, new Rect(Event.current.mousePosition, Vector2.one), skillsCollors[selectedPath.skill], 2);
+            Handles.EndGUI();
+        }
+
+      
+    }
+
+    void DrowChainsWindow()
         {
 		
 
@@ -100,9 +158,10 @@ using System.Linq;
             GUI.DrawTextureWithTexCoords(fieldRect, BackgroundTexture, new Rect(0, 0, fieldRect.width / BackgroundTexture.width, fieldRect.height / BackgroundTexture.height));
 
 			DrawPathes();
+            
             BeginWindows();
 
-			CellState manipulatingState = null;
+        CellState manipulatingState = null;
 
 		for (int i = 0; i<=StatesPositions.Count-1; i++) 
 		{
@@ -133,10 +192,116 @@ using System.Linq;
 
 
             EndWindows();
-        }
-       
+    }
 
-	void DrawStateBox(KeyValuePair<CellState, GUIDraggableObject> state)
+    private bool DrawButton(KeyValuePair<CellState, GUIDraggableObject>  state)
+    {
+        bool containCursor = false;
+
+            Combination[] combinations = state.Key.Combinations;
+
+            float s = 70f;
+            int i = 0;
+
+            if (combinations == null)
+            {
+                combinations = new Combination[0];
+            }
+
+        if (GUI.Button(new Rect(state.Value.Position.x + 85f, state.Value.Position.y +100, 20, 20), "+"))
+        {
+            state.Key.AddCombination();
+        }
+
+
+        Rect aim = new Rect(state.Value.Position.x + 100f / 2-8f, state.Value.Position.y-6, 15, 15);
+
+            GUI.Label(aim, new GUIContent(Resources.Load("Icons/button") as Texture2D));
+
+            if (Event.current.type == EventType.mouseUp && aim.Contains(Event.current.mousePosition) && selectedPath != null)
+            {
+        
+
+            foreach (KeyValuePair<CellState, GUIDraggableObject> kvp in statesPositions)
+                {
+                    if (kvp.Key.Combinations.Contains(selectedPath))
+                    {
+                    selectedPath.ResultState = state.Key;
+                    }
+                }
+
+            selectedPath = null;
+            }
+
+            if (aim.Contains(Event.current.mousePosition))
+            {
+            containCursor = true;
+            }
+
+            foreach (Combination c in combinations)
+            {
+                float offset = s * i / (combinations.Count() - 1);
+                if (combinations.Count() == 1)
+                {
+                    offset = 100f / 2;
+                }
+
+                float size = 15;
+                if (selectedPath == c)
+                {
+                    size = 20;
+                }
+                Rect start = new Rect(state.Value.Position.x + offset-size/4, state.Value.Position.y + 110, size, size);
+
+                Vector3 aimPosition = start.position + Vector2.down * 5f;
+
+                GUI.color = skillsCollors[c.skill];
+
+            GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, 1);
+
+            GUI.Label(start, new GUIContent(Resources.Load("Icons/button") as Texture2D));
+
+                if (start.Contains(Event.current.mousePosition))
+                {
+
+                
+               /* if (Event.current.type == EventType.MouseDrag)
+                {
+                    selectedPath = c;
+                }*/
+                 if (Event.current.type == EventType.MouseDown)
+                {
+                    if (selectedPath!=c)
+                    {
+                        selectedPath = c;
+                        Repaint();
+                    }
+                    else
+                    {
+                        selectedPath = null;
+                        Repaint();
+                    }
+                    
+                }
+
+            }
+
+
+               
+
+                GUI.color = Color.white;
+                i++;
+
+                if (start.Contains(Event.current.mousePosition))
+                {
+                    containCursor = true;
+                }
+        }
+
+        return containCursor;
+    }
+
+    void DrawStateBox(KeyValuePair<CellState, GUIDraggableObject> state)
 	{
 
 			
@@ -151,21 +316,29 @@ using System.Linq;
 
 		Rect drawRect = new Rect (state.Value.Position.x, state.Value.Position.y, 100.0f, 115.0f), dragRect;
 
-		GUILayout.BeginArea (drawRect, GUI.skin.GetStyle ("Box"));
+        
+
+        GUILayout.BeginArea (drawRect, GUI.skin.GetStyle ("Box"));
 		GUILayout.BeginVertical ();
 		GUILayout.Label (state.Key.name, GUILayout.ExpandWidth(true));
 		GUILayout.Label (AssetPreview.GetAssetPreview(state.Key.prefab),GUILayout.ExpandWidth(true));
 		GUILayout.EndVertical ();
-		dragRect = GUILayoutUtility.GetLastRect ();
+
+      
+
+        dragRect = GUILayoutUtility.GetLastRect ();
 		dragRect = new Rect (dragRect.x + state.Value.Position.x, dragRect.y + state.Value.Position.y, dragRect.width, dragRect.height);
 		GUILayout.EndArea ();
-		if (Selection.activeObject == state.Key) {
+
+		if (!DrawButton(state) && Selection.activeObject == state.Key) {
 			state.Value.Drag (dragRect);
+            //selectedPath = null;
 			Repaint ();
 		}
 
 
 		GUI.backgroundColor = Color.white;
+        
 	}
 
 	void DrawPathes()
@@ -174,7 +347,7 @@ using System.Linq;
 		{
 			Combination[] combinations = state.Key.Combinations;
 
-			float s =  90;
+			float s =  70;
 			int i = 0;
 
 		
@@ -188,25 +361,31 @@ using System.Linq;
 				float offset =  s* i/(combinations.Count()-1);
 				if(combinations.Count() == 1)
 				{
-					offset =  100f / 2-5;
+					offset =  48;
 				}
+
 				Rect start = new Rect( state.Value.Position.x - 100f/2+5 +offset, state.Value.Position.y +115/2f,  100.0f, 115.0f);
 
-				Vector3 aimPosition = start.position + Vector2.down * 5f;
+				
 
 				try 
 				{
 					CellState aim = StatesPositions.First (k => k.Key == c.ResultState).Key; 
-					aimPosition = StatesPositions.Find (cell => cell.Key == aim).Value.Position;
-				}
+					Vector3 aimPosition = StatesPositions.Find (cell => cell.Key == aim).Value.Position;
+                    Rect end = new Rect(aimPosition.x, aimPosition.y - 115 / 2f, 100.0f, 115.0f); ;
+                    Handles.BeginGUI();
+                    Color color = skillsCollors[c.skill];
+                    if (c == selectedPath)
+                    {
+                        color = color / 2;
+                    }
+                    DrawNodeCurve(start, end, color, c.skillLevel);
+                    Handles.EndGUI();
+                }
 				catch
 				{
 				}
-
-				Rect end = new Rect(aimPosition.x, aimPosition.y - 115/2f,  100.0f, 115.0f);;
-				Handles.BeginGUI();
-				DrawNodeCurve(start, end, skillsCollors[c.skill], c.skillLevel);
-				Handles.EndGUI();
+		
 				i++;
 			}
 		}

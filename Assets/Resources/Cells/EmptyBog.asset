@@ -11,35 +11,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: EmptyBog
   m_EditorClassIdentifier: 
-  X: 473
-  Y: 341
+  StateName: "\u0411\u043E\u043B\u043E\u0442\u043E"
+  X: 416
+  Y: 93
   prefab: {fileID: 1581244916507290, guid: 88a9c0b01980e440da34407e96903d1b, type: 2}
-  income:
-  - resource: 2
-    value: 1
-  - resource: 1
-    value: 2
+  Radius: 1
+  types: 
+  income: []
   combinations:
-  - skill: 1
-    ResultState: {fileID: 11400000, guid: 29e0b0ca85ef44f6393167fba2794db9, type: 2}
-    skillLevel: 1
   - skill: 2
     ResultState: {fileID: 11400000, guid: 49fce789312394d7cb497e45b87e80f2, type: 2}
     skillLevel: 1
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: 29e0b0ca85ef44f6393167fba2794db9, type: 2}
+    skillLevel: 1
   buffs:
-  - radius: 0
-    buffType: 0
-    characteristic: 0
-    states: []
-    bioms: 
-    resoureTypes: 
-  - radius: 0
-    buffType: 0
-    characteristic: 0
-    states: []
-    bioms: 
-    resoureTypes: 
-  - radius: 0
+  - radius: 1
     buffType: 0
     characteristic: 0
     states: []

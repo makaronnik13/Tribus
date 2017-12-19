@@ -11,14 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: EmptyForest
   m_EditorClassIdentifier: 
-  X: 684
-  Y: 18
+  StateName: "\u041B\u0435\u0441"
+  X: 383
+  Y: 29
   prefab: {fileID: 1839053236738266, guid: 70de8bdfebdcf400b8f6b5dbefda1e1f, type: 2}
+  Radius: 1
+  types: 
   income:
   - resource: 1
-    value: 3
-  - resource: 4
-    value: 2
+    SkillLevel: 1
   combinations:
   - skill: 2
     ResultState: {fileID: 11400000, guid: fa34da91449d84b42abbab018de47203, type: 2}
@@ -26,4 +27,10 @@ MonoBehaviour:
   - skill: 1
     ResultState: {fileID: 11400000, guid: 43cdeee40ef5e4b55b23df3d1b4b6d3d, type: 2}
     skillLevel: 1
-  buffs: []
+  buffs:
+  - radius: 0
+    buffType: 0
+    characteristic: 1
+    states: []
+    bioms: 
+    resoureTypes: 

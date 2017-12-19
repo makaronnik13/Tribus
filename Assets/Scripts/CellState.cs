@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Sirenix.OdinInspector;
 
 [CreateAssetMenu(menuName = "Grids/CellState")]
 public class CellState: ScriptableObject
 {
 
+    public string StateName;
+
 	#if UNITY_EDITOR
+    [HideInInspector]
 	public float X, Y;
 
 	public void Drag(Vector2 p)
@@ -18,8 +22,16 @@ public class CellState: ScriptableObject
 
 	#endif
 
+    [AssetsOnly, InlineEditor(InlineEditorModes.LargePreview)]
 	public GameObject prefab;
-	public Inkome[] income;
+
+    public string Radius = "1";
+
+    public List<CombineModel.ResourceType> types;
+
+
+    [TabGroup("incomes"), InlineProperty]
+    public Inkome[] income;
 
 	public Combination[] Combinations
 	{
@@ -38,9 +50,11 @@ public class CellState: ScriptableObject
 	}
 
 	[SerializeField]
+    [TabGroup("combinations")]
 	private Combination[] combinations;
 
-	public CellBuff[] buffs; 
+    [TabGroup("buffs")]
+    public CellBuff[] buffs; 
 
 	public bool HasCombination(CombineModel.Skills skill)
 	{
