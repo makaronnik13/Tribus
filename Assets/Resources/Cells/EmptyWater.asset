@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: EmptyWater
+  m_EditorClassIdentifier: 
+  X: 78
+  Y: 70
+  prefab: {fileID: 1425154205955338, guid: 8c6dddf36a3bd4679b53d7028b305952, type: 2}
+  income:
+  - resource: 4
+    value: 1
+  combinations:
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: 08d5322d3e8254a9f9e60a20a8e19753, type: 2}
+    skillLevel: 1
+  - skill: 2
+    ResultState: {fileID: 11400000, guid: dc9325a57cdf9491dbba54978aac8f9e, type: 2}
+    skillLevel: 1
+  buffs: []

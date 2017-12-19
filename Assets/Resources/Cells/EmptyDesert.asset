@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: EmptyDesert
+  m_EditorClassIdentifier: 
+  X: 873
+  Y: -18
+  prefab: {fileID: 1131976619537840, guid: 521d5667699954e4abac4ace15587b7c, type: 2}
+  income:
+  - resource: 2
+    value: 1
+  - resource: 0
+    value: 2
+  combinations:
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: 10f1fdcd79d42416482206de5e1194af, type: 2}
+    skillLevel: 1
+  - skill: 2
+    ResultState: {fileID: 11400000, guid: 644e338a9b3c84712ad45f6a53c22221, type: 2}
+    skillLevel: 1
+  buffs: []
