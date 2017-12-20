@@ -33,9 +33,9 @@ public class BlockInfo : MonoBehaviour {
 		foreach(Inkome inc in b.CurrentIncome)
 		{
 			GameObject newRaw = Instantiate (infoBlockRow, content);
-			newRaw.GetComponentInChildren<Image> ().sprite = CombineModel.GetResourceImage(inc.resource);
+			newRaw.GetComponentInChildren<Image> ().sprite = inc.resource.sprite;
 
-			newRaw.GetComponentInChildren<Text> ().text = inc.SkillLevel+"";
+			newRaw.GetComponentInChildren<Text> ().text = inc.value+"";
 		}
 		canvas.SetActive (true);
 		showing = true;
@@ -54,10 +54,13 @@ public class BlockInfo : MonoBehaviour {
   
         foreach (Inkome inc in b.CurrentIncome)
         {
-            GameObject newRaw = Instantiate(infoBlockRow, popupInfo.transform);
-            newRaw.GetComponentInChildren<Image>().sprite = CombineModel.GetResourceImage(inc.resource);
+            if (inc.resource.incoming)
+            {
+                GameObject newRaw = Instantiate(infoBlockRow, popupInfo.transform);
+                newRaw.GetComponentInChildren<Image>().sprite = inc.resource.sprite;
 
-            newRaw.GetComponentInChildren<Text>().text = inc.SkillLevel + "";
+                newRaw.GetComponentInChildren<Text>().text = inc.value + "";
+            }
         }
 
         popupInfo.GetComponent<PopupInfoPanel>().Emmit();

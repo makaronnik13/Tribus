@@ -15,6 +15,7 @@ MonoBehaviour:
   X: 47
   Y: 62
   prefab: {fileID: 1425154205955338, guid: 8c6dddf36a3bd4679b53d7028b305952, type: 2}
+  Sprite: {fileID: 21300000, guid: ccfde77eb8842473e8fddb8ed48e039c, type: 3}
   Radius: 1
   types: 
   income: []

@@ -15,11 +15,12 @@ MonoBehaviour:
   X: 383
   Y: 29
   prefab: {fileID: 1839053236738266, guid: 70de8bdfebdcf400b8f6b5dbefda1e1f, type: 2}
+  Sprite: {fileID: 21300004, guid: ccfde77eb8842473e8fddb8ed48e039c, type: 3}
   Radius: 1
   types: 
   income:
-  - resource: 1
-    SkillLevel: 1
+  - resource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
+    value: 2
   combinations:
   - skill: 2
     ResultState: {fileID: 11400000, guid: fa34da91449d84b42abbab018de47203, type: 2}

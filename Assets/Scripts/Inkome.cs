@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Inkome
 {
-		public CombineModel.GameResource resource;
+	public GameResource resource;
 
-    public int SkillLevel;
+    public int value;
 }

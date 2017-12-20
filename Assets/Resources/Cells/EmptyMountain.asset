@@ -11,10 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: EmptyMountain
   m_EditorClassIdentifier: 
-  StateName: 
+  StateName: "\u0413\u043E\u0440\u044B"
   X: 89
   Y: 101
   prefab: {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
+  Sprite: {fileID: 21300008, guid: ccfde77eb8842473e8fddb8ed48e039c, type: 3}
   Radius: 1
   types: 
   income: []

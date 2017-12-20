@@ -47,6 +47,7 @@ public class Block : MonoBehaviour {
 	void OnMouseUp()
 	{
 		BlocksField.Instance.ShowInfo (new List<Block>(){});
+        InformationPanel.Instance.ShowInfo(null);
 	}
 
 	void OnMouseEnter()
@@ -62,12 +63,14 @@ public class Block : MonoBehaviour {
 		SkillsController.Instance.HighlightedBlock = null;
 		BlocksField.Instance.HighLightFields (new List<Block>(){});
 		BlocksField.Instance.ShowInfo (new List<Block>(){});
-	}
+        InformationPanel.Instance.ShowInfo(null);
+    }
 
 	void OnMouseDrag()
 	{
 		if (mouseInCell) {
 			BlocksField.Instance.ShowInfo (new List<Block> (){ this });
-		}
+            InformationPanel.Instance.ShowInfo(this);
+        }
 	}
 }

@@ -11,14 +11,6 @@ public class CombineModel {
 		{Skills.Minerals, 20}
 	};
 
-	private static Dictionary<GameResource, string> resourcesImages = new Dictionary<GameResource, string>()
-	{
-		{GameResource.Wealth, "Sprites/GameResources/Wealth"},
-		{GameResource.Nature, "Sprites/GameResources/Nature"},
-		{GameResource.Danger, "Sprites/GameResources/Danger"},
-		{GameResource.Technology, "Sprites/GameResources/Technology"},
-		{GameResource.Food, "Sprites/GameResources/Food"}
-	};
 
 	public enum Skills
 	{
@@ -37,14 +29,6 @@ public class CombineModel {
 		Mountains
 	}
 		
-	public enum GameResource
-	{
-		Wealth,
-		Nature,
-		Danger,
-		Technology,
-		Food
-	}
 
 	public enum ResourceType
 	{
@@ -65,8 +49,4 @@ public class CombineModel {
 		return cooldowns [skill];
 	}
 
-	public static Sprite GetResourceImage(GameResource res)
-	{
-		return Resources.Load<Sprite>(resourcesImages[res]);
-	}
 }

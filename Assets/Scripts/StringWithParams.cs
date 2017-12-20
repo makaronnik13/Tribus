@@ -8,7 +8,7 @@ public class StringWithParams
 {
 	public string calculationString;
 
-	public CombineModel.GameResource param;
+	public GameResource param;
 }
 
 

@@ -18,3 +18,5 @@ MonoBehaviour:
     configs:
     - DrawnTypeName: CellState, Assembly-CSharp
       EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: GameResource, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor

@@ -25,6 +25,9 @@ public class CellState: ScriptableObject
     [AssetsOnly, InlineEditor(InlineEditorModes.LargePreview)]
 	public GameObject prefab;
 
+    [AssetsOnly, InlineEditor(InlineEditorModes.LargePreview)]
+    public Sprite Sprite;
+
     public string Radius = "1";
 
     public List<CombineModel.ResourceType> types;
@@ -49,7 +52,7 @@ public class CellState: ScriptableObject
 		}
 	}
 
-	[SerializeField]
+    [SerializeField]
     [TabGroup("combinations")]
 	private Combination[] combinations;
 

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 4089ba47cf592044c97c55e2f7a940af
+timeCreated: 1513788539
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Plainot
+  fontNames:
+  - Plainot
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
