@@ -32,6 +32,7 @@ public class CombineModel {
 
 	public enum ResourceType
 	{
+        None,
 		Tree,
 		SmallPlant,
 		Fish,

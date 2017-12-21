@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StateName: "\u0411\u043E\u043B\u043E\u0442\u043E"
   type: 0
+  Biom: 0
   X: 416
   Y: 93
   Radius: 1
@@ -30,4 +31,13 @@ MonoBehaviour:
   - skill: 1
     ResultState: {fileID: 11400000, guid: 29e0b0ca85ef44f6393167fba2794db9, type: 2}
     skillLevel: 1
-  conditions: []
+  conditions:
+  - radius: 1
+    buffType: 1
+    value: 0
+    characteristic: 2
+    states: []
+    bioms: 
+    types: 
+    resources: []
+  buffs: []

@@ -8,6 +8,4 @@ public class CellBuff {
 
 	public Condition condition;
 
-	[DictionaryDrawerSettings]
-	public Dictionary<GameResource, int> values;
 }

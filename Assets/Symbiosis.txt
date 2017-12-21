@@ -1,0 +1,47 @@
+range simple/stat
+
+___
+take from neighbours !
++1 Technology for each 2 Food from Plants next to this Coffea.
+Gains +0.5 Wealth for each 1 Wealth from Minerals within Natura Range.
+Gains +0,5 Technology for each 1 Technology on plant within 2 range, excluding itse
++2.5 Wealth for each 1 Wealth from neighboring Animals.
+Gains 60% of the Wealth Wealth from neighboring Topaz, Onyx, Gold and Platinum.
+Gains 60% of the Wealth of neighboring Minerals.
+__________________
+aura !
+All Goats and Deer on the planet gain +3 Food.
++6 Food on each patch within Animal-Range that has a Plant.
+All Animals within Natura Range gain +6 Food and +3 Awe.
+_____
+percent
+________
+Each patch within Animal Range with a Plant receives a 50% bonus of that Plant's Food.
+White Willow or Coffea gain 75% extra Technology Technology
+________________
+foreach max stack
++40 Wealth and +10 Natura for each Brazilwood within natura range. Stacks up to 2 times.
+_____________________
+resource condition
+The Gila Monster has a smaller area of effect, but gives +5 Wealth and +5 Technology for each patch with at least 15 Natura.
++1 Awe and +1 Technology for each 5 Food within Natura Range.
++2 Wealth for each Patch with 7 Natura in Range
++5 Wealth for each Patch in Animal-Range with at least 5 Danger
++1 Wealth for each patch within Animal Range with at least 10 Technology.
+
+
+mutation res=>another res (resource condition on this patch)
++1 Natura Range and +35 Technology if this patch has at least 15 Natura.
++1 Range if at least 2 Danger on this patch.
++5 Wealth if the Grey Fox has at least 5 Wealth.
+
++25 Technology for each different statistic (Food Food, Wealth Wealth Technology Technology, Awe Awe, Danger Danger and Natura Natura) which is at least 10 on this patch.
+________________________
+resource only from type/biom
++1 Wealth for each 1 Awe from Plants within Animal-Range.
++0.5/0.75 Food for each 1 Wealth in neighboring Clownfish, Parrotfish, and Marlin.
+_________________________________
+foreach different
++27 Food for each different Source Type within Natura Range, excluding itself.
++8 Natura for each different Forest Plant within its Natura Range.
++1/2/3 Wealth and +1/2/3 Technology for each different fish type within Animal-Range except itself (but another parrotfish works).

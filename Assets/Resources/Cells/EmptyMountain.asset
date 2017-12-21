@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Name: EmptyMountain
   m_EditorClassIdentifier: 
   StateName: "\u0413\u043E\u0440\u044B"
+  type: 0
+  Biom: 4
   X: 89
   Y: 101
+  radiusType: 0
+  Radius: 1
+  radiusResource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
+  description: 
   prefab: {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
   Sprite: {fileID: 21300008, guid: ccfde77eb8842473e8fddb8ed48e039c, type: 3}
-  Radius: 1
   types: 
   income: []
   combinations:
@@ -26,4 +31,28 @@ MonoBehaviour:
   - skill: 2
     ResultState: {fileID: 11400000, guid: 24ba045e628e34901be0b198f519ea90, type: 2}
     skillLevel: 1
-  buffs: []
+  conditions:
+  - radius: 3
+    buffType: 0
+    maxStack: 0
+    value: 0
+    characteristic: 0
+    onlyDifferent: 0
+    states: []
+    bioms: 
+    types: 
+    resources: []
+    rewardResources: []
+  buffs:
+  - condition:
+      radius: 0
+      buffType: 0
+      maxStack: 0
+      value: 0
+      characteristic: 0
+      onlyDifferent: 0
+      states: []
+      bioms: 
+      types: 
+      resources: []
+      rewardResources: []

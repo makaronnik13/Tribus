@@ -94,6 +94,12 @@
     <Reference Include="Sirenix.Utilities.Editor">
       <HintPath>Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="TextMeshPro-2017.1-1.0.56-Runtime">
+      <HintPath>Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.1-1.0.56-Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.1-1.0.56-Editor">
+      <HintPath>Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.1-1.0.56-Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Managed/Mono.Cecil">
       <HintPath>C:/Program Files/Unity2017/Editor/Data\Managed/Mono.Cecil.dll</HintPath>
     </Reference>
@@ -105,9 +111,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\GameResource.cs" />
-    <Compile Include="Assets\InformationPanel.cs" />
-    <Compile Include="Assets\PopupInfoPanel.cs" />
     <Compile Include="Assets\Scripts\BillBoard.cs" />
     <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\BlockInfo.cs" />
@@ -119,20 +122,23 @@
     <Compile Include="Assets\Scripts\Combination.cs" />
     <Compile Include="Assets\Scripts\CombinationsEditor.cs" />
     <Compile Include="Assets\Scripts\CombineModel.cs" />
+    <Compile Include="Assets\Scripts\Condition.cs" />
+    <Compile Include="Assets\Scripts\GameResource.cs" />
     <Compile Include="Assets\Scripts\GUIDragableObject.cs" />
+    <Compile Include="Assets\Scripts\InformationPanel.cs" />
     <Compile Include="Assets\Scripts\Inkome.cs" />
+    <Compile Include="Assets\Scripts\PopupInfoPanel.cs" />
+    <Compile Include="Assets\Scripts\Recycler.cs" />
     <Compile Include="Assets\Scripts\Selector.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
     <Compile Include="Assets\Scripts\SkillButton.cs" />
     <Compile Include="Assets\Scripts\SkillsController.cs" />
     <Compile Include="Assets\Scripts\SkillsPanel.cs" />
     <Compile Include="Assets\Scripts\StatsManager.cs" />
+    <Compile Include="Assets\Scripts\StatsPanel.cs" />
     <Compile Include="Assets\Scripts\StringWithParams.cs" />
-    <Compile Include="Assets\StatsPanel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\ICE_sushishop\Shader\Glass.shader" />
-    <None Include="Assets\ICE_sushishop\Shader\Ice(break).shader" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.xml" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.xml" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.xml" />
@@ -141,7 +147,30 @@
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.xml" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\link.xml" />
     <None Include="Assets\Plugins\Sirenix\Readme.txt" />
+    <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
+    <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
+    <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\NotoSans - License.txt" />
+    <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald Bold - OFL.txt" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\Resources\Fonts\Symbols.txt" />
     <None Include="Assets\Resources\Shaders\TextOnTop.shader" />
+    <None Include="Assets\Resources\Sprites\GameResources\sprites.xml" />
+    <None Include="Assets\Symbiosis.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

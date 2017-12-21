@@ -21,6 +21,7 @@ public class BlockInfo : MonoBehaviour {
 	// Update is called once per frame
 	public void Show (Block b) 
 	{
+
 		foreach(Transform t in content)
 		{
 			Destroy (t.gameObject);

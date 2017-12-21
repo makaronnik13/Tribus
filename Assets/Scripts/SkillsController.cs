@@ -62,7 +62,11 @@ public class SkillsController : Singleton<SkillsController>
 		SkillsPanel.Instance.SkillTransform (CurrentSkill).GetComponent<SkillButton> ().ReloadButton ();
 		CurrentSkill = CombineModel.Skills.None;
 		HighlightedBlock = null;
-	}
+        foreach (Block b in FindObjectsOfType<Block>())
+        {
+            b.RecalculateInkome();
+        }
+    }
 
 	void Update()
 	{

@@ -10,6 +10,7 @@ public class CellState: ScriptableObject
 
     public string StateName;
 	public CombineModel.ResourceType type;
+    public CombineModel.Biom Biom;
 
 	#if UNITY_EDITOR
     [HideInInspector]
@@ -21,10 +22,31 @@ public class CellState: ScriptableObject
 		Y = p.y;
 	}
 
-	#endif
-	public string Radius = "1";
+#endif
 
-	[MultiLineProperty]
+    public enum RadiusType
+    {
+        Simple,
+        FromStat
+    }
+    public RadiusType radiusType = RadiusType.Simple;
+
+    [ShowIf("RadiusSimple")]
+    public int Radius = 1;
+    [ShowIf("RadiusFromStat")]
+    public GameResource radiusResource;
+
+    private bool RadiusSimple()
+    {
+        return radiusType == RadiusType.Simple;
+    }
+
+    private bool RadiusFromStat()
+    {
+        return radiusType == RadiusType.FromStat;
+    }
+
+    [MultiLineProperty]
 	public string description;
 
     [AssetsOnly, InlineEditor(InlineEditorModes.LargePreview)]
@@ -64,10 +86,11 @@ public class CellState: ScriptableObject
     [TabGroup("conditions")]
     public Condition[] conditions; 
 
-	[TabGroup("buffs")]
-	public CellBuff[] buffs; 
+	[TabGroup("auras")]
+	public CellBuff[] buffs;
 
-	public bool HasCombination(CombineModel.Skills skill)
+
+    public bool HasCombination(CombineModel.Skills skill)
 	{
 		foreach(Combination comb in Combinations)
 		{

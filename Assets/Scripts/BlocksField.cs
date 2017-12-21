@@ -46,6 +46,11 @@ public class BlocksField : Singleton<BlocksField> {
 				blocksInfos.Add (Instantiate (BlockInfo, transform.position+new Vector3((i-width/2)*cellSize,0,(j-height/2)*cellSize), Quaternion.identity,transform.GetChild(2)).GetComponent<BlockInfo>());
 			}
 		}
+
+        foreach (Block b in FindObjectsOfType<Block>())
+        {
+            b.RecalculateInkome();
+        }
 	}
 
 	public void HighLightFields(List<Block> blocks)
@@ -81,4 +86,8 @@ public class BlocksField : Singleton<BlocksField> {
         }
     }
 
+    public List<Block> GetBlocksInRadius(Block block, int r)
+    {
+        return FindObjectsOfType<Block>().Where(b => Vector3.Distance(b.transform.position, block.transform.position) < r * Mathf.Sqrt(2) * cellSize && b != block).ToList();
+    }
 }

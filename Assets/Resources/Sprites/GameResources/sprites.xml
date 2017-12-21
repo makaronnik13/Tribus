@@ -1,0 +1,8 @@
+<TextureAtlas imagePath="sprites.png">
+	<SubTexture name="Danger.png" x="0" y="116" width="128" height="128"/>
+	<SubTexture name="Food.png" x="0" y="376" width="110" height="128"/>
+	<SubTexture name="Nature.png" x="130" y="0" width="98" height="128"/>
+	<SubTexture name="Radius.png" x="0" y="246" width="128" height="128"/>
+	<SubTexture name="Technology.png" x="112" y="376" width="106" height="128"/>
+	<SubTexture name="Wealth.png" x="0" y="0" width="128" height="114"/>
+</TextureAtlas>

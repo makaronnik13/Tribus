@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Block : MonoBehaviour {
@@ -8,14 +9,7 @@ public class Block : MonoBehaviour {
 	public List<Inkome> CurrentIncome
 	{
 		get
-		{
-			if(currentIncome.Count == 0)
-			{
-				foreach(Inkome inc in State.income)
-				{
-					currentIncome.Add (inc);
-				}
-			}
+		{          
 			return currentIncome;
 		}
 	}
@@ -33,9 +27,54 @@ public class Block : MonoBehaviour {
 			state = value;
 		}
 	}
+    public int Radius
+    {
+        get
+        {
+            return State.Radius;
+        }
+    }
 
-	private bool mouseInCell = false;
+    private bool mouseInCell = false;
 
+    public void RecalculateInkome()
+    {
+        currentIncome = new List<Inkome>();
+
+        foreach (Inkome inc in State.income)
+        {
+            Inkome newInkome = new Inkome();
+            newInkome.resource = inc.resource;
+            newInkome.value = inc.value;
+            currentIncome.Add(newInkome);
+        }
+
+
+        foreach (Condition c in State.conditions)
+        {
+            foreach (Inkome pair in c.rewardResources)
+            {
+                Inkome inc = new Inkome();
+                inc.resource = pair.resource;
+                inc.value = pair.value * c.ChechCondition(this);
+
+                bool exist = false;
+                foreach (Inkome income in currentIncome)
+                {
+                    if (income.resource == inc.resource)
+                    {
+                        income.value += inc.value;
+                        exist = true;
+                    }
+                }
+     
+                if (!exist && inc.value!=0)
+                {       
+                    currentIncome.Add(inc);
+                }
+            }
+        }
+    }
 
 	void OnMouseDown()
 	{

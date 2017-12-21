@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 
 [System.Serializable]
 public class Condition
@@ -12,14 +13,17 @@ public class Condition
 	{
 		Adjusted,
 		Radius,
-		All
+		All,
+        This
 	}
 
 	public enum BuffType
 	{
-		If,
-		ForEvery
-	}
+		ForEvery,
+        More,
+        Less,
+        Equal
+    }
 
 	public enum CellCharacteristic
 	{
@@ -31,7 +35,16 @@ public class Condition
 
 	public CellBuffRadius radius;
 	public BuffType buffType;
+
+    [ShowIf("IsForeach")]
+    public int maxStack = 1000;
+
+    [ShowIf("TypeValue")]
+    public int value;
 	public CellCharacteristic characteristic;
+
+    [ShowIf("ShowDifferentToggle")]
+    public bool onlyDifferent = false;
 
     [ShowIf("UseState")]
     public CellState[] states;
@@ -41,6 +54,14 @@ public class Condition
     public CombineModel.ResourceType[] types;
 	[ShowIf("UseResource")]
 	public GameResource[] resources;
+
+    [ShowInInspector, SerializeField]
+    public List<Inkome>rewardResources;
+
+    private bool ShowDifferentToggle()
+    {
+        return characteristic != CellCharacteristic.Resource;
+    }
 
     private bool UseState()
     {
@@ -58,5 +79,150 @@ public class Condition
 	{
 		return characteristic == CellCharacteristic.Resource;
 	}
+    private bool TypeValue()
+    {
+        return buffType != BuffType.ForEvery;
+    }
+    private bool IsForeach()
+    {
+        return buffType == BuffType.ForEvery;
+    }
+
+
+    public float ChechCondition(Block b)
+    {
+        List<Block> blocks = new List<Block>();
+
+        if (radius == CellBuffRadius.Adjusted)
+        {
+            blocks = BlocksField.Instance.GetBlocksInRadius(b, 1);
+        }
+
+        if (radius == CellBuffRadius.Radius)
+        {
+            blocks = BlocksField.Instance.GetBlocksInRadius(b, b.Radius);
+        }
+
+        if (radius == CellBuffRadius.All)
+        {
+            blocks = BlocksField.Instance.GetBlocksInRadius(b, int.MaxValue);
+        }
+
+
+        if (radius == CellBuffRadius.This)
+        {
+            blocks = new List<Block>() { b };
+        }
+
+        float number = 0;
+
+        List<CombineModel.Biom> checkedBioms = new List<CombineModel.Biom>();
+        List<CellState> checkedStates = new List<CellState>();
+        List<CombineModel.ResourceType> chackedTypes = new List<CombineModel.ResourceType>();
+
+        foreach (Block block in blocks)
+        {
+            switch (characteristic)
+            {
+                case CellCharacteristic.Biom:
+                    if (bioms.ToList().Contains(block.State.Biom))
+                    {
+                        if (!onlyDifferent)
+                        {
+                            number++;
+                        }
+                        else
+                        {
+                            if (!checkedBioms.Contains(block.State.Biom))
+                            {
+                                number++;
+                                checkedBioms.Add(block.State.Biom);
+                            }
+                        }
+                    }
+                    break;
+                case CellCharacteristic.Resource:
+                    List<Inkome> inkomes = block.CurrentIncome.Where(income => resources.Contains(income.resource)).ToList();
+                    foreach (Inkome inc in inkomes)
+                    {
+                        number += inc.value;
+                    }
+                    break;
+                case CellCharacteristic.State:
+                    if (states.ToList().Contains(block.State))
+                    {
+                        if (!onlyDifferent)
+                        {
+                            number++;
+                        }
+                        else
+                        {
+                            if (!checkedStates.Contains(block.State))
+                            {
+                                number++;
+                                checkedStates.Add(block.State);
+                            }
+                        }
+                    }
+                    break;
+                case CellCharacteristic.Type:
+                    if (types.Contains(block.State.type))
+                    {
+                        if (!onlyDifferent)
+                        {
+                            number++;
+                        }
+                        else
+                        {
+                            if (!chackedTypes.Contains(block.State.type))
+                            {
+                                number++;
+                                chackedTypes.Add(block.State.type);
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
+
+        if (buffType == BuffType.Equal)
+        {
+            if(number == value)
+            {
+                number = 1;
+            }
+            else
+            {
+                number = 0;     
+            }
+        }
+
+        if (buffType == BuffType.Less)
+        {
+            if (number < value)
+            {
+                number = 1;
+            }
+            else
+            {
+                number = 0;
+            }
+        }
+
+        if (buffType == BuffType.More)
+        {
+            if (number > value)
+            {
+                number = 1;
+            }
+            else
+            {
+                number = 0;
+            }
+        }
+
+        return number;
+    }
 }
 
