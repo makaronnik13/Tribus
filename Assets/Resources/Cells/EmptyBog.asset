@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Name: EmptyBog
   m_EditorClassIdentifier: 
   StateName: "\u0411\u043E\u043B\u043E\u0442\u043E"
+  type: 0
   X: 416
   Y: 93
+  Radius: 1
+  description: 
   prefab: {fileID: 1581244916507290, guid: 88a9c0b01980e440da34407e96903d1b, type: 2}
   Sprite: {fileID: 21300018, guid: ccfde77eb8842473e8fddb8ed48e039c, type: 3}
-  Radius: 1
   types: 
   income:
   - resource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
@@ -28,10 +30,4 @@ MonoBehaviour:
   - skill: 1
     ResultState: {fileID: 11400000, guid: 29e0b0ca85ef44f6393167fba2794db9, type: 2}
     skillLevel: 1
-  buffs:
-  - radius: 1
-    buffType: 0
-    characteristic: 0
-    states: []
-    bioms: 
-    resoureTypes: 
+  conditions: []

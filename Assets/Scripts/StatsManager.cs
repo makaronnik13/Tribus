@@ -5,6 +5,7 @@ using System;
 
 public class StatsManager : Singleton<StatsManager> {
 
+	public GameResource[] resources;
 	public Action OnStatChanged;
     public float incomeRate = 3;
     public List<Inkome> currentResources = new List<Inkome>();

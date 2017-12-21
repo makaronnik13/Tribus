@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Name: EmptyForest
   m_EditorClassIdentifier: 
   StateName: "\u041B\u0435\u0441"
+  type: 0
   X: 383
   Y: 29
+  Radius: 1
+  description: "<if1>+3 [Food] \u0435\u0441\u043B\u0438 \u0442\u044B \u043D\u0435
+    \u043F\u0438\u0434\u043E\u0440</if1>\n and\n<if2>+5 [Nature] \u0435\u0441\u043B\u0438
+    \u0442\u0432\u043E\u044F \u043C\u0430\u0442\u044C \u043D\u0435 \u0448\u043B\u044E\u0445\u0430</if2>"
   prefab: {fileID: 1839053236738266, guid: 70de8bdfebdcf400b8f6b5dbefda1e1f, type: 2}
   Sprite: {fileID: 21300004, guid: ccfde77eb8842473e8fddb8ed48e039c, type: 3}
-  Radius: 1
   types: 
   income:
   - resource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
@@ -28,10 +32,12 @@ MonoBehaviour:
   - skill: 1
     ResultState: {fileID: 11400000, guid: 43cdeee40ef5e4b55b23df3d1b4b6d3d, type: 2}
     skillLevel: 1
-  buffs:
+  conditions:
   - radius: 0
     buffType: 0
-    characteristic: 1
+    characteristic: 0
     states: []
     bioms: 
-    resoureTypes: 
+    types: 
+    resources: []
+  buffs: []

@@ -68,7 +68,8 @@ public class Block : MonoBehaviour {
 
 	void OnMouseDrag()
 	{
-		if (mouseInCell) {
+		if (mouseInCell) 
+		{
 			BlocksField.Instance.ShowInfo (new List<Block> (){ this });
             InformationPanel.Instance.ShowInfo(this);
         }
