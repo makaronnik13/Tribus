@@ -9,6 +9,7 @@ public class CellState: ScriptableObject
 {
 
     public string StateName;
+	public CombineModel.ResourceType type;
 
 	#if UNITY_EDITOR
     [HideInInspector]
@@ -21,6 +22,10 @@ public class CellState: ScriptableObject
 	}
 
 	#endif
+	public string Radius = "1";
+
+	[MultiLineProperty]
+	public string description;
 
     [AssetsOnly, InlineEditor(InlineEditorModes.LargePreview)]
 	public GameObject prefab;
@@ -28,7 +33,7 @@ public class CellState: ScriptableObject
     [AssetsOnly, InlineEditor(InlineEditorModes.LargePreview)]
     public Sprite Sprite;
 
-    public string Radius = "1";
+    
 
     public List<CombineModel.ResourceType> types;
 
@@ -56,8 +61,11 @@ public class CellState: ScriptableObject
     [TabGroup("combinations")]
 	private Combination[] combinations;
 
-    [TabGroup("buffs")]
-    public CellBuff[] buffs; 
+    [TabGroup("conditions")]
+    public Condition[] conditions; 
+
+	[TabGroup("buffs")]
+	public CellBuff[] buffs; 
 
 	public bool HasCombination(CombineModel.Skills skill)
 	{
@@ -118,16 +126,16 @@ public class CellState: ScriptableObject
 
 	public void AddBuff()
 	{
-		List<CellBuff> ink = buffs.ToList ();
-		ink.Add(new CellBuff());
-		buffs = ink.ToArray ();
+		List<Condition> ink = conditions.ToList ();
+		ink.Add(new Condition());
+		conditions = ink.ToArray ();
 	}
 
 	public void RemoveBuff(int i)
 	{
-		List<CellBuff> incomes = buffs.ToList ();
+		List<Condition> incomes = conditions.ToList ();
 		incomes.RemoveAt (i);
-		buffs = incomes.ToArray ();
+		conditions = incomes.ToArray ();
 	}
 
 }
