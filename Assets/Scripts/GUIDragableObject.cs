@@ -44,11 +44,11 @@ public class GUIDraggableObject
 
 	public void Drag (Rect draggingRect)
 	{
-		if (Event.current.type == EventType.MouseUp)
+		if (Event.current.type == EventType.MouseUp && Event.current.button == 0)
 		{
 			m_Dragging = false;
 		}
-		else if (Event.current.type == EventType.MouseDown && draggingRect.Contains (Event.current.mousePosition))
+		else if (Event.current.type == EventType.MouseDown && draggingRect.Contains (Event.current.mousePosition) && Event.current.button == 0)
 		{
 			m_Dragging = true;
 			m_DragStart = Event.current.mousePosition - m_Position;

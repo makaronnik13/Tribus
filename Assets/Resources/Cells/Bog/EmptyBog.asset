@@ -14,10 +14,10 @@ MonoBehaviour:
   StateName: "\u0411\u043E\u043B\u043E\u0442\u043E"
   type: 0
   Biom: 3
-  X: 455
-  Y: -25
+  X: 2081
+  Y: 3
   radiusType: 0
-  Radius: 1
+  radius: 1
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1581244916507290, guid: 88a9c0b01980e440da34407e96903d1b, type: 2}
@@ -30,6 +30,9 @@ MonoBehaviour:
     skillLevel: 1
   - skill: 1
     ResultState: {fileID: 11400000, guid: 29e0b0ca85ef44f6393167fba2794db9, type: 2}
+    skillLevel: 1
+  - skill: 3
+    ResultState: {fileID: 11400000, guid: 5341969de5f0c45518a285e6595727ce, type: 2}
     skillLevel: 1
   conditions: []
   buffs: []

@@ -14,8 +14,8 @@ MonoBehaviour:
   StateName: "\u0424\u043E\u0440\u0435\u043B\u044C"
   type: 3
   Biom: 2
-  X: 490
-  Y: 351
+  X: 1734
+  Y: 239
   radiusType: 1
   radius: 1
   radiusResource: {fileID: 11400000, guid: a43d4173926882049946d9da9195f9a9, type: 2}
@@ -34,6 +34,9 @@ MonoBehaviour:
     percent: 0
   combinations:
   - skill: 2
+    ResultState: {fileID: 11400000, guid: 08fb693b87ddca747b1b75c11395a8ba, type: 2}
+    skillLevel: 1
+  - skill: 3
     ResultState: {fileID: 11400000, guid: ca39458ed5e7d4a728fe7dff6e54c27e, type: 2}
     skillLevel: 1
   conditions:

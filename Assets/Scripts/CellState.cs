@@ -11,8 +11,7 @@ public class CellState: ScriptableObject
     public string StateName;
 	public CombineModel.ResourceType type;
     public CombineModel.Biom Biom;
-
-	#if UNITY_EDITOR
+    
     [HideInInspector]
 	[SerializeField]
 	public float X, Y;
@@ -22,8 +21,6 @@ public class CellState: ScriptableObject
 		X = p.x;
 		Y = p.y;
 	}
-
-#endif
 
     public enum RadiusType
     {

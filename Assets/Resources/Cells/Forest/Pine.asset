@@ -14,10 +14,10 @@ MonoBehaviour:
   StateName: "\u0421\u043E\u0441\u043D\u0430"
   type: 1
   Biom: 0
-  X: 247
-  Y: 202
+  X: 476
+  Y: 580
   radiusType: 1
-  Radius: 1
+  radius: 1
   radiusResource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
   description: "+10[Technology] \u0435\u0441\u043B\u0438 \u0440\u044F\u0434\u043E\u043C
     \u0435\u0441\u0442\u044C \u043A\u0440\u0438\u0441\u0442\u0430\u043B\u044B"

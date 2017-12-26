@@ -56,8 +56,10 @@ public class SkillsController : Singleton<SkillsController>
 		newBlock.transform.position = aimBlock.transform.position;
 		newBlock.transform.rotation = aimBlock.transform.rotation;
 		newBlock.transform.localScale = aimBlock.transform.localScale;
+        newBlock.GetComponent<Block>().State = aimBlock.State.CombinationResult(SkillsController.Instance.CurrentSkill);
 
-		Destroy (aimBlock.gameObject);
+
+        Destroy (aimBlock.gameObject);
 
 		SkillsPanel.Instance.SkillTransform (CurrentSkill).GetComponent<SkillButton> ().ReloadButton ();
 		CurrentSkill = CombineModel.Skills.None;

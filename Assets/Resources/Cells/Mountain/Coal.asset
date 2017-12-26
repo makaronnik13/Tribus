@@ -11,19 +11,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: Coal
   m_EditorClassIdentifier: 
-  StateName: "\u0423\u0433\u043B\u044C"
+  StateName: "\u0423\u0433\u043E\u043B\u044C"
   type: 9
   Biom: 4
-  X: 0
-  Y: 0
+  X: -130
+  Y: 211
   radiusType: 0
-  Radius: 1
+  radius: 1
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1321910996212286, guid: 4b7416c57833342189e565629f0758e5, type: 2}
   Sprite: {fileID: 0}
   types: 
   income: []
-  combinations: []
+  combinations:
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: fb4148cad244946099a784cea7d76561, type: 2}
+    skillLevel: 1
   conditions: []
   buffs: []

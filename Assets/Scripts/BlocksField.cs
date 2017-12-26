@@ -38,8 +38,6 @@ public class BlocksField : Singleton<BlocksField> {
 		GetComponent<DiamondSquareTest> ().roughness = 40;
 		Dictionary<Vector2, int> dict = GetComponent<DiamondSquareTest> ().GetBiomes ();
 
-		Debug.Log (dict.ToList().Count());
-
 		for(int i = 0; i<Mathf.Pow(2,size)+1;i++)
 		{
 			for(int j = 0; j<Mathf.Pow(2,size)+1; j++)

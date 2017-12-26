@@ -14,10 +14,10 @@ MonoBehaviour:
   StateName: "\u041B\u0435\u0441"
   type: 0
   Biom: 0
-  X: 307
-  Y: -4
+  X: 375
+  Y: -29
   radiusType: 0
-  Radius: 1
+  radius: 1
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1839053236738266, guid: 70de8bdfebdcf400b8f6b5dbefda1e1f, type: 2}

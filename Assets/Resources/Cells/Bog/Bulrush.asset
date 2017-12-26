@@ -14,10 +14,10 @@ MonoBehaviour:
   StateName: "\u041A\u0430\u043C\u044B\u0448"
   type: 2
   Biom: 3
-  X: 464
-  Y: 293
+  X: 2134
+  Y: 224
   radiusType: 1
-  Radius: 1
+  radius: 1
   radiusResource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
   description: "+10[Wealth] \u0435\u0441\u043B\u0438 \u0440\u044F\u0434\u043E\u043C
     \u0435\u0441\u0442\u044C \u043F\u0442\u0438\u0446\u0430"
@@ -31,7 +31,10 @@ MonoBehaviour:
   - resource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
     value: 2
     percent: 0
-  combinations: []
+  combinations:
+  - skill: 2
+    ResultState: {fileID: 11400000, guid: fd113c8e65c58499b80ce35d9c4395f7, type: 2}
+    skillLevel: 1
   conditions:
   - radius: 0
     buffType: 1

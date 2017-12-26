@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: Corals
+  m_EditorClassIdentifier: 
+  StateName: "\u041A\u043E\u0440\u0430\u043B\u044B"
+  type: 0
+  Biom: 0
+  X: 1435
+  Y: 440
+  radiusType: 0
+  radius: 1
+  radiusResource: {fileID: 0}
+  description: 
+  prefab: {fileID: 1483881851512792, guid: ac9c276d3326e9a43953280ee9cf754b, type: 2}
+  Sprite: {fileID: 0}
+  types: 
+  income: []
+  combinations:
+  - skill: 2
+    ResultState: {fileID: 11400000, guid: 32476cb36fb312b42a3751afcea18105, type: 2}
+    skillLevel: 1
+  conditions: []
+  buffs: []

@@ -14,10 +14,10 @@ MonoBehaviour:
   StateName: "\u0414\u0443\u0431"
   type: 1
   Biom: 0
-  X: 444
-  Y: 212
+  X: 318
+  Y: 574
   radiusType: 1
-  Radius: 1
+  radius: 1
   radiusResource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
   description: "\u0412\u0441\u0435 \u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435
     \u0432 \u0440\u0430\u0434\u0438\u0443\u0441\u0435 \u043F\u043E\u043B\u0443\u0447\u0430\u044E\u0442

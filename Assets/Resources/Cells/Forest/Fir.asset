@@ -14,16 +14,22 @@ MonoBehaviour:
   StateName: "\u041F\u0438\u0445\u0442\u0430"
   type: 0
   Biom: 0
-  X: 0
-  Y: 0
+  X: 574
+  Y: 383
   radiusType: 0
-  Radius: 1
+  radius: 1
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1678593992580150, guid: 4808edbd76d3440e5889accd6b0aa77a, type: 2}
   Sprite: {fileID: 0}
   types: 
   income: []
-  combinations: []
+  combinations:
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: a1486418219c24664813b85608f96a3d, type: 2}
+    skillLevel: 1
+  - skill: 2
+    ResultState: {fileID: 11400000, guid: 0ce073d1e4afb4d04be6cb25c7fc7adf, type: 2}
+    skillLevel: 1
   conditions: []
   buffs: []

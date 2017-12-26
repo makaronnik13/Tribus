@@ -6,6 +6,9 @@ using System.Linq;
 
     public class CombinationsEditor : EditorWindow
     {
+
+    private Vector2 screenDelta = Vector2.zero;
+
 	private Dictionary<CombineModel.Skills, Color> skillsCollors = new Dictionary<CombineModel.Skills, Color> () {
 		{CombineModel.Skills.None, Color.white/2},
 		{CombineModel.Skills.Flora, Color.green},
@@ -83,11 +86,7 @@ using System.Linq;
 
                 Vector2 mouseMovementDifference = (currentEvent.mousePosition - lastMousePosition);
 
-
-                foreach (KeyValuePair<CellState, GUIDraggableObject> node in StatesPositions)
-                {
-                    node.Value.Position += new Vector2(mouseMovementDifference.x, mouseMovementDifference.y);
-                }
+               screenDelta += new Vector2(mouseMovementDifference.x, mouseMovementDifference.y);
 
                 lastMousePosition = currentEvent.mousePosition;
                 currentEvent.Use();
@@ -136,7 +135,7 @@ using System.Linq;
                     }
                     if (c== selectedPath)
                     {         
-                        start = new Rect(p.Value.Position.x - 100f / 2 + 5 + offset, p.Value.Position.y + 115 / 2f, 100.0f, 115.0f);
+                        start = new Rect(p.Value.Position.x + screenDelta.x - 100f / 2 + 5 + offset, p.Value.Position.y + screenDelta.y + 115 / 2f, 100.0f, 115.0f);
                     }
                    
                     i++;
@@ -165,7 +164,7 @@ using System.Linq;
 
 		for (int i = 0; i<=StatesPositions.Count-1; i++) 
 		{
-			Rect drawRect = new Rect (StatesPositions[i].Value.Position.x, StatesPositions[i].Value.Position.y, 140.0f,  155.0f);
+			Rect drawRect = new Rect (StatesPositions[i].Value.Position.x + screenDelta.x, StatesPositions[i].Value.Position.y + screenDelta.y, 140.0f,  155.0f);
 			if(StatesPositions[i].Value.Click(drawRect))
 			{
 				manipulatingState = StatesPositions [i].Key;
@@ -208,13 +207,13 @@ using System.Linq;
                 combinations = new Combination[0];
             }
 
-        if (GUI.Button(new Rect(state.Value.Position.x + 85f, state.Value.Position.y +100, 20, 20), "+"))
+        if (GUI.Button(new Rect(state.Value.Position.x + screenDelta.x + 85f, state.Value.Position.y + screenDelta.y + 100, 20, 20), "+"))
         {
             state.Key.AddCombination();
         }
 
 
-        Rect aim = new Rect(state.Value.Position.x + 100f / 2-8f, state.Value.Position.y-6, 15, 15);
+        Rect aim = new Rect(state.Value.Position.x + screenDelta.x + 100f / 2-8f, state.Value.Position.y + screenDelta.y- 6, 15, 15);
 
             GUI.Label(aim, new GUIContent(Resources.Load("Icons/button") as Texture2D));
 
@@ -251,7 +250,7 @@ using System.Linq;
                 {
                     size = 20;
                 }
-                Rect start = new Rect(state.Value.Position.x + offset-size/4, state.Value.Position.y + 110, size, size);
+                Rect start = new Rect(state.Value.Position.x + screenDelta.x + offset-size/4, state.Value.Position.y + screenDelta.y + 110, size, size);
 
                 Vector3 aimPosition = start.position + Vector2.down * 5f;
 
@@ -314,7 +313,7 @@ using System.Linq;
 		}
 
 
-		Rect drawRect = new Rect (state.Value.Position.x, state.Value.Position.y, 100.0f, 115.0f);//, dragRect;
+		Rect drawRect = new Rect (state.Value.Position.x + screenDelta.x, state.Value.Position.y + screenDelta.y, 100.0f, 115.0f);//, dragRect;
 
         
 
@@ -364,14 +363,14 @@ using System.Linq;
 					offset =  48;
 				}
 
-				Rect start = new Rect( state.Value.Position.x - 100f/2+5 +offset, state.Value.Position.y +115/2f,  100.0f, 115.0f);
+				Rect start = new Rect( state.Value.Position.x + screenDelta.x - 100f/2+5 +offset, state.Value.Position.y + screenDelta.y + 115/2f,  100.0f, 115.0f);
 
 				
 
 				try 
 				{
 					CellState aim = StatesPositions.First (k => k.Key == c.ResultState).Key; 
-					Vector3 aimPosition = StatesPositions.Find (cell => cell.Key == aim).Value.Position;
+					Vector3 aimPosition = StatesPositions.Find (cell => cell.Key == aim).Value.Position + screenDelta;
                     Rect end = new Rect(aimPosition.x, aimPosition.y - 115 / 2f, 100.0f, 115.0f); ;
                     Handles.BeginGUI();
                     Color color = skillsCollors[c.skill];
@@ -475,7 +474,8 @@ using System.Linq;
 		foreach(KeyValuePair<CellState, GUIDraggableObject> kvp in StatesPositions)
 		{
 			kvp.Key.Drag (kvp.Value.Position);
-		}
+            EditorUtility.SetDirty(kvp.Key);
+        }
 	}
 
   }

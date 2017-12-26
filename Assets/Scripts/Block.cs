@@ -15,6 +15,7 @@ public class Block : MonoBehaviour {
 	}
 
 	[SerializeField]
+    [HideInInspector]
 	private CellState state;
 	public CellState State
 	{
