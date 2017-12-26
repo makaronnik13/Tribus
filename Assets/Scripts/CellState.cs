@@ -14,6 +14,7 @@ public class CellState: ScriptableObject
 
 	#if UNITY_EDITOR
     [HideInInspector]
+	[SerializeField]
 	public float X, Y;
 
 	public void Drag(Vector2 p)
@@ -32,7 +33,9 @@ public class CellState: ScriptableObject
     public RadiusType radiusType = RadiusType.Simple;
 
     [ShowIf("RadiusSimple")]
-    public int Radius = 1;
+    public int radius = 1;
+
+
     [ShowIf("RadiusFromStat")]
     public GameResource radiusResource;
 

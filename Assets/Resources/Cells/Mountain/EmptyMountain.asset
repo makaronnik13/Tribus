@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: EmptyMountain
+  m_EditorClassIdentifier: 
+  StateName: "\u0413\u043E\u0440\u044B"
+  type: 0
+  Biom: 4
+  X: 177
+  Y: 176
+  radiusType: 0
+  Radius: 1
+  radiusResource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
+  description: 
+  prefab: {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
+  Sprite: {fileID: 21300008, guid: ccfde77eb8842473e8fddb8ed48e039c, type: 3}
+  types: 
+  income: []
+  combinations:
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: fb4148cad244946099a784cea7d76561, type: 2}
+    skillLevel: 1
+  - skill: 2
+    ResultState: {fileID: 11400000, guid: 24ba045e628e34901be0b198f519ea90, type: 2}
+    skillLevel: 1
+  conditions: []
+  buffs: []

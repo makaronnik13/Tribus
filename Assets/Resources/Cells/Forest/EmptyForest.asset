@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: EmptyForest
+  m_EditorClassIdentifier: 
+  StateName: "\u041B\u0435\u0441"
+  type: 0
+  Biom: 0
+  X: 307
+  Y: -4
+  radiusType: 0
+  Radius: 1
+  radiusResource: {fileID: 0}
+  description: 
+  prefab: {fileID: 1839053236738266, guid: 70de8bdfebdcf400b8f6b5dbefda1e1f, type: 2}
+  Sprite: {fileID: 21300004, guid: ccfde77eb8842473e8fddb8ed48e039c, type: 3}
+  types: 
+  income: []
+  combinations:
+  - skill: 2
+    ResultState: {fileID: 11400000, guid: fa34da91449d84b42abbab018de47203, type: 2}
+    skillLevel: 1
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: 43cdeee40ef5e4b55b23df3d1b4b6d3d, type: 2}
+    skillLevel: 1
+  conditions: []
+  buffs: []

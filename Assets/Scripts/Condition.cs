@@ -100,6 +100,7 @@ public class Condition
 
         if (radius == CellBuffRadius.Radius)
         {
+			Debug.Log (b.Radius);
             blocks = BlocksField.Instance.GetBlocksInRadius(b, b.Radius);
         }
 
@@ -122,6 +123,7 @@ public class Condition
 
         foreach (Block block in blocks)
         {
+			Debug.Log (block.State);
             switch (characteristic)
             {
                 case CellCharacteristic.Biom:
@@ -200,6 +202,8 @@ public class Condition
 
         if (buffType == BuffType.Less)
         {
+			Debug.Log (number);
+
             if (number < value)
             {
                 number = 1;
@@ -222,6 +226,7 @@ public class Condition
             }
         }
 
+		Debug.Log (number);
         return number;
     }
 }

@@ -4,8 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 public class BlocksField : Singleton<BlocksField> {
-	public int width=4, height=4;
-
+	public int size = 4;
 	public float cellSize = 2;
 
 	public GameObject[] baseBlocks;
@@ -35,15 +34,22 @@ public class BlocksField : Singleton<BlocksField> {
 
 	public void GenerateRandomTerrain()
 	{
-		for(int i = 0; i<width;i++)
+		GetComponent<DiamondSquareTest> ().size = size;
+		GetComponent<DiamondSquareTest> ().roughness = 40;
+		Dictionary<Vector2, int> dict = GetComponent<DiamondSquareTest> ().GetBiomes ();
+
+		Debug.Log (dict.ToList().Count());
+
+		for(int i = 0; i<Mathf.Pow(2,size)+1;i++)
 		{
-			for(int j = 0; j<height; j++)
+			for(int j = 0; j<Mathf.Pow(2,size)+1; j++)
 			{
-				int v = Random.Range (0, baseBlocks.Length);
+				GameObject block = baseBlocks[dict[new Vector2(i,j)]];
+				float width = Mathf.Pow (2, size) + 1;
 				Quaternion randomRotation = Quaternion.Euler (Vector3.up*90*Mathf.RoundToInt(Random.Range(0,3)));
-				Instantiate (baseBlocks[v], transform.position+new Vector3((i-width/2)*cellSize,0,(j-height/2)*cellSize), randomRotation,transform.GetChild(0));
-				highlighters.Add (Instantiate (Highlighter, transform.position+new Vector3((i-width/2)*cellSize,0,(j-height/2)*cellSize), Quaternion.identity,transform.GetChild(1)).GetComponentInChildren<ParticleSystem>());
-				blocksInfos.Add (Instantiate (BlockInfo, transform.position+new Vector3((i-width/2)*cellSize,0,(j-height/2)*cellSize), Quaternion.identity,transform.GetChild(2)).GetComponent<BlockInfo>());
+				Instantiate (block, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), randomRotation,transform.GetChild(0));
+				highlighters.Add (Instantiate (Highlighter, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), Quaternion.identity,transform.GetChild(1)).GetComponentInChildren<ParticleSystem>());
+				blocksInfos.Add (Instantiate (BlockInfo, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), Quaternion.identity,transform.GetChild(2)).GetComponent<BlockInfo>());
 			}
 		}
 

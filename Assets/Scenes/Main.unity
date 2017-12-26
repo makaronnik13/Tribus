@@ -643,7 +643,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -82.9, y: 95}
+  m_AnchoredPosition: {x: -82.8999, y: 95}
   m_SizeDelta: {x: 165.8, y: 189.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &304440089
@@ -1689,7 +1689,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 818704065
+  randomSeed: 1042422770
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5028,6 +5028,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1304989456}
   - component: {fileID: 1304989457}
+  - component: {fileID: 1304989458}
   m_Layer: 0
   m_Name: BlocksField
   m_TagString: Untagged
@@ -5063,18 +5064,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6d2ee50a8af41659db1e7a181e5cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 7
-  height: 7
+  size: 3
   cellSize: 2
   baseBlocks:
+  - {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
+  - {fileID: 1425154205955338, guid: 8c6dddf36a3bd4679b53d7028b305952, type: 2}
+  - {fileID: 1839053236738266, guid: 70de8bdfebdcf400b8f6b5dbefda1e1f, type: 2}
   - {fileID: 1581244916507290, guid: 88a9c0b01980e440da34407e96903d1b, type: 2}
   - {fileID: 1131976619537840, guid: 521d5667699954e4abac4ace15587b7c, type: 2}
-  - {fileID: 1839053236738266, guid: 70de8bdfebdcf400b8f6b5dbefda1e1f, type: 2}
-  - {fileID: 1425154205955338, guid: 8c6dddf36a3bd4679b53d7028b305952, type: 2}
-  - {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
   Highlighter: {fileID: 1696376182626248, guid: 3aa26061e923d42c4849aaa6bf11c76d,
     type: 2}
   BlockInfo: {fileID: 1810580985647530, guid: 2f8e7eb84cef24441bd893ca254cb56e, type: 2}
+--- !u!114 &1304989458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1304989455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23942ff8e7f041f6a66c6e9fb8ecd92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 3
+  roughness: 40
 --- !u!1 &1317540310
 GameObject:
   m_ObjectHideFlags: 0
@@ -5119,7 +5132,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1317540310}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b2a0cf920ba645c98e9c0199291bbc9, type: 3}
   m_Name: 

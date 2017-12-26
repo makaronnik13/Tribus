@@ -314,7 +314,7 @@ using System.Linq;
 		}
 
 
-		Rect drawRect = new Rect (state.Value.Position.x, state.Value.Position.y, 100.0f, 115.0f), dragRect;
+		Rect drawRect = new Rect (state.Value.Position.x, state.Value.Position.y, 100.0f, 115.0f);//, dragRect;
 
         
 
@@ -326,12 +326,12 @@ using System.Linq;
 
       
 
-        dragRect = GUILayoutUtility.GetLastRect ();
-		dragRect = new Rect (dragRect.x + state.Value.Position.x, dragRect.y + state.Value.Position.y, dragRect.width, dragRect.height);
+       // dragRect = GUILayoutUtility.GetLastRect ();
+	   // dragRect = new Rect (dragRect.x + state.Value.Position.x, dragRect.y + state.Value.Position.y, dragRect.width, dragRect.height);
 		GUILayout.EndArea ();
 
 		if (!DrawButton(state) && Selection.activeObject == state.Key) {
-			state.Value.Drag (dragRect);
+			state.Value.Drag (drawRect);
             //selectedPath = null;
 			Repaint ();
 		}
@@ -470,5 +470,12 @@ using System.Linq;
 		return st;
 	}
 
+	private void OnDisable()
+	{
+		foreach(KeyValuePair<CellState, GUIDraggableObject> kvp in StatesPositions)
+		{
+			kvp.Key.Drag (kvp.Value.Position);
+		}
+	}
 
   }

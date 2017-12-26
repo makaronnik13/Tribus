@@ -29,6 +29,8 @@
 /Users/nikita/Desktop/Evolutor/Temp/bin/Debug/Sirenix.Serialization.dll
 /Users/nikita/Desktop/Evolutor/Temp/bin/Debug/Sirenix.Utilities.dll
 /Users/nikita/Desktop/Evolutor/Temp/bin/Debug/Sirenix.Utilities.Editor.dll
+/Users/nikita/Desktop/Evolutor/Temp/bin/Debug/TextMeshPro-2017.1-1.0.56-Editor.dll
+/Users/nikita/Desktop/Evolutor/Temp/bin/Debug/TextMeshPro-2017.1-1.0.56-Runtime.dll
 /Users/nikita/Desktop/Evolutor/Temp/bin/Debug/Assembly-CSharp-firstpass.dll
 /Users/nikita/Desktop/Evolutor/Temp/bin/Debug/Assembly-CSharp-firstpass.dll.mdb
 /Users/nikita/Desktop/Evolutor/Temp/bin/Debug/Mono.Cecil.dll

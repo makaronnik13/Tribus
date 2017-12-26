@@ -31,7 +31,11 @@ public class Block : MonoBehaviour {
     {
         get
         {
-            return State.Radius;
+			if (State.radiusType ==  CellState.RadiusType.Simple) {
+				return State.radius;
+			} else {
+				return  Mathf.FloorToInt(currentIncome.Find (i=>i.resource == State.radiusResource).value);
+				}
         }
     }
 
@@ -57,6 +61,8 @@ public class Block : MonoBehaviour {
                 Inkome inc = new Inkome();
                 inc.resource = pair.resource;
                 inc.value = pair.value * c.ChechCondition(this);
+
+				Debug.Log (inc.resource+" "+inc.value);
 
                 bool exist = false;
                 foreach (Inkome income in currentIncome)
