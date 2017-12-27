@@ -22,7 +22,7 @@ MonoBehaviour:
   description: "+10[Technology] \u0435\u0441\u043B\u0438 \u0440\u044F\u0434\u043E\u043C
     \u0435\u0441\u0442\u044C \u043A\u0440\u0438\u0441\u0442\u0430\u043B\u044B"
   prefab: {fileID: 1187560796401180, guid: ab3a12602c97e4e8ead485c48f0787b0, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 087f7ad92d91d4b2bb46bf993fe0bf2d, type: 3}
   types: 
   income:
   - resource: {fileID: 11400000, guid: 821da123c0f7db548bd0fc4c81938ac3, type: 2}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Fir
   m_EditorClassIdentifier: 
   StateName: "\u041F\u0438\u0445\u0442\u0430"
-  type: 0
+  type: 1
   Biom: 0
   X: 574
   Y: 383
@@ -21,7 +21,7 @@ MonoBehaviour:
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1678593992580150, guid: 4808edbd76d3440e5889accd6b0aa77a, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: b83f7f55f0d014d00866d0bbb829dfc3, type: 3}
   types: 
   income: []
   combinations:

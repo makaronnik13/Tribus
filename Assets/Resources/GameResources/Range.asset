@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4e8ec5e7686f349afaf4890018dc12, type: 3}
   m_Name: Range
   m_EditorClassIdentifier: 
+  Priority: 5
   resName: "\u0420\u0430\u0434\u0438\u0443\u0441"
   sprite: {fileID: 21300000, guid: 7c27b0bb2917e5445bcadd7de6575b3e, type: 3}
   incoming: 0

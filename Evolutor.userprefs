@@ -1,13 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/InformationPanel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Editor/CombinationsEditor.cs">
     <Files>
-      <File FileName="Assets/Scripts/CombinationsEditor.cs" Line="477" Column="36" />
-      <File FileName="Assets/Scripts/CellState.cs" Line="36" Column="16" />
-      <File FileName="Assets/Scripts/GUIDragableObject.cs" Line="5" Column="1" />
-      <File FileName="Assets/Scripts/Block.cs" Line="63" Column="44" />
-      <File FileName="Assets/Scripts/Condition.cs" Line="92" Column="18" />
-      <File FileName="Assets/Scripts/InformationPanel.cs" Line="69" Column="49" />
+      <File FileName="Assets/Scripts/SkillsController.cs" Line="73" Column="15" />
+      <File FileName="Assets/Scripts/StatsManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/StatsPanel.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BlockInfo.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BlocksField.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameResource.cs" Line="3" Column="19" />
+      <File FileName="Assets/Scripts/Editor/CombinationsEditor.cs" Line="260" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

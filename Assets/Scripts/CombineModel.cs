@@ -6,9 +6,10 @@ public class CombineModel {
 
 	private static Dictionary<Skills, float> cooldowns = new Dictionary<Skills, float>()
 	{
-		{Skills.Flora, 5},
-		{Skills.Fauna, 10},
-		{Skills.Minerals, 20}
+		{Skills.Flora, 3},
+		{Skills.Fauna, 5},
+		{Skills.Minerals, 10},
+		{Skills.Super, 15}
 	};
 
 
@@ -17,7 +18,8 @@ public class CombineModel {
 		None,
 		Flora,
 		Fauna,
-		Minerals
+		Minerals,
+		Super
 	}
 		
 	public enum Biom
@@ -36,7 +38,7 @@ public class CombineModel {
 		Tree,
 		SmallPlant,
 		Fish,
-		GrassBirg,
+		GrassBird,
 		PredatorBird,
 		GrassAnimal,
 		PredatorAnimal,

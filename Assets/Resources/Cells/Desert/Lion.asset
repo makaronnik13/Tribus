@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: Lion
+  m_EditorClassIdentifier: 
+  StateName: "\u041B\u0435\u0432"
+  type: 7
+  Biom: 1
+  X: 827
+  Y: 670
+  radiusType: 0
+  radius: 1
+  radiusResource: {fileID: 0}
+  description: 
+  prefab: {fileID: 1874063627765370, guid: df3cecd56b46042feab8a6065bfc12db, type: 2}
+  Sprite: {fileID: 21300000, guid: f15fbe5e55fce4cd0870d619e7df0343, type: 3}
+  types: 
+  income: []
+  combinations: []
+  conditions: []
+  buffs: []

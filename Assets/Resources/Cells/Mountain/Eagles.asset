@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Eagles
   m_EditorClassIdentifier: 
   StateName: "\u041E\u0440\u043B\u044B"
-  type: 0
+  type: 5
   Biom: 4
   X: -380
   Y: 216

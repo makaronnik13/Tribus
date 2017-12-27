@@ -22,7 +22,7 @@ MonoBehaviour:
   description: "+10[Wealth] \u0435\u0441\u043B\u0438 \u0440\u044F\u0434\u043E\u043C
     \u043D\u0435\u0442 \u0434\u0440\u0443\u0433\u0438\u0445 \u0440\u044B\u0431"
   prefab: {fileID: 1841542383776208, guid: 82f5a295caa5b4abaa7818a0248391a6, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 3e6b2f25f886a4c21986cb4a7e1fe6c0, type: 3}
   types: 
   income:
   - resource: {fileID: 11400000, guid: 821da123c0f7db548bd0fc4c81938ac3, type: 2}
@@ -32,7 +32,7 @@ MonoBehaviour:
     value: 2
     percent: 0
   combinations:
-  - skill: 1
+  - skill: 4
     ResultState: {fileID: 11400000, guid: f418d2e707ec29e4aaedbeb39f553a97, type: 2}
     skillLevel: 1
   - skill: 2

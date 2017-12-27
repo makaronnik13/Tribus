@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Name: Spruce
   m_EditorClassIdentifier: 
   StateName: "\u0415\u043B\u044C"
-  type: 0
+  type: 1
   Biom: 0
-  X: 660
-  Y: 580
+  X: 651
+  Y: 586
   radiusType: 0
   radius: 1
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1226366660527020, guid: 20184910730ba44eca79aab1eff6ec1d, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 7277bd0f59ac8448dabf860faafe0f65, type: 3}
   types: 
   income: []
   combinations:
-  - skill: 3
+  - skill: 4
     ResultState: {fileID: 11400000, guid: 95c4f131ed3314976a0447c0be4ad395, type: 2}
     skillLevel: 1
   conditions: []

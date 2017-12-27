@@ -14,14 +14,14 @@ MonoBehaviour:
   StateName: "\u0421\u043F\u0430\u0442\u0438\u0444\u0438\u043B\u0443\u043C"
   type: 2
   Biom: 3
-  X: 2278
+  X: 2391
   Y: 222
   radiusType: 0
   radius: 1
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1760875262970426, guid: b487d5b8ff2f3422a94ac0c94fd8a566, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 800f5f40d57ac478d9048bb6a14a3296, type: 3}
   types: 
   income: []
   combinations:

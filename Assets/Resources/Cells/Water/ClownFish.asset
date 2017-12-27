@@ -21,7 +21,7 @@ MonoBehaviour:
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1897441873676006, guid: d96e50e3cda8eda448af83712f9c2d19, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 8cfec48e6437742d2a9d6920ac135a6c, type: 3}
   types: 
   income: []
   combinations:

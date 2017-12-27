@@ -5,7 +5,8 @@ using System;
 
 public class SkillsController : Singleton<SkillsController> 
 {
-	
+	public AudioClip activationSound;
+
 	private CombineModel.Skills currentSkill;
 	public Action<CombineModel.Skills> onSkillChanged;
 	public CombineModel.Skills CurrentSkill
@@ -68,6 +69,8 @@ public class SkillsController : Singleton<SkillsController>
         {
             b.RecalculateInkome();
         }
+		StatsManager.Instance.UpdateStats ();
+		GetComponent<AudioSource> ().PlayOneShot (activationSound);
     }
 
 	void Update()

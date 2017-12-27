@@ -15,6 +15,27 @@ public class BlocksField : Singleton<BlocksField> {
 	private List<ParticleSystem> highlighters = new List<ParticleSystem>();
 	private List<BlockInfo> blocksInfos = new List<BlockInfo>();
 
+	private bool infoShowing;
+	public bool InfoShowing
+	{
+		set
+		{
+			if(infoShowing!=value)
+			{
+				infoShowing = value;
+				if (infoShowing) {
+					ShowInfo (FindObjectsOfType<Block> ().ToList ());
+				} else {
+					ShowInfo (new List<Block>());
+				}
+			}
+		}
+		get
+		{
+			return infoShowing;
+		}
+	}
+
 	void Awake()
 	{
 		GenerateRandomTerrain ();
@@ -22,13 +43,13 @@ public class BlocksField : Singleton<BlocksField> {
 
 	void Update()
 	{
-		if(Input.GetKey(KeyCode.Tab))
+		if(Input.GetKeyDown(KeyCode.Tab))
 		{
-			ShowInfo (FindObjectsOfType<Block>().ToList());
+			InfoShowing = true;
 		}
 		if(Input.GetKeyUp(KeyCode.Tab))
 		{
-			ShowInfo (new List<Block>());
+			InfoShowing = false;
 		}
 	}
 
@@ -72,9 +93,12 @@ public class BlocksField : Singleton<BlocksField> {
 
 	public void ShowInfo(List<Block> blocks)
 	{
+		if(!BlocksField.Instance.InfoShowing)
+		{
 		foreach(BlockInfo bi in blocksInfos)
 		{
 			bi.Hide ();
+		}
 		}
 		foreach(Block b in blocks)
 		{

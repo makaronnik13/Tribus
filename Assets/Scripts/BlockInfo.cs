@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class BlockInfo : MonoBehaviour {
 
@@ -21,17 +22,18 @@ public class BlockInfo : MonoBehaviour {
 	// Update is called once per frame
 	public void Show (Block b) 
 	{
+		if(showing || b.CurrentIncome.Count==0)
+		{
+			return;
+		}
 
 		foreach(Transform t in content)
 		{
 			Destroy (t.gameObject);
 		}
-		if(showing)
-		{
-			return;
-		}
+
 			
-		foreach(Inkome inc in b.CurrentIncome)
+		foreach(Inkome inc in b.CurrentIncome.OrderBy (i=>i.resource.Priority).ToList())
 		{
 			GameObject newRaw = Instantiate (infoBlockRow, content);
 			newRaw.GetComponentInChildren<Image> ().sprite = inc.resource.sprite;
@@ -40,10 +42,6 @@ public class BlockInfo : MonoBehaviour {
 		}
 		canvas.SetActive (true);
 		showing = true;
-		if(b.CurrentIncome.Count==0)
-		{
-			Hide ();
-		}
 	}
 
     public void Emmit(Block b)
@@ -53,7 +51,8 @@ public class BlockInfo : MonoBehaviour {
             return;
         }
   
-        foreach (Inkome inc in b.CurrentIncome)
+
+		foreach (Inkome inc in b.CurrentIncome.OrderBy (i=>i.resource.Priority).ToList())
         {
             if (inc.resource.incoming)
             {

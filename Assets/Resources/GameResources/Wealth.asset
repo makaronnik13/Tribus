@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4e8ec5e7686f349afaf4890018dc12, type: 3}
   m_Name: Wealth
   m_EditorClassIdentifier: 
+  Priority: 2
   resName: "\u0411\u043E\u0433\u0430\u0442\u0441\u0442\u0432\u043E"
   sprite: {fileID: 21300000, guid: af8075528988944cf8f0f40ab86014f8, type: 3}
   incoming: 0

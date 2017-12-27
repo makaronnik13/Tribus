@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: Chester
+  m_EditorClassIdentifier: 
+  StateName: "\u041B\u0435\u043E\u043F\u0430\u0440\u0434"
+  type: 7
+  Biom: 1
+  X: 829
+  Y: 515
+  radiusType: 0
+  radius: 1
+  radiusResource: {fileID: 0}
+  description: 
+  prefab: {fileID: 1414985284438766, guid: bf26318d7ffca4546976d1d3f78367ed, type: 2}
+  Sprite: {fileID: 21300000, guid: dbf58c4799736498e8f2282168b9e393, type: 3}
+  types: 
+  income: []
+  combinations:
+  - skill: 4
+    ResultState: {fileID: 11400000, guid: 2d235130818574c26afdc6045b49e31c, type: 2}
+    skillLevel: 1
+  conditions: []
+  buffs: []

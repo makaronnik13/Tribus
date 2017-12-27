@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: Boar
+  m_EditorClassIdentifier: 
+  StateName: "\u041A\u0430\u0431\u0430\u043D"
+  type: 6
+  Biom: 1
+  X: 889
+  Y: 361
+  radiusType: 0
+  radius: 1
+  radiusResource: {fileID: 0}
+  description: 
+  prefab: {fileID: 1635393802373552, guid: 0b712cddfabe6463c873be3358acb12e, type: 2}
+  Sprite: {fileID: 21300000, guid: 992e50fa53d77f646a6ea1a5b306bd26, type: 3}
+  types: 
+  income: []
+  combinations:
+  - skill: 3
+    ResultState: {fileID: 11400000, guid: 14bbc3d38400a4652a57624fb4d5edcf, type: 2}
+    skillLevel: 1
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: da609abcf365346aead6e8d11f672583, type: 2}
+    skillLevel: 1
+  conditions: []
+  buffs: []

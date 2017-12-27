@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: Corals
   m_EditorClassIdentifier: 
   StateName: "\u041A\u043E\u0440\u0430\u043B\u044B"
-  type: 0
-  Biom: 0
-  X: 1435
+  type: 2
+  Biom: 2
+  X: 1470
   Y: 440
   radiusType: 0
   radius: 1
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1483881851512792, guid: ac9c276d3326e9a43953280ee9cf754b, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: a47841febee5d4a8d9e45ec41f50700c, type: 3}
   types: 
   income: []
   combinations:

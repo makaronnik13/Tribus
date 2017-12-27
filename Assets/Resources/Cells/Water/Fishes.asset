@@ -23,7 +23,7 @@ MonoBehaviour:
     \u0424\u043E\u0440\u0435\u043B\u044C \u0432 \u0440\u0430\u0434\u0438\u0443\u0441\u0435
     (\u0434\u043E 3\u0445 \u0440\u0430\u0437)"
   prefab: {fileID: 1631047360611590, guid: 4416e0b2ac7a343169aab398f435ddcc, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 8294334b3759e4ca3871d318c4bd1a72, type: 3}
   types: 
   income:
   - resource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}

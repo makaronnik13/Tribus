@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: Stars
   m_EditorClassIdentifier: 
   StateName: "\u041C\u043E\u0440\u0441\u043A\u0438\u0435 \u0437\u0432\u0451\u0437\u0434\u044B"
-  type: 0
-  Biom: 0
+  type: 6
+  Biom: 2
   X: 1547
   Y: 617
   radiusType: 0
@@ -21,7 +21,7 @@ MonoBehaviour:
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1131928978187516, guid: cef73dda68c67414d8277b2ad6caea21, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: d67f56b5af92d48ca9ac04050d24f96a, type: 3}
   types: 
   income: []
   combinations: []

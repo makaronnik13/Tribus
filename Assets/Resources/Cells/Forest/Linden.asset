@@ -21,11 +21,11 @@ MonoBehaviour:
   radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1455000546242444, guid: b386f625b937f4233a4dd673436dc57a, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 279144a6af67c413684e8f343cda4454, type: 3}
   types: 
   income: []
   combinations:
-  - skill: 1
+  - skill: 4
     ResultState: {fileID: 11400000, guid: 3c991d21672c34cdb985df895ab9a4ba, type: 2}
     skillLevel: 1
   - skill: 3

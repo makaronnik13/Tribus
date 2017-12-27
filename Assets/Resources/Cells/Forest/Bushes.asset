@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: Bushes
   m_EditorClassIdentifier: 
-  StateName: "\u041A\u0443\u0441\u0442\u044B"
+  StateName: "\u0411\u0443\u0437\u0438\u043D\u0430"
   type: 2
   Biom: 0
   X: 487
@@ -23,7 +23,7 @@ MonoBehaviour:
     \u0435\u0441\u0442\u044C \u043A\u0443\u0441\u0442\u044B, \u043B\u0438\u043F\u044B
     \u0438\u043B\u0438 \u0434\u0443\u0431\u044B"
   prefab: {fileID: 1463071366389214, guid: 9ebe0423551c84a0bb566d065e081b43, type: 2}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 61fb14defe4164d7381cf022a85e560e, type: 3}
   types: 
   income:
   - resource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
