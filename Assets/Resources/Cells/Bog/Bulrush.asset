@@ -11,16 +11,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: Bulrush
   m_EditorClassIdentifier: 
-  StateName: "\u041A\u0430\u043C\u044B\u0448"
+  StateName: "\u0420\u043E\u0433\u043E\u0437"
   type: 2
   Biom: 3
-  X: 2192
-  Y: 230
+  X: 2190
+  Y: 215
   radiusType: 1
   radius: 1
   radiusResource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
-  description: "+10[Wealth] \u0435\u0441\u043B\u0438 \u0440\u044F\u0434\u043E\u043C
-    \u0435\u0441\u0442\u044C \u043F\u0442\u0438\u0446\u0430"
+  description: "<if0>+10[Wealth] \u0435\u0441\u043B\u0438 \u0440\u044F\u0434\u043E\u043C
+    \u0435\u0441\u0442\u044C \u043F\u0442\u0438\u0446\u0430</if0>\n\n<i>\u041C\u043D\u043E\u0433\u0438\u0435
+    \u043E\u0448\u0438\u0431\u043E\u0447\u043D\u043E \u043D\u0430\u0437\u044B\u0432\u0430\u044E\u0442
+    \u0440\u043E\u0433\u043E\u0437 \u043A\u0430\u043C\u044B\u0448\u043E\u043C, \u043D\u043E
+    \u044D\u0442\u043E \u0440\u0430\u0437\u043D\u044B\u0435 \u0440\u0430\u0441\u0442\u0435\u043D\u0438\u044F.</i>"
   prefab: {fileID: 1085422863202526, guid: a038aeda32da3436d821da57e99d8731, type: 2}
   Sprite: {fileID: 21300000, guid: ec265af0fbbf0405c8c8ce590d9cc59e, type: 3}
   types: 

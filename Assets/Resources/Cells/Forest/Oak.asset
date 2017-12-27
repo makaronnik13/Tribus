@@ -21,7 +21,9 @@ MonoBehaviour:
   radiusResource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
   description: "\u0412\u0441\u0435 \u0436\u0438\u0432\u043E\u0442\u043D\u044B\u0435
     \u0432 \u0440\u0430\u0434\u0438\u0443\u0441\u0435 \u043F\u043E\u043B\u0443\u0447\u0430\u044E\u0442
-    +5[Food] \u0438 +2[Wealth]"
+    +5[Food] \u0438 +2[Wealth]\n\n<i>\u0416\u0451\u043B\u0443\u0434\u0438 \u0434\u0443\u0431\u0430,
+    \u043F\u043E \u0444\u0430\u043A\u0442\u0443, \u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F
+    \u043E\u0440\u0435\u0445\u0430\u043C\u0438.</i>"
   prefab: {fileID: 1541121638275990, guid: c8c94ea0330bc4279b722828ac4010b3, type: 2}
   Sprite: {fileID: 21300000, guid: 9c45bda17a13143bcad35ab1390dea1e, type: 3}
   types: 

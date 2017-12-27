@@ -14,8 +14,8 @@ MonoBehaviour:
   StateName: "\u041B\u0438\u043B\u0438\u044F"
   type: 2
   Biom: 2
-  X: 1303
-  Y: 231
+  X: 1318
+  Y: 240
   radiusType: 1
   radius: 1
   radiusResource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}

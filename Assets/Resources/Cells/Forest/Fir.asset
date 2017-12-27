@@ -16,14 +16,24 @@ MonoBehaviour:
   Biom: 0
   X: 574
   Y: 383
-  radiusType: 0
+  radiusType: 1
   radius: 1
-  radiusResource: {fileID: 0}
-  description: 
+  radiusResource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
+  description: "<if0>+10[Technology] \u0435\u0441\u043B\u0438 \u0440\u044F\u0434\u043E\u043C
+    \u0435\u0441\u0442\u044C \u0440\u0443\u0434\u0430</if0>\n\n<i>\u041F\u0435\u0440\u0432\u044B\u0435
+    10 \u043B\u0435\u0442 \u043F\u0438\u0445\u0442\u0430 \u0440\u0430\u0441\u0442\u0451\u0442
+    \u0434\u043E\u0432\u043E\u043B\u044C\u043D\u043E \u043C\u0435\u0434\u043B\u0435\u043D\u043D\u043E,
+    \u0430 \u043F\u043E\u0442\u043E\u043C \u0440\u043E\u0441\u0442 \u0443\u0441\u043A\u043E\u0440\u044F\u0435\u0442\u0441\u044F.</i>"
   prefab: {fileID: 1678593992580150, guid: 4808edbd76d3440e5889accd6b0aa77a, type: 2}
   Sprite: {fileID: 21300000, guid: b83f7f55f0d014d00866d0bbb829dfc3, type: 3}
   types: 
-  income: []
+  income:
+  - resource: {fileID: 11400000, guid: 821da123c0f7db548bd0fc4c81938ac3, type: 2}
+    value: 5
+    percent: 0
+  - resource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
+    value: 3
+    percent: 0
   combinations:
   - skill: 1
     ResultState: {fileID: 11400000, guid: a1486418219c24664813b85608f96a3d, type: 2}
@@ -31,5 +41,19 @@ MonoBehaviour:
   - skill: 2
     ResultState: {fileID: 11400000, guid: 0ce073d1e4afb4d04be6cb25c7fc7adf, type: 2}
     skillLevel: 1
-  conditions: []
+  conditions:
+  - radius: 0
+    buffType: 1
+    maxStack: 0
+    value: 0
+    characteristic: 2
+    onlyDifferent: 0
+    states: []
+    bioms: 
+    types: 09000000
+    resources: []
+    rewardResources:
+    - resource: {fileID: 11400000, guid: 1f0038dfab3aaf34da4701f9240f9f3f, type: 2}
+      value: 10
+      percent: 0
   buffs: []
