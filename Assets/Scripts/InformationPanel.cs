@@ -22,7 +22,6 @@ public class InformationPanel : Singleton<InformationPanel>
 	
     public void ShowInfo(Block block)
     {
-		
         if (block == null)
         {
             GetComponent<Canvas>().enabled = false;

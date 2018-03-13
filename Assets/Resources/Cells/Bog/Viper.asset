@@ -32,18 +32,15 @@ MonoBehaviour:
   types: 
   income:
   - resource: {fileID: 11400000, guid: 59e83779b3983b84d91cc1f71bf758ca, type: 2}
-    value: 2
+    value: 3
     percent: 0
   - resource: {fileID: 11400000, guid: a43d4173926882049946d9da9195f9a9, type: 2}
     value: 3
     percent: 0
-  - resource: {fileID: 11400000, guid: 821da123c0f7db548bd0fc4c81938ac3, type: 2}
-    value: 15
-    percent: 0
   combinations:
   - skill: 4
     ResultState: {fileID: 11400000, guid: f309c4615122643e2972c4dd087b86af, type: 2}
-    skillLevel: 1
+    skillLevel: 3
   conditions:
   - radius: 1
     buffType: 1
@@ -55,7 +52,7 @@ MonoBehaviour:
     bioms: 
     types: 
     resources:
-    - {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
+    - {fileID: 0}
     rewardResources:
     - resource: {fileID: 11400000, guid: 821da123c0f7db548bd0fc4c81938ac3, type: 2}
       value: 10

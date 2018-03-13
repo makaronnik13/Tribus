@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: Girafe
+  m_EditorClassIdentifier: 
+  StateName: 
+  type: 8
+  Biom: 1
+  X: 1292
+  Y: 709
+  radiusType: 1
+  radius: 1
+  radiusResource: {fileID: 11400000, guid: a43d4173926882049946d9da9195f9a9, type: 2}
+  description: 
+  prefab: {fileID: 1036106045933432, guid: ec10835ee8e4145b89229cdcb3715ab9, type: 2}
+  Sprite: {fileID: 0}
+  types: 
+  income:
+  - resource: {fileID: 11400000, guid: 59e83779b3983b84d91cc1f71bf758ca, type: 2}
+    value: 1
+    percent: 0
+  - resource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
+    value: 3
+    percent: 0
+  - resource: {fileID: 11400000, guid: 1f0038dfab3aaf34da4701f9240f9f3f, type: 2}
+    value: 3
+    percent: 0
+  combinations: []
+  conditions: []
+  buffs: []

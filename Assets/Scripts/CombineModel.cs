@@ -6,10 +6,10 @@ public class CombineModel {
 
 	private static Dictionary<Skills, float> cooldowns = new Dictionary<Skills, float>()
 	{
-		{Skills.Flora, 3},
-		{Skills.Fauna, 5},
-		{Skills.Minerals, 10},
-		{Skills.Super, 15}
+		{Skills.Flora, 1},
+		{Skills.Fauna, 1},
+		{Skills.Minerals, 1},
+		{Skills.Super, 1}
 	};
 
 

@@ -28,16 +28,13 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: ec265af0fbbf0405c8c8ce590d9cc59e, type: 3}
   types: 
   income:
-  - resource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
-    value: 5
-    percent: 0
   - resource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
-    value: 2
+    value: 1
     percent: 0
   combinations:
   - skill: 2
     ResultState: {fileID: 11400000, guid: fd113c8e65c58499b80ce35d9c4395f7, type: 2}
-    skillLevel: 1
+    skillLevel: 2
   conditions:
   - radius: 0
     buffType: 1

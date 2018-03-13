@@ -18,7 +18,7 @@ MonoBehaviour:
   Y: -30
   radiusType: 0
   radius: 1
-  radiusResource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
+  radiusResource: {fileID: 0}
   description: 
   prefab: {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
   Sprite: {fileID: 21300000, guid: 6eac298180d484c098b8b0c1f99db52f, type: 3}

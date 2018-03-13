@@ -33,11 +33,11 @@ MonoBehaviour:
   types: 
   income:
   - resource: {fileID: 11400000, guid: 1f0038dfab3aaf34da4701f9240f9f3f, type: 2}
-    value: 5
+    value: 1
     percent: 0
   combinations:
   - skill: 1
     ResultState: {fileID: 11400000, guid: fb4148cad244946099a784cea7d76561, type: 2}
-    skillLevel: 1
+    skillLevel: 2
   conditions: []
   buffs: []

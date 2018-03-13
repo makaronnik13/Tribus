@@ -14,13 +14,13 @@ MonoBehaviour:
   StateName: "\u041A\u0430\u0431\u0430\u043D"
   type: 6
   Biom: 1
-  X: 889
-  Y: 361
+  X: 912
+  Y: 345
   radiusType: 1
   radius: 1
   radiusResource: {fileID: 11400000, guid: a43d4173926882049946d9da9195f9a9, type: 2}
-  description: "<if0>+3[Food] \u0438 +1[Danger] \u0437\u0430 \u043A\u0430\u0436\u0434\u043E\u0433\u043E
-    \u043A\u0430\u0431\u0430\u043D\u0430 \u0432 \u0440\u0430\u0434\u0438\u0443\u0441\u0435</if0>\n<if1>+2[Food]
+  description: "<if0>+3[Nature] \u0438 +1[Danger] \u0437\u0430 \u043A\u0430\u0436\u0434\u043E\u0433\u043E
+    \u043A\u0430\u0431\u0430\u043D\u0430 \u0432 \u0440\u0430\u0434\u0438\u0443\u0441\u0435</if0>\n<if1>+2[Technology]
     \u0437\u0430 \u043A\u0430\u0436\u0434\u043E\u0435 \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u043E\u0435
     \u0440\u0430\u0441\u0442\u0435\u043D\u0438\u0435 \u0440\u044F\u0434\u043E\u043C</if1>\n\n<i>\u0421\u0435\u0434\u0438\u043D\u0430
     \u0443 \u043A\u0430\u0431\u0430\u043D\u043E\u0432 \u0441\u0432\u0438\u0434\u0435\u0442\u0435\u043B\u044C\u0441\u0442\u0432\u0443\u0435\u0442
@@ -35,7 +35,7 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: e1adcaaf51b7c40a892b9ca75921c8be, type: 3}
   types: 
   income:
-  - resource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
+  - resource: {fileID: 11400000, guid: 59e83779b3983b84d91cc1f71bf758ca, type: 2}
     value: 3
     percent: 0
   - resource: {fileID: 11400000, guid: a43d4173926882049946d9da9195f9a9, type: 2}
@@ -44,10 +44,10 @@ MonoBehaviour:
   combinations:
   - skill: 3
     ResultState: {fileID: 11400000, guid: 14bbc3d38400a4652a57624fb4d5edcf, type: 2}
-    skillLevel: 1
+    skillLevel: 2
   - skill: 1
-    ResultState: {fileID: 11400000, guid: da609abcf365346aead6e8d11f672583, type: 2}
-    skillLevel: 1
+    ResultState: {fileID: 11400000, guid: ac481fdaf86e148099b7ad87acd9b662, type: 2}
+    skillLevel: 3
   conditions:
   - radius: 1
     buffType: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
     - resource: {fileID: 11400000, guid: 59e83779b3983b84d91cc1f71bf758ca, type: 2}
       value: 1
       percent: 0
-    - resource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
+    - resource: {fileID: 0}
       value: 3
       percent: 0
   - radius: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
     types: 02000000
     resources: []
     rewardResources:
-    - resource: {fileID: 11400000, guid: d8dbcac66087855419dab880f8b73c62, type: 2}
+    - resource: {fileID: 0}
       value: 2
       percent: 0
   buffs:

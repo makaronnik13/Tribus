@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4870202528195404}
   - component: {fileID: 33647435326528500}
   - component: {fileID: 23704866428536564}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MountainBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

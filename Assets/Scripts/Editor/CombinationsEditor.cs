@@ -142,7 +142,7 @@ using System.Linq;
     {
       
 
-        if (selectedPath!=null && Event.current.type == EventType.keyDown && Event.current.keyCode == KeyCode.Delete)
+        if (selectedPath!=null && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Delete)
         {
 
             foreach (KeyValuePair<CellState, GUIDraggableObject> p in StatesPositions)
@@ -260,7 +260,7 @@ using System.Linq;
 			GUI.Label(aim2, new GUIContent(Resources.Load(typesIcons[state.Key.type]) as Texture2D));
 		GUI.color = Color.white;
 
-            if (Event.current.type == EventType.mouseUp && aim.Contains(Event.current.mousePosition) && selectedPath != null)
+            if (Event.current.type == EventType.MouseUp && aim.Contains(Event.current.mousePosition) && selectedPath != null)
             {
         
 

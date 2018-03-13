@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public class Block : MonoBehaviour {
+
+	public Action<CombineModel.Biom, Block> OnBiomChanged = (CombineModel.Biom biom, Block block)=>{};
 
 	private List<Inkome> currentIncome = new List<Inkome>();
 	public List<Inkome> CurrentIncome
@@ -94,6 +97,7 @@ public class Block : MonoBehaviour {
 	{
 		BlocksField.Instance.ShowInfo (new List<Block>(){});
         InformationPanel.Instance.ShowInfo(null);
+		RadiusVisualizer.Instance.ShowRadius (null);
 	}
 
 	void OnMouseEnter()
@@ -110,6 +114,7 @@ public class Block : MonoBehaviour {
 		BlocksField.Instance.HighLightFields (new List<Block>(){});
 		BlocksField.Instance.ShowInfo (new List<Block>(){});
         InformationPanel.Instance.ShowInfo(null);
+		RadiusVisualizer.Instance.ShowRadius (null);
     }
 
 	void OnMouseDrag()
@@ -118,6 +123,12 @@ public class Block : MonoBehaviour {
 		{
 			BlocksField.Instance.ShowInfo (new List<Block> (){ this });
             InformationPanel.Instance.ShowInfo(this);
+			RadiusVisualizer.Instance.ShowRadius (this);
         }
+	}
+
+	public void RecalculateMesh(CombineModel.Biom newBiom, int side)
+	{
+		
 	}
 }

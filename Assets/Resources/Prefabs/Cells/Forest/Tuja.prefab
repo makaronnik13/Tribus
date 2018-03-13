@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4263604309716090}
   - component: {fileID: 33863290342670876}
   - component: {fileID: 23187937148297174}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ForestBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

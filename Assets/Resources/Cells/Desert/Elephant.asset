@@ -14,8 +14,8 @@ MonoBehaviour:
   StateName: "\u0421\u043B\u043E\u043D"
   type: 8
   Biom: 1
-  X: 995
-  Y: 685
+  X: 992
+  Y: 673
   radiusType: 0
   radius: 1
   radiusResource: {fileID: 0}
@@ -23,7 +23,16 @@ MonoBehaviour:
   prefab: {fileID: 1261161097501340, guid: 61b6956abdf9b4bb5bb074355e23823d, type: 2}
   Sprite: {fileID: 21300000, guid: cfc2517c2139c4b98b8d4b2b64e3255b, type: 3}
   types: 
-  income: []
+  income:
+  - resource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
+    value: 4
+    percent: 0
+  - resource: {fileID: 11400000, guid: 1f0038dfab3aaf34da4701f9240f9f3f, type: 2}
+    value: 2
+    percent: 0
+  - resource: {fileID: 11400000, guid: 59e83779b3983b84d91cc1f71bf758ca, type: 2}
+    value: 1
+    percent: 0
   combinations: []
   conditions: []
   buffs: []

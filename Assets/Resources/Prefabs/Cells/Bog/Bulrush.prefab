@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 4008843136517862}
   - component: {fileID: 33191373019952724}
   - component: {fileID: 23955303445696046}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BogBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

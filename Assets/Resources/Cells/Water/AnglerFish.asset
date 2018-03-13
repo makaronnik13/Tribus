@@ -23,7 +23,13 @@ MonoBehaviour:
   prefab: {fileID: 1910548482352488, guid: 4f440ea8314bfd14dbb15f5a193ceecb, type: 2}
   Sprite: {fileID: 21300000, guid: 6213b0154430a45d88755f9549091e8e, type: 3}
   types: 
-  income: []
+  income:
+  - resource: {fileID: 11400000, guid: 59e83779b3983b84d91cc1f71bf758ca, type: 2}
+    value: 3
+    percent: 0
+  - resource: {fileID: 11400000, guid: 1f0038dfab3aaf34da4701f9240f9f3f, type: 2}
+    value: 2
+    percent: 0
   combinations: []
   conditions: []
   buffs: []

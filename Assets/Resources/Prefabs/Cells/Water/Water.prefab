@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4484484135537948}
   - component: {fileID: 33818756471870122}
   - component: {fileID: 23111390877767292}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaterBlock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4729598430215106}
   - component: {fileID: 33071474450400770}
   - component: {fileID: 23663445413174568}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaterBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

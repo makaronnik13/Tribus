@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 4357938710495102}
   - component: {fileID: 33958116663451782}
   - component: {fileID: 23569981340786182}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DesertBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

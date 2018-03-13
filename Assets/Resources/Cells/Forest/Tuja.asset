@@ -14,8 +14,8 @@ MonoBehaviour:
   StateName: "\u0422\u0443\u044F"
   type: 1
   Biom: 0
-  X: 669
-  Y: 742
+  X: 637
+  Y: 765
   radiusType: 1
   radius: 1
   radiusResource: {fileID: 11400000, guid: 586a2dc7d617c6446935ffe92842ed4b, type: 2}
@@ -34,7 +34,7 @@ MonoBehaviour:
     value: 4
     percent: 0
   - resource: {fileID: 11400000, guid: 821da123c0f7db548bd0fc4c81938ac3, type: 2}
-    value: 10
+    value: 3
     percent: 0
   combinations: []
   conditions:

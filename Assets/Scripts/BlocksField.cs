@@ -12,7 +12,7 @@ public class BlocksField : Singleton<BlocksField> {
 	public GameObject Highlighter;
 	public GameObject BlockInfo;
 
-	private List<ParticleSystem> highlighters = new List<ParticleSystem>();
+	private Dictionary<Vector3, Projector> highlighters = new Dictionary<Vector3,Projector>();
 	private List<BlockInfo> blocksInfos = new List<BlockInfo>();
 
 	private bool infoShowing;
@@ -66,8 +66,8 @@ public class BlocksField : Singleton<BlocksField> {
 				GameObject block = baseBlocks[dict[new Vector2(i,j)]];
 				float width = Mathf.Pow (2, size) + 1;
 				Quaternion randomRotation = Quaternion.Euler (Vector3.up*90*Mathf.RoundToInt(Random.Range(0,3)));
-				Instantiate (block, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), randomRotation,transform.GetChild(0));
-				highlighters.Add (Instantiate (Highlighter, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), Quaternion.identity,transform.GetChild(1)).GetComponentInChildren<ParticleSystem>());
+				GameObject nb = Instantiate (block, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), randomRotation,transform.GetChild(0));
+				highlighters.Add (nb.transform.position, Instantiate (Highlighter, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), Quaternion.identity,transform.GetChild(1)).GetComponentInChildren<Projector>());
 				blocksInfos.Add (Instantiate (BlockInfo, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), Quaternion.identity,transform.GetChild(2)).GetComponent<BlockInfo>());
 			}
 		}
@@ -76,18 +76,61 @@ public class BlocksField : Singleton<BlocksField> {
         {
             b.RecalculateInkome();
         }
+
+		HighLightFields (new List<Block>(){});
+
+		foreach(Block block in FindObjectsOfType<Block>())
+		{
+			List<Block> blocks = GetBlocksInRadius (block, 1);
+			blocks.Add (block);
+
+			foreach(Block neighbour in blocks)
+			{
+				block.OnBiomChanged+=(CombineModel.Biom biom, Block n)=>
+				{
+					int i = -1;
+
+					if(n == block)
+					{
+						i = 0;
+					}
+
+					if(n.transform.position.x<block.transform.position.x && n.transform.position.y == block.transform.position.y)
+					{
+						i = 1;
+					}
+
+					if(n.transform.position.x==block.transform.position.x && n.transform.position.y > block.transform.position.y)
+					{
+						i = 2;
+					}
+
+					if(n.transform.position.x>block.transform.position.x && n.transform.position.y == block.transform.position.y)
+					{
+						i = 3;
+					}
+
+					if(n.transform.position.x==block.transform.position.x && n.transform.position.y < block.transform.position.y)
+					{
+						i = 4;
+					}
+
+					block.RecalculateMesh(biom, i);
+				};
+			}
+		}
 	}
 
 	public void HighLightFields(List<Block> blocks)
 	{
-		foreach(ParticleSystem ps in highlighters)
+		foreach(KeyValuePair<Vector3, Projector> ps in highlighters)
 		{
-			ps.Stop ();
+			ps.Value.enabled = false;
 		}
 
 		foreach(Block b in blocks)
 		{
-			highlighters.Find (h=>Vector3.Distance(h.transform.position, b.transform.position)<1).Play();
+			highlighters[b.transform.position].enabled = true;
 		}
 	}
 
@@ -116,6 +159,6 @@ public class BlocksField : Singleton<BlocksField> {
 
     public List<Block> GetBlocksInRadius(Block block, int r)
     {
-        return FindObjectsOfType<Block>().Where(b => Vector3.Distance(b.transform.position, block.transform.position) < r * Mathf.Sqrt(2) * cellSize && b != block).ToList();
+        return FindObjectsOfType<Block>().Where(b => Vector3.Distance(b.transform.position, block.transform.position) <= r * Mathf.Sqrt(2) * cellSize+0.001f && b != block).ToList();
     }
 }
