@@ -54,13 +54,9 @@ public class BlockInfo : MonoBehaviour {
 
 		foreach (Inkome inc in b.CurrentIncome.OrderBy (i=>i.resource.Priority).ToList())
         {
-            if (inc.resource.incoming)
-            {
                 GameObject newRaw = Instantiate(infoBlockRow, popupInfo.transform);
                 newRaw.GetComponentInChildren<Image>().sprite = inc.resource.sprite;
-
                 newRaw.GetComponentInChildren<Text>().text = inc.value + "";
-            }
         }
 
         popupInfo.GetComponent<PopupInfoPanel>().Emmit();

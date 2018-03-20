@@ -102,8 +102,13 @@ public class InformationPanel : Singleton<InformationPanel>
 
             string resName = result.Substring(1, result.Length-2);
 
+            List<GameResource> resourcesList = new List<GameResource>();
+            foreach (Inkome ink in ResourcesManager.Instance.StartedReources)
+            {
+                resourcesList.Add(ink.resource);
+            }
 
-			s = s.Replace (result, "<sprite index="+StatsManager.Instance.resources.ToList().IndexOf(StatsManager.Instance.resources.ToList().Find(r=>r.name == resName)) +">");
+			s = s.Replace (result, "<sprite index="+ resourcesList.IndexOf(resourcesList.Find(r=>r.name == resName)) +">");
 			result = result.Substring (1, result.Length-2);
 		}
 

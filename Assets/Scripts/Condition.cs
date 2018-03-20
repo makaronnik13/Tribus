@@ -89,7 +89,7 @@ public class Condition
     }
 
 
-    public float ChechCondition(Block b)
+    public int ChechCondition(Block b)
     {
         List<Block> blocks = new List<Block>();
 
@@ -227,7 +227,7 @@ public class Condition
         }
 
 		Debug.Log (number);
-        return number;
+        return Mathf.RoundToInt(number);
     }
 }
 

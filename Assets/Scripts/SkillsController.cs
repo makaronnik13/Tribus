@@ -61,15 +61,13 @@ public class SkillsController : Singleton<SkillsController>
 
 
         Destroy (aimBlock.gameObject);
-
-		SkillsPanel.Instance.SkillTransform (CurrentSkill).GetComponent<SkillButton> ().ReloadButton ();
+	
 		CurrentSkill = CombineModel.Skills.None;
 		HighlightedBlock = null;
         foreach (Block b in FindObjectsOfType<Block>())
         {
             b.RecalculateInkome();
         }
-		StatsManager.Instance.UpdateStats ();
 		GetComponent<AudioSource> ().PlayOneShot (activationSound);
     }
 

@@ -11,7 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4805ed0026ca9418a389718f30adbf, type: 3}
   m_Name: C5
   m_EditorClassIdentifier: 
-  CardName: Water
-  CardDescription: Lorem ipsum bla-bla-bla
+  CardName: Spell of live
+  CardDescription: It's my life
   aimType: 1
   cardSprite: {fileID: 21300000, guid: fe915df016247e64aab9d49148911944, type: 3}
+  Cost:
+  - resource: {fileID: 11400000, guid: f3768d0ac0771e34da0e3d1561f70bda, type: 2}
+    value: 1
+  - resource: {fileID: 11400000, guid: 09cc291755db7bb4893dca74fad8fad3, type: 2}
+    value: 2

@@ -8,7 +8,5 @@ public class Inkome
 {
 	public GameResource resource;
 
-    public float value;
-
-    public bool percent = false;
+    public int value;
 }

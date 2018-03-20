@@ -13,30 +13,27 @@ using System.Linq;
 
 	private Dictionary<CombineModel.Skills, Color> skillsCollors = new Dictionary<CombineModel.Skills, Color> () {
 		{CombineModel.Skills.None, Color.white/2},
-		{CombineModel.Skills.Flora, Color.green},
-		{CombineModel.Skills.Fauna, Color.yellow},
-		{CombineModel.Skills.Minerals, Color.blue},
-		{CombineModel.Skills.Super, Color.red}
+		{CombineModel.Skills.Song, Color.green},
+		{CombineModel.Skills.Spell, Color.yellow},
+		{CombineModel.Skills.Formula, Color.blue}
 	};
 
 	private Dictionary<CombineModel.ResourceType, string> typesIcons = new Dictionary<CombineModel.ResourceType, string> () {
-		{CombineModel.ResourceType.BigAnimal, "Sprites/CellTypesIcons/BigAnimal"},
-		{CombineModel.ResourceType.Fish, "Sprites/CellTypesIcons/Fish"},
-		{CombineModel.ResourceType.GrassAnimal, "Sprites/CellTypesIcons/GrassAnimal"},
-		{CombineModel.ResourceType.GrassBird, "Sprites/CellTypesIcons/Bird"},
-		{CombineModel.ResourceType.Liquids, "Sprites/CellTypesIcons/Liquid"},
-		{CombineModel.ResourceType.Minerals, "Sprites/CellTypesIcons/Mineral"},
-		{CombineModel.ResourceType.PredatorAnimal, "Sprites/CellTypesIcons/PredatorAnimal"},
-		{CombineModel.ResourceType.PredatorBird, "Sprites/CellTypesIcons/PredatorBird"},
-		{CombineModel.ResourceType.None, "Sprites/CellTypesIcons/None"},
-		{CombineModel.ResourceType.SmallPlant, "Sprites/CellTypesIcons/SmallPlant"},
-		{CombineModel.ResourceType.Tree, "Sprites/CellTypesIcons/Tree"}
+		//{CombineModel.ResourceType.BigAnimal, "Sprites/CellTypesIcons/BigAnimal"},
+		//{CombineModel.ResourceType.Fish, "Sprites/CellTypesIcons/Fish"},
+		//{CombineModel.ResourceType.GrassAnimal, "Sprites/CellTypesIcons/GrassAnimal"},
+		//{CombineModel.ResourceType.GrassBird, "Sprites/CellTypesIcons/Bird"},
+		//{CombineModel.ResourceType.Liquids, "Sprites/CellTypesIcons/Liquid"},
+		//{CombineModel.ResourceType.Minerals, "Sprites/CellTypesIcons/Mineral"},
+		//{CombineModel.ResourceType.PredatorAnimal, "Sprites/CellTypesIcons/PredatorAnimal"},
+		//{CombineModel.ResourceType.PredatorBird, "Sprites/CellTypesIcons/PredatorBird"},
+		{CombineModel.ResourceType.None, "Sprites/CellTypesIcons/None"}
+		//{CombineModel.ResourceType.SmallPlant, "Sprites/CellTypesIcons/SmallPlant"},
+		//{CombineModel.ResourceType.Tree, "Sprites/CellTypesIcons/Tree"}
 	};
 
 	private Dictionary<CombineModel.Biom, Color> biomsColors = new Dictionary<CombineModel.Biom, Color>(){
-		{CombineModel.Biom.Bog, new Color(0.4f,0.5f,0.3f)},
 		{CombineModel.Biom.Water, new Color(0.5f,0.5f,0.8f)},
-		{CombineModel.Biom.Desert, new Color(0.9f,0.9f,0.4f)},
 		{CombineModel.Biom.Forest, new Color(0.4f,0.8f,0.4f)},
 		{CombineModel.Biom.Mountains, new Color(0.5f,0.5f,0.5f)}
 	};

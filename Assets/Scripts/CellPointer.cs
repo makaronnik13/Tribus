@@ -21,7 +21,8 @@ public class CellPointer : MonoBehaviour {
 			if (block && skill != CombineModel.Skills.None) {
 				transform.GetChild (0).gameObject.SetActive (true);
 				transform.position = block.transform.position;
-				GetComponentInChildren<SpriteRenderer> ().sprite = SkillsPanel.Instance.SkillImage (skill);
+                //set pointer image
+				//GetComponentInChildren<SpriteRenderer> ().sprite = SkillsPanel.Instance.SkillImage (skill);
 			}
 		}
 	}

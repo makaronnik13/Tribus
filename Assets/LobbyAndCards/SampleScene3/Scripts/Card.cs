@@ -16,4 +16,5 @@ public class Card : ScriptableObject
     public string CardDescription;
 	public CardAimType aimType = CardAimType.None;
 	public Sprite cardSprite;
+    public List<Inkome> Cost = new List<Inkome>();
 }

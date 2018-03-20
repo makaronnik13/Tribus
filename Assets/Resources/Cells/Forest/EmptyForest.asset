@@ -24,12 +24,6 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: b21f5dcda31b14f4db566541995ab1fb, type: 3}
   types: 
   income: []
-  combinations:
-  - skill: 2
-    ResultState: {fileID: 11400000, guid: fa34da91449d84b42abbab018de47203, type: 2}
-    skillLevel: 1
-  - skill: 1
-    ResultState: {fileID: 11400000, guid: 43cdeee40ef5e4b55b23df3d1b4b6d3d, type: 2}
-    skillLevel: 1
+  combinations: []
   conditions: []
   buffs: []
