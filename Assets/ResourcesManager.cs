@@ -13,7 +13,6 @@ public class ResourcesManager : Singleton<ResourcesManager>
     private void Start()
     {
         CardsPlayer.Instance.OnCardPlayed += PlayCard;
-        EndTurn();
     }
 
     public void EndTurn()
@@ -47,6 +46,10 @@ public class ResourcesManager : Singleton<ResourcesManager>
         bool result = true;
         foreach (Inkome ink in cardAsset.Cost)
         {
+            if (!ResourcesValues.ContainsKey(ink.resource))
+            {
+                ResourcesValues.Add(ink.resource, 0);
+            }
             if (ink.value>ResourcesValues[ink.resource])
             {
                 result = false;
@@ -67,11 +70,11 @@ public class ResourcesManager : Singleton<ResourcesManager>
 
     public void AddResource(GameResource gr, int v)
     {
+        
         if (!ResourcesValues.ContainsKey(gr))
         {
             ResourcesValues.Add(gr, 0);
         }
-
         SetResource(gr, ResourcesValues[gr]+v);
     }
 

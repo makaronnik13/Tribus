@@ -18,29 +18,15 @@ public class CardsFieldTrigger : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 		if(activeCardVisual)
 		{
-			switch(activeCardVisual.CardAsset.aimType)
-			{
-			case Card.CardAimType.Cell:
-				activeCardVisual.transform.localScale = Vector3.one / 2;
-				activeCardVisual.DraggingEnabled = false;
-					break;
-			case Card.CardAimType.Player:
-				activeCardVisual.transform.localScale = Vector3.one/2;
-				activeCardVisual.DraggingEnabled = false;
-					break;
-				case Card.CardAimType.None:
-				activeCardVisual.DraggingEnabled = false;
-					break;
-			}
-		}
+            activeCardVisual.State = CardVisual.CardState.ChosingAim;
+        }
 	}
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
 		if (activeCardVisual) 
 		{
-			activeCardVisual.DraggingEnabled = true;
-			activeCardVisual.transform.localScale = Vector3.one;
+            activeCardVisual.State = CardVisual.CardState.Dragging;
 			activeCardVisual = null;
 		}
 	}

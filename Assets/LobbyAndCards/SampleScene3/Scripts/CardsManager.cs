@@ -57,6 +57,16 @@ public class CardsManager : Singleton<CardsManager> {
 		newCard.transform.SetParent(handTransform);
     }
 
+    public Vector3 GetPosition(CardVisual cardVisual, bool hovered = false)
+    {
+        return GetComponentInChildren<CardsLayout>().GetPosition(cardVisual, hovered);
+    }
+
+    public Quaternion GetRotation(CardVisual cardVisual, bool hovered = false)
+    {
+        return GetComponentInChildren<CardsLayout>().GetRotation(cardVisual, hovered);
+    }
+
     public void DropCard(CardVisual cardVisual)
     {
             drop.Add(cardVisual.CardAsset);

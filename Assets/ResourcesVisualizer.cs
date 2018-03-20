@@ -32,7 +32,6 @@ public class ResourcesVisualizer : MonoBehaviour {
             visualisers.Add(gr, newVisualiser);
             newVisualiser.SetActive(false);
         }
-
         ResourcesManager.Instance.OnResourceValueChanged += ValueChanged;
 	}
 

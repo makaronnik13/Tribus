@@ -8,17 +8,88 @@ using System;
 
 public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public enum CardState
+    {
+        None,
+        Hovered,
+        Dragging,
+        ChosingAim,
+        Played
+    }
+
+    private CardState _state = CardState.None;
+    public CardState State
+    {
+        get
+        {
+            return _state;
+        }
+        set
+        {
+            switch (value)
+            {
+                case CardState.ChosingAim:
+                    if (_state == CardState.Dragging)
+                    {
+                        //place card in action slot
+                        _state = CardState.ChosingAim;
+                    }
+                    break;
+                case CardState.Hovered:
+                    if (_state == CardState.None)
+                    {
+                        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this, true), CardsManager.Instance.GetRotation(this, true), Vector3.one*2, () =>
+                        {
+
+                        });
+                        _state = CardState.Hovered;
+                    }
+                    break;
+                case CardState.None:
+                    if (_state == CardState.Dragging)
+                    {
+                        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () =>
+                        {
+
+                        });
+                        _state = CardState.None;
+                    }
+                    if (_state == CardState.Hovered || _state == CardState.None)
+                    {
+                        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, ()=>
+                        {
+
+                        });
+                        _state = CardState.None;
+                        //make card small and return in hand
+                    }
+
+                    break;
+                case CardState.Dragging:
+                    if (_state == CardState.Hovered || _state == CardState.None)
+                    {
+                        StopCoroutine("MoveCardToCoroutine");
+                        transform.localScale = Vector3.one;
+                        transform.SetParent(CardsManager.Instance.playerCanvas.transform);
+                        _state = CardState.Dragging;
+                    }
+                 
+                    break;
+                case CardState.Played:
+                    //return card in deck
+                    break;
+            }
+        }
+    }
+
     public Transform costTransform;
     public GameObject costPrefab;
 	public TextMeshProUGUI CardName, CardDescription;
     public Image AvaliabilityFrame;
     public Image CardImage;
-	public static GameObject itemBeingDragged;
-	public bool FocusedEnabled = false;
 	private int lastSibling;
     private Card _cardAsset;
 	private int takedFromSibling;
-	public bool DraggingEnabled = true;
 
     private bool _cardCanBePlayed = true;
     private bool CardCanBePlayed
@@ -55,11 +126,18 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             newVisualiser.GetComponent<Image>().sprite = ink.resource.sprite;
             newVisualiser.GetComponentInChildren<TextMeshProUGUI>().text = "" + ink.value;
         }
+
+        State = CardState.None;
     }
 
-    void Start()
+    void Awake()
     {
         ResourcesManager.Instance.OnResourceValueChanged += ResourceChanged;
+    }
+
+    void OnDestroy()
+    {
+        ResourcesManager.Instance.OnResourceValueChanged -= ResourceChanged;
     }
 
     private void ResourceChanged(GameResource arg1, int arg2)
@@ -70,15 +148,16 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #region IBeginDragHandler implementation
     public void OnBeginDrag (PointerEventData eventData)
 	{
-        if (CardCanBePlayed)
+        if (FakeController.Instance.MyTurn)
         {
+            State = CardState.Dragging;
+            /*
             transform.localScale = Vector3.one;
             FocusedEnabled = false;
             takedFromSibling = GetComponentInParent<CardsLayout>().GetSibling(this);
-            transform.SetParent(CardsManager.Instance.playerCanvas.transform);
-            itemBeingDragged = gameObject;
+   
             GetComponent<CanvasGroup>().blocksRaycasts = false;
-            transform.localRotation = Quaternion.identity;
+            */
         }
 	}
 	#endregion
@@ -86,41 +165,63 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	#region IDragHandler implementation
 	public void OnDrag (PointerEventData eventData)
 	{
-		if (CardCanBePlayed && DraggingEnabled) 
-		{
-			transform.position = eventData.position;
-		}
+        if (State == CardState.Dragging)
+        {
+            if (FakeController.Instance.MyTurn)
+            {
+                transform.position = eventData.position;
+            }
+        }
 	}
 	#endregion
 
 	#region IEndDragHandler implementation
 	public void OnEndDrag (PointerEventData eventData)
 	{
-		itemBeingDragged = null;
-		GetComponent<CanvasGroup>().blocksRaycasts = true;
-		transform.SetParent(CardsManager.Instance.handTransform);
-		transform.SetSiblingIndex (takedFromSibling);
-		GetComponentInParent<CardsLayout> ().RecalculateSibling ();
+        State = CardState.None;
+        /*
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
+            transform.SetParent(CardsManager.Instance.handTransform);
+            transform.SetSiblingIndex(takedFromSibling);
+            GetComponentInParent<CardsLayout>().RecalculateSibling();
+            */
 	}
 	#endregion
 
 	public void OnPointerEnter (PointerEventData eventData)
 	{
-		if (FocusedEnabled) 
-		{
-			lastSibling = transform.GetSiblingIndex ();
-			transform.SetAsLastSibling ();
-			transform.localScale = Vector3.one * 2;
-		}
+        State = CardState.Hovered; 
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		if (FocusedEnabled) 
-		{
-			transform.SetSiblingIndex (lastSibling);
-			transform.localScale = Vector3.one;
-			GetComponentInParent<CardsLayout> ().RecalculateSibling ();
-		}
-	}
+        State = CardState.None;
+
+    }
+
+    private void MoveCardTo(Transform parent, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, Action callback = null)
+    {
+        StopCoroutine("MoveCardToCoroutine");
+        StartCoroutine(MoveCardToCoroutine(parent, localPosition, localRotation, localScale, callback));
+    }
+
+    IEnumerator MoveCardToCoroutine(Transform parent, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, Action callback = null)
+    {
+        transform.SetParent(parent);
+        float time = 0;
+        while (transform.localScale!=localScale || transform.localPosition!=localPosition || transform.localRotation!=localRotation)
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, localPosition, time);
+            transform.localScale = Vector3.Lerp(transform.localScale, localScale, time);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, localRotation, time);
+            time += Time.deltaTime*4;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        if (callback!=null)
+        {
+            callback.Invoke();
+        }
+    }
 }
