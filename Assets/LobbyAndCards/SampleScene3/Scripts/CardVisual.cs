@@ -14,6 +14,9 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	public bool FocusedEnabled = false;
 	private int lastSibling;
     private Card _cardAsset;
+	private int takedFromSibling;
+	public bool DraggingEnabled = true;
+
     public Card CardAsset
     {
         get
@@ -35,6 +38,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	{
 		transform.localScale = Vector3.one;
 		FocusedEnabled = false;
+		takedFromSibling = GetComponentInParent<CardsLayout> ().GetSibling (this);
 		transform.SetParent (CardsManager.Instance.playerCanvas.transform);
 		itemBeingDragged = gameObject;
 		GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -45,7 +49,10 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	#region IDragHandler implementation
 	public void OnDrag (PointerEventData eventData)
 	{
-		transform.position = eventData.position;
+		if (DraggingEnabled) 
+		{
+			transform.position = eventData.position;
+		}
 	}
 	#endregion
 
@@ -55,7 +62,8 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 		itemBeingDragged = null;
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
 		transform.SetParent(CardsManager.Instance.handTransform);
-
+		transform.SetSiblingIndex (takedFromSibling);
+		GetComponentInParent<CardsLayout> ().RecalculateSibling ();
 	}
 	#endregion
 

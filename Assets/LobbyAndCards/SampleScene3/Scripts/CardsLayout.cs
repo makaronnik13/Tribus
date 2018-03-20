@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class CardsLayout : MonoBehaviour
 {
@@ -51,7 +52,7 @@ public class CardsLayout : MonoBehaviour
 		{
 			int i = 0;
 			int cards = transform.childCount;
-			float minRotation = -30;
+			float minRotation = -20;
 			Vector3 minPosition = new Vector3 (GetComponent<RectTransform>().rect.width/2, 0,0);
 			bool placed = true;
 
@@ -88,5 +89,17 @@ public class CardsLayout : MonoBehaviour
 			time += Time.deltaTime;
 			yield return new WaitForEndOfFrame ();
 		}
+	}
+
+	public int GetSibling(CardVisual cv)
+	{
+		for(int i = 0; i<childTransforms.Count;i++)
+		{
+			if(childTransforms[i].GetComponent<CardVisual>()==cv)
+			{
+				return i;
+			}
+		}
+		return 0;
 	}
 }
