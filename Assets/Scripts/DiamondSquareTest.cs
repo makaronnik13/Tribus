@@ -10,8 +10,8 @@ public class DiamondSquareTest : MonoBehaviour {
 		{new Vector2(0.8f,0f), 0},
 		{new Vector2(0f,0.8f), 1},
 		{new Vector2(0.5f,0.5f), 2},
-		{new Vector2(0f,0.7f), 3},
-		{new Vector2(0.6f,0f), 4}
+		{new Vector2(0f,0.7f), 2},
+		{new Vector2(0.6f,0f), 1}
 	};
 
 	[Range(1,10)]

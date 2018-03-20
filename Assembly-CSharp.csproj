@@ -51,6 +51,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CardsFieldTrigger.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\DraggablePanel.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\EventSystemChecker.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyCountdownPanel.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyHook.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyInfoPanel.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyMainMenu.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyManager.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyPlayer.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyPlayerList.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyServerEntry.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyServerList.cs" />
+     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyTopPanel.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScene3\DropCounter.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScene3\DropSlot.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScene3\FakeController.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScene3\Scripts\Card.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScene3\Scripts\CardsLayout.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScene3\Scripts\CardsManager.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScene3\Scripts\CardVisual.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScene3\Scripts\NetworkCardGameManager.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScene3\Scripts\Tools\MonoBehaviourExtended.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScenes\Scripts\NetworkAsteroid.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScenes\Scripts\NetworkGameManager.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScenes\Scripts\NetworkLobbyHook.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScenes\Scripts\NetworkSpaceship.cs" />
+     <Compile Include="Assets\LobbyAndCards\SampleScenes\Scripts\NetworkSpaceshipBullet.cs" />
      <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
      <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
      <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
@@ -101,7 +128,6 @@
      <Compile Include="Assets\Scripts\BlockInfo.cs" />
      <Compile Include="Assets\Scripts\BlocksField.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
-     <Compile Include="Assets\Scripts\Card.cs" />
      <Compile Include="Assets\Scripts\CellBuff.cs" />
      <Compile Include="Assets\Scripts\CellPointer.cs" />
      <Compile Include="Assets\Scripts\CellState.cs" />
@@ -134,11 +160,13 @@
      <None Include="Assets\PostProcessing\Resources\Shaders\LutGen.shader" />
      <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
      <None Include="Assets\PostProcessing\Editor Resources\UI\CurveBackground.shader" />
+     <None Include="Assets\LobbyAndCards\Lobby\Documentation.txt" />
      <None Include="Assets\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
      <None Include="Assets\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
      <None Include="Assets\PostProcessing\Resources\Shaders\ACES.cginc" />
      <None Include="Assets\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Tonemapping.cginc" />
+     <None Include="Assets\LobbyAndCards\Lobby\Instruction.txt" />
      <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Uber.shader" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Blit.shader" />
@@ -152,6 +180,7 @@
      <None Include="Assets\PostProcessing\Resources\Shaders\BuiltinDebugViews.shader" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Common.cginc" />
      <None Include="Assets\PostProcessing\Resources\Bluenoise64\COPYING.txt" />
+     <None Include="Assets\LobbyAndCards\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\PostProcessing\Editor Resources\UI\Trackball.shader" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Bloom.cginc" />
      <None Include="Assets\PostProcessing\Resources\Shaders\TAA.shader" />

@@ -8,7 +8,7 @@ using System.Linq;
 public class InformationPanel : Singleton<InformationPanel>
 {
     public Image icon;
-    public Text blockName;
+	public TMPro.TextMeshProUGUI blockName;
     public Transform incomeContent;
     public TMPro.TextMeshProUGUI symbiosys;
     public GameObject incomePrefab;
