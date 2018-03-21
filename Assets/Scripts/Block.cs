@@ -13,6 +13,7 @@ public class Block : MonoBehaviour {
 	{
 		get
 		{          
+			RecalculateInkome ();
 			return currentIncome;
 		}
 	}
@@ -44,6 +45,7 @@ public class Block : MonoBehaviour {
     }
 
     private bool mouseInCell = false;
+
 
     public void RecalculateInkome()
     {
@@ -88,29 +90,35 @@ public class Block : MonoBehaviour {
 
 	void OnMouseDown()
 	{
+		/*
 		if (State.HasCombination (SkillsController.Instance.CurrentSkill)) {
-			SkillsController.Instance.ActivateSkill (this);
-		}
+			//SkillsController.Instance.ActivateSkill (this);
+		}*/
 	}
 
 	void OnMouseUp()
 	{
+		/*
+		Debug.Log (State);
 		BlocksField.Instance.ShowInfo (new List<Block>(){});
         InformationPanel.Instance.ShowInfo(null);
 		RadiusVisualizer.Instance.ShowRadius (null);
+		SkillsController.Instance.ActivateSkill ();
+		*/
 	}
 
 	void OnMouseEnter()
 	{
-		mouseInCell = true;
-		SkillsController.Instance.HighlightedBlock = this;
-		BlocksField.Instance.HighLightFields (new List<Block>(){this});
+		CardsPlayer.Instance.SelectBlock (this);
+		//SkillsController.Instance.aimBlock = this;
+		//mouseInCell = true;
+		//SkillsController.Instance.HighlightedBlock = this;
+		//BlocksField.Instance.HighLightFields (new List<Block>(){this});
 	}
 
 	void OnMouseExit()
 	{
 		mouseInCell = false;
-		SkillsController.Instance.HighlightedBlock = null;
 		BlocksField.Instance.HighLightFields (new List<Block>(){});
 		BlocksField.Instance.ShowInfo (new List<Block>(){});
         InformationPanel.Instance.ShowInfo(null);

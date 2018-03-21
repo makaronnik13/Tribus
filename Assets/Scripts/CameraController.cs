@@ -8,15 +8,15 @@ public class CameraController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SkillsController.Instance.onHighlightedBlockChanged += Changed;
+		//SkillsController.Instance.onHighlightedBlockChanged += Changed;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		transform.position = Vector3.Lerp (transform.position, aimPosition, Time.deltaTime);
 		transform.Rotate (Vector3.up*-Input.GetAxis("Horizontal"));
-		Camera.main.fieldOfView -= Input.GetAxis ("Vertical");
-		Camera.main.fieldOfView = Mathf.Clamp (Camera.main.fieldOfView, 15, 75);
+		//Camera.main.fieldOfView -= Input.GetAxis ("Vertical");
+		//Camera.main.fieldOfView = Mathf.Clamp (Camera.main.fieldOfView, 15, 75);
 	}
 
 	void Changed (Block block)

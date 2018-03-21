@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CardsFieldTrigger.cs" />
+     <Compile Include="Assets\CardsPlayer.cs" />
+     <Compile Include="Assets\LineArrow.cs" />
      <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\DraggablePanel.cs" />
      <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\EventSystemChecker.cs" />
      <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyCountdownPanel.cs" />
@@ -123,6 +125,8 @@
      <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
      <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
      <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
+     <Compile Include="Assets\ResourcesManager.cs" />
+     <Compile Include="Assets\ResourcesVisualizer.cs" />
      <Compile Include="Assets\Scripts\BillBoard.cs" />
      <Compile Include="Assets\Scripts\Block.cs" />
      <Compile Include="Assets\Scripts\BlockInfo.cs" />
@@ -145,13 +149,8 @@
      <Compile Include="Assets\Scripts\Quest.cs" />
      <Compile Include="Assets\Scripts\RadiusVisualizer.cs" />
      <Compile Include="Assets\Scripts\Recycler.cs" />
-     <Compile Include="Assets\Scripts\Selector.cs" />
      <Compile Include="Assets\Scripts\Singleton.cs" />
-     <Compile Include="Assets\Scripts\SkillButton.cs" />
      <Compile Include="Assets\Scripts\SkillsController.cs" />
-     <Compile Include="Assets\Scripts\SkillsPanel.cs" />
-     <Compile Include="Assets\Scripts\StatsManager.cs" />
-     <Compile Include="Assets\Scripts\StatsPanel.cs" />
      <Compile Include="Assets\Scripts\StringWithParams.cs" />
      <None Include="Assets\PostProcessing\Resources\Shaders\DepthOfField.shader" />
      <None Include="Assets\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
@@ -178,6 +177,7 @@
      <None Include="Assets\PostProcessing\Resources\Shaders\AmbientOcclusion.shader" />
      <None Include="Assets\PostProcessing\Resources\Bluenoise64\LICENSE.txt" />
      <None Include="Assets\PostProcessing\Resources\Shaders\BuiltinDebugViews.shader" />
+     <None Include="Assets\LobbyAndCards\SampleScene3\Resources\Rays.shader" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Common.cginc" />
      <None Include="Assets\PostProcessing\Resources\Bluenoise64\COPYING.txt" />
      <None Include="Assets\LobbyAndCards\Fonts\OpenSans\License!.txt" />

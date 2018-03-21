@@ -31,51 +31,57 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 case CardState.ChosingAim:
                     if (_state == CardState.Dragging)
                     {
-                        //place card in action slot
-                        _state = CardState.ChosingAim;
+					if (CardCanBePlayed) {
+						MoveCardTo (CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one / 2, () => {
+
+						});
+						_state = CardState.ChosingAim;
+					} else 
+					{
+						State = CardState.None;
+					}
+
                     }
                     break;
                 case CardState.Hovered:
                     if (_state == CardState.None)
                     {
+						transform.SetAsLastSibling ();
                         MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this, true), CardsManager.Instance.GetRotation(this, true), Vector3.one*2, () =>
                         {
-
+							
                         });
                         _state = CardState.Hovered;
                     }
                     break;
                 case CardState.None:
-                    if (_state == CardState.Dragging)
+				if (_state == CardState.Hovered || _state == CardState.None||_state == CardState.Dragging)
                     {
-                        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () =>
-                        {
-
-                        });
-                        _state = CardState.None;
-                    }
-                    if (_state == CardState.Hovered || _state == CardState.None)
-                    {
+						GetComponent<CanvasGroup>().blocksRaycasts = true;
+						transform.SetParent (CardsManager.Instance.handTransform);
+						transform.SetSiblingIndex(GetComponentInParent<CardsLayout>().GetCardSibling(this));
                         MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, ()=>
-                        {
-
+                        {	
                         });
                         _state = CardState.None;
                         //make card small and return in hand
                     }
-
                     break;
-                case CardState.Dragging:
-                    if (_state == CardState.Hovered || _state == CardState.None)
-                    {
-                        StopCoroutine("MoveCardToCoroutine");
-                        transform.localScale = Vector3.one;
-                        transform.SetParent(CardsManager.Instance.playerCanvas.transform);
-                        _state = CardState.Dragging;
-                    }
-                 
+			case CardState.Dragging:
+				if (_state == CardState.Hovered || _state == CardState.None || _state == CardState.ChosingAim) {
+					_state = CardState.Dragging;
+					GetComponent<CanvasGroup> ().blocksRaycasts = false;
+					transform.localScale = Vector3.one;
+					transform.SetParent (CardsManager.Instance.playerCanvas.transform);
+				}
+	
                     break;
-                case CardState.Played:
+			case CardState.Played:
+				MoveCardTo (CardsManager.Instance.dropTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => {
+					CardsManager.Instance.DropCard (this);
+				});
+				CardsPlayer.Instance.PlayCard (this);
+						_state = CardState.Played;
                     //return card in deck
                     break;
             }
@@ -87,9 +93,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	public TextMeshProUGUI CardName, CardDescription;
     public Image AvaliabilityFrame;
     public Image CardImage;
-	private int lastSibling;
     private Card _cardAsset;
-	private int takedFromSibling;
 
     private bool _cardCanBePlayed = true;
     private bool CardCanBePlayed
@@ -137,7 +141,10 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     void OnDestroy()
     {
-        ResourcesManager.Instance.OnResourceValueChanged -= ResourceChanged;
+		if(ResourcesManager.Instance)
+		{
+        	ResourcesManager.Instance.OnResourceValueChanged -= ResourceChanged;
+		}
     }
 
     private void ResourceChanged(GameResource arg1, int arg2)
@@ -151,13 +158,6 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         if (FakeController.Instance.MyTurn)
         {
             State = CardState.Dragging;
-            /*
-            transform.localScale = Vector3.one;
-            FocusedEnabled = false;
-            takedFromSibling = GetComponentInParent<CardsLayout>().GetSibling(this);
-   
-            GetComponent<CanvasGroup>().blocksRaycasts = false;
-            */
         }
 	}
 	#endregion
@@ -167,9 +167,14 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	{
         if (State == CardState.Dragging)
         {
-            if (FakeController.Instance.MyTurn)
+			if (FakeController.Instance.MyTurn && eventData.pointerEnter)
             {
-                transform.position = eventData.position;
+				Vector3 globalMousePos;
+				if (RectTransformUtility.ScreenPointToWorldPointInRectangle(eventData.pointerEnter.transform as RectTransform, eventData.position, Camera.main, out globalMousePos))
+				{
+					transform.localScale = Vector3.one;
+					transform.position = globalMousePos;
+				}
             }
         }
 	}
@@ -178,8 +183,11 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	#region IEndDragHandler implementation
 	public void OnEndDrag (PointerEventData eventData)
 	{
-        State = CardState.None;
-        /*
+		if (State == CardState.ChosingAim) {
+			State = CardState.Played;
+		} else {
+			State = CardState.None;
+		}/*
             GetComponent<CanvasGroup>().blocksRaycasts = true;
             transform.SetParent(CardsManager.Instance.handTransform);
             transform.SetSiblingIndex(takedFromSibling);
@@ -190,18 +198,22 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
 	public void OnPointerEnter (PointerEventData eventData)
 	{
-        State = CardState.Hovered; 
+		if (State == CardState.None && !CardsManager.Instance.CardDragging) {
+			State = CardState.Hovered; 
+		}
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-        State = CardState.None;
-
+		if(State == CardState.Hovered && !CardsManager.Instance.CardDragging)
+		{
+        	State = CardState.None;
+		}
     }
 
     private void MoveCardTo(Transform parent, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, Action callback = null)
     {
-        StopCoroutine("MoveCardToCoroutine");
+		StopCoroutine(MoveCardToCoroutine(parent, localPosition, localRotation, localScale, callback));
         StartCoroutine(MoveCardToCoroutine(parent, localPosition, localRotation, localScale, callback));
     }
 
@@ -209,16 +221,14 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         transform.SetParent(parent);
         float time = 0;
-        while (transform.localScale!=localScale || transform.localPosition!=localPosition || transform.localRotation!=localRotation)
-        {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, localPosition, time);
-            transform.localScale = Vector3.Lerp(transform.localScale, localScale, time);
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, localRotation, time);
+		while (time<1)
+		{	
+			transform.localPosition = Vector3.Lerp(transform.localPosition, localPosition, time);
+			transform.localScale = Vector3.Lerp(transform.localScale, localScale, time);
+			transform.localRotation = Quaternion.Lerp(transform.localRotation, localRotation, time);
             time += Time.deltaTime*4;
-
             yield return new WaitForEndOfFrame();
         }
-
         if (callback!=null)
         {
             callback.Invoke();

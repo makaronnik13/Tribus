@@ -1,18 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/CardsFieldTrigger.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LobbyAndCards/SampleScene3/Scripts/Card.cs">
     <Files>
-      <File FileName="Assets/CardsFieldTrigger.cs" Line="42" Column="43" />
-      <File FileName="Assets/LobbyAndCards/SampleScene3/Scripts/CardVisual.cs" Line="53" Column="3" />
-      <File FileName="Assets/Scripts/CellState.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Condition.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/CombineModel.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/StatsManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/InformationPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Block.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BlocksField.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DiamondSquareTest.cs" Line="1" Column="1" />
-      <File FileName="Assets/LobbyAndCards/SampleScene3/Scripts/CardsLayout.cs" Line="55" Column="26" />
+      <File FileName="Assets/Scripts/Block.cs" Line="12" Column="35" />
+      <File FileName="Assets/CardsPlayer.cs" Line="28" Column="3" />
+      <File FileName="Assets/LobbyAndCards/SampleScene3/Scripts/CardVisual.cs" Line="82" Column="8" />
+      <File FileName="Assets/Scripts/SkillsController.cs" Line="12" Column="26" />
+      <File FileName="Assets/CardsFieldTrigger.cs" Line="28" Column="4" />
+      <File FileName="Assets/Scripts/CameraController.cs" Line="11" Column="5" />
+      <File FileName="Assets/Scripts/CellPointer.cs" Line="28" Column="6" />
+      <File FileName="Assets/ResourcesManager.cs" Line="37" Column="40" />
+      <File FileName="Assets/LobbyAndCards/SampleScene3/Scripts/Card.cs" Line="35" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

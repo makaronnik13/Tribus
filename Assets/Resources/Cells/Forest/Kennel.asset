@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: Kennel
+  m_EditorClassIdentifier: 
+  StateName: Kennel
+  type: 0
+  Biom: 0
+  X: 836
+  Y: -398
+  radiusType: 0
+  radius: 1
+  radiusResource: {fileID: 0}
+  description: Kennel
+  prefab: {fileID: 1678593992580150, guid: 4808edbd76d3440e5889accd6b0aa77a, type: 2}
+  Sprite: {fileID: 21300000, guid: cc5fa6d5ed2a443c983456006c91cd7b, type: 3}
+  types: 
+  income:
+  - resource: {fileID: 11400000, guid: f3768d0ac0771e34da0e3d1561f70bda, type: 2}
+    value: 2
+  combinations:
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: 19b9705886de24155945abc2f3902456, type: 2}
+    skillLevel: 2
+  - skill: 3
+    ResultState: {fileID: 11400000, guid: ba4535f25bdcd4768819d5bb269fb404, type: 2}
+    skillLevel: 2
+  conditions: []
+  buffs: []

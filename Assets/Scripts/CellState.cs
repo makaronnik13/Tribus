@@ -102,11 +102,11 @@ public class CellState: ScriptableObject
 		return false;
 	}
 
-	public CellState CombinationResult(CombineModel.Skills skill)
+	public CellState CombinationResult(CombineModel.Skills skill, int skillLevel = 0)
 	{
 		foreach(Combination comb in Combinations)
 		{
-			if(comb.skill == skill)
+			if(comb.skill == skill && skillLevel == comb.skillLevel)
 			{
 				return comb.ResultState;
 			}

@@ -5,15 +5,32 @@ using UnityEngine;
 
 public class CardsPlayer : Singleton<CardsPlayer>
 {
+	public List<GameObject> focusedAims = new List<GameObject> ();
+
     public Action<Card> OnCardPlayed = (Card card) => { };
 
-    public void PlayCard(Card card)
+    public void PlayCard(CardVisual card)
     {
-        PlayCard(card, new List<UnityEngine.Object>());
+		PlayCard(card, focusedAims);
     }
 
-    public void PlayCard(Card card, List<UnityEngine.Object> aims)
+	public void PlayCard(CardVisual card, List<GameObject> aims)
     {
-        OnCardPlayed.Invoke(card);
+		Debug.Log (card.CardAsset+" "+aims.Count);
+		CardsManager.Instance.OnCardDroped.Invoke (card);
+		foreach(GameObject aim in aims)
+		{
+			if(aim.GetComponent<Block>())
+			{
+				SkillsController.Instance.ActivateSkill (aim.GetComponent<Block>(), card.CardAsset.skill, card.CardAsset.skillLevel);
+			}
+		}
+		OnCardPlayed.Invoke(card.CardAsset);
     }
+
+	public void SelectBlock(Block block)
+	{
+		focusedAims = new List<GameObject> ();
+		focusedAims.Add (block.gameObject);
+	}
 }

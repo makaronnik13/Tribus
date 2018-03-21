@@ -28,6 +28,8 @@ public class ResourcesVisualizer : MonoBehaviour {
             }
             GameObject newVisualiser = Instantiate(ResourceValueVisualizer, Vector3.zero, Quaternion.identity, transform);
             newVisualiser.transform.localScale = Vector3.one;
+			newVisualiser.transform.localRotation = Quaternion.identity;
+			newVisualiser.transform.localPosition = Vector3.zero;
             newVisualiser.GetComponent<Image>().sprite = gr.sprite;
             visualisers.Add(gr, newVisualiser);
             newVisualiser.SetActive(false);

@@ -11,19 +11,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: EmptyMountain
   m_EditorClassIdentifier: 
-  StateName: "\u0413\u043E\u0440\u044B"
+  StateName: Mountains
   type: 0
-  Biom: 4
-  X: 178
-  Y: -29
+  Biom: 2
+  X: 123
+  Y: -102
   radiusType: 0
   radius: 1
   radiusResource: {fileID: 0}
-  description: 
+  description: Mountains
   prefab: {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
   Sprite: {fileID: 21300000, guid: 6eac298180d484c098b8b0c1f99db52f, type: 3}
   types: 
   income: []
-  combinations: []
+  combinations:
+  - skill: 3
+    ResultState: {fileID: 11400000, guid: c1ef19fb10716d2449429aa077c89789, type: 2}
+    skillLevel: 1
+  - skill: 2
+    ResultState: {fileID: 11400000, guid: 7681fc5e720444694bf8ccdd2f16ef82, type: 2}
+    skillLevel: 1
+  - skill: 1
+    ResultState: {fileID: 11400000, guid: b949c7eec16734e82865ae63fb74deb9, type: 2}
+    skillLevel: 1
   conditions: []
   buffs: []

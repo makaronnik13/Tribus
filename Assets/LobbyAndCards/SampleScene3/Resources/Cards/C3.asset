@@ -18,3 +18,9 @@ MonoBehaviour:
   Cost:
   - resource: {fileID: 11400000, guid: 09cc291755db7bb4893dca74fad8fad3, type: 2}
     value: 1
+  - resource: {fileID: 11400000, guid: 64d92121c6c2dc743b578551fe4af803, type: 2}
+    value: 1
+  - resource: {fileID: 11400000, guid: f3768d0ac0771e34da0e3d1561f70bda, type: 2}
+    value: 1
+  skill: 2
+  skillLevel: 1

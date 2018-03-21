@@ -44,7 +44,7 @@ public class InformationPanel : Singleton<InformationPanel>
                 GameObject newRaw = Instantiate(incomePrefab, incomeContent);
                 newRaw.transform.localScale = Vector3.one;
                 newRaw.GetComponentInChildren<Image>().sprite = inc.resource.sprite;
-                newRaw.GetComponentInChildren<Text>().text = inc.value + "";
+				newRaw.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = inc.value + "";
             }
 
             showingBlock = block;

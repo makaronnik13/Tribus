@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
+  m_Name: Sunny_Calendar
+  m_EditorClassIdentifier: 
+  StateName: Sunny Calendar
+  type: 0
+  Biom: 2
+  X: 262
+  Y: 289
+  radiusType: 0
+  radius: 1
+  radiusResource: {fileID: 0}
+  description: Sunny Calendar
+  prefab: {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
+  Sprite: {fileID: 0}
+  types: 
+  income:
+  - resource: {fileID: 11400000, guid: f3768d0ac0771e34da0e3d1561f70bda, type: 2}
+    value: 4
+  - resource: {fileID: 11400000, guid: 09cc291755db7bb4893dca74fad8fad3, type: 2}
+    value: 1
+  combinations: []
+  conditions: []
+  buffs: []

@@ -30,11 +30,11 @@ public class ResourcesManager : Singleton<ResourcesManager>
             AddResource(ink.resource, ink.value);
         }
 
-        foreach (CellState cs in FindObjectsOfType<CellState>())
+		foreach (Block cs in FindObjectsOfType<Block>())
         {
-            foreach(Inkome ink in cs.income)
+			foreach(Inkome ink in cs.CurrentIncome)
             {
-                AddResource(ink.resource, ink.value);
+				AddResource(ink.resource, ink.value);
             }
         }
 

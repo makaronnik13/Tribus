@@ -6,6 +6,21 @@ using System;
 
 public class CardsLayout : MonoBehaviour
 {
+	private List<Transform> CardsSiblings = new List<Transform>();
+
+	public List<CardVisual> Cards
+	{
+		get
+		{
+			List<CardVisual> cv = new List<CardVisual> ();
+			foreach(Transform pair in CardsSiblings)
+			{
+				cv.Add (pair.GetComponent<CardVisual>());
+			}
+			return cv;
+		}
+	}
+
     private RectTransform _rectTransform;
     private RectTransform rectTransform
     {
@@ -18,76 +33,50 @@ public class CardsLayout : MonoBehaviour
             return _rectTransform;
         }
     }
-	private int childCount = 0;
 
-	private List<Transform> childTransforms = new List<Transform>();
-
-	public void Update()
+	void Awake()
 	{
-		if(childCount!=transform.childCount)
-		{
-			RecalculateSibling ();
-			childCount = transform.childCount;
-		}
-
-        //LayoutCards();
+		CardsManager.Instance.OnCardTaken += CardTaken;
+		CardsManager.Instance.OnCardDroped += CardDroped;
 	}
 
-	public void RecalculateSibling()
+	public int GetCardSibling(CardVisual cv)
 	{
-		childTransforms.Clear ();
-		foreach(Transform t in transform)
-		{
-			childTransforms.Add (t);
-		}
-        foreach (Transform t in childTransforms)
-        {
-            t.GetComponent<CardVisual>().State = t.GetComponent<CardVisual>().State;
-        }
+		return CardsSiblings.IndexOf(cv.transform);
 	}
 
-	// Update is called once per frame
-	void LayoutCards() 
+	private void CardTaken(CardVisual visual)
 	{
-			int i = 0;
-			int cards = transform.childCount;
-			float minRotation = -20;
-			Vector3 minPosition = new Vector3 (GetComponent<RectTransform>().rect.width/2, 0,0);
-			foreach(Transform t in childTransforms)
-			{
-				float rotation = Mathf.Lerp(-minRotation, minRotation, i/(cards+0.0f));
-				Quaternion aimRotation = Quaternion.Euler (new Vector3 (0, 0, rotation));
-				Vector3 aimPosition = Vector3.Lerp (-minPosition, minPosition, i / (cards + 0.0f));
+		CardsSiblings.Add (visual.transform);
+		CardsReposition ();
+	}
 
-				if(t.localScale!=Vector3.one)
-				{
-					aimRotation = Quaternion.identity;
-					aimPosition += Vector3.up * t.GetComponent<RectTransform>().rect.height/2;
-				}
+	private void CardDroped(CardVisual visual)
+	{
+		CardsSiblings.Remove (visual.transform);
+		CardsReposition ();
+	}
 
-	
-				if (aimPosition != t.localPosition || aimRotation != t.localRotation)
-                {
-                    StopCoroutine(MoveTo(t, aimPosition, aimRotation));
-                    StartCoroutine(MoveTo(t, aimPosition, aimRotation));
-				}
-				i++;
-			}
+	public void CardsReposition()
+	{
+		foreach(Transform pair in CardsSiblings)
+		{
+			pair.GetComponent<CardVisual> ().State = pair.GetComponent<CardVisual> ().State;
+		}
 	}
 
     public Quaternion GetRotation(CardVisual cardVisual, bool focused = false)
     {
-        int i = 0;
-        int cards = transform.childCount;
+		int cards = transform.childCount;
         float minRotation = -20;
 
         Quaternion aimRotation = Quaternion.identity;
 
-        foreach (Transform t in childTransforms)
+		foreach (Transform t in transform)
         {
             if (t == cardVisual.transform)
             {
-                float rotation = Mathf.Lerp(-minRotation, minRotation, i / (cards + 0.0f));
+				float rotation = Mathf.Lerp(-minRotation, minRotation,  CardsSiblings.IndexOf(t) / (cards + 0.0f));
                 aimRotation = Quaternion.Euler(new Vector3(0, 0, rotation));
 
                 if (focused)
@@ -95,7 +84,6 @@ public class CardsLayout : MonoBehaviour
                     aimRotation = Quaternion.identity;
                 }
             }
-            i++;
         }
 
             return aimRotation;
@@ -103,38 +91,24 @@ public class CardsLayout : MonoBehaviour
 
     public Vector3 GetPosition(CardVisual cardVisual, bool focused = false)
     {
-        int i = 0;
-        int cards = transform.childCount;
+		int cards = transform.childCount;
         Vector3 aimPosition = Vector3.zero;
         Vector3 minPosition = new Vector3(GetComponent<RectTransform>().rect.width / 2, 0, 0);
-        foreach (Transform t in childTransforms)
+		foreach (Transform t in transform)
         {
             if (t == cardVisual.transform)
             {
-                aimPosition = Vector3.Lerp(-minPosition, minPosition, i / (cards + 0.0f));
+				aimPosition = Vector3.Lerp(-minPosition, minPosition, CardsSiblings.IndexOf(t) / (cards + 0.0f));
 
                 if (focused)
                 {
                     aimPosition += Vector3.up * t.GetComponent<RectTransform>().rect.height / 2;
                 }
             }
-            i++;
         }
 
         return aimPosition;
     }
-
-    public int GetSibling(CardVisual cv)
-	{
-		for(int i = 0; i<childTransforms.Count;i++)
-		{
-			if(childTransforms[i].GetComponent<CardVisual>()==cv)
-			{
-				return i;
-			}
-		}
-		return 0;
-	}
 
     IEnumerator MoveTo(Transform card, Vector3 position, Quaternion rotation)
     {

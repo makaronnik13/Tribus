@@ -7,7 +7,10 @@ using UnityEngine;
 public class CardsManager : Singleton<CardsManager> {
 
     public GameObject CardPrefab;
-    public Transform dropTransform, pileTransform, handTransform;
+    public Transform dropTransform, pileTransform, handTransform, activationSlotTransform;
+
+	public Action<CardVisual> OnCardTaken = (CardVisual visual)=>{};
+	public Action<CardVisual> OnCardDroped = (CardVisual visual)=>{};
 
 	private List<CardVisual> cardsInHand = new List<CardVisual>();
 	public int CardsCount
@@ -16,6 +19,21 @@ public class CardsManager : Singleton<CardsManager> {
 		{
 			cardsInHand.RemoveAll (c=>c == null);
 			return cardsInHand.Count;
+		}
+	}
+
+	public bool CardDragging
+	{
+		get
+		{
+			foreach(CardVisual cv in GetComponentInChildren<CardsLayout>().Cards)
+			{
+				if(cv.State == CardVisual.CardState.Dragging || cv.State == CardVisual.CardState.ChosingAim)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 
@@ -44,17 +62,19 @@ public class CardsManager : Singleton<CardsManager> {
     public void GetCard()
     {
         GameObject newCard = Instantiate(CardPrefab);
+		OnCardTaken.Invoke (newCard.GetComponent<CardVisual>());
         newCard.GetComponent<CardVisual>().Init(pile.Dequeue());
 		cardsInHand.Add (newCard.GetComponent<CardVisual>());
         newCard.transform.SetParent(pileTransform);
         newCard.transform.localPosition = Vector3.zero;
+		newCard.transform.localRotation = Quaternion.identity;
         newCard.transform.localScale = Vector3.one;
         if (pile.Count == 0)
         {
             Resuffle();
         }
-
 		newCard.transform.SetParent(handTransform);
+		GetComponentInChildren<CardsLayout> ().CardsReposition ();
     }
 
     public Vector3 GetPosition(CardVisual cardVisual, bool hovered = false)
@@ -69,6 +89,7 @@ public class CardsManager : Singleton<CardsManager> {
 
     public void DropCard(CardVisual cardVisual)
     {
+			OnCardDroped.Invoke (cardVisual);
             drop.Add(cardVisual.CardAsset);
             Destroy(cardVisual.gameObject);
     }

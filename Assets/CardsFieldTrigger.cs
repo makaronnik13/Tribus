@@ -24,7 +24,7 @@ public class CardsFieldTrigger : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
-		if (activeCardVisual) 
+		if (activeCardVisual && (activeCardVisual.State == CardVisual.CardState.Dragging || activeCardVisual.State == CardVisual.CardState.ChosingAim)) 
 		{
             activeCardVisual.State = CardVisual.CardState.Dragging;
 			activeCardVisual = null;

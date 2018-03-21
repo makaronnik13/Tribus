@@ -7,7 +7,7 @@ public class CellPointer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		transform.GetChild (0).gameObject.SetActive (false);
-		SkillsController.Instance.onHighlightedBlockChanged += Changed;
+		//SkillsController.Instance.onHighlightedBlockChanged += Changed;
 	}
 	
 	// Update is called once per frame
@@ -15,6 +15,7 @@ public class CellPointer : MonoBehaviour {
 	{
 		transform.GetChild (0).gameObject.SetActive (false);
 
+		/*
 		if (block && block.State.HasCombination (SkillsController.Instance.CurrentSkill)) {
 			CombineModel.Skills skill = SkillsController.Instance.CurrentSkill;
 
@@ -24,6 +25,6 @@ public class CellPointer : MonoBehaviour {
                 //set pointer image
 				//GetComponentInChildren<SpriteRenderer> ().sprite = SkillsPanel.Instance.SkillImage (skill);
 			}
-		}
+		}*/
 	}
 }

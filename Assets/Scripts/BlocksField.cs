@@ -74,7 +74,7 @@ public class BlocksField : Singleton<BlocksField> {
 
         foreach (Block b in FindObjectsOfType<Block>())
         {
-            b.RecalculateInkome();
+            //b.RecalculateInkome();
         }
 
 		HighLightFields (new List<Block>(){});

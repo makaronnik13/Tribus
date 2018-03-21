@@ -343,7 +343,6 @@ using System.Linq;
     void DrawStateBox(KeyValuePair<CellState, GUIDraggableObject> state)
 	{
 
-			
 		GUI.backgroundColor = biomsColors[state.Key.Biom];
 
 
