@@ -330,6 +330,8 @@
     <None Include="Assets\LobbyAndCards\Fonts\OpenSans\License!.txt" />
     <None Include="Assets\LobbyAndCards\Lobby\Documentation.txt" />
     <None Include="Assets\LobbyAndCards\Lobby\Instruction.txt" />
+    <None Include="Assets\LobbyAndCards\SampleScene3\Resources\Rays.shader" />
+    <None Include="Assets\LobbyAndCards\SampleScene3\Resources\sELECTOR.shader" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.xml" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.xml" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.xml" />

@@ -15,8 +15,8 @@ public class CameraController : MonoBehaviour {
 	void Update () {
 		transform.position = Vector3.Lerp (transform.position, aimPosition, Time.deltaTime);
 		transform.Rotate (Vector3.up*-Input.GetAxis("Horizontal"));
-		//Camera.main.fieldOfView -= Input.GetAxis ("Vertical");
-		//Camera.main.fieldOfView = Mathf.Clamp (Camera.main.fieldOfView, 15, 75);
+		transform.GetChild(0).GetComponent<Camera>().fieldOfView -= Input.GetAxis ("Vertical");
+        transform.GetChild(0).GetComponent<Camera>().fieldOfView = Mathf.Clamp (transform.GetChild(0).GetComponent<Camera>().fieldOfView, 15, 75);
 	}
 
 	void Changed (Block block)

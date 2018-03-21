@@ -5,32 +5,84 @@ using UnityEngine;
 
 public class CardsPlayer : Singleton<CardsPlayer>
 {
-	public List<GameObject> focusedAims = new List<GameObject> ();
+    private Card activeCard;
+    public Card ActiveCard
+    {
+        get
+        {
+            return activeCard;
+        }
+        set
+        {
+            activeCard = value;
+            foreach (ISkillAim aim in InterfaceHelper.FindObjects<ISkillAim>())
+            {
+                aim.Highlight(value, value!=null);
+                aim.HighlightSelected(value, false);
+            }
+        }
+    }
+
+	public List<ISkillAim> focusedAims = new List<ISkillAim> ();
 
     public Action<Card> OnCardPlayed = (Card card) => { };
 
     public void PlayCard(CardVisual card)
     {
-		PlayCard(card, focusedAims);
+        if(card.CardAsset.aimType!= Card.CardAimType.None)
+        {
+            if (focusedAims.Count > 0)
+            {
+                PlayCard(card, focusedAims);
+                card.State = CardVisual.CardState.Played;
+            }
+            else
+            {
+                card.State = CardVisual.CardState.None;
+            }
+            
+        }
+        else
+        {
+            PlayCard(card, focusedAims);
+            card.State = CardVisual.CardState.Played;
+        }
+
+        ActiveCard = null;
     }
 
-	public void PlayCard(CardVisual card, List<GameObject> aims)
+	private void PlayCard(CardVisual card, List<ISkillAim> aims)
     {
-		Debug.Log (card.CardAsset+" "+aims.Count);
+        ActiveCard = null;
 		CardsManager.Instance.OnCardDroped.Invoke (card);
-		foreach(GameObject aim in aims)
+		foreach(ISkillAim aim in aims)
 		{
-			if(aim.GetComponent<Block>())
+			if(aim.GetType()==typeof(Block))
 			{
-				SkillsController.Instance.ActivateSkill (aim.GetComponent<Block>(), card.CardAsset.skill, card.CardAsset.skillLevel);
+				SkillsController.Instance.ActivateSkill (aim as Block, card.CardAsset.skill, card.CardAsset.skillLevel);
 			}
 		}
+        card.State = CardVisual.CardState.Played;
 		OnCardPlayed.Invoke(card.CardAsset);
     }
 
-	public void SelectBlock(Block block)
+
+	public void SelectAims(ISkillAim aim)
 	{
-		focusedAims = new List<GameObject> ();
-		focusedAims.Add (block.gameObject);
-	}
+        foreach (ISkillAim lastTaim in focusedAims)
+        {
+            lastTaim.HighlightSelected(ActiveCard, false);
+        }
+
+		focusedAims = new List<ISkillAim> ();
+
+        if (ActiveCard && aim!=null && aim.IsAwaliable(ActiveCard))
+        {
+            focusedAims.Add(aim);
+            foreach (ISkillAim lastTaim in focusedAims)
+            {
+                lastTaim.HighlightSelected(ActiveCard, true);
+            }
+        }
+    }
 }

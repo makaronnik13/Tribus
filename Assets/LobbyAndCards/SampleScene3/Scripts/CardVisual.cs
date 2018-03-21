@@ -35,6 +35,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 						MoveCardTo (CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one / 2, () => {
 
 						});
+                            CardsPlayer.Instance.ActiveCard = CardAsset;
 						_state = CardState.ChosingAim;
 					} else 
 					{
@@ -55,7 +56,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                     }
                     break;
                 case CardState.None:
-				if (_state == CardState.Hovered || _state == CardState.None||_state == CardState.Dragging)
+				if (_state == CardState.Hovered || _state == CardState.None||_state == CardState.Dragging || _state == CardState.ChosingAim)
                     {
 						GetComponent<CanvasGroup>().blocksRaycasts = true;
 						transform.SetParent (CardsManager.Instance.handTransform);
@@ -68,8 +69,13 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                     }
                     break;
 			case CardState.Dragging:
+                    if (_state == CardState.ChosingAim)
+                    {
+                        CardsPlayer.Instance.ActiveCard = null;
+                    }
 				if (_state == CardState.Hovered || _state == CardState.None || _state == CardState.ChosingAim) {
-					_state = CardState.Dragging;
+
+                    _state = CardState.Dragging;
 					GetComponent<CanvasGroup> ().blocksRaycasts = false;
 					transform.localScale = Vector3.one;
 					transform.SetParent (CardsManager.Instance.playerCanvas.transform);
@@ -80,7 +86,6 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 				MoveCardTo (CardsManager.Instance.dropTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => {
 					CardsManager.Instance.DropCard (this);
 				});
-				CardsPlayer.Instance.PlayCard (this);
 						_state = CardState.Played;
                     //return card in deck
                     break;
@@ -184,7 +189,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	public void OnEndDrag (PointerEventData eventData)
 	{
 		if (State == CardState.ChosingAim) {
-			State = CardState.Played;
+            CardsPlayer.Instance.PlayCard(this);
 		} else {
 			State = CardState.None;
 		}/*

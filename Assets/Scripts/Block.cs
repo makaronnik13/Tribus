@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using System;
 
-public class Block : MonoBehaviour {
+public class Block : MonoBehaviour, ISkillAim {
 
 	public Action<CombineModel.Biom, Block> OnBiomChanged = (CombineModel.Biom biom, Block block)=>{};
 
@@ -43,8 +43,6 @@ public class Block : MonoBehaviour {
 				}
         }
     }
-
-    private bool mouseInCell = false;
 
 
     public void RecalculateInkome()
@@ -90,53 +88,62 @@ public class Block : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		/*
-		if (State.HasCombination (SkillsController.Instance.CurrentSkill)) {
-			//SkillsController.Instance.ActivateSkill (this);
-		}*/
+	
 	}
 
 	void OnMouseUp()
 	{
-		/*
-		Debug.Log (State);
-		BlocksField.Instance.ShowInfo (new List<Block>(){});
-        InformationPanel.Instance.ShowInfo(null);
-		RadiusVisualizer.Instance.ShowRadius (null);
-		SkillsController.Instance.ActivateSkill ();
-		*/
-	}
+        
+    }
 
 	void OnMouseEnter()
 	{
-		CardsPlayer.Instance.SelectBlock (this);
-		//SkillsController.Instance.aimBlock = this;
-		//mouseInCell = true;
-		//SkillsController.Instance.HighlightedBlock = this;
-		//BlocksField.Instance.HighLightFields (new List<Block>(){this});
-	}
+		CardsPlayer.Instance.SelectAims (this);
+        InformationPanel.Instance.ShowInfo(this);
+    }
 
 	void OnMouseExit()
 	{
-		mouseInCell = false;
-		BlocksField.Instance.HighLightFields (new List<Block>(){});
-		BlocksField.Instance.ShowInfo (new List<Block>(){});
+        CardsPlayer.Instance.SelectAims(null);
         InformationPanel.Instance.ShowInfo(null);
-		RadiusVisualizer.Instance.ShowRadius (null);
     }
 
 	void OnMouseDrag()
 	{
-		if (mouseInCell) 
-		{
-			BlocksField.Instance.ShowInfo (new List<Block> (){ this });
-            InformationPanel.Instance.ShowInfo(this);
-			RadiusVisualizer.Instance.ShowRadius (this);
-        }
+		
 	}
 
 	public void RecalculateMesh(CombineModel.Biom newBiom, int side)
 	{
 		
 	}
+
+    public bool IsAwaliable(Card card)
+    {
+        if (!card)
+        {
+            return false;
+        }
+        if (card.aimType == Card.CardAimType.Cell)
+        {
+            foreach (Combination comb in State.Combinations)
+            {
+                if (comb.skill == card.skill && comb.skillLevel == card.skillLevel)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void Highlight(Card card, bool v)
+    {
+        BlocksField.Instance.HighLightBlock(this, v && IsAwaliable(card));
+    }
+
+    public void HighlightSelected(Card card, bool v)
+    {
+        BlocksField.Instance.HighLightBlock(this, v && IsAwaliable(card), true);
+    }
 }

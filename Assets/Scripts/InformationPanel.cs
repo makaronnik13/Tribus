@@ -16,7 +16,7 @@ public class InformationPanel : Singleton<InformationPanel>
 
 	// Use this for initialization
 	void Start () {
-        GetComponent<Canvas>().enabled = false;
+        transform.GetChild(0).gameObject.SetActive(false);
         symbiosys.gameObject.SetActive(false);
     }
 	
@@ -24,13 +24,13 @@ public class InformationPanel : Singleton<InformationPanel>
     {
         if (block == null)
         {
-            GetComponent<Canvas>().enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
             symbiosys.gameObject.SetActive(false);
             showingBlock = block;
         }
 		else if(showingBlock!=block)
         {
-            GetComponent<Canvas>().enabled = true;
+            transform.GetChild(0).gameObject.SetActive(true);
             symbiosys.gameObject.SetActive(true);
             foreach (Transform t in incomeContent)
             {

@@ -326,6 +326,9 @@
   <ItemGroup>
     <Compile Include="Assets\CardsFieldTrigger.cs" />
     <Compile Include="Assets\CardsPlayer.cs" />
+    <Compile Include="Assets\CellHighlighter.cs" />
+    <Compile Include="Assets\InterfaceHelper.cs" />
+    <Compile Include="Assets\LineArrow.cs" />
     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\DraggablePanel.cs" />
     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\EventSystemChecker.cs" />
     <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyCountdownPanel.cs" />
@@ -417,6 +420,7 @@
     <Compile Include="Assets\Scripts\GUIDragableObject.cs" />
     <Compile Include="Assets\Scripts\InformationPanel.cs" />
     <Compile Include="Assets\Scripts\Inkome.cs" />
+    <Compile Include="Assets\Scripts\ISkillAim.cs" />
     <Compile Include="Assets\Scripts\PopupInfoPanel.cs" />
     <Compile Include="Assets\Scripts\Quest.cs" />
     <Compile Include="Assets\Scripts\RadiusVisualizer.cs" />
@@ -429,6 +433,8 @@
     <None Include="Assets\LobbyAndCards\Fonts\OpenSans\License!.txt" />
     <None Include="Assets\LobbyAndCards\Lobby\Documentation.txt" />
     <None Include="Assets\LobbyAndCards\Lobby\Instruction.txt" />
+    <None Include="Assets\LobbyAndCards\SampleScene3\Resources\Rays.shader" />
+    <None Include="Assets\LobbyAndCards\SampleScene3\Resources\sELECTOR.shader" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.xml" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.xml" />
     <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.xml" />

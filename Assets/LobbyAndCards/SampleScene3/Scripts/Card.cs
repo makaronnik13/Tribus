@@ -32,8 +32,6 @@ public class Card : ScriptableObject
 		Oponent
 	}
 
-	public CellOwnership
-
 	private bool ShowCellAim()
 	{
 		return aimType == CardAimType.Cell;

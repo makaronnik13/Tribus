@@ -12,7 +12,7 @@ public class BlocksField : Singleton<BlocksField> {
 	public GameObject Highlighter;
 	public GameObject BlockInfo;
 
-	private Dictionary<Vector3, Projector> highlighters = new Dictionary<Vector3,Projector>();
+	private Dictionary<Vector3, CellHighlighter> highlighters = new Dictionary<Vector3, CellHighlighter>();
 	private List<BlockInfo> blocksInfos = new List<BlockInfo>();
 
 	private bool infoShowing;
@@ -67,17 +67,15 @@ public class BlocksField : Singleton<BlocksField> {
 				float width = Mathf.Pow (2, size) + 1;
 				Quaternion randomRotation = Quaternion.Euler (Vector3.up*90*Mathf.RoundToInt(Random.Range(0,3)));
 				GameObject nb = Instantiate (block, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), randomRotation,transform.GetChild(0));
-				highlighters.Add (nb.transform.position, Instantiate (Highlighter, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), Quaternion.identity,transform.GetChild(1)).GetComponentInChildren<Projector>());
+				highlighters.Add (nb.transform.position, Instantiate (Highlighter, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), Quaternion.identity,transform.GetChild(1)).GetComponent<CellHighlighter>());
 				blocksInfos.Add (Instantiate (BlockInfo, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), Quaternion.identity,transform.GetChild(2)).GetComponent<BlockInfo>());
-			}
+            }
 		}
 
         foreach (Block b in FindObjectsOfType<Block>())
         {
-            //b.RecalculateInkome();
+            b.RecalculateInkome();
         }
-
-		HighLightFields (new List<Block>(){});
 
 		foreach(Block block in FindObjectsOfType<Block>())
 		{
@@ -121,17 +119,14 @@ public class BlocksField : Singleton<BlocksField> {
 		}
 	}
 
-	public void HighLightFields(List<Block> blocks)
+	public void HighLightBlock(Block block, bool value, bool selection = false)
 	{
-		foreach(KeyValuePair<Vector3, Projector> ps in highlighters)
-		{
-			ps.Value.enabled = false;
-		}
+        if (!block)
+        {
+            return;
+        }
 
-		foreach(Block b in blocks)
-		{
-			highlighters[b.transform.position].enabled = true;
-		}
+        highlighters[block.transform.position].Set(value, selection);   
 	}
 
 	public void ShowInfo(List<Block> blocks)

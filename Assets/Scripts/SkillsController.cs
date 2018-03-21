@@ -12,7 +12,6 @@ public class SkillsController : Singleton<SkillsController>
 		CellState cs = aimBlock.State.CombinationResult (skill,skillLevel);
 		if(cs)
 		{
-			Debug.Log ("inst");
 			GameObject newBlock = Instantiate(cs.prefab);
 
 			newBlock.transform.SetParent (aimBlock.transform.parent);
