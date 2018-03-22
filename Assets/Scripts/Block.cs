@@ -3,11 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
 
 public class Block : MonoBehaviour, ISkillAim {
 
-	public Action<CombineModel.Biom, Block> OnBiomChanged = (CombineModel.Biom biom, Block block)=>{};
+	private Player owner;
+	public Player Owner
+	{
+		get
+		{
+			return owner;
+		}
+		set
+		{
+			owner = value;
+		}
+	}
 
+	public Action<CombineModel.Biom, Block> OnBiomChanged = (CombineModel.Biom biom, Block block)=>{};
 	private List<Inkome> currentIncome = new List<Inkome>();
 	public List<Inkome> CurrentIncome
 	{
@@ -98,6 +111,9 @@ public class Block : MonoBehaviour, ISkillAim {
 
 	void OnMouseEnter()
 	{
+		if (EventSystem.current.currentSelectedGameObject && EventSystem.current.currentSelectedGameObject.layer == 5) { // UI elements getting the hit/hover
+			return;
+		}
 		CardsPlayer.Instance.SelectAims (this);
         InformationPanel.Instance.ShowInfo(this);
     }

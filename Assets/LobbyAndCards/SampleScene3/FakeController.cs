@@ -13,42 +13,22 @@ public class FakeController : Singleton<FakeController> {
             return _myTurn;
         }
     }
-
-	public Card[] fakePile;
-
     public void EndTurn()
     {
-        ResourcesManager.Instance.EndTurn();
+		GameLobby.Instance.EndTurn ();
         GetComponentInChildren<DropSlot>().ResetDrop();
         _myTurn = false;
     }
 
-    public void StartTurn()
+	public void StartTurn(Player player)
     {
         _myTurn = true;
-        CardsManager.Instance.GetCard();
-        for (int i = CardsManager.Instance.CardsCount; i < 5; i++)
-        {
-            CardsManager.Instance.GetCard();
-        }
+		CardsManager.Instance.SelectPlayer (player);
         ResourcesManager.Instance.StartTurn();
     }
 
 	public void SkipTurn()
 	{
-        if (MyTurn)
-        {
-            EndTurn();
-        }
-        else
-        {
-            StartTurn();
-        }
-	}
-
-	void Start()
-	{
-        CardsManager.Instance.GeneratePile(fakePile.ToList());
-        StartTurn();
+        EndTurn();
 	}
 }

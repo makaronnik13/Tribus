@@ -2,8 +2,11 @@ Base path: /Applications/Unity/Unity.app/Contents
 Cmd: initializeCompiler
 Cmd: translateComputeKernel
   api=14 insize=6557 outsize=1317 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=7989 outsize=5301 ok=1
 Cmd: compileComputeKernel
-  api=15 insize=1526 outsize=897 ok=1
-Unhandled exception: Protocol error - failed to read correct magic number
+  api=14 insize=2343 outsize=7345 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=7345 outsize=3141 ok=1
 
 Quitting shader compiler process
