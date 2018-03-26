@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//SkillsController.Instance.onHighlightedBlockChanged += Changed;
+		CardsPlayer.Instance.OnAimsChanged += Changed;
 	}
 	
 	// Update is called once per frame
@@ -19,11 +19,25 @@ public class CameraController : MonoBehaviour {
         transform.GetChild(0).GetComponent<Camera>().fieldOfView = Mathf.Clamp (transform.GetChild(0).GetComponent<Camera>().fieldOfView, 15, 75);
 	}
 
-	void Changed (Block block)
+	void Changed (List<ISkillAim> aims)
 	{
-		if(block)
+		Vector3 pos = Vector3.zero;
+		int numberOfBlocks = 0;
+
+		foreach(ISkillAim aim in aims)
 		{
-			aimPosition = block.transform.position;
+			if(aim.GetType()==typeof(Block))
+			{
+				pos += ((Block)aim).transform.position;
+				numberOfBlocks++;
+			}
 		}
+
+		if(numberOfBlocks == 0)
+		{
+			return;
+		}
+		pos /= numberOfBlocks;
+		aimPosition = pos;
 	}
 }

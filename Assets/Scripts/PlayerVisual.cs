@@ -79,6 +79,10 @@ public class PlayerVisual : MonoBehaviour, ISkillAim
 		}
 	}
 
+	public void HighlightSimple(bool v)
+	{
+	}
+
 	void OnMouseEnter()
 	{
 		Debug.Log ("Mouse enter");
