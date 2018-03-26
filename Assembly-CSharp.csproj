@@ -51,11 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BattleTrigger.cs" />
-     <Compile Include="Assets\CellModel.cs" />
-     <Compile Include="Assets\EdgesController.cs" />
-     <Compile Include="Assets\FieldCreator.cs" />
-     <Compile Include="Assets\HexEdge.cs" />
      <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\DraggablePanel.cs" />
      <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\EventSystemChecker.cs" />
      <Compile Include="Assets\LobbyAndCards\Lobby\Scripts\Lobby\LobbyCountdownPanel.cs" />
@@ -82,7 +77,6 @@
      <Compile Include="Assets\LobbyAndCards\SampleScenes\Scripts\NetworkLobbyHook.cs" />
      <Compile Include="Assets\LobbyAndCards\SampleScenes\Scripts\NetworkSpaceship.cs" />
      <Compile Include="Assets\LobbyAndCards\SampleScenes\Scripts\NetworkSpaceshipBullet.cs" />
-     <Compile Include="Assets\ModelReplacer.cs" />
      <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
      <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
      <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
@@ -128,7 +122,7 @@
      <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
      <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
      <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
-     <Compile Include="Assets\RangeFloat.cs" />
+     <Compile Include="Assets\Scripts\BattleTrigger.cs" />
      <Compile Include="Assets\Scripts\BillBoard.cs" />
      <Compile Include="Assets\Scripts\Block.cs" />
      <Compile Include="Assets\Scripts\BlockInfo.cs" />
@@ -138,6 +132,7 @@
      <Compile Include="Assets\Scripts\CardsPlayer.cs" />
      <Compile Include="Assets\Scripts\CellBuff.cs" />
      <Compile Include="Assets\Scripts\CellHighlighter.cs" />
+     <Compile Include="Assets\Scripts\CellModel.cs" />
      <Compile Include="Assets\Scripts\CellPointer.cs" />
      <Compile Include="Assets\Scripts\CellState.cs" />
      <Compile Include="Assets\Scripts\Combination.cs" />
@@ -147,21 +142,26 @@
      <Compile Include="Assets\Scripts\Deck.cs" />
      <Compile Include="Assets\Scripts\DiamondSquare.cs" />
      <Compile Include="Assets\Scripts\DiamondSquareTest.cs" />
+     <Compile Include="Assets\Scripts\EdgesController.cs" />
      <Compile Include="Assets\Scripts\FakeCell.cs" />
+     <Compile Include="Assets\Scripts\FieldCreator.cs" />
      <Compile Include="Assets\Scripts\GameLobby.cs" />
      <Compile Include="Assets\Scripts\GameResource.cs" />
      <Compile Include="Assets\Scripts\GUIDragableObject.cs" />
+     <Compile Include="Assets\Scripts\HexEdge.cs" />
      <Compile Include="Assets\Scripts\InformationPanel.cs" />
      <Compile Include="Assets\Scripts\Inkome.cs" />
      <Compile Include="Assets\Scripts\InterfaceHelper.cs" />
      <Compile Include="Assets\Scripts\ISkillAim.cs" />
      <Compile Include="Assets\Scripts\LineArrow.cs" />
+     <Compile Include="Assets\Scripts\ModelReplacer.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayersVisualizer.cs" />
      <Compile Include="Assets\Scripts\PlayerVisual.cs" />
      <Compile Include="Assets\Scripts\PopupInfoPanel.cs" />
      <Compile Include="Assets\Scripts\Quest.cs" />
      <Compile Include="Assets\Scripts\RadiusVisualizer.cs" />
+     <Compile Include="Assets\Scripts\RangeFloat.cs" />
      <Compile Include="Assets\Scripts\Recycler.cs" />
      <Compile Include="Assets\Scripts\ResourcesManager.cs" />
      <Compile Include="Assets\Scripts\ResourcesVisualizer.cs" />
