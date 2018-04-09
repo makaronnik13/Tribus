@@ -54,6 +54,8 @@ public class PlayerSaveStruct
 		}
 	}
 
+    public DeckStruct CurrentDeck;
+
 	[SerializeField]
 	private List<DeckStruct> decks = new List<DeckStruct>();
 	public List<DeckStruct> Decks

@@ -18,6 +18,7 @@ public class LobbyPlayerIdentity : Singleton<LobbyPlayerIdentity>
 		player.PlayerColor = DefaultResourcesManager.GetRandomColor();
 		player.PlayerAvatar = DefaultResourcesManager.GetRandomAvatar ();
 		player.Decks = new List<DeckStruct> (){ DefaultResourcesManager.StartingDeck};
+        player.CurrentDeck = player.Decks[0];
 
 		for (int i = 0; i < 3; i++) 
 		{

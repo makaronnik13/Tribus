@@ -5,7 +5,7 @@ using Prototype.NetworkLobby;
 
 public class LobbyMenu : Singleton<LobbyMenu> {
 
-	public GameObject DeckPanel, PlayerPanel, MainMenuPanel, LobbyPanel, RoomPanel, SandboxPanel;
+	public GameObject DeckPanel, PlayerPanel, MainMenuPanel, LobbyPanel, RoomPanel, SandboxPanel, Background;
 
 	void Start()
 	{
@@ -70,4 +70,9 @@ public class LobbyMenu : Singleton<LobbyMenu> {
 		MainMenuPanel.SetActive (false);
 		SandboxPanel.SetActive (true);
 	}
+
+    public void HideBackGround()
+    {
+        Background.SetActive(false);
+    }
 }
