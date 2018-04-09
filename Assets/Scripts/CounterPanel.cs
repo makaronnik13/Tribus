@@ -21,9 +21,9 @@ public class CounterPanel : Singleton<CounterPanel> {
 		{
 			t.gameObject.SetActive (true);
 		}
-		avatar.sprite = nextPlayer.avatar;
-		border.color = nextPlayer.color;
-		text.text = nextPlayer.name + " turn in";
+		avatar.sprite = nextPlayer.PlayerAvatar;
+		border.color = nextPlayer.PlayerColor;
+		text.text = nextPlayer.PlayerName + " turn in";
 		StartCoroutine (StartCount(time));
 	}
 

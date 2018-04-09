@@ -7,6 +7,7 @@ using System;
 public class CardsLayout : MonoBehaviour
 {
 	private List<Transform> CardsSiblings = new List<Transform>();
+	public Action OnCardsReposition = ()=>{};
 
 	public List<CardVisual> Cards
 	{
@@ -38,6 +39,7 @@ public class CardsLayout : MonoBehaviour
 	{
 		CardsManager.Instance.OnCardTaken += CardTaken;
 		CardsManager.Instance.OnCardDroped += CardDroped;
+		OnCardsReposition += ()=>{CardsManager.Instance.SavePlayer (GameLobby.Instance.CurrentPlayer);};
 	}
 
 	public int GetCardSibling(CardVisual cv)
@@ -62,7 +64,10 @@ public class CardsLayout : MonoBehaviour
 		foreach(Transform pair in CardsSiblings)
 		{
 			pair.GetComponent<CardVisual> ().State = pair.GetComponent<CardVisual> ().State;
+			pair.GetComponent<CardVisual> ().CardCanBePlayed = pair.GetComponent<CardVisual> ().CardCanBePlayed;
 		}
+
+		OnCardsReposition.Invoke ();
 	}
 
     public Quaternion GetRotation(CardVisual cardVisual, bool focused = false)

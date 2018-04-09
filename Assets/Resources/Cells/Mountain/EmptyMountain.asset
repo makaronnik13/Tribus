@@ -14,8 +14,8 @@ MonoBehaviour:
   StateName: Mountains
   type: 0
   Biom: 2
-  X: 123
-  Y: -102
+  X: 177
+  Y: -111
   radiusType: 0
   radius: 1
   radiusResource: {fileID: 0}

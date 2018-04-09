@@ -6,13 +6,35 @@ using UnityEngine;
 
 public class CardsManager : Singleton<CardsManager> {
 
+	public enum ChooseType
+	{
+		Simple,
+		Drag
+	}
+
+	public ChooseType chooseType = ChooseType.Simple;
+
     public GameObject CardPrefab;
-    public Transform dropTransform, pileTransform, handTransform, activationSlotTransform;
+    public Transform dropTransform, pileTransform, handTransform, activationSlotTransform, chooseCardField;
+
+	public CardsLayout HandCardsLayout;
+	public ChoseCardsLayout ChoseCardsLayout;
 
 	public Action<CardVisual> OnCardTaken = (CardVisual visual)=>{};
 	public Action<CardVisual> OnCardDroped = (CardVisual visual)=>{};
+	public Action<CardVisual> OnCardTakenInChooseField = (CardVisual visual)=>{};
 
 	private List<CardVisual> cardsInHand = new List<CardVisual>();
+	private Action<List<CardVisual>> onChoseCardFieldClosed;
+	private List<CardVisual> cardsInChoseCardField = new List<CardVisual>();
+	private List<CardVisual> chosenCards
+	{
+		get
+		{
+			return ChoseCardsLayout.Instance.chosedCards;
+		}
+	}
+
 	public int CardsCount
 	{
 		get
@@ -26,7 +48,7 @@ public class CardsManager : Singleton<CardsManager> {
 	{
 		get
 		{
-			foreach(CardVisual cv in GetComponentInChildren<CardsLayout>().Cards)
+			foreach(CardVisual cv in HandCardsLayout.Cards)
 			{
 				if(cv.State == CardVisual.CardState.Dragging || cv.State == CardVisual.CardState.ChosingAim)
 				{
@@ -51,15 +73,37 @@ public class CardsManager : Singleton<CardsManager> {
             return _playerCanvas;
         }
     }
-		
+
+	public void AddCardsToPile(List<Card> cards, bool shuffle = false)
+	{
+		Stack<Card> cardsInPile = new Stack<Card> (pile);
+		foreach (Card c in cards) {
+			cardsInPile.Push (c);
+		}
+		if(shuffle)
+		{
+			cardsInPile =  new Stack<Card>(cardsInPile.OrderBy (a => Guid.NewGuid ()));
+		}
+		pile = new Queue<Card> (cardsInPile);
+	}
+
+	public void AddCardsToDrop(List<Card> cards)
+	{
+		foreach (Card c in cards) {
+			drop.Push (c);
+		}
+	}
+
 	public void SelectPlayer(Player player)
     {
 		pile = new Queue<Card>(player.Pile);
 		drop = new Stack<Card>(player.Drop);
+
+		/*Debug.Log (player.CardsInHand);
 		for(int i = 0; i<player.CardsInHand;i++)
 		{
 			GetCard();
-		}
+		}*/
 
 		GetCard();
 		for (int i = CardsManager.Instance.CardsCount; i < 5; i++)
@@ -70,25 +114,27 @@ public class CardsManager : Singleton<CardsManager> {
 
 	public void EndPlayerTurn(Player player)
 	{
-		player.Drop = drop;
+		SavePlayer (player);
 
+		HandCardsLayout.EndTurn ();
+		for(int i = cardsInHand.Count-1; i>=0;i--)
+		{
+			Destroy(cardsInHand[i].gameObject);
+		}
+	}
+
+	public void SavePlayer(Player player)
+	{
+		player.Drop = drop;
 		Stack<Card> cardsStack = new Stack<Card> (pile);
 		player.CardsInHand = cardsInHand.Count ();
 		foreach(CardVisual cv in cardsInHand)
 		{
 			cardsStack.Push (cv.CardAsset);
 		}
-
-		GetComponentInChildren<CardsLayout> ().EndTurn ();
-
-		for(int i = cardsInHand.Count-1; i>=0;i--)
-		{
-			Destroy(cardsInHand[i].gameObject);
-		}
-
 		player.Pile = new Queue<Card>(cardsStack);
 	}
-		
+
     public void GetCard()
     {
 		if (pile.Count > 0) {
@@ -104,24 +150,37 @@ public class CardsManager : Singleton<CardsManager> {
 				Resuffle ();
 			}
 			newCard.transform.SetParent (handTransform);
-			GetComponentInChildren<CardsLayout> ().CardsReposition ();
+			HandCardsLayout.CardsReposition ();
 		}
     }
 
     public Vector3 GetPosition(CardVisual cardVisual, bool hovered = false)
     {
-        return GetComponentInChildren<CardsLayout>().GetPosition(cardVisual, hovered);
+		return HandCardsLayout.GetPosition(cardVisual, hovered);
     }
 
     public Quaternion GetRotation(CardVisual cardVisual, bool hovered = false)
     {
-        return GetComponentInChildren<CardsLayout>().GetRotation(cardVisual, hovered);
+		return HandCardsLayout.GetRotation(cardVisual, hovered);
     }
+
+	public Vector3 GetChoosePosition(CardVisual cardVisual, bool hovered = false)
+	{
+		return ChoseCardsLayout.GetPosition(cardVisual, hovered);
+	}
+
+	public Quaternion GetChooseRotation(CardVisual cardVisual, bool hovered = false)
+	{
+		return ChoseCardsLayout.GetRotation(cardVisual, hovered);
+	}
 
     public void DropCard(CardVisual cardVisual)
     {
 			OnCardDroped.Invoke (cardVisual);
-			drop.Push(cardVisual.CardAsset);
+			if (!cardVisual.CardAsset.DestroyAfterPlay) 
+			{
+				drop.Push (cardVisual.CardAsset);
+			}
 			cardsInHand.Remove (cardVisual);
             Destroy(cardVisual.gameObject);
     }
@@ -158,4 +217,46 @@ public class CardsManager : Singleton<CardsManager> {
 			callback.Invoke(card.GetComponent<CardVisual>());
         }
     }
+
+	public void FillChooseCardField(List<Card> cards, int max, Action<List<CardVisual>> callback = null, bool simpleCardChoose = true)
+	{
+		if (simpleCardChoose) 
+		{
+			chooseType = ChooseType.Simple;
+		} else 
+		{
+			chooseType = ChooseType.Drag;
+		}
+			
+
+		ChoseCardsLayout.Instance.Choosing = true;
+		onChoseCardFieldClosed = callback;
+
+		foreach(Card c in cards)
+		{
+			GameObject newCard = Instantiate (CardPrefab);
+			OnCardTakenInChooseField.Invoke (newCard.GetComponent<CardVisual> ());
+			newCard.GetComponent<CardVisual> ().Init (c);
+			newCard.GetComponent<CardVisual> ().State = CardVisual.CardState.Choosing;
+			cardsInChoseCardField.Add (newCard.GetComponent<CardVisual> ());
+			newCard.transform.SetParent (chooseCardField);
+			newCard.transform.localPosition = Vector3.zero;
+			newCard.transform.localRotation = Quaternion.identity;
+			newCard.transform.localScale = Vector3.one;
+			ChoseCardsLayout.CardsReposition ();
+		}
+		ChoseCardsLayout.Instance.SetMax (max);
+		ChoseCardsLayout.Instance.CardsReposition ();
+	}
+
+	public void HideChooseCardField()
+	{
+		ChoseCardsLayout.Instance.Choosing = false;
+		if(onChoseCardFieldClosed!=null)
+		{
+			Action<List<CardVisual>> lastCallback = onChoseCardFieldClosed;
+			onChoseCardFieldClosed = null;
+			lastCallback(chosenCards);
+		}
+	}
 }

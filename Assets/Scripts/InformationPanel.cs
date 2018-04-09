@@ -22,7 +22,7 @@ public class InformationPanel : Singleton<InformationPanel>
 	
     public void ShowInfo(Block block)
     {
-        if (block == null)
+		if (block == null || block.State == null)
         {
             transform.GetChild(0).gameObject.SetActive(false);
             symbiosys.gameObject.SetActive(false);

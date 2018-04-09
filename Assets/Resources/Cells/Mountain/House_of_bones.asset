@@ -20,8 +20,8 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: House of bones
-  prefab: {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
-  Sprite: {fileID: 0}
+  prefab: {fileID: 1603423458189378, guid: c72eff99be91947368ad96e54afad3f9, type: 2}
+  Sprite: {fileID: 21300000, guid: 61fb14defe4164d7381cf022a85e560e, type: 3}
   types: 
   income:
   - resource: {fileID: 11400000, guid: 64d92121c6c2dc743b578551fe4af803, type: 2}

@@ -6,16 +6,30 @@ using UnityEngine.EventSystems;
 using TMPro;
 using System;
 
-public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+
+	public Action<CardVisual> OnCardVisualClicked = (CardVisual cv)=>{};
+
     public enum CardState
     {
         None,
         Hovered,
         Dragging,
         ChosingAim,
-        Played
+        Played,
+		Choosing,
+		HoveredInChoose,
+		Chosed
     }
+
+	private Camera guiCamera
+	{
+		get
+		{
+			return GUICamera.Instance.GuiCamera;
+		}
+	}
 
     private CardState _state = CardState.None;
     public CardState State
@@ -26,29 +40,39 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         set
         {
+			//Debug.Log (value);
             switch (value)
             {
-                case CardState.ChosingAim:
-                    if (_state == CardState.Dragging)
-                    {
+			case CardState.ChosingAim:
+				Debug.Log ("set choosing aim " + _state);
+				if (_state == CardState.Dragging) {
 					if (CardCanBePlayed) {
 						MoveCardTo (CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one / 2, () => {
 
 						});
-                            CardsPlayer.Instance.ActiveCard = CardAsset;
+						CardsPlayer.Instance.ActiveCard = CardAsset;
 						_state = CardState.ChosingAim;
-					} else 
-					{
-						State = CardState.None;
-					}
+						break;
+					} 
+				}
 
-                    }
+					if (_state == CardState.Chosed) 
+					{
+						Debug.Log ("chosed");
+						MoveCardTo (CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one / 2, () => {
+
+						});
+						CardsPlayer.Instance.ActiveCard = CardAsset;
+						_state = CardState.ChosingAim;
+						break;
+					}
+						State = CardState.None;
                     break;
                 case CardState.Hovered:
                     if (_state == CardState.None)
                     {
 						transform.SetAsLastSibling ();
-                        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this, true), CardsManager.Instance.GetRotation(this, true), Vector3.one*2, () =>
+                        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this, true), CardsManager.Instance.GetRotation(this, true), Vector3.one*2f, () =>
                         {
 							
                         });
@@ -69,26 +93,68 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                     }
                     break;
 			case CardState.Dragging:
-                    if (_state == CardState.ChosingAim)
-                    {
-                        CardsPlayer.Instance.ActiveCard = null;
-                    }
-				if (_state == CardState.Hovered || _state == CardState.None || _state == CardState.ChosingAim) {
-
-                    _state = CardState.Dragging;
-					GetComponent<CanvasGroup> ().blocksRaycasts = false;
-					transform.localScale = Vector3.one;
-					transform.SetParent (CardsManager.Instance.playerCanvas.transform);
+				if (_state == CardState.ChosingAim) {
+					CardsPlayer.Instance.ActiveCard = null;
 				}
+
+				Debug.Log (_state);
+
+				bool dragChoosing = (CardsManager.Instance.chooseType == CardsManager.ChooseType.Drag && _state == CardState.HoveredInChoose);
+
+				Debug.Log (dragChoosing);
+
+				if (_state == CardState.Hovered || _state == CardState.None || _state == CardState.ChosingAim || dragChoosing) 
+					{
+	                    _state = CardState.Dragging;
+						GetComponent<CanvasGroup> ().blocksRaycasts = false;
+						transform.localScale = Vector3.one;
+						transform.SetParent (CardsManager.Instance.playerCanvas.transform);
+					}
 	
                     break;
 			case CardState.Played:
-				MoveCardTo (CardsManager.Instance.dropTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => {
-					CardsManager.Instance.DropCard (this);
-				});
-						_state = CardState.Played;
+				if (_state != CardState.Played) {
+
+					if (CardAsset.DestroyAfterPlay) 
+					{
+						CardsManager.Instance.DropCard (this);
+					} 
+					else 
+					{
+						MoveCardTo (CardsManager.Instance.dropTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => {
+							CardsManager.Instance.DropCard (this);
+						});
+					}
+					_state = CardState.Played;
+				}
                     //return card in deck
                     break;
+			case CardState.Choosing:
+				MoveCardTo (CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this), CardsManager.Instance.GetChooseRotation(this), Vector3.one, () => {
+				});
+				_state = CardState.Choosing;
+				//return card in deck
+				break;
+			case CardState.HoveredInChoose:
+				if (_state == CardState.Chosed || _state == CardState.Choosing) {
+					transform.SetAsLastSibling ();
+					MoveCardTo (CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition (this, true), CardsManager.Instance.GetChooseRotation (this, true), Vector3.one * 1.5f, () => {
+
+					});
+					_state = CardState.HoveredInChoose;
+				}
+				break;
+			case CardState.Chosed:
+				if (_state == CardState.HoveredInChoose || _state == CardState.Choosing)
+				{
+					MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this, false), CardsManager.Instance.GetChooseRotation(this, false), Vector3.one, () =>
+						{
+
+						});
+					_state = CardState.Chosed;
+				}
+
+				break;
             }
         }
     }
@@ -99,9 +165,16 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public Image AvaliabilityFrame;
     public Image CardImage;
     private Card _cardAsset;
+	public Card CardAsset
+	{
+		get
+		{
+			return _cardAsset;
+		}
+	}
 
     private bool _cardCanBePlayed = true;
-    private bool CardCanBePlayed
+	public bool CardCanBePlayed
     {
         get
         {
@@ -114,13 +187,6 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
     }
 
-    public Card CardAsset
-    {
-        get
-        {
-            return _cardAsset;
-        }
-    }
 
 	public void Init(Card card)
     {
@@ -175,7 +241,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 			if (FakeController.Instance.MyTurn && eventData.pointerEnter)
             {
 				Vector3 globalMousePos;
-				if (RectTransformUtility.ScreenPointToWorldPointInRectangle(eventData.pointerEnter.transform as RectTransform, eventData.position, Camera.main, out globalMousePos))
+				if (RectTransformUtility.ScreenPointToWorldPointInRectangle(eventData.pointerEnter.transform as RectTransform, eventData.position, guiCamera, out globalMousePos))
 				{
 					transform.localScale = Vector3.one;
 					transform.position = globalMousePos;
@@ -188,7 +254,8 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	#region IEndDragHandler implementation
 	public void OnEndDrag (PointerEventData eventData)
 	{
-		if (State == CardState.ChosingAim) {
+		if (State == CardState.ChosingAim) 
+		{
             CardsPlayer.Instance.PlayCard(this);
 		} else {
 			State = CardState.None;
@@ -206,6 +273,9 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 		if (State == CardState.None && !CardsManager.Instance.CardDragging) {
 			State = CardState.Hovered; 
 		}
+		if (State == CardState.Choosing || State == CardState.Chosed && !CardsManager.Instance.CardDragging) {
+			State = CardState.HoveredInChoose; 
+		}
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
@@ -213,6 +283,17 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 		if(State == CardState.Hovered && !CardsManager.Instance.CardDragging)
 		{
         	State = CardState.None;
+		}
+
+		if(State == CardState.HoveredInChoose && !CardsManager.Instance.CardDragging)
+		{
+			if (GetComponentInParent<ChoseCardsLayout> ().chosedCards.Contains (this)) {
+				State = CardState.Chosed;
+			} else 
+			{
+				State = CardState.Choosing;
+			}
+
 		}
     }
 
@@ -239,4 +320,9 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             callback.Invoke();
         }
     }
+
+	public void OnPointerClick (PointerEventData eventData)
+	{
+		OnCardVisualClicked.Invoke (this);
+	}
 }

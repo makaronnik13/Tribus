@@ -12,21 +12,8 @@ public class SkillsController : Singleton<SkillsController>
 		CellState cs = aimBlock.State.CombinationResult (skill,skillLevel);
 		if(cs)
 		{
-			GameObject newBlock = Instantiate(cs.prefab);
-			newBlock.transform.SetParent (aimBlock.transform.parent);
-			newBlock.transform.position = aimBlock.transform.position;
-			newBlock.transform.rotation = aimBlock.transform.rotation;
-			newBlock.transform.localScale = aimBlock.transform.localScale;
-
-			newBlock.GetComponent<Block>().State = cs;
-			newBlock.GetComponent<Block> ().Owner = GameLobby.Instance.CurrentPlayer;
-
-	        Destroy (aimBlock.gameObject);
-
-	        foreach (Block b in FindObjectsOfType<Block>())
-	        {
-	            //b.RecalculateInkome();
-	        }
+			aimBlock.State = cs;
+			aimBlock.Owner = GameLobby.Instance.CurrentPlayer;
 			GetComponent<AudioSource> ().PlayOneShot (activationSound);
 		}
     }

@@ -6,6 +6,7 @@ using System;
 
 public class GameLobby : Singleton<GameLobby> {
 
+	public PlayersVisualizer playersVisualiser;
 	public List<Player> players;
 	private Queue<Player> playersQueue;
 	private Player currentPlayer;
@@ -32,17 +33,19 @@ public class GameLobby : Singleton<GameLobby> {
 
 	void Start()
 	{
-		InitLobby (players);
+		//InitLobby (players);
 	}
 
-	void InitLobby(List<Player> players)
+
+
+	public void InitLobby(List<Player> players)
 	{
 		foreach(Player p in players)
 		{
 			p.InitPlayer ();
 		}
 		playersQueue = new Queue<Player> (players.OrderBy(a => Guid.NewGuid()).ToList());
-		PlayersVisualizer.Instance.Init (playersQueue.ToList());
+		playersVisualiser.Init (playersQueue.ToList());
 		EndTurn ();
 	}
 
@@ -53,7 +56,7 @@ public class GameLobby : Singleton<GameLobby> {
 
 	private void StartTurn(Player player)
 	{
-		PlayersVisualizer.Instance.SetActivePlayer();
+		playersVisualiser.SetActivePlayer();
 		FakeController.Instance.StartTurn (player);
 	}
 }

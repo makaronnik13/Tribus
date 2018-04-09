@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Algae farm
-  prefab: {fileID: 1533824811129888, guid: 4a58a749a57684a81acb6a9b905d8cbe, type: 2}
+  prefab: {fileID: 1937969823855076, guid: eaf05277d51c24f42b19f0998da2ac70, type: 2}
   Sprite: {fileID: 21300000, guid: 46e7c42b716f243edab792d6d4050144, type: 3}
   types: 
   income:

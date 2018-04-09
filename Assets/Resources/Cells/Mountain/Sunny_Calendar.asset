@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: Sunny_Calendar
   m_EditorClassIdentifier: 
-  StateName: Sunny Calendar
+  StateName: Sun calendar
   type: 0
   Biom: 2
   X: 262
@@ -20,8 +20,8 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Sunny Calendar
-  prefab: {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
-  Sprite: {fileID: 0}
+  prefab: {fileID: 1259396019547842, guid: d4ff05d40fafb4754b72cb2396ed7947, type: 2}
+  Sprite: {fileID: 21300000, guid: 8261c00ae0ee54880923ecae69044445, type: 3}
   types: 
   income:
   - resource: {fileID: 11400000, guid: f3768d0ac0771e34da0e3d1561f70bda, type: 2}

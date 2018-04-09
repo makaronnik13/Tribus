@@ -4,16 +4,14 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-
 [System.Serializable]
 public class Player
 {
-	public string name;
-	public Color color;
-	public Sprite avatar;
+	public string PlayerName;
+	public Color PlayerColor;
+	public Sprite PlayerAvatar;
 
 	public Deck deck; 
-
 	private Queue<Card> pile = new Queue<Card> ();
 	public Queue<Card> Pile { 
 		get
@@ -42,6 +40,6 @@ public class Player
 
 	public void InitPlayer()
 	{
-		Pile = new Queue<Card>(deck.cards.OrderBy (a => Guid.NewGuid()));
+		Pile = new Queue<Card>(deck.DeckStruct.Cards.OrderBy (a => Guid.NewGuid()));
 	}
 }

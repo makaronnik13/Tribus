@@ -23,16 +23,18 @@ namespace Prototype.NetworkLobby
 
         void OnEnable()
         {
-            currentPage = 0;
-            previousPage = 0;
-
-            foreach (Transform t in serverListRect)
-                Destroy(t.gameObject);
-
-            noServerFound.SetActive(false);
-
-            RequestPage(0);
+			lobbyManager.StartMatchMaker ();
+			Refresh ();
         }
+
+		public void Refresh()
+		{
+			foreach (Transform t in serverListRect)
+				Destroy(t.gameObject);
+
+			noServerFound.SetActive(false);
+			RequestPage (0);
+		}
 
 		public void OnGUIMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matches)
 		{
@@ -75,9 +77,10 @@ namespace Prototype.NetworkLobby
 
         public void RequestPage(int page)
         {
-            previousPage = currentPage;
-            currentPage = page;
-			lobbyManager.matchMaker.ListMatches(page, 6, "", true, 0, 0, OnGUIMatchList);
+			if(lobbyManager.matchMaker)
+			{
+				lobbyManager.matchMaker.ListMatches(0, 10, "", true, 0, 0, OnGUIMatchList);
+			}
 		}
     }
 }

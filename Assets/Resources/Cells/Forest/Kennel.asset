@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Kennel
-  prefab: {fileID: 100002, guid: 5fc8d23a3e3954fafbca097e9e61a6e4, type: 3}
+  prefab: {fileID: 1187833735879798, guid: 543c83289501c448985316ef4b5f5b08, type: 2}
   Sprite: {fileID: 21300000, guid: cc5fa6d5ed2a443c983456006c91cd7b, type: 3}
   types: 
   income:

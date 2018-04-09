@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Boating market
-  prefab: {fileID: 1897441873676006, guid: d96e50e3cda8eda448af83712f9c2d19, type: 2}
+  prefab: {fileID: 1660813329186356, guid: f26ba5e8f1d9742489da6e12a2c63462, type: 2}
   Sprite: {fileID: 0}
   types: 
   income:

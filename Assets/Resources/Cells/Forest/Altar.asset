@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: altar
-  prefab: {fileID: 100000, guid: 697c02f6c5d754e08ad46a436f3a3326, type: 3}
+  prefab: {fileID: 1292562487118080, guid: e06fc70613e44475e8632479b458ece8, type: 2}
   Sprite: {fileID: 21300010, guid: ccfde77eb8842473e8fddb8ed48e039c, type: 3}
   types: 
   income:

@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using TMPro;
 
 namespace Prototype.NetworkLobby 
 {
     public class LobbyInfoPanel : MonoBehaviour
     {
-        public Text infoText;
-        public Text buttonText;
+		public TextMeshProUGUI infoText;
+		public TextMeshProUGUI buttonText;
         public Button singleButton;
 
         public void Display(string info, string buttonInfo, UnityEngine.Events.UnityAction buttonClbk)

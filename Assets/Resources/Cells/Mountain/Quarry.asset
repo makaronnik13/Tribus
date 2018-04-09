@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Quarry
-  prefab: {fileID: 1321910996212286, guid: 4b7416c57833342189e565629f0758e5, type: 2}
+  prefab: {fileID: 1057943446358940, guid: 65409e1444bf5420bb77888a220f76f9, type: 2}
   Sprite: {fileID: 21300000, guid: ff246d769bfee485088d14a51bb50aa3, type: 3}
   types: 
   income:

@@ -1,0 +1,1212 @@
+fileFormatVersion: 2
+guid: 79b22dfe088f04baab054caad40cf91e
+timeCreated: 1522971515
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: PortraitsAtlas_1
+    21300002: PortraitsAtlas_2
+    21300004: PortraitsAtlas_3
+    21300006: PortraitsAtlas_4
+    21300008: PortraitsAtlas_5
+    21300010: PortraitsAtlas_6
+    21300012: PortraitsAtlas_7
+    21300014: PortraitsAtlas_8
+    21300016: PortraitsAtlas_11
+    21300018: PortraitsAtlas_12
+    21300020: PortraitsAtlas_13
+    21300022: PortraitsAtlas_14
+    21300024: PortraitsAtlas_15
+    21300026: PortraitsAtlas_16
+    21300028: PortraitsAtlas_17
+    21300030: PortraitsAtlas_18
+    21300032: PortraitsAtlas_22
+    21300034: PortraitsAtlas_23
+    21300036: PortraitsAtlas_25
+    21300038: PortraitsAtlas_26
+    21300040: PortraitsAtlas_27
+    21300042: PortraitsAtlas_28
+    21300044: PortraitsAtlas_29
+    21300046: PortraitsAtlas_30
+    21300048: PortraitsAtlas_31
+    21300050: PortraitsAtlas_32
+    21300052: PortraitsAtlas_34
+    21300054: PortraitsAtlas_35
+    21300056: PortraitsAtlas_36
+    21300058: PortraitsAtlas_37
+    21300060: PortraitsAtlas_38
+    21300062: PortraitsAtlas_39
+    21300064: PortraitsAtlas_40
+    21300066: PortraitsAtlas_41
+    21300068: PortraitsAtlas_42
+    21300070: PortraitsAtlas_43
+    21300072: PortraitsAtlas_44
+    21300074: PortraitsAtlas_47
+    21300076: PortraitsAtlas_48
+    21300078: PortraitsAtlas_49
+    21300080: PortraitsAtlas_50
+    21300082: PortraitsAtlas_51
+    21300084: PortraitsAtlas_52
+    21300086: PortraitsAtlas_53
+    21300088: PortraitsAtlas_55
+    21300090: PortraitsAtlas_56
+    21300092: PortraitsAtlas_57
+    21300094: PortraitsAtlas_58
+    21300096: PortraitsAtlas_61
+    21300098: PortraitsAtlas_62
+    21300100: PortraitsAtlas_63
+    21300102: PortraitsAtlas_64
+    21300104: PortraitsAtlas_65
+    21300106: PortraitsAtlas_66
+    21300108: PortraitsAtlas_67
+    21300110: PortraitsAtlas_68
+    21300112: PortraitsAtlas_69
+    21300114: PortraitsAtlas_70
+    21300116: PortraitsAtlas_71
+    21300118: PortraitsAtlas_72
+    21300120: PortraitsAtlas_73
+    21300122: PortraitsAtlas_76
+    21300124: PortraitsAtlas_77
+    21300126: PortraitsAtlas_78
+    21300128: PortraitsAtlas_79
+    21300130: PortraitsAtlas_80
+    21300132: PortraitsAtlas_81
+    21300134: PortraitsAtlas_82
+    21300136: PortraitsAtlas_84
+    21300138: PortraitsAtlas_85
+    21300140: PortraitsAtlas_86
+    21300142: PortraitsAtlas_87
+    21300144: PortraitsAtlas_88
+    21300146: PortraitsAtlas_89
+    21300148: PortraitsAtlas_90
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PortraitsAtlas_1
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 1562
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_2
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 1562
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_3
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 1562
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_4
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 1562
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_5
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 1562
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_6
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 1562
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_7
+      rect:
+        serializedVersion: 2
+        x: 1820
+        y: 1562
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_8
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 1562
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_11
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 1302
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_12
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 1302
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_13
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 1302
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_14
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 1302
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_15
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 1302
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_16
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 1302
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_17
+      rect:
+        serializedVersion: 2
+        x: 1820
+        y: 1302
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_18
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 1302
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1042
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_23
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 1042
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_25
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 1042
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_26
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 1042
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_27
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 1042
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_28
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 1042
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_29
+      rect:
+        serializedVersion: 2
+        x: 1820
+        y: 1042
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_30
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 1042
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_31
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 1042
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_32
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 1042
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_34
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_35
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_36
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_37
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_38
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_39
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_40
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_41
+      rect:
+        serializedVersion: 2
+        x: 1820
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_42
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_43
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_44
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 782
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_47
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_48
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_49
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_50
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_51
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_52
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_53
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_55
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_56
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_57
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_58
+      rect:
+        serializedVersion: 2
+        x: 2860
+        y: 522
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_61
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_62
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_63
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_64
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_65
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_66
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_67
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_68
+      rect:
+        serializedVersion: 2
+        x: 1820
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_69
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_70
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_71
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_72
+      rect:
+        serializedVersion: 2
+        x: 2860
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_73
+      rect:
+        serializedVersion: 2
+        x: 3120
+        y: 262
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_76
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_77
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_78
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_79
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_80
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_81
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_82
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_84
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_85
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_86
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_87
+      rect:
+        serializedVersion: 2
+        x: 2860
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_88
+      rect:
+        serializedVersion: 2
+        x: 3120
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_89
+      rect:
+        serializedVersion: 2
+        x: 3380
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PortraitsAtlas_90
+      rect:
+        serializedVersion: 2
+        x: 3640
+        y: 2
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

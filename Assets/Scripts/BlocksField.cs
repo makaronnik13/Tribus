@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public class BlocksField : Singleton<BlocksField> {
 	public int Size = 4;
@@ -11,17 +12,40 @@ public class BlocksField : Singleton<BlocksField> {
 
 	public List<CellState> baseStates;
 
+	public List<Block> Blocks
+	{
+		get
+		{
+			List<Block> blocks = new List<Block> ();
+			foreach(KeyValuePair<Vector2, Block> pair in cells)
+			{
+				blocks.Add (pair.Value);
+			}
+			return blocks;
+		}
+	}
+
     public List<Block> GetBlocksInRadius(Block block, int r)
 	{
 		List<Block> blocks = new List<Block> ();
-		///ton ipmplemented
+		if(block == null)
+		{
+			return blocks;
+		}
+
+		Vector2 blockPos = cells.FirstOrDefault (x => x.Value == block).Key;
+
+		foreach(KeyValuePair<Vector2, Block> b in cells)
+		{
+			float deltaX = Mathf.Abs (b.Key.x - blockPos.x);
+			float deltaY = Mathf.Abs (b.Key.y - blockPos.y); 
+			if(deltaX<=r && deltaY<=r && b.Key.x - blockPos.x+b.Key.y - blockPos.y<=r && -b.Key.x + blockPos.x-b.Key.y + blockPos.y<=r)
+			{
+					blocks.Add(b.Value);
+			}
+		}
 		return blocks;
     }
-
-	void Awake()
-	{
-		GenerateField ();
-	}
 		
 
 	public void GenerateField()
@@ -41,12 +65,21 @@ public class BlocksField : Singleton<BlocksField> {
 			newCell.transform.localRotation = Quaternion.Euler (Vector3.up*60*Mathf.RoundToInt(Random.Range(0,6)));
 			newCell.transform.localPosition = v.Key;
 			cells.Add (v.Value, newCell.GetComponent<Block>());
+			//newCell.GetComponentInChildren<TextMeshProUGUI> ().text = v.Value.x + "/" + v.Value.y;
 		}
 
 
 		foreach(KeyValuePair<Vector2, Block> pair in cells)
 		{
-			pair.Value.State =  baseStates[Random.Range(0,4)];
+			int rand = Random.Range (0, 4);
+			if (baseStates [rand]) {
+				pair.Value.Biom = baseStates [rand].Biom;
+			} else 
+			{
+				pair.Value.Biom = CombineModel.Biom.None;
+			}
+
+			pair.Value.State =  baseStates[rand];
 		}
 
 		foreach (EdgesController ec in GetComponentsInChildren<EdgesController>()) {

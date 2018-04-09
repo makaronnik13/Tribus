@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Seagod sanctuary
-  prefab: {fileID: 1052065923215162, guid: 8cd503f03b6d3054f81a0d3fc63b9671, type: 2}
+  prefab: {fileID: 1659206084256416, guid: 88f0ae73c9e5d44cd994b22365e538ca, type: 2}
   Sprite: {fileID: 0}
   types: 
   income:

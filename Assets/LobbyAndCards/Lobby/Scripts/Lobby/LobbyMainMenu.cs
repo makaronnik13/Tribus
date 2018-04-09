@@ -8,15 +8,17 @@ namespace Prototype.NetworkLobby
     public class LobbyMainMenu : MonoBehaviour 
     {
         public LobbyManager lobbyManager;
+
         public RectTransform lobbyServerList;
         public RectTransform lobbyPanel;
+
+        public InputField ipInput;
         public InputField matchNameInput;
 
         public void OnEnable()
         {
-            lobbyManager.topPanel.ToggleVisibility(true);    
-            matchNameInput.onEndEdit.RemoveAllListeners();
-            matchNameInput.onEndEdit.AddListener(onEndEditGameName);
+    
+            
         }
 
         public void OnClickHost()
@@ -24,20 +26,36 @@ namespace Prototype.NetworkLobby
             lobbyManager.StartHost();
         }
 
+        public void OnClickJoin()
+        {
+            lobbyManager.ChangeTo(lobbyPanel);
+
+            lobbyManager.networkAddress = ipInput.text;
+            lobbyManager.StartClient();
+
+            lobbyManager.backDelegate = lobbyManager.StopClientClbk;
+            lobbyManager.DisplayIsConnecting();
+
+        }
+
         public void OnClickDedicated()
         {
             lobbyManager.ChangeTo(null);
-            lobbyManager.StartServer();  
+            lobbyManager.StartServer();
+
             lobbyManager.backDelegate = lobbyManager.StopServerClbk;
-            lobbyManager.SetServerInfo("Dedicated Server", lobbyManager.networkAddress);
+
+        
         }
 
-        public void OnClickCreateMatchmakingGame()
+		public void OnClickCreateMatchmakingGame(string name, int players)
         {
+			Debug.Log (players);
+
             lobbyManager.StartMatchMaker();
             lobbyManager.matchMaker.CreateMatch(
-                matchNameInput.text,
-                (uint)lobbyManager.maxPlayers,
+				name,
+				(uint)players,
                 true,
 				"", "", "", 0, 0,
 				lobbyManager.OnMatchCreate);
@@ -45,7 +63,7 @@ namespace Prototype.NetworkLobby
             lobbyManager.backDelegate = lobbyManager.StopHost;
             lobbyManager._isMatchmaking = true;
             lobbyManager.DisplayIsConnecting();
-            lobbyManager.SetServerInfo("Matchmaker Host", lobbyManager.matchHost);
+
         }
 
         public void OnClickOpenServerList()
@@ -55,13 +73,20 @@ namespace Prototype.NetworkLobby
             lobbyManager.ChangeTo(lobbyServerList);
         }
 
-        void onEndEditGameName(string text)
+        void onEndEditIP(string text)
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                OnClickCreateMatchmakingGame();
+                OnClickJoin();
             }
         }
+
+        void onEndEditGameName(string text)
+        {
+            
+        }
+			
+
 
     }
 }

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: Wind_mills
   m_EditorClassIdentifier: 
-  StateName: Wind mills
+  StateName: Wind mill
   type: 0
   Biom: 2
   X: 12
@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Wind mills
-  prefab: {fileID: 1144195730639366, guid: d05238f8383f746cb9dbb8c1db1b731a, type: 2}
+  prefab: {fileID: 1146977620735458, guid: b32b9e07b2e524b5e8bff7f0175d7320, type: 2}
   Sprite: {fileID: 0}
   types: 
   income:

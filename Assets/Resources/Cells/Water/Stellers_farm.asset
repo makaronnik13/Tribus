@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Steller's farm
-  prefab: {fileID: 1910548482352488, guid: 4f440ea8314bfd14dbb15f5a193ceecb, type: 2}
+  prefab: {fileID: 1499197277901544, guid: b3461dd693aec40da932184683eae4a5, type: 2}
   Sprite: {fileID: 21300000, guid: 3e6b2f25f886a4c21986cb4a7e1fe6c0, type: 3}
   types: 
   income:

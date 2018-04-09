@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ResourcesManager : Singleton<ResourcesManager>
 {
@@ -25,25 +26,46 @@ public class ResourcesManager : Singleton<ResourcesManager>
 
     public void StartTurn()
     {
-        foreach (Inkome ink in StartedReources)
-        {
-            AddResource(ink.resource, ink.value);
-        }
-
-		foreach (Block cs in FindObjectsOfType<Block>())
-        {
-			foreach(Inkome ink in cs.CurrentIncome)
+			foreach(Inkome ink in GetIncomeForPlayer(GameLobby.Instance.CurrentPlayer))
             {
 				AddResource(ink.resource, ink.value);
             }
-        }
-
-
     }
+
+	public List<Inkome> GetIncomeForPlayer(Player player)
+	{
+		List<Inkome> inkome = new List<Inkome> ();
+		inkome.Clear ();
+
+		foreach (Inkome ink in StartedReources)
+		{
+			inkome.Add(ink);
+		}
+
+
+		foreach (Block cs in BlocksField.Instance.Blocks)
+		{
+			if(cs.Owner!=player)
+			{
+				continue;
+			}
+				
+			foreach(Inkome ink in cs.CurrentIncome)
+			{
+					inkome.Add (ink);	
+			}
+		}
+
+		return inkome;
+	}
 
     public bool CardAvailability(Card cardAsset)
     {
         bool result = true;
+		if(!cardAsset)
+		{
+			return false;
+		}
         foreach (Inkome ink in cardAsset.Cost)
         {
             if (!ResourcesValues.ContainsKey(ink.resource))

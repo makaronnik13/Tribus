@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: bushy berries
-  prefab: {fileID: 100000, guid: c935d45403a4a429ebc7a89d1396be2d, type: 3}
+  prefab: {fileID: 1786108382482434, guid: 4067fc1ff02a94e44bff2b8c72f0ebbf, type: 2}
   Sprite: {fileID: 21300000, guid: 61fb14defe4164d7381cf022a85e560e, type: 3}
   types: 
   income:

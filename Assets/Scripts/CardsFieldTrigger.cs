@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardsFieldTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class CardsFieldTrigger : Singleton<CardsFieldTrigger>, IPointerEnterHandler, IPointerExitHandler
 {
-	private CardVisual activeCardVisual;
+	public CardVisual activeCardVisual;
 
 	public void OnPointerEnter (PointerEventData eventData)
 	{
@@ -24,7 +24,7 @@ public class CardsFieldTrigger : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
-		if (activeCardVisual && (activeCardVisual.State == CardVisual.CardState.Dragging || activeCardVisual.State == CardVisual.CardState.ChosingAim)) 
+		if (activeCardVisual && (activeCardVisual.State == CardVisual.CardState.Dragging || activeCardVisual.State == CardVisual.CardState.ChosingAim) && !ChoseCardsLayout.Instance.Choosing) 
 		{
             activeCardVisual.State = CardVisual.CardState.Dragging;
 			activeCardVisual = null;

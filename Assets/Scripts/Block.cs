@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class Block : MonoBehaviour, ISkillAim 
 {
@@ -14,7 +15,6 @@ public class Block : MonoBehaviour, ISkillAim
 		{
 			if(cellModel == null)
 			{
-				Debug.Log (gameObject);
 				cellModel = GetComponentInChildren<CellModel> ();
 			}
 
@@ -46,6 +46,18 @@ public class Block : MonoBehaviour, ISkillAim
 		set
 		{
 			owner = value;
+			if (owner==null) {
+				if(GetComponentInChildren<CellModel>()!=null)
+				{
+					GetComponentInChildren<CellModel> ().SetColor (Color.white);
+				}
+			} else 
+			{
+				if(GetComponentInChildren<CellModel>()!=null)
+				{
+					GetComponentInChildren<CellModel> ().SetColor (owner.PlayerColor);
+				}
+			}
 		}
 	}
 
@@ -60,6 +72,19 @@ public class Block : MonoBehaviour, ISkillAim
 		{
 			biom = value;
 			GetComponentInChildren<ModelReplacer> ().SetModel ((int)Biom);
+
+			try
+			{
+				state = BlocksField.Instance.baseStates.FirstOrDefault (bs => bs.Biom == biom);
+				CellModel.SetCell (state);
+				RecalculateInkome ();
+			}
+			catch
+			{
+				state = null;
+				CellModel.SetCell (state);
+				RecalculateInkome ();
+			}
 		}
 	}
 		
@@ -74,8 +99,8 @@ public class Block : MonoBehaviour, ISkillAim
 	}
 
 	[SerializeField]
-    [HideInInspector]
-	private CellState state;
+    //[HideInInspector]
+	public CellState state;
 	public CellState State
 	{
 		get
@@ -86,12 +111,11 @@ public class Block : MonoBehaviour, ISkillAim
 		{
 			state = value;
 			CellModel.SetCell (state);
-			if (state) {
-				Biom = state.Biom;
-			} else 
+			if(BlocksField.Instance.baseStates.Contains(state))
 			{
-				Biom = CombineModel.Biom.None;
+				Owner = null;
 			}
+			RecalculateInkome ();
 		}
 	}
     public int Radius
@@ -165,22 +189,66 @@ public class Block : MonoBehaviour, ISkillAim
 
 	void OnMouseEnter()
 	{
-		if(Biom == CombineModel.Biom.None)
+		if (EventSystem.current.currentSelectedGameObject && EventSystem.current.currentSelectedGameObject.layer == 5) 
+		{ // UI elements getting the hit/hover
+			return;
+		}
+
+		CameraController.Instance.AimedBlockChanged (this);
+
+		if(CardsPlayer.Instance.ActiveCard)
 		{
-			return;
+			CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Player);
+			if(cardEffect!=null)
+			{
+				if (cardEffect.playerAimType == CardEffect.PlayerAimType.All || cardEffect.playerAimType == CardEffect.PlayerAimType.Enemies || cardEffect.playerAimType == CardEffect.PlayerAimType.You) 
+				{
+					return;
+				}
+			}
+
+
+			cardEffect = CardsPlayer.Instance.ActiveCard.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Cell);
+			if(cardEffect!=null)
+			{
+				if(cardEffect.cellAimType == CardEffect.CellAimType.All  || cardEffect.cellAimType == CardEffect.CellAimType.Random)
+				{
+					return;
+				}
+			}
 		}
 
-		if (EventSystem.current.currentSelectedGameObject && EventSystem.current.currentSelectedGameObject.layer == 5) { // UI elements getting the hit/hover
-			return;
-		}
-
-		CardsPlayer.Instance.SelectAims (this);
+		CardsPlayer.Instance.SelectAim (this);
         InformationPanel.Instance.ShowInfo(this);
     }
 
 	void OnMouseExit()
 	{
-        CardsPlayer.Instance.SelectAims(null);
+		bool shouldDehighlight = true;
+
+		if (CardsPlayer.Instance.ActiveCard) {
+			CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Player);
+			if (cardEffect != null) {
+				if (cardEffect.playerAimType == CardEffect.PlayerAimType.All || cardEffect.playerAimType == CardEffect.PlayerAimType.Enemies || cardEffect.playerAimType == CardEffect.PlayerAimType.You) {
+					shouldDehighlight = false;
+				}
+			}
+
+			cardEffect = CardsPlayer.Instance.ActiveCard.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Cell);
+			if(cardEffect!=null)
+			{
+				if(cardEffect.cellAimType == CardEffect.CellAimType.All  || cardEffect.cellAimType == CardEffect.CellAimType.Random)
+				{
+					shouldDehighlight = false;
+				}
+			}
+		}
+			
+		if(shouldDehighlight)
+		{
+			CardsPlayer.Instance.SelectAim (null);
+		}
+			
         InformationPanel.Instance.ShowInfo(null);
     }
 
@@ -192,20 +260,70 @@ public class Block : MonoBehaviour, ISkillAim
 
     public bool IsAwaliable(Card card)
     {
-		if (!card || State == null)
+		if (!card)
         {
             return false;
         }
-        if (card.aimType == Card.CardAimType.Cell)
+
+		if(card.CardEffects.Count() == 0)
+		{
+			return false;
+		}
+
+		CardEffect ce = card.CardEffects.FirstOrDefault(cardEffect=>cardEffect.cardAim == CardEffect.CardAim.Cell); 
+
+		if (ce!=null)
         {
-            foreach (Combination comb in State.Combinations)
-            {
-                if (comb.skill == card.skill && comb.skillLevel == card.skillLevel)
-                {
-                    return true;
-                }
-            }
+			if(ce.cellOwnership == CardEffect.CellOwnership.Neutral && Owner != null)
+			{
+				return false;
+			}
+			if(ce.cellOwnership == CardEffect.CellOwnership.Player && Owner != GameLobby.Instance.CurrentPlayer)
+			{
+				return false;
+			}
+			if(ce.cellOwnership == CardEffect.CellOwnership.Oponent && (Owner == GameLobby.Instance.CurrentPlayer || Owner == null))
+			{
+				return false;
+			}
+			if(ce.cellOwnership == CardEffect.CellOwnership.PlayerAndNeutral && (Owner != GameLobby.Instance.CurrentPlayer && Owner!=null))
+			{
+				return false;
+			}
+
+			if(ce.cellOwnership == CardEffect.CellOwnership.OponentAndNeutral && Owner == GameLobby.Instance.CurrentPlayer)
+			{
+				return false;
+			}
+
+			if(ce.biomsFilter.Contains(Biom))
+			{
+				return false;
+			}
+
+			if(ce.statesFilter.Contains(State))
+			{
+				return false;
+			}
+
+			if (ce.cellActionType == CardEffect.CellActionType.Evolve) 
+			{
+				if(State == null)
+				{
+					return false;
+				}
+				foreach (Combination comb in State.Combinations) {
+					if (comb.skill == ce.EvolveType && comb.skillLevel == ce.EvolveLevel) 
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+
+			return true;
         }
+
         return false;
     }
 

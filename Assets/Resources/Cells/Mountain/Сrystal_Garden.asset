@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66f60e76424cbfb1063ac40ed1270, type: 3}
   m_Name: "\u0421rystal_Garden"
   m_EditorClassIdentifier: 
-  StateName: "\u0421rystal garden"
+  StateName: Crystal mine
   type: 0
   Biom: 2
   X: -135
@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: 
-  prefab: {fileID: 1612799454761456, guid: 7c9f3445383ed431798adea6784f83a9, type: 2}
+  prefab: {fileID: 1704409232109890, guid: 4d789a24a83ae470789a0a0aee25ce0d, type: 2}
   Sprite: {fileID: 21300000, guid: 468d3383534ad46989b802a341ce4b99, type: 3}
   types: 
   income:

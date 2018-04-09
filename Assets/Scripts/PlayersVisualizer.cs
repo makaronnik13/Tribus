@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayersVisualizer : Singleton<PlayersVisualizer> {
+public class PlayersVisualizer : MonoBehaviour
+{
 
 	public GameObject playerPrefab;
 	private bool firstTime = false;
@@ -12,6 +13,7 @@ public class PlayersVisualizer : Singleton<PlayersVisualizer> {
 		players.Reverse ();
 		foreach(Player player in players)
 		{
+			Debug.Log (playerPrefab);
 			GameObject newPlayerVisual = Instantiate (playerPrefab);
 			newPlayerVisual.transform.SetParent (transform);
 			newPlayerVisual.transform.localScale = Vector3.one;

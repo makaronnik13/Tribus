@@ -6,34 +6,17 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(menuName = "Card")]
 public class Card : ScriptableObject
 {
-	public enum CardAimType
-	{
-		None,
-		Cell,
-		Player
-	}
-		
+	[FoldoutGroup("Card info")]
     public string CardName;
+	[FoldoutGroup("Card info")]
     public string CardDescription;
-	public CardAimType aimType = CardAimType.None;
+	[FoldoutGroup("Card info")]
 	public Sprite cardSprite;
-    public List<Inkome> Cost = new List<Inkome>();
+	public List<Inkome> Cost = new List<Inkome>();
+	[FoldoutGroup("Card info")]
+	public bool WinCard = false;
+	[FoldoutGroup("Card info")]
+	public bool DestroyAfterPlay;
 
-	[ShowIf("ShowCellAim")]
-	public CombineModel.Skills skill;
-	[ShowIf("ShowCellAim")]
-	public int skillLevel;
-
-	public enum CellOwnership
-	{
-		Every,
-		Neutral,
-		Player,
-		Oponent
-	}
-
-	private bool ShowCellAim()
-	{
-		return aimType == CardAimType.Cell;
-	}
+	public List<CardEffect> CardEffects = new List<CardEffect>();
 }
