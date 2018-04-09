@@ -38,7 +38,7 @@ public class CardsManager : Singleton<CardsManager> {
 	}
 
     private Queue<Card> pile = new Queue<Card>();
-    private List<Card> drop = new List<Card>();
+	private Stack<Card> drop = new Stack<Card>();
     private Canvas _playerCanvas;
 	public Canvas playerCanvas
     {
@@ -52,29 +52,60 @@ public class CardsManager : Singleton<CardsManager> {
         }
     }
 		
-	public void GeneratePile(List<Card> cards)
+	public void SelectPlayer(Player player)
     {
-		List<Card> sorted = cards.OrderBy(a => Guid.NewGuid()).ToList();
-        pile = new Queue<Card>(sorted);
+		pile = new Queue<Card>(player.Pile);
+		drop = new Stack<Card>(player.Drop);
+		for(int i = 0; i<player.CardsInHand;i++)
+		{
+			GetCard();
+		}
+
+		GetCard();
+		for (int i = CardsManager.Instance.CardsCount; i < 5; i++)
+		{
+			CardsManager.Instance.GetCard();
+		}
     }
 
-    [ContextMenu("Get card")]
+	public void EndPlayerTurn(Player player)
+	{
+		player.Drop = drop;
+
+		Stack<Card> cardsStack = new Stack<Card> (pile);
+		player.CardsInHand = cardsInHand.Count ();
+		foreach(CardVisual cv in cardsInHand)
+		{
+			cardsStack.Push (cv.CardAsset);
+		}
+
+		GetComponentInChildren<CardsLayout> ().EndTurn ();
+
+		for(int i = cardsInHand.Count-1; i>=0;i--)
+		{
+			Destroy(cardsInHand[i].gameObject);
+		}
+
+		player.Pile = new Queue<Card>(cardsStack);
+	}
+		
     public void GetCard()
     {
-        GameObject newCard = Instantiate(CardPrefab);
-		OnCardTaken.Invoke (newCard.GetComponent<CardVisual>());
-        newCard.GetComponent<CardVisual>().Init(pile.Dequeue());
-		cardsInHand.Add (newCard.GetComponent<CardVisual>());
-        newCard.transform.SetParent(pileTransform);
-        newCard.transform.localPosition = Vector3.zero;
-		newCard.transform.localRotation = Quaternion.identity;
-        newCard.transform.localScale = Vector3.one;
-        if (pile.Count == 0)
-        {
-            Resuffle();
-        }
-		newCard.transform.SetParent(handTransform);
-		GetComponentInChildren<CardsLayout> ().CardsReposition ();
+		if (pile.Count > 0) {
+			GameObject newCard = Instantiate (CardPrefab);
+			OnCardTaken.Invoke (newCard.GetComponent<CardVisual> ());
+			newCard.GetComponent<CardVisual> ().Init (pile.Dequeue ());
+			cardsInHand.Add (newCard.GetComponent<CardVisual> ());
+			newCard.transform.SetParent (pileTransform);
+			newCard.transform.localPosition = Vector3.zero;
+			newCard.transform.localRotation = Quaternion.identity;
+			newCard.transform.localScale = Vector3.one;
+			if (pile.Count == 0) {
+				Resuffle ();
+			}
+			newCard.transform.SetParent (handTransform);
+			GetComponentInChildren<CardsLayout> ().CardsReposition ();
+		}
     }
 
     public Vector3 GetPosition(CardVisual cardVisual, bool hovered = false)
@@ -90,7 +121,8 @@ public class CardsManager : Singleton<CardsManager> {
     public void DropCard(CardVisual cardVisual)
     {
 			OnCardDroped.Invoke (cardVisual);
-            drop.Add(cardVisual.CardAsset);
+			drop.Push(cardVisual.CardAsset);
+			cardsInHand.Remove (cardVisual);
             Destroy(cardVisual.gameObject);
     }
 

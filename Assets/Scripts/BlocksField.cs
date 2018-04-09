@@ -4,156 +4,131 @@ using UnityEngine;
 using System.Linq;
 
 public class BlocksField : Singleton<BlocksField> {
-	public int size = 4;
-	public float cellSize = 2;
+	public int Size = 4;
+	public float CellSize = 2;
+	private Dictionary<Vector2, Block> cells = new Dictionary<Vector2, Block> ();
+	public GameObject baseBlock;
 
-	public GameObject[] baseBlocks;
+	public List<CellState> baseStates;
 
-	public GameObject Highlighter;
-	public GameObject BlockInfo;
-
-	private Dictionary<Vector3, CellHighlighter> highlighters = new Dictionary<Vector3, CellHighlighter>();
-	private List<BlockInfo> blocksInfos = new List<BlockInfo>();
-
-	private bool infoShowing;
-	public bool InfoShowing
+    public List<Block> GetBlocksInRadius(Block block, int r)
 	{
-		set
-		{
-			if(infoShowing!=value)
-			{
-				infoShowing = value;
-				if (infoShowing) {
-					ShowInfo (FindObjectsOfType<Block> ().ToList ());
-				} else {
-					ShowInfo (new List<Block>());
-				}
-			}
-		}
-		get
-		{
-			return infoShowing;
-		}
-	}
+		List<Block> blocks = new List<Block> ();
+		///ton ipmplemented
+		return blocks;
+    }
 
 	void Awake()
 	{
-		GenerateRandomTerrain ();
+		GenerateField ();
+	}
+		
+
+	public void GenerateField()
+	{
+		cells.Clear ();
+		foreach(Transform t in transform)
+		{
+			Destroy(t.gameObject);
+		}
+
+
+		foreach(KeyValuePair<Vector3, Vector2> v in RecalculateHexes())
+		{
+			GameObject newCell = Instantiate (baseBlock);
+			newCell.transform.SetParent (transform);
+			newCell.transform.localScale = Vector3.one;
+			newCell.transform.localRotation = Quaternion.Euler (Vector3.up*60*Mathf.RoundToInt(Random.Range(0,6)));
+			newCell.transform.localPosition = v.Key;
+			cells.Add (v.Value, newCell.GetComponent<Block>());
+		}
+
+
+		foreach(KeyValuePair<Vector2, Block> pair in cells)
+		{
+			pair.Value.State =  baseStates[Random.Range(0,4)];
+		}
+
+		foreach (EdgesController ec in GetComponentsInChildren<EdgesController>()) {
+			ec.RecalculateEdges ();
+		}
+
+		foreach (Block b in FindObjectsOfType<Block>())
+		{
+			b.RecalculateInkome();
+		}
 	}
 
-	void Update()
+	public Dictionary<Vector3, Vector2> RecalculateHexes ()
 	{
-		if(Input.GetKeyDown(KeyCode.Tab))
-		{
-			InfoShowing = true;
-		}
-		if(Input.GetKeyUp(KeyCode.Tab))
-		{
-			InfoShowing = false;
-		}
-	}
+		List<Vector2> cellsCoordinates = new List<Vector2> ();
+		Dictionary<Vector3, Vector2> result = new Dictionary<Vector3, Vector2> ();
+		cellsCoordinates.Clear ();
 
-	public void GenerateRandomTerrain()
-	{
-		GetComponent<DiamondSquareTest> ().size = size;
-		GetComponent<DiamondSquareTest> ().roughness = 40;
-		Dictionary<Vector2, int> dict = GetComponent<DiamondSquareTest> ().GetBiomes ();
-
-		for(int i = 0; i<Mathf.Pow(2,size)+1;i++)
-		{
-			for(int j = 0; j<Mathf.Pow(2,size)+1; j++)
-			{
-				GameObject block = baseBlocks[dict[new Vector2(i,j)]];
-				float width = Mathf.Pow (2, size) + 1;
-				Quaternion randomRotation = Quaternion.Euler (Vector3.up*90*Mathf.RoundToInt(Random.Range(0,3)));
-				GameObject nb = Instantiate (block, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), randomRotation,transform.GetChild(0));
-				highlighters.Add (nb.transform.position, Instantiate (Highlighter, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), Quaternion.identity,transform.GetChild(1)).GetComponent<CellHighlighter>());
-				blocksInfos.Add (Instantiate (BlockInfo, transform.position+new Vector3((i-width/2)*cellSize,0,(j-width/2)*cellSize), Quaternion.identity,transform.GetChild(2)).GetComponent<BlockInfo>());
-            }
-		}
-
-        foreach (Block b in FindObjectsOfType<Block>())
-        {
-            b.RecalculateInkome();
-        }
-
-		foreach(Block block in FindObjectsOfType<Block>())
-		{
-			List<Block> blocks = GetBlocksInRadius (block, 1);
-			blocks.Add (block);
-
-			foreach(Block neighbour in blocks)
-			{
-				block.OnBiomChanged+=(CombineModel.Biom biom, Block n)=>
-				{
-					int i = -1;
-
-					if(n == block)
-					{
-						i = 0;
-					}
-
-					if(n.transform.position.x<block.transform.position.x && n.transform.position.y == block.transform.position.y)
-					{
-						i = 1;
-					}
-
-					if(n.transform.position.x==block.transform.position.x && n.transform.position.y > block.transform.position.y)
-					{
-						i = 2;
-					}
-
-					if(n.transform.position.x>block.transform.position.x && n.transform.position.y == block.transform.position.y)
-					{
-						i = 3;
-					}
-
-					if(n.transform.position.x==block.transform.position.x && n.transform.position.y < block.transform.position.y)
-					{
-						i = 4;
-					}
-
-					block.RecalculateMesh(biom, i);
-				};
+		for (int i = -Size * 3; i < Size * 3; i++) {
+			for (int j = -Size * 3; j < Size * 3; j++) {
+				if (UnityEngine.Random.Range (0, 10) >= 0 && Mathf.Abs (i + j) < Size && Mathf.Abs (j) < Size && Mathf.Abs (i) < Size) {
+					cellsCoordinates.Add (new Vector2 (i, j));
+				}
 			}
 		}
+
+		foreach (Vector2 c in cellsCoordinates) {
+			Vector2 cell2DCoord = CellCoordToWorld (c);
+			Vector3 cellPosition = RotatePointAroundPivot (new Vector3 (cell2DCoord.x, transform.position.y, cell2DCoord.y), transform.position, transform.rotation.eulerAngles);
+			result.Add (cellPosition, c);
+		}
+
+		return result;
 	}
 
-	public void HighLightBlock(Block block, bool value, bool selection = false)
+	private Vector2 CellCoordToWorld (Vector2 cellCoord)
 	{
-        if (!block)
-        {
-            return;
-        }
-
-        highlighters[block.transform.position].Set(value, selection);   
+		float x =  CellSize * (float)Mathf.Sqrt (3) * (cellCoord.x + cellCoord.y / 2);
+		float y =  CellSize * 3 / 2 * -cellCoord.y;
+		Vector3 pos = transform.position + new Vector3 (x, 0, y) * 0.6f;
+		return new Vector2 (pos.x, pos.z);
 	}
 
-	public void ShowInfo(List<Block> blocks)
+	private Vector3 RotatePointAroundPivot (Vector3 point, Vector3 pivot, Vector3 angles)
 	{
-		if(!BlocksField.Instance.InfoShowing)
-		{
-		foreach(BlockInfo bi in blocksInfos)
-		{
-			bi.Hide ();
-		}
-		}
-		foreach(Block b in blocks)
-		{
-			blocksInfos.Find (h=>Vector3.Distance(h.transform.position, b.transform.position)<1).Show(b);
-		}
+		Vector3 dir = point - pivot; // get point direction relative to pivot
+		dir = Quaternion.Euler (angles) * dir; // rotate it
+		point = dir + pivot; // calculate rotated point
+		return point; // return it
 	}
 
-    public void Emmit()
-    {
-        foreach (Block b in FindObjectsOfType<Block>())
-        {
-            blocksInfos.Find(h => Vector3.Distance(h.transform.position, b.transform.position) < 1).Emmit(b);
-        }
-    }
+	public Block GetCellFromSide(Block e, int i)
+	{
+		try
+		{
+			Vector2 cellPos = GetCellPos(e);
+			switch(i)
+			{
+			case 0:
+				return cells[new Vector2(cellPos.x-1, cellPos.y)];
+			case 1:
+				return cells[new Vector2(cellPos.x, cellPos.y-1)];
+			case 2:
+				return cells[new Vector2(cellPos.x+1, cellPos.y-1)];
+			case 3:
+				return cells[new Vector2(cellPos.x+1, cellPos.y)];
+			case 4:
+				return cells[new Vector2(cellPos.x, cellPos.y+1)];
+			case 5:
+				return cells[new Vector2(cellPos.x-1, cellPos.y+1)];
+			}
+		}
+		catch
+		{
+			return null;
+		}
 
-    public List<Block> GetBlocksInRadius(Block block, int r)
-    {
-        return FindObjectsOfType<Block>().Where(b => Vector3.Distance(b.transform.position, block.transform.position) <= r * Mathf.Sqrt(2) * cellSize+0.001f && b != block).ToList();
-    }
+		return null;
+	}
+
+	public Vector2 GetCellPos(Block e)
+	{
+		return cells.FirstOrDefault (x => x.Value == e).Key;
+	}
 }

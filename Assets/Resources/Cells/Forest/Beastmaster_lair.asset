@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Beastmaster lair
-  prefab: {fileID: 1173918771209210, guid: 60bb5114aadec401f90afc5c5d5e9ec0, type: 2}
+  prefab: {fileID: 1826986675936942, guid: d61b6b386031b4364bbdd72685ba1cff, type: 2}
   Sprite: {fileID: 21300000, guid: 79bdee9030e6b4ff085befdc21c49332, type: 3}
   types: 
   income:

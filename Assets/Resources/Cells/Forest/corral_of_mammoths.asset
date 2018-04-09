@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: corral of mammoths
-  prefab: {fileID: 1686513673557172, guid: 9066bf35288f04c1eac59dcddd819a64, type: 2}
+  prefab: {fileID: 100004, guid: a8f774beb70fb448d94bdd87a3060d33, type: 3}
   Sprite: {fileID: 21300000, guid: cfc2517c2139c4b98b8d4b2b64e3255b, type: 3}
   types: 
   income:

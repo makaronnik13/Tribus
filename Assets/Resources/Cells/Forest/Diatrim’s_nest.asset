@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: "Diatrim\u2019s nest"
-  prefab: {fileID: 1541121638275990, guid: c8c94ea0330bc4279b722828ac4010b3, type: 2}
+  prefab: {fileID: 100002, guid: a9edaf95ae6184650b186f4497c88ba6, type: 3}
   Sprite: {fileID: 21300000, guid: 63030e7e3d49c49bdb73be0209370e16, type: 3}
   types: 
   income:

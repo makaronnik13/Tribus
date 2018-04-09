@@ -121,6 +121,10 @@ public class CardsLayout : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-
     }
+
+	public void EndTurn()
+	{
+		CardsSiblings.Clear ();
+	}
 }

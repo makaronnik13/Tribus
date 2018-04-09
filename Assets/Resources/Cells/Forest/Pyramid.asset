@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: pyramid
-  prefab: {fileID: 1187560796401180, guid: ab3a12602c97e4e8ead485c48f0787b0, type: 2}
+  prefab: {fileID: 100002, guid: 543bda1ca4c464e4e83095d11b3f9e2c, type: 3}
   Sprite: {fileID: 21300010, guid: 75cfdefc8742a4a88a817933b476b25d, type: 3}
   types: 
   income:

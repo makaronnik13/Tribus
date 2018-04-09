@@ -16,7 +16,8 @@ public class CombineModel {
 	{
 		Forest,
 		Water,
-		Mountains
+		Mountains,
+		None
 	}
 		
 

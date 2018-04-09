@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CardsPlayer : Singleton<CardsPlayer>
 {
+	public Action<List<ISkillAim>> OnAimsChanged = (List<ISkillAim> aims)=>{};
+
     private Card activeCard;
     public Card ActiveCard
     {
@@ -71,12 +73,19 @@ public class CardsPlayer : Singleton<CardsPlayer>
 	{
         foreach (ISkillAim lastTaim in focusedAims)
         {
-            lastTaim.HighlightSelected(ActiveCard, false);
+			if (!ActiveCard) 
+			{
+				lastTaim.HighlightSimple (false);
+			} 
+			else 
+			{
+				lastTaim.HighlightSelected(ActiveCard, false);
+			}
         }
 
 		focusedAims = new List<ISkillAim> ();
 
-        if (ActiveCard && aim!=null && aim.IsAwaliable(ActiveCard))
+		if (ActiveCard && aim!=null && aim.IsAwaliable(ActiveCard))
         {
             focusedAims.Add(aim);
             foreach (ISkillAim lastTaim in focusedAims)
@@ -84,5 +93,17 @@ public class CardsPlayer : Singleton<CardsPlayer>
                 lastTaim.HighlightSelected(ActiveCard, true);
             }
         }
+			
+		if(!ActiveCard && aim!=null)
+		{	
+			focusedAims.Add (aim);
+
+			foreach (ISkillAim lastTaim in focusedAims)
+			{
+				lastTaim.HighlightSimple(true);
+			}
+		}
+
+		OnAimsChanged.Invoke (focusedAims);
     }
 }

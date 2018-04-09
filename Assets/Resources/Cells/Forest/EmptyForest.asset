@@ -20,7 +20,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Forest
-  prefab: {fileID: 1839053236738266, guid: 70de8bdfebdcf400b8f6b5dbefda1e1f, type: 2}
+  prefab: {fileID: 0}
   Sprite: {fileID: 21300000, guid: b21f5dcda31b14f4db566541995ab1fb, type: 3}
   types: 
   income: []

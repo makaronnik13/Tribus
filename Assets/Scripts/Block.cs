@@ -3,11 +3,66 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
 
-public class Block : MonoBehaviour, ISkillAim {
+public class Block : MonoBehaviour, ISkillAim 
+{
+	private CellModel cellModel;
+	private CellModel CellModel
+	{
+		get
+		{
+			if(cellModel == null)
+			{
+				Debug.Log (gameObject);
+				cellModel = GetComponentInChildren<CellModel> ();
+			}
 
-	public Action<CombineModel.Biom, Block> OnBiomChanged = (CombineModel.Biom biom, Block block)=>{};
+			return cellModel;
+		}
+	}
 
+	private CellHighlighter highLighter;
+	private CellHighlighter Highlighter
+	{
+		get
+		{
+			if(highLighter == null)
+			{
+				highLighter = GetComponentInChildren<CellHighlighter> ();
+			}
+
+			return highLighter;
+		}
+	}
+
+	private Player owner;
+	public Player Owner
+	{
+		get
+		{
+			return owner;
+		}
+		set
+		{
+			owner = value;
+		}
+	}
+
+	private CombineModel.Biom biom;
+	public CombineModel.Biom Biom
+	{
+		get
+		{
+			return biom;
+		}
+		set
+		{
+			biom = value;
+			GetComponentInChildren<ModelReplacer> ().SetModel ((int)Biom);
+		}
+	}
+		
 	private List<Inkome> currentIncome = new List<Inkome>();
 	public List<Inkome> CurrentIncome
 	{
@@ -30,6 +85,13 @@ public class Block : MonoBehaviour, ISkillAim {
 		set
 		{
 			state = value;
+			CellModel.SetCell (state);
+			if (state) {
+				Biom = state.Biom;
+			} else 
+			{
+				Biom = CombineModel.Biom.None;
+			}
 		}
 	}
     public int Radius
@@ -48,6 +110,11 @@ public class Block : MonoBehaviour, ISkillAim {
     public void RecalculateInkome()
     {
         currentIncome = new List<Inkome>();
+
+		if(State == null)
+		{
+			return;
+		}
 
         foreach (Inkome inc in State.income)
         {
@@ -98,6 +165,15 @@ public class Block : MonoBehaviour, ISkillAim {
 
 	void OnMouseEnter()
 	{
+		if(Biom == CombineModel.Biom.None)
+		{
+			return;
+		}
+
+		if (EventSystem.current.currentSelectedGameObject && EventSystem.current.currentSelectedGameObject.layer == 5) { // UI elements getting the hit/hover
+			return;
+		}
+
 		CardsPlayer.Instance.SelectAims (this);
         InformationPanel.Instance.ShowInfo(this);
     }
@@ -112,15 +188,11 @@ public class Block : MonoBehaviour, ISkillAim {
 	{
 		
 	}
-
-	public void RecalculateMesh(CombineModel.Biom newBiom, int side)
-	{
 		
-	}
 
     public bool IsAwaliable(Card card)
     {
-        if (!card)
+		if (!card || State == null)
         {
             return false;
         }
@@ -139,11 +211,24 @@ public class Block : MonoBehaviour, ISkillAim {
 
     public void Highlight(Card card, bool v)
     {
-        BlocksField.Instance.HighLightBlock(this, v && IsAwaliable(card));
+		Highlighter.Set(v && IsAwaliable(card), false);   
     }
+
+	public void HighlightSimple(bool v)
+	{
+		Highlighter.Set(v, false);  
+	}
 
     public void HighlightSelected(Card card, bool v)
     {
-        BlocksField.Instance.HighLightBlock(this, v && IsAwaliable(card), true);
+		Highlighter.Set(v && IsAwaliable(card), true);   
     }
+
+	void Start()
+	{
+		Animator anim = GetComponent<Animator> ();
+		anim.speed = UnityEngine.Random.Range (0.3f, 0.6f);
+		float randomIdleStart = UnityEngine.Random.Range(0,anim.GetCurrentAnimatorStateInfo(0).length);
+		anim.Play("CellFlowing", 0, randomIdleStart);
+	}
 }
