@@ -510,6 +510,7 @@ GameObject:
   - component: {fileID: 114790607800270198}
   - component: {fileID: 82605100892570300}
   - component: {fileID: 114259323526240948}
+  - component: {fileID: 114569674174846896}
   m_Layer: 8
   m_Name: PlayerIdentity
   m_TagString: Player
@@ -1946,6 +1947,18 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 1
+--- !u!114 &114569674174846896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1722171646335244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1616ea2e5b3ce714298e35efd7806009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endTurnButton: {fileID: 114798391608681244}
 --- !u!114 &114576906383370754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2516,8 +2529,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114516715410889068}
-        m_MethodName: SkipTurn
+      - m_Target: {fileID: 114702874410576940}
+        m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

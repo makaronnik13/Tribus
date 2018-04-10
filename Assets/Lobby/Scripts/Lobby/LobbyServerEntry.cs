@@ -16,7 +16,6 @@ namespace Prototype.NetworkLobby
 
 		public void Populate(MatchInfoSnapshot match, LobbyManager lobbyManager, Color c)
 		{
-			Debug.Log (match.name);
             serverInfoText.text = match.name;
 
             slotInfo.text = match.currentSize.ToString() + "/" + match.maxSize.ToString(); ;

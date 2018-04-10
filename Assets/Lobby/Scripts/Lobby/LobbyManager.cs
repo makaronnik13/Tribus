@@ -374,10 +374,6 @@ namespace Prototype.NetworkLobby
                     (lobbySlots[i] as LobbyPlayer).RpcUpdateCountdown(0);
                 }
             }
-
-
-       
-            LobbyMenu.Instance.HideBackGround();
             ServerChangeScene(playScene);
         }
 

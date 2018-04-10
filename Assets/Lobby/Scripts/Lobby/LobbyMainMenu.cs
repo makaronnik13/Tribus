@@ -50,8 +50,6 @@ namespace Prototype.NetworkLobby
 
 		public void OnClickCreateMatchmakingGame(string name, int players)
         {
-			Debug.Log (players);
-
             lobbyManager.StartMatchMaker();
             lobbyManager.matchMaker.CreateMatch(
 				name,

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class DefaultResourcesManager
@@ -93,4 +94,28 @@ public static class DefaultResourcesManager
 	{
 		return Colors[Random.Range(0, Colors.Length-1)];
 	}
+
+    public static StatesList AllStatesList
+    {
+        get
+        {
+            return Resources.Load<StatesList>("AllStatesList");
+        }
+    }
+
+    public static List<CellState> PreviousStates(CellState state)
+    {
+        List<CellState> result = new List<CellState>();
+
+        foreach (CellState cs in AllStatesList.States)
+        {
+            Combination comb = cs.Combinations.FirstOrDefault(c => c.ResultState == state);
+            if (comb != null)
+            {
+                result.Add(cs);
+            }
+        }
+
+        return result;
+    }
 }

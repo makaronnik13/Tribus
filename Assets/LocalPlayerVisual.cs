@@ -1,0 +1,27 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class LocalPlayerVisual : MonoBehaviour {
+
+    public Button endTurnButton;
+    public PlayersVisualizer playersVisualiser;
+
+    public void EndTurn()
+    {
+        endTurnButton.interactable = false;
+    }
+
+    public void StartTurn()
+    {
+        Debug.Log("local visual turn start");
+        endTurnButton.interactable = true;
+    }
+
+    public void SetPlayersList(GamePlayer[] players)
+    {
+        playersVisualiser.Init(players.ToList().Select(gp=>gp.player).ToList());
+    }
+}

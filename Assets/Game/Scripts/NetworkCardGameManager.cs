@@ -10,32 +10,54 @@ public class NetworkCardGameManager : NetworkBehaviour
 {
     static public NetworkCardGameManager sInstance = null;
 
-    private Queue<GamePlayerIdentity> playersQueue;
+    private Queue<GamePlayer> playersQueue = new Queue<GamePlayer>();
+    private GamePlayer currentPlayer;
 
     void Awake()
     {
         sInstance = this;
     }
 
+    [Server]
+    private void OnAllClientsConnected()
+    {
+        Debug.Log("all clients connected");
+        playersQueue = new Queue<GamePlayer>(playersQueue.ToList().OrderBy(p=>Guid.NewGuid()));
+        List<GameObject> go = new List<GameObject>();
+        foreach (GamePlayer gp in playersQueue)
+        {
+            go.Add(gp.gameObject);
+        }
+
+        foreach (GamePlayer gp in playersQueue)
+        {
+            gp.TargetSetPlayersList(gp.connectionToClient, go.ToArray());
+        }
+
+        currentPlayer = playersQueue.Dequeue();
+        currentPlayer.TargetStartTurn(currentPlayer.connectionToClient);
+    }
+
     [ServerCallback]
-    public void Start()
+    public void Connected(GameObject playerGo)
     {
-        InitPlayers();
-    }
+        Debug.Log(playerGo.GetComponent<GamePlayer>().player.PlayerName+" connected");
+        playersQueue.Enqueue(playerGo.GetComponent<GamePlayer>());
 
-    private void InitPlayers()
-    {
-        List<GamePlayerIdentity> newPlayers = new List<GamePlayerIdentity>();
-        foreach (GamePlayerIdentity gpi in FindObjectsOfType<GamePlayerIdentity>())
+        Debug.Log(playersQueue.Count+"/" + LobbyManager.s_Singleton.matchSize);
+        if (playersQueue.Count == LobbyManager.s_Singleton.matchSize)
         {
-            newPlayers.Add(gpi);
-        }
-        playersQueue = new Queue<GamePlayerIdentity>(newPlayers.OrderBy(a => Guid.NewGuid()));
-
-        foreach (GamePlayerIdentity gpi in playersQueue)
-        {
-            gpi.Init(playersQueue);
+            OnAllClientsConnected();
         }
     }
 
+    public void EndTurn()
+    {
+        Debug.Log(currentPlayer.player.PlayerName + " ends turn");
+        playersQueue.Enqueue(currentPlayer);
+        currentPlayer.TargetEndTurn(currentPlayer.connectionToClient); 
+        currentPlayer = playersQueue.Dequeue();
+        Debug.Log(currentPlayer.player.PlayerName+" start turn");
+        currentPlayer.TargetStartTurn(currentPlayer.connectionToClient);
+    }
 }

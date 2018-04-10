@@ -34,6 +34,8 @@ namespace Prototype.NetworkLobby
         public Color playerColor = Color.white;
 		[SyncVar(hook = "OnMyAvatar")]
 		public int playerSpriteIndex;
+        [SyncVar(hook = "OnMyDeck")]
+        public string playerDeck;
 
         private PlayerSaveStruct _player;
         public PlayerSaveStruct Player
@@ -115,8 +117,6 @@ namespace Prototype.NetworkLobby
         {
             _player = LobbyPlayerIdentity.Instance.player;
 
-            Debug.Log(_player.CurrentDeck);
-
             deckDropdown.gameObject.SetActive (true);
 			deckDropdown.ClearOptions ();
 			deckDropdown.AddOptions (LobbyPlayerIdentity.Instance.player.Decks.Where(d=>d.Awaliable).Select(d=>d.DeckName).ToList());
@@ -130,10 +130,14 @@ namespace Prototype.NetworkLobby
                 deckDropdown.value = LobbyPlayerIdentity.Instance.player.Decks.Where(d => d.Awaliable).ToList().IndexOf(LobbyPlayerIdentity.Instance.player.CurrentDeck);
             }
 
+            string cards = "";
+            foreach (Card c in LobbyPlayerIdentity.Instance.player.CurrentDeck.Cards)
+            {
+                cards += DefaultResourcesManager.AllCards.ToList().IndexOf(c) + ",";
+            }
+            CmdDeckChange(cards);
+
             deckDropdown.onValueChanged.AddListener(DeckDropdownChanged);
-
-            Debug.Log(_player.CurrentDeck);
-
             transform.SetAsFirstSibling ();
             CheckRemoveButton();
 			CmdNameChanged (LobbyPlayerIdentity.Instance.player.PlayerName);
@@ -164,6 +168,12 @@ namespace Prototype.NetworkLobby
         private void DeckDropdownChanged(int v)
         {
             LobbyPlayerIdentity.Instance.player.CurrentDeck = LobbyPlayerIdentity.Instance.player.Decks.Where(d => d.Awaliable).ToList()[v];
+            string cards = "";
+            foreach (Card c in LobbyPlayerIdentity.Instance.player.CurrentDeck.Cards)
+            {
+                cards += DefaultResourcesManager.AllCards.ToList().IndexOf(c) + ",";
+            }
+            CmdDeckChange(cards);
         }
 
         //This enable/disable the remove button depending on if that is the only local player or not
@@ -207,6 +217,11 @@ namespace Prototype.NetworkLobby
         }
 
         ///===== callback from sync var
+
+        private void OnMyDeck(string deck)
+        {
+            playerDeck = deck;
+        }
 
         public void OnMyName(string newName)
         {
@@ -286,8 +301,13 @@ namespace Prototype.NetworkLobby
 			playerColor = color;
         }
 
+        [Command]
+        public void CmdDeckChange(string deck)
+        {
+            playerDeck = deck;
+        }
 
-		[Command]
+        [Command]
 		public void CmdAvatarChange(int avatar)
 		{
 			playerSpriteIndex = avatar;

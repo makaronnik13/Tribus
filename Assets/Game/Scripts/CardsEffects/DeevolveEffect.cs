@@ -19,7 +19,7 @@ public class DeevolveEffect :ICardEffect
 		{
 			if (aim.GetType () == typeof(Block)) 
 			{						
-				List<CellState> previousStates = StatesInfo.Instance.previousStates ((aim as Block).State);
+				List<CellState> previousStates = DefaultResourcesManager.PreviousStates ((aim as Block).State);
 
 				if(previousStates.Count>0)
 				{
