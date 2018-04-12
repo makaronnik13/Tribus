@@ -14,16 +14,6 @@ public class GamePlayer : NetworkBehaviour
         CmdConnected();
     }
 
-    [TargetRpc]
-    public void TargetSetPlayersList(NetworkConnection connection, GameObject[] playersGo)
-    {
-        List<GamePlayer> players = new List<GamePlayer>();
-        foreach (GameObject go in playersGo)
-        {
-            players.Add(go.GetComponent<GamePlayer>());
-        }
-        LocalPlayerLogic.Instance.SetPlayerList(players.ToArray());
-    }
 
     [Command]
     private void CmdConnected()

@@ -29,8 +29,4 @@ public class LocalPlayerLogic : Singleton<LocalPlayerLogic> {
         visual.StartTurn();
     }
 
-    public void SetPlayerList(GamePlayer[] players)
-    {
-        visual.SetPlayersList(players);
-    }
 }

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayersVisualizer : MonoBehaviour
+public class PlayersVisualizer : NetworkBehaviour
 {
 	public GameObject playerPrefab;
 	private bool firstTime = false;
@@ -11,13 +12,17 @@ public class PlayersVisualizer : MonoBehaviour
     {
         foreach (Player player in players)
         {
-            Debug.Log(playerPrefab);
+            UIDebug.Instance.Log(player.PlayerName);
             GameObject newPlayerVisual = Instantiate(playerPrefab);
+
+            UIDebug.Instance.Log(newPlayerVisual.name);
+
             newPlayerVisual.transform.SetParent(transform);
             newPlayerVisual.transform.localScale = Vector3.one;
             newPlayerVisual.GetComponent<PlayerVisual>().Init(player);
             newPlayerVisual.transform.localPosition = Vector3.zero;
             newPlayerVisual.transform.localRotation = Quaternion.identity;
+            NetworkServer.Spawn(newPlayerVisual);
         }
     }
 

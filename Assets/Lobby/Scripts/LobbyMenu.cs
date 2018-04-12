@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Prototype.NetworkLobby;
+using ExitGames.Demos.DemoAnimator;
 
 public class LobbyMenu : Singleton<LobbyMenu> {
 
 	public GameObject DeckPanel, PlayerPanel, MainMenuPanel, LobbyPanel, RoomPanel, SandboxPanel, Background;
+    public GameLauncher launcher;
 
 	void Start()
 	{
@@ -19,10 +21,10 @@ public class LobbyMenu : Singleton<LobbyMenu> {
 
 	public void Play()
 	{
-		FindObjectOfType<LobbyManager>().StartMatchMaker();
+		launcher.Connect();
 		MainMenuPanel.SetActive (false);
-		LobbyPanel.SetActive (true);
-	}
+        RoomPanel.SetActive(true);
+    }
 
 	public void PlayerSettings()
 	{

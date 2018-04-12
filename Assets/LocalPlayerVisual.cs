@@ -19,9 +19,4 @@ public class LocalPlayerVisual : MonoBehaviour {
         Debug.Log("local visual turn start");
         endTurnButton.interactable = true;
     }
-
-    public void SetPlayersList(GamePlayer[] players)
-    {
-        playersVisualiser.Init(players.ToList().Select(gp=>gp.player).ToList());
-    }
 }

@@ -10389,8 +10389,9 @@ MonoBehaviour:
   m_OfflineScene: Lobby
   m_OnlineScene: 
   m_SpawnPrefabs:
-  - {fileID: 0}
-  - {fileID: 1239301654575330, guid: df508b83463424439834612c468eb98b, type: 2}
+  - {fileID: 1307729525390568, guid: fa432a2a9b682434f9e750249f69bafc, type: 2}
+  - {fileID: 1204053435304634, guid: 191866697656f4704b07cee547556e0d, type: 2}
+  - {fileID: 1069113231019912, guid: d2b00309559862244b4ece688d7b76d5, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -10452,11 +10453,12 @@ MonoBehaviour:
   m_MinPlayers: 1
   m_LobbyPlayerPrefab: {fileID: 114053789473716068, guid: 78a4640e1943a2a4ba6b7e6b17a262f2,
     type: 2}
-  m_GamePlayerPrefab: {fileID: 1918905264644700, guid: d2b00309559862244b4ece688d7b76d5,
+  m_GamePlayerPrefab: {fileID: 1069113231019912, guid: d2b00309559862244b4ece688d7b76d5,
     type: 2}
   m_LobbyScene: Lobby
   m_PlayScene: TestOnlineScene
   lobbySlots: []
+  RoomSize: 0
   prematchCountdown: 3
   mainMenuPanel: {fileID: 1834391123}
   lobbyPanel: {fileID: 719298029}
@@ -11028,6 +11030,7 @@ MonoBehaviour:
   RoomPanel: {fileID: 719298028}
   SandboxPanel: {fileID: 1310989332}
   Background: {fileID: 667219810}
+  launcher: {fileID: 0}
 --- !u!114 &1618382642
 MonoBehaviour:
   m_ObjectHideFlags: 0

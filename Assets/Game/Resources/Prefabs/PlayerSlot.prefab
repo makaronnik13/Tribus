@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 222125976658099140}
   - component: {fileID: 114312070048269050}
   - component: {fileID: 135435040889776100}
+  - component: {fileID: 114343250651001044}
   m_Layer: 5
   m_Name: PlayerSlot
   m_TagString: Untagged
@@ -1061,6 +1062,38 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114343250651001044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1307729525390568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 250
+    i1: 67
+    i2: 42
+    i3: 42
+    i4: 155
+    i5: 104
+    i6: 36
+    i7: 52
+    i8: 249
+    i9: 231
+    i10: 80
+    i11: 36
+    i12: 159
+    i13: 105
+    i14: 186
+    i15: 252
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114416603832936502
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,40 +12,31 @@ public class NetworkCardGameManager : NetworkBehaviour
 
     private Queue<GamePlayer> playersQueue = new Queue<GamePlayer>();
     private GamePlayer currentPlayer;
+    private CardGameVisual visual;
 
     void Awake()
     {
         sInstance = this;
+        visual = GetComponent<CardGameVisual>();
     }
 
     [Server]
     private void OnAllClientsConnected()
     {
-        Debug.Log("all clients connected");
         playersQueue = new Queue<GamePlayer>(playersQueue.ToList().OrderBy(p=>Guid.NewGuid()));
         List<GameObject> go = new List<GameObject>();
-        foreach (GamePlayer gp in playersQueue)
-        {
-            go.Add(gp.gameObject);
-        }
-
-        foreach (GamePlayer gp in playersQueue)
-        {
-            gp.TargetSetPlayersList(gp.connectionToClient, go.ToArray());
-        }
-
+        //visual.SetPlayersList(playersQueue.ToArray());
         currentPlayer = playersQueue.Dequeue();
         currentPlayer.TargetStartTurn(currentPlayer.connectionToClient);
     }
 
+
     [ServerCallback]
     public void Connected(GameObject playerGo)
     {
-        Debug.Log(playerGo.GetComponent<GamePlayer>().player.PlayerName+" connected");
         playersQueue.Enqueue(playerGo.GetComponent<GamePlayer>());
-
-        Debug.Log(playersQueue.Count+"/" + LobbyManager.s_Singleton.matchSize);
-        if (playersQueue.Count == LobbyManager.s_Singleton.matchSize)
+        UIDebug.Instance.Log(playersQueue.Count().ToString()+"/"+ LobbyManager.s_Singleton.RoomSize);
+        if (playersQueue.Count == LobbyManager.s_Singleton.RoomSize) //|| LobbyManager.s_Singleton.RoomSize == 2
         {
             OnAllClientsConnected();
         }

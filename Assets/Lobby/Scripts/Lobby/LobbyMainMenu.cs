@@ -51,6 +51,7 @@ namespace Prototype.NetworkLobby
 		public void OnClickCreateMatchmakingGame(string name, int players)
         {
             lobbyManager.StartMatchMaker();
+            lobbyManager.RoomSize = players;
             lobbyManager.matchMaker.CreateMatch(
 				name,
 				(uint)players,

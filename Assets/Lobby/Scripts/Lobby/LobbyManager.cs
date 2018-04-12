@@ -12,7 +12,7 @@ namespace Prototype.NetworkLobby
     public class LobbyManager : NetworkLobbyManager 
     {
         static short MsgKicked = MsgType.Highest + 1;
-
+        public int RoomSize = 0;
         static public LobbyManager s_Singleton;
 
 
@@ -234,7 +234,7 @@ namespace Prototype.NetworkLobby
 		public override void OnDestroyMatch(bool success, string extendedInfo)
 		{
 			base.OnDestroyMatch(success, extendedInfo);
-			if (_disconnectServer)
+            if (_disconnectServer)
             {
                 StopMatchMaker();
                 StopHost();
@@ -260,7 +260,6 @@ namespace Prototype.NetworkLobby
         //But OnLobbyClientConnect isn't called on hosting player. So we override the lobbyPlayer creation
         public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerControllerId)
         {
-			Debug.Log ("create player");
             GameObject obj = Instantiate(lobbyPlayerPrefab.gameObject) as GameObject;
 
             LobbyPlayer newPlayer = obj.GetComponent<LobbyPlayer>();
@@ -315,12 +314,10 @@ namespace Prototype.NetworkLobby
 
         public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer)
         {
-			Debug.Log ("lobby loaded for player");
             //This hook allows you to apply state data from the lobby-player to the game-player
             //just subclass "LobbyHook" and add it to the lobby object.
             if (_lobbyHooks)
             {
-                Debug.Log("hook");
                 _lobbyHooks.OnLobbyServerSceneLoadedForPlayer(this, lobbyPlayer, gamePlayer);
             }
             return true;
