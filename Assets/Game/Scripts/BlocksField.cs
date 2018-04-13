@@ -4,15 +4,26 @@ using UnityEngine;
 using System.Linq;
 using TMPro;
 
-public class BlocksField : Singleton<BlocksField> {
+public class BlocksField : Photon.MonoBehaviour
+{
+    public static BlocksField Instance;
 	public int Size = 4;
 	public float CellSize = 2;
 	private Dictionary<Vector2, Block> cells = new Dictionary<Vector2, Block> ();
-	public GameObject baseBlock;
 
 	public List<CellState> baseStates;
 
-	public List<Block> Blocks
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void Start()
+    {
+        GetComponent<PhotonView>().RPC("GenerateField", PhotonTargets.MasterClient, new object[0]);
+    }
+
+    public List<Block> Blocks
 	{
 		get
 		{
@@ -47,7 +58,7 @@ public class BlocksField : Singleton<BlocksField> {
 		return blocks;
     }
 		
-
+    [PunRPC]
 	public void GenerateField()
 	{
 		cells.Clear ();
@@ -59,7 +70,7 @@ public class BlocksField : Singleton<BlocksField> {
 
 		foreach(KeyValuePair<Vector3, Vector2> v in RecalculateHexes())
 		{
-			GameObject newCell = Instantiate (baseBlock);
+			GameObject newCell = PhotonNetwork.Instantiate ("BaseBlock", Vector3.zero, Quaternion.identity, 0);
 			newCell.transform.SetParent (transform);
 			newCell.transform.localScale = Vector3.one;
 			newCell.transform.localRotation = Quaternion.Euler (Vector3.up*60*Mathf.RoundToInt(Random.Range(0,6)));

@@ -134,19 +134,18 @@ public class GameLauncher : Photon.PunBehaviour
             // add new messages as a new line and at the bottom of the log.
             //feedbackText.text += System.Environment.NewLine + message;
         }
-
-        #endregion
-
-
-        #region Photon.PunBehaviour CallBacks
-        // below, we implement some callbacks of PUN
-        // you can find PUN's callbacks in the class PunBehaviour or in enum PhotonNetworkingMessage
+    #endregion
 
 
-        /// <summary>
-        /// Called after the connection to the master is established and authenticated but only when PhotonNetwork.autoJoinLobby is false.
-        /// </summary>
-        public override void OnConnectedToMaster()
+    #region Photon.PunBehaviour CallBacks
+    // below, we implement some callbacks of PUN
+    // you can find PUN's callbacks in the class PunBehaviour or in enum PhotonNetworkingMessage
+
+
+    /// <summary>
+    /// Called after the connection to the master is established and authenticated but only when PhotonNetwork.autoJoinLobby is false.
+    /// </summary>
+    public override void OnConnectedToMaster()
         {
 
             Debug.Log("Region:" + PhotonNetwork.networkingPeer.CloudRegion);
@@ -217,7 +216,7 @@ public class GameLauncher : Photon.PunBehaviour
         {
             Debug.Log("joined");
             Color playerColor = LobbyPlayerIdentity.Instance.player.PlayerColor;
-            GetComponent<PhotonView>().RPC("CreatePlayer", PhotonTargets.AllBuffered, new object[] { LobbyPlayerIdentity.Instance.player.PlayerName, new float[] { playerColor.r, playerColor.g, playerColor.b }, DefaultResourcesManager.Avatars.ToList().IndexOf(LobbyPlayerIdentity.Instance.player.PlayerAvatar), PhotonNetwork.player });
+            CreatePlayer(LobbyPlayerIdentity.Instance.player.PlayerName, new float[] { playerColor.r, playerColor.g, playerColor.b }, DefaultResourcesManager.Avatars.ToList().IndexOf(LobbyPlayerIdentity.Instance.player.PlayerAvatar), PhotonNetwork.player);
 
 
         // #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.automaticallySyncScene to sync our instance scene.
@@ -233,16 +232,28 @@ public class GameLauncher : Photon.PunBehaviour
 
         #endregion
 
-        [PunRPC]
+     
         public void CreatePlayer(string name, float[] color, int spriteId, PhotonPlayer player)
         {
-            GameObject lobbyPlayer = Instantiate(lobbyPlayerPrefab, lobbyPlayersHub);
+            GameObject lobbyPlayer = PhotonNetwork.Instantiate("PhotonLobbyPlayer", Vector3.zero, Quaternion.identity, 0, new object[0]);
+            lobbyPlayer.GetComponent<PhotonView>().TransferOwnership(player.ID);
             lobbyPlayer.GetComponent<PhotonLobbyPlayer>().Init(name,color,spriteId, player);
         }
 
         public void StartGame()
         {
+            Debug.Log("start game");
+            GetComponent<PhotonView>().RPC("StartGameOnServer", PhotonTargets.MasterClient, new object[0]);
+        }
+
+        [PunRPC]
+        private void StartGameOnServer()
+        {
             PhotonNetwork.LoadLevel("TestOnlineScene");
+            foreach (PhotonLobbyPlayer plp in FindObjectsOfType<PhotonLobbyPlayer>())
+            {
+                plp.StartGame();
+            }
         }
 
         public override void OnMasterClientSwitched(PhotonPlayer newMasterClient)

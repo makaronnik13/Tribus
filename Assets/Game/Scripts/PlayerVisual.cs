@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class PlayerVisual : MonoBehaviour, ISkillAim 
+public class PlayerVisual : Photon.MonoBehaviour, ISkillAim 
 {
 	public Image selector;
 	public Image avatar;
@@ -12,23 +12,32 @@ public class PlayerVisual : MonoBehaviour, ISkillAim
 	public GameObject playerInfo;
 	public GameObject portrait;
 
-	private Player player;
 	public Player Player
 	{
 		get
 		{
-			return player;
+			return null;
 		}
 	}
 
-	public void Init(Player player)
+	public void Init(float[] playerColor, int v)
 	{
-		this.player = player;
-		avatar.sprite = player.PlayerAvatar;
-		selector.enabled = false;
-		border.color = player.PlayerColor;
-		selector.material = new Material (selector.material);
+        GetComponent<PhotonView>().RPC("InitOnClient", PhotonTargets.AllBuffered, new object[] {  playerColor,v});
 	}
+
+    [PunRPC]
+    private void InitOnClient(float[] c, int v)
+    {
+        Color playerColor = new Color(c[0], c[1], c[2]);
+        avatar.sprite = DefaultResourcesManager.Avatars[v];
+        selector.enabled = false;
+        border.color = playerColor;
+        selector.material = new Material(selector.material);
+        transform.SetParent(LocalPlayerLogic.Instance.visual.playersVisualiser.transform);
+        transform.localScale = Vector3.one;
+        transform.localRotation = Quaternion.identity;
+        transform.localPosition = Vector3.zero;
+    }
 
 	public void SetActivePlayer(bool v)
 	{
@@ -113,7 +122,7 @@ public class PlayerVisual : MonoBehaviour, ISkillAim
 
 	public void HighlightSimple(bool v)
 	{
-		playerInfo.SetActive (v);
+		//playerInfo.SetActive (v);
 	}
 
 	void OnMouseEnter()

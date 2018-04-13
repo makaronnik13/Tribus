@@ -49,7 +49,7 @@ public class GameLobby : Singleton<GameLobby>
 		{
             InitPlayer(p);
 		}
-		playersVisualiser.Init (playersQueue.ToList());
+
 		EndTurn ();
 	}
 

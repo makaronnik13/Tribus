@@ -22,6 +22,7 @@ namespace Prototype.NetworkLobby
         public Button waitingPlayerButton;
         public Button removePlayerButton;
         private PhotonPlayer owner;
+        private bool ready = false;
 
         public void ChangeServer()
         {
@@ -33,18 +34,24 @@ namespace Prototype.NetworkLobby
             }
         }
 
-        public void Init(string name, float[] color, int spriteId, PhotonPlayer player)
+        [PunRPC]
+        private void InitOnClient(string name, float[] color, int spriteId, PhotonPlayer player)
         {
             owner = player;
+            transform.SetParent(FindObjectOfType<GameLauncher>().lobbyPlayersHub);
+            transform.localScale = Vector3.one;
             colorCircle.color = new Color(color[0], color[1], color[2]);
             playerAvatar.sprite = DefaultResourcesManager.Avatars[spriteId];
             playerNameField.text = name;
-            if (player!=PhotonNetwork.player)
+            if (player != PhotonNetwork.player)
             {
                 deckDropdown.gameObject.SetActive(false);
             }
             else
             {
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "join";
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+
                 deckDropdown.gameObject.SetActive(true);
                 deckDropdown.ClearOptions();
                 deckDropdown.AddOptions(LobbyPlayerIdentity.Instance.player.Decks.Where(d => d.Awaliable).Select(d => d.DeckName).ToList());
@@ -59,6 +66,18 @@ namespace Prototype.NetworkLobby
             }
 
             deckDropdown.onValueChanged.AddListener(DeckDropdownChanged);
+
+            if (player == PhotonNetwork.player)
+            {
+                readyButton.onClick.AddListener(ReadyButtonClicked);
+            }
+            else
+            {
+                readyButton.GetComponent<Image>().enabled = false;
+                readyButton.interactable = false;
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "not ready";
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+            }
 
             if (PhotonNetwork.isMasterClient)
             {
@@ -80,11 +99,70 @@ namespace Prototype.NetworkLobby
                 removePlayerButton.gameObject.SetActive(player == PhotonNetwork.player);
                 removePlayerButton.onClick.AddListener(QuitRoom);
             }
+
+            foreach (PhotonLobbyPlayer pplayer in FindObjectsOfType<PhotonLobbyPlayer>())
+            {
+                if (pplayer!=this)
+                {
+                    pplayer.transform.SetParent(FindObjectOfType<GameLauncher>().lobbyPlayersHub);
+                }
+            }
+        }
+
+        private void ReadyButtonClicked()
+        {
+            ready = !ready;
+            if (!ready)
+            {
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "join";
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+            }
+            else
+            {
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "cancel";
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;    
+            }
+            GetComponent<PhotonView>().RPC("SetReadyButtonState", PhotonTargets.OthersBuffered);
+
+            bool allReady = true;
+            foreach (PhotonLobbyPlayer plp in FindObjectsOfType<PhotonLobbyPlayer>())
+            {
+                allReady &= plp.ready;
+                Debug.Log(allReady);
+            }
+
+            if (allReady)
+            {
+                FindObjectOfType<GameLauncher>().StartGame();
+            }
+            Debug.Log(allReady);
+        }
+
+        [PunRPC]
+        private void SetReadyButtonState()
+        {
+            ready = !ready;
+            if (!ready)
+            {
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "not ready";
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+            }
+            else
+            {
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "ready";
+                readyButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
+            }
+        }
+
+
+        public void Init(string name, float[] color, int spriteId, PhotonPlayer player)
+        {
+            GetComponent<PhotonView>().RPC("InitOnClient", PhotonTargets.AllBuffered, new object[] {name, color, spriteId, player});
         }
 
         private void KickPlayer()
         {
-            GetComponent<PhotonView>().RPC("Kicked", PhotonNetwork.player, new object[0]);
+            GetComponent<PhotonView>().RPC("Kicked", owner, new object[0]);
         }
 
         [PunRPC]
@@ -140,6 +218,17 @@ namespace Prototype.NetworkLobby
             {
                 cards += DefaultResourcesManager.AllCards.ToList().IndexOf(c) + ",";
             }
+        }
+
+        public void StartGame()
+        {
+            GetComponent<PhotonView>().RPC("StartGameOnClient", owner, new object[0]);
+        }
+
+        [PunRPC]
+        public void StartGameOnClient()
+        {
+            LobbyMenu.Instance.HideBackGround();
         }
     }
 }

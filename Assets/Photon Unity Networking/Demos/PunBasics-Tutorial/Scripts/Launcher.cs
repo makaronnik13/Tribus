@@ -146,9 +146,8 @@ namespace ExitGames.Demos.DemoAnimator
 		/// </summary>
 		public override void OnConnectedToMaster()
 		{
-            Debug.Log("connect to master");
 
-            Debug.Log("Region:"+PhotonNetwork.networkingPeer.CloudRegion);
+			Debug.Log("Region:"+PhotonNetwork.networkingPeer.CloudRegion);
 
 			// we don't want to do anything if we are not attempting to join a room. 
 			// this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
@@ -216,7 +215,6 @@ namespace ExitGames.Demos.DemoAnimator
 			LogFeedback("<Color=Green>OnJoinedRoom</Color> with "+PhotonNetwork.room.PlayerCount+" Player(s)");
 			Debug.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running. For reference, all callbacks are listed in enum: PhotonNetworkingMessage");
 		
-
 			// #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.automaticallySyncScene to sync our instance scene.
 			if (PhotonNetwork.room.PlayerCount == 1)
 			{

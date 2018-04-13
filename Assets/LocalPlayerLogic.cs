@@ -1,20 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class LocalPlayerLogic : Singleton<LocalPlayerLogic> {
-
-    public GamePlayer player;
-    private LocalPlayerVisual visual;
+public class LocalPlayerLogic : MonoBehaviour {
+    public LocalPlayerVisual visual;
+    public static LocalPlayerLogic Instance;
 
     private void Start()
     {
         visual = GetComponent<LocalPlayerVisual>();
+        Instance = this;
+        NetworkCardGameManager.sInstance.CreatePlayer(LobbyPlayerIdentity.Instance.player.PlayerName, LobbyPlayerIdentity.Instance.player.PlayerColor, DefaultResourcesManager.Avatars.ToList().IndexOf(LobbyPlayerIdentity.Instance.player.PlayerAvatar), PhotonNetwork.player);
     }
 
     public void OnEndTurnPush()
     {
-        player.EndTurn();
+        NetworkCardGameManager.sInstance.EndTurn();
     }
 
     public void EndTurn()

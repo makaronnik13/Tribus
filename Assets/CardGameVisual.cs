@@ -2,15 +2,8 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class CardGameVisual : NetworkBehaviour {
+public class CardGameVisual : MonoBehaviour
+{
 
     public PlayersVisualizer playersVisualiser;
-
-    [Server]
-    public void SetPlayersList(GamePlayer[] players)
-    {
-        Debug.Log(playersVisualiser);
-        Debug.Log(players);
-        playersVisualiser.Init(players.ToList().Select(gp => gp.player).ToList());
-    }
 }
