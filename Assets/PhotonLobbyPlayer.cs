@@ -128,14 +128,12 @@ namespace Prototype.NetworkLobby
             foreach (PhotonLobbyPlayer plp in FindObjectsOfType<PhotonLobbyPlayer>())
             {
                 allReady &= plp.ready;
-                Debug.Log(allReady);
             }
 
             if (allReady)
             {
                 FindObjectOfType<GameLauncher>().StartGame();
             }
-            Debug.Log(allReady);
         }
 
         [PunRPC]

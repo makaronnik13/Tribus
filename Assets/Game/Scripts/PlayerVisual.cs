@@ -12,22 +12,41 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
 	public GameObject playerInfo;
 	public GameObject portrait;
 
-	public Player Player
+    public string PlayerName;
+
+    public List<int> Hand = new List<int>();
+    public Stack<int> Drop = new Stack<int>();
+    public Queue<int> Pile = new Queue<int>();
+
+    public Color Color
+    {
+        get
+        {
+            return border.color;
+        }
+    }
+
+	public PhotonPlayer Player
 	{
 		get
 		{
-			return null;
+            return GetComponent<PhotonView>().owner;
 		}
 	}
 
-	public void Init(float[] playerColor, int v)
+	public void Init(string name, float[] playerColor, int v, int[] cards)
 	{
-        GetComponent<PhotonView>().RPC("InitOnClient", PhotonTargets.AllBuffered, new object[] {  playerColor,v});
+        GetComponent<PhotonView>().RPC("InitOnClient", PhotonTargets.AllBuffered, new object[] {name,  playerColor,v, cards});
 	}
 
     [PunRPC]
-    private void InitOnClient(float[] c, int v)
+    private void InitOnClient(string name, float[] c, int v, int[] cards)
     {
+        foreach (int cardId in cards)
+        {
+            Pile.Enqueue(cardId);
+        }
+        PlayerName = name;
         Color playerColor = new Color(c[0], c[1], c[2]);
         avatar.sprite = DefaultResourcesManager.Avatars[v];
         selector.enabled = false;
@@ -69,17 +88,17 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
 					return true;
 				}
 
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemies && Player!=GameLobby.Instance.CurrentPlayer)
+				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemies && Player!= NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
 				{
 					return true;
 				}
 
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemy && Player!=GameLobby.Instance.CurrentPlayer)
+				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemy && Player!= NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
 				{
 					return true;
 				}
 
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.You && Player==GameLobby.Instance.CurrentPlayer)
+				if(cardEffect.playerAimType == CardEffect.PlayerAimType.You && Player== NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
 				{
 					return true;
 				}
@@ -141,7 +160,7 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
 					CardsPlayer.Instance.SelectAim(this);
 				}
 
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemy && Player!=GameLobby.Instance.CurrentPlayer)
+				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemy && Player!= NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
 				{
 
 					CardsPlayer.Instance.SelectAim (this);

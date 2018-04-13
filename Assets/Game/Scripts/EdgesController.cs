@@ -73,8 +73,8 @@ public class EdgesController : MonoBehaviour {
 			EdgesController b2 = fc.GetCellFromSide(this, i);
 			EdgesController b3 = fc.GetCellFromSide(this, j);
 
-			Debug.Log (h+"|"+i+"|"+j);
-			Debug.Log (b1+"|"+b2+"|"+b3);
+			//Debug.Log (h+"|"+i+"|"+j);
+			//Debug.Log (b1+"|"+b2+"|"+b3);
 
 			int t1 = GetSideType(b1);
 			int t2 = GetSideType(b2);

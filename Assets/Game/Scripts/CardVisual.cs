@@ -226,7 +226,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #region IBeginDragHandler implementation
     public void OnBeginDrag (PointerEventData eventData)
 	{
-        if (FakeController.Instance.MyTurn)
+        if (LocalPlayerLogic.Instance.MyTurn)
         {
             State = CardState.Dragging;
         }
@@ -238,7 +238,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	{
         if (State == CardState.Dragging)
         {
-			if (FakeController.Instance.MyTurn && eventData.pointerEnter)
+			if (LocalPlayerLogic.Instance.MyTurn && eventData.pointerEnter)
             {
 				Vector3 globalMousePos;
 				if (RectTransformUtility.ScreenPointToWorldPointInRectangle(eventData.pointerEnter.transform as RectTransform, eventData.position, guiCamera, out globalMousePos))

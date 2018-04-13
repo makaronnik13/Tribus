@@ -36,8 +36,8 @@ public class Block : MonoBehaviour, ISkillAim
 		}
 	}
 
-	private Player owner;
-	public Player Owner
+	private PhotonPlayer owner;
+	public PhotonPlayer Owner
 	{
 		get
 		{
@@ -55,7 +55,7 @@ public class Block : MonoBehaviour, ISkillAim
 			{
 				if(GetComponentInChildren<CellModel>()!=null)
 				{
-					GetComponentInChildren<CellModel> ().SetColor (owner.PlayerColor);
+					GetComponentInChildren<CellModel> ().SetColor (NetworkCardGameManager.sInstance.GetPlayerColor(owner));
 				}
 			}
 		}
@@ -278,20 +278,20 @@ public class Block : MonoBehaviour, ISkillAim
 			{
 				return false;
 			}
-			if(ce.cellOwnership == CardEffect.CellOwnership.Player && Owner != GameLobby.Instance.CurrentPlayer)
+			if(ce.cellOwnership == CardEffect.CellOwnership.Player && Owner != NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
 			{
 				return false;
 			}
-			if(ce.cellOwnership == CardEffect.CellOwnership.Oponent && (Owner == GameLobby.Instance.CurrentPlayer || Owner == null))
+			if(ce.cellOwnership == CardEffect.CellOwnership.Oponent && (Owner == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer || Owner == null))
 			{
 				return false;
 			}
-			if(ce.cellOwnership == CardEffect.CellOwnership.PlayerAndNeutral && (Owner != GameLobby.Instance.CurrentPlayer && Owner!=null))
+			if(ce.cellOwnership == CardEffect.CellOwnership.PlayerAndNeutral && (Owner != NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer && Owner!=null))
 			{
 				return false;
 			}
 
-			if(ce.cellOwnership == CardEffect.CellOwnership.OponentAndNeutral && Owner == GameLobby.Instance.CurrentPlayer)
+			if(ce.cellOwnership == CardEffect.CellOwnership.OponentAndNeutral && Owner == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
 			{
 				return false;
 			}
@@ -349,4 +349,24 @@ public class Block : MonoBehaviour, ISkillAim
 		float randomIdleStart = UnityEngine.Random.Range(0,anim.GetCurrentAnimatorStateInfo(0).length);
 		anim.Play("CellFlowing", 0, randomIdleStart);
 	}
+
+    [PunRPC]
+    public void InitBlock(float[] localPos, int randomRotation, int state)
+    {
+        transform.SetParent(BlocksField.Instance.transform);
+        transform.localScale = Vector3.one;
+        transform.localRotation = Quaternion.Euler(Vector3.up * 60 * randomRotation);
+        transform.localPosition = new Vector3(localPos[0], localPos[2], localPos[1]);
+
+        if (BlocksField.Instance.baseStates[state])
+        {
+            Biom = BlocksField.Instance.baseStates[state].Biom;
+        }
+        else
+        {
+            Biom = CombineModel.Biom.None;
+        }
+
+        State = BlocksField.Instance.baseStates[state];
+    }
 }

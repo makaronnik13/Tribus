@@ -242,7 +242,6 @@ public class GameLauncher : Photon.PunBehaviour
 
         public void StartGame()
         {
-            Debug.Log("start game");
             GetComponent<PhotonView>().RPC("StartGameOnServer", PhotonTargets.MasterClient, new object[0]);
         }
 

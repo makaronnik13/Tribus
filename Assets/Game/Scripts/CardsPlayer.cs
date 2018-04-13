@@ -31,7 +31,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
 				if (playerAimedCard != null) 
 				{
 					foreach (PlayerVisual pv in FindObjectsOfType<PlayerVisual>()) {
-						if (pv.Player == GameLobby.Instance.CurrentPlayer && playerAimedCard.playerAimType == CardEffect.PlayerAimType.You) 
+						if (pv.Player == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer && playerAimedCard.playerAimType == CardEffect.PlayerAimType.You) 
 						{
 							SelectAim(pv);
 						}
@@ -45,7 +45,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
 
 					if (playerAimedCard.playerAimType == CardEffect.PlayerAimType.Enemies) 
 					{
-						ISkillAim[] aims = FindObjectsOfType<PlayerVisual> ().Where(pv=>pv.Player!=GameLobby.Instance.CurrentPlayer).ToArray();
+						ISkillAim[] aims = FindObjectsOfType<PlayerVisual> ().Where(pv=>pv.Player!= NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer).ToArray();
 						SelectAims (aims);
 					}
 				}
@@ -69,20 +69,20 @@ public class CardsPlayer : Singleton<CardsPlayer>
 		{
 			return false;
 		}
-		if(ce.cellOwnership == CardEffect.CellOwnership.Player && block.Owner != GameLobby.Instance.CurrentPlayer)
+		if(ce.cellOwnership == CardEffect.CellOwnership.Player && block.Owner != NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
 		{
 			return false;
 		}
-		if(ce.cellOwnership == CardEffect.CellOwnership.Oponent && (block.Owner == GameLobby.Instance.CurrentPlayer || block.Owner == null))
+		if(ce.cellOwnership == CardEffect.CellOwnership.Oponent && (block.Owner == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer || block.Owner == null))
 		{
 			return false;
 		}
-		if(ce.cellOwnership == CardEffect.CellOwnership.PlayerAndNeutral && (block.Owner != GameLobby.Instance.CurrentPlayer && block.Owner!=null))
+		if(ce.cellOwnership == CardEffect.CellOwnership.PlayerAndNeutral && (block.Owner != NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer && block.Owner!=null))
 		{
 			return false;
 		}
 
-		if(ce.cellOwnership == CardEffect.CellOwnership.OponentAndNeutral && block.Owner == GameLobby.Instance.CurrentPlayer)
+		if(ce.cellOwnership == CardEffect.CellOwnership.OponentAndNeutral && block.Owner == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
 		{
 			return false;
 		}

@@ -51,4 +51,10 @@ MonoBehaviour:
   - StartGameOnServer
   - EndTurnOnServer
   - GenerateField
+  - InitBlock
+  - EndPlayerTurn
+  - StartPlayerTurn
+  - AddPlayer
+  - UpdatePlayersVisual
+  - SetActivePlayer
   DisableAutoOpenWizard: 1

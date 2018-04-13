@@ -13,7 +13,7 @@ public class SkillsController : Singleton<SkillsController>
 		if(cs)
 		{
 			aimBlock.State = cs;
-			aimBlock.Owner = GameLobby.Instance.CurrentPlayer;
+			aimBlock.Owner = NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer;
 			GetComponent<AudioSource> ().PlayOneShot (activationSound);
 		}
     }

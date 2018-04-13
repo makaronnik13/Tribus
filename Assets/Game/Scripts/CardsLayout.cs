@@ -39,7 +39,6 @@ public class CardsLayout : MonoBehaviour
 	{
 		CardsManager.Instance.OnCardTaken += CardTaken;
 		CardsManager.Instance.OnCardDroped += CardDroped;
-		OnCardsReposition += ()=>{CardsManager.Instance.SavePlayer (GameLobby.Instance.CurrentPlayer);};
 	}
 
 	public int GetCardSibling(CardVisual cv)

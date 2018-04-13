@@ -23,7 +23,7 @@ public class BurnEffect :ICardEffect
 			if(aims.Count>0)
 			{
 				if (observeEffect.NumberOfChosenCards < observeEffect.NumberOfCards && observeEffect.NumberOfChosenCards!=0) {
-					Player aimPlayer = (aims [0] as PlayerVisual).Player;
+					PhotonPlayer aimPlayer = (aims [0] as PlayerVisual).Player;
 					List<PlayerVisual> stayedPlayers = new List<PlayerVisual> ();
 					foreach (ISkillAim isa in aims) {
 						stayedPlayers.Add (isa as PlayerVisual);
@@ -43,7 +43,7 @@ public class BurnEffect :ICardEffect
 		return false;
 	}
 
-	private void Watch(Player owner, CardEffect effect, List<PlayerVisual> stayedPlayers)
+	private void Watch(PhotonPlayer owner, CardEffect effect, List<PlayerVisual> stayedPlayers)
 	{
 
 		CardEffect.CardsAimType aim = effect.cardsAimType;
@@ -55,7 +55,7 @@ public class BurnEffect :ICardEffect
 			BurnCards(owner, aim, chosenCards.Select(c=>c.CardAsset).ToList());
 			if(stayedPlayers.Count>0)
 			{
-				Player aimPlayer = (stayedPlayers[0] as PlayerVisual).Player;
+				PhotonPlayer aimPlayer = (stayedPlayers[0] as PlayerVisual).Player;
 				stayedPlayers.RemoveAt (0);
 				Watch (aimPlayer, effect, stayedPlayers);
 			}
@@ -67,97 +67,57 @@ public class BurnEffect :ICardEffect
 		});
 	}
 
-	private void BurnCards(Player owner, CardEffect.CardsAimType aim, List<Card> chosenCards)
+	private void BurnCards(PhotonPlayer owner, CardEffect.CardsAimType aim, List<Card> chosenCards)
 	{
 		Debug.Log (chosenCards.Count);
 		switch(aim)
 		{
 		case CardEffect.CardsAimType.Drop:
-			List<Card> newDrop =	owner.Drop.ToList();
-			foreach(Card cv in chosenCards)
-			{
-				newDrop.Remove(cv);
-			}
-			owner.Drop = new Stack<Card>(newDrop);
-			break;
+                foreach (Card c in chosenCards)
+                {
+                    NetworkCardGameManager.sInstance.RemoveCardFromDrop(c, owner);
+                }
+                break;
 		case CardEffect.CardsAimType.Hand:
-			List<Card> newPile = owner.Pile.ToList();
-			//List<Card> newHand = newPile.GetRange(0, owner.CardsInHand);
-			//newPile =  newPile.GetRange(owner.CardsInHand, newPile.Count - owner.CardsInHand);
-			foreach(Card cv in chosenCards)
-			{
-				//owner.CardsInHand--;
-				//newHand.Remove(cv);
-			}
-			Queue<Card> pileQueue = new Queue<Card>(newPile);
-			//foreach(Card c in newHand)
-			//{
-			//	pileQueue.Enqueue(c);
-			//}
-			owner.Pile = pileQueue;
-			break;
+                foreach (Card c in chosenCards)
+                {
+                    NetworkCardGameManager.sInstance.RemoveCardFromHand(c, owner);
+                }
+                break;
 		case CardEffect.CardsAimType.Pile:
-			List<Card> newPile2 = owner.Pile.ToList();
-			//newPile2 =  newPile2.GetRange(owner.CardsInHand, newPile2.Count - owner.CardsInHand);
-			foreach(Card cv in chosenCards)
-			{
-				//newPile2.Remove(cv);
-			}
-			owner.Pile = new Queue<Card>(newPile2);
-			break;
+                foreach (Card c in chosenCards)
+                {
+                    NetworkCardGameManager.sInstance.RemoveCardFromPile(c, owner);
+                }
+                break;
 		case CardEffect.CardsAimType.All:
 
-			List<Card> newPlayerDrop = owner.Drop.ToList();
-			//List<Card> newPlayerHand = owner.Pile.ToList().GetRange(0, owner.CardsInHand);
-			//List<Card> newPlayerPile = owner.Pile.ToList().GetRange(owner.CardsInHand, owner.Pile.Count - owner.CardsInHand);
-
-			foreach(Card cv in chosenCards)
-			{
-				if(newPlayerDrop.Contains(cv))
-				{
-					newPlayerDrop.Remove(cv);
-					continue;
-				}
-				/*if(newPlayerPile.Contains(cv))
-				{
-					newPlayerPile.Remove(cv);
-					continue;
-				}
-				if(newPlayerHand.Contains(cv))
-				{
-					owner.CardsInHand--;
-					newPlayerHand.Remove(cv);
-					continue;
-				}*/
-			}
-			owner.Drop = new Stack<Card>(newPlayerDrop);
-			//owner.Pile = new Queue<Card>(newPlayerPile);
-			//foreach(Card c in newPlayerHand)
-			//{
-			//	owner.Pile.Enqueue(c);
-			//}
-			break;
+                foreach (Card c in chosenCards)
+                {
+                    NetworkCardGameManager.sInstance.RemoveCardFromPlayer(c, owner);
+                }
+                break;
 		}
 
 	}
 
-	private List<Card> GetCards(CardEffect.CardsAimType aim, Player owner, int count)
+	private List<Card> GetCards(CardEffect.CardsAimType aim, PhotonPlayer owner, int count)
 	{
 		List<Card> cards = new List<Card> ();
 		switch(aim)
 		{
 		case CardEffect.CardsAimType.Drop:
-			cards = owner.Drop.ToList();
+            cards = NetworkCardGameManager.sInstance.GetPlayerDrop(owner);
 			break;
 		case CardEffect.CardsAimType.Hand:
-			//cards = owner.Pile.ToList().GetRange(0, owner.CardsInHand);
-			break;
+                cards = NetworkCardGameManager.sInstance.GetPlayerHand(owner);
+                break;
 		case CardEffect.CardsAimType.Pile:
-			//cards = owner.Pile.ToList ().GetRange (owner.CardsInHand, owner.Pile.Count - owner.CardsInHand);
-			break;
+                cards = NetworkCardGameManager.sInstance.GetPlayerPile(owner);
+                break;
 		case CardEffect.CardsAimType.All:
-			cards = owner.Pile.Concat (owner.Drop).ToList();
-			break;
+                cards = NetworkCardGameManager.sInstance.GetPlayerCards(owner);
+                break;
 		}
 
 		cards = cards.OrderBy(x => Guid.NewGuid()).ToList();

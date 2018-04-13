@@ -94,7 +94,7 @@ public class CardsManager : Singleton<CardsManager> {
 		}
 	}
 
-	public void SelectPlayer(Player player)
+	public void StartPlayer(Player player)
     {
 		pile = new Queue<Card>(player.Pile);
 		drop = new Stack<Card>(player.Drop);

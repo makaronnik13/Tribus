@@ -22,7 +22,7 @@ public class ObserveEffect :ICardEffect
 				
 			if(aims.Count>0)
 			{
-				Player aimPlayer = (aims[0] as PlayerVisual).Player;
+				PhotonPlayer aimPlayer = (aims[0] as PlayerVisual).Player;
 				List<PlayerVisual> stayedPlayers = new List<PlayerVisual>();
 				foreach(ISkillAim isa in aims)
 				{
@@ -37,7 +37,7 @@ public class ObserveEffect :ICardEffect
 		return false;
 	}
 
-	private void Watch(Player owner, CardEffect effect, List<PlayerVisual> stayedPlayers)
+	private void Watch(PhotonPlayer owner, CardEffect effect, List<PlayerVisual> stayedPlayers)
 	{
 
 		CardEffect.CardsAimType aim = effect.cardsAimType;
@@ -47,17 +47,17 @@ public class ObserveEffect :ICardEffect
 		switch(aim)
 		{
 		case CardEffect.CardsAimType.Drop:
-			cards = owner.Drop.ToList();
+			cards = NetworkCardGameManager.sInstance.GetPlayerDrop(owner);
 			break;
 		case CardEffect.CardsAimType.Hand:
-			//cards = owner.Pile.ToList().GetRange(0, owner.CardsInHand);
-			break;
+                NetworkCardGameManager.sInstance.GetPlayerHand(owner);
+                break;
 		case CardEffect.CardsAimType.Pile:
-			//cards = owner.Pile.ToList ().GetRange (owner.CardsInHand, owner.Pile.Count - owner.CardsInHand);
-			break;
+			cards = NetworkCardGameManager.sInstance.GetPlayerPile(owner);
+                break;
 		case CardEffect.CardsAimType.All:
-			cards = owner.Pile.Concat (owner.Drop).ToList();
-			break;
+			cards = NetworkCardGameManager.sInstance.GetPlayerCards(owner);
+                break;
 		}
 
 		cards = cards.OrderBy(x => Guid.NewGuid()).ToList();
@@ -73,7 +73,7 @@ public class ObserveEffect :ICardEffect
 			{
 				
 
-				Player aimPlayer = (stayedPlayers[0] as PlayerVisual).Player;
+				PhotonPlayer aimPlayer = (stayedPlayers[0] as PlayerVisual).Player;
 				stayedPlayers.RemoveAt (0);
 				Watch (aimPlayer, effect, stayedPlayers);
 			}

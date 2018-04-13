@@ -16,7 +16,6 @@ public class LocalPlayerVisual : MonoBehaviour {
 
     public void StartTurn()
     {
-        Debug.Log("local visual turn start");
         endTurnButton.interactable = true;
     }
 }

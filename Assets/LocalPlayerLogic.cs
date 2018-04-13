@@ -6,12 +6,25 @@ using UnityEngine;
 public class LocalPlayerLogic : MonoBehaviour {
     public LocalPlayerVisual visual;
     public static LocalPlayerLogic Instance;
+    public bool MyTurn
+    {
+        get
+        {
+            return NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer == PhotonNetwork.player;
+        }
+    }
 
     private void Start()
     {
         visual = GetComponent<LocalPlayerVisual>();
         Instance = this;
-        NetworkCardGameManager.sInstance.CreatePlayer(LobbyPlayerIdentity.Instance.player.PlayerName, LobbyPlayerIdentity.Instance.player.PlayerColor, DefaultResourcesManager.Avatars.ToList().IndexOf(LobbyPlayerIdentity.Instance.player.PlayerAvatar), PhotonNetwork.player);
+        float[] playerColor = new float[3] { LobbyPlayerIdentity.Instance.player.PlayerColor.r, LobbyPlayerIdentity.Instance.player.PlayerColor.g, LobbyPlayerIdentity.Instance.player.PlayerColor.b};
+        List<int> cardsIds = new List<int>();
+        foreach (Card c in LobbyPlayerIdentity.Instance.player.CurrentDeck.Cards)
+        {
+            cardsIds.Add(DefaultResourcesManager.AllCards.ToList().IndexOf(c));
+        }
+        NetworkCardGameManager.sInstance.GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.MasterClient, new object[] { LobbyPlayerIdentity.Instance.player.PlayerName, playerColor, DefaultResourcesManager.Avatars.ToList().IndexOf(LobbyPlayerIdentity.Instance.player.PlayerAvatar), PhotonNetwork.player, cardsIds.ToArray()});
     }
 
     public void OnEndTurnPush()
@@ -21,13 +34,12 @@ public class LocalPlayerLogic : MonoBehaviour {
 
     public void EndTurn()
     {
-        Debug.Log("local logic turn end");
         visual.EndTurn();
     }
 
     public void StartTurn()
     {
-        Debug.Log("local logic turn start");
+        NetworkCardGameManager.sInstance.PlayerStartTurn(PhotonNetwork.player);
         visual.StartTurn();
     }
 

@@ -11,7 +11,7 @@ public class PlayerInfo : MonoBehaviour {
 
 	void OnEnable()
 	{
-		Player visualPlayer = GetComponentInParent<PlayerVisual> ().Player;
+		PhotonPlayer visualPlayer = GetComponentInParent<PlayerVisual> ().Player;
 
 		int[] values = new int[]{0,0,0};
 
@@ -24,11 +24,11 @@ public class PlayerInfo : MonoBehaviour {
 		Resources [1].text = "" + values [1];
 		Resources [2].text = "" + values [2];
 
-		PlayerName.text = visualPlayer.PlayerName;
-		PlayerName.color = visualPlayer.PlayerColor;
-		Drop.text = ""+visualPlayer.Drop.Count ();
-		Hand.text = "" + visualPlayer.Hand.Count;
-		Pile.text = "" + (visualPlayer.Pile.Count ());
+		PlayerName.text = NetworkCardGameManager.sInstance.GetPlayerName(visualPlayer);
+		PlayerName.color = NetworkCardGameManager.sInstance.GetPlayerColor(visualPlayer);
+		Drop.text = ""+ NetworkCardGameManager.sInstance.GetPlayerDrop(visualPlayer).Count ();
+		Hand.text = "" + NetworkCardGameManager.sInstance.GetPlayerHand(visualPlayer).Count();
+		Pile.text = "" + NetworkCardGameManager.sInstance.GetPlayerPile(visualPlayer).Count();
 		Hexes.text = BlocksField.Instance.Blocks.Where (b=>b.Owner == visualPlayer).Count()+"";
 	}
 }

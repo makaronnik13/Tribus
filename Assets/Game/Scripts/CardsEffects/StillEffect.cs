@@ -24,7 +24,7 @@ public class StillEffect :ICardEffect
 			{
 				if (observeEffect.NumberOfChosenCards < observeEffect.NumberOfCards && observeEffect.NumberOfChosenCards!=0) {
 					Debug.Log ("steel with delay");
-					Player aimPlayer = (aims [0] as PlayerVisual).Player;
+					PhotonPlayer aimPlayer = (aims [0] as PlayerVisual).Player;
 					List<PlayerVisual> stayedPlayers = new List<PlayerVisual> ();
 					foreach (ISkillAim isa in aims) {
 						stayedPlayers.Add (isa as PlayerVisual);
@@ -48,7 +48,7 @@ public class StillEffect :ICardEffect
 		return false;
 	}
 
-	private void Watch(Player owner, CardEffect effect, List<PlayerVisual> stayedPlayers)
+	private void Watch(PhotonPlayer owner, CardEffect effect, List<PlayerVisual> stayedPlayers)
 	{
 
 		CardEffect.CardsAimType aim = effect.cardsAimType;
@@ -59,7 +59,7 @@ public class StillEffect :ICardEffect
 			BurnCards(owner, aim, chosenCards.Select(c=>c.CardAsset).ToList());
 			if(stayedPlayers.Count>0)
 			{
-				Player aimPlayer = (stayedPlayers[0] as PlayerVisual).Player;
+				PhotonPlayer aimPlayer = (stayedPlayers[0] as PlayerVisual).Player;
 				stayedPlayers.RemoveAt (0);
 				Watch (aimPlayer, effect, stayedPlayers);
 			}
@@ -73,7 +73,7 @@ public class StillEffect :ICardEffect
 		});
 	}
 
-	private void BurnCards(Player owner, CardEffect.CardsAimType aim, List<Card> chosenCards)
+	private void BurnCards(PhotonPlayer owner, CardEffect.CardsAimType aim, List<Card> chosenCards)
 	{
         /*
 		switch(aim)
@@ -147,23 +147,23 @@ public class StillEffect :ICardEffect
         */
 	}
 
-	private List<Card> GetCards(CardEffect.CardsAimType aim, Player owner, int count)
+	private List<Card> GetCards(CardEffect.CardsAimType aim, PhotonPlayer owner, int count)
 	{
 		List<Card> cards = new List<Card> ();
 		switch(aim)
 		{
 		case CardEffect.CardsAimType.Drop:
-			cards = owner.Drop.ToList();
+            cards = NetworkCardGameManager.sInstance.GetPlayerDrop(owner);
 			break;
 		case CardEffect.CardsAimType.Hand:
-			//cards = owner.Pile.ToList().GetRange(0, owner.CardsInHand);
-			break;
+                cards = NetworkCardGameManager.sInstance.GetPlayerHand(owner);
+                break;
 		case CardEffect.CardsAimType.Pile:
-			//cards = owner.Pile.ToList ().GetRange (owner.CardsInHand, owner.Pile.Count - owner.CardsInHand);
-			break;
+                cards = NetworkCardGameManager.sInstance.GetPlayerPile(owner);
+                break;
 		case CardEffect.CardsAimType.All:
-			cards = owner.Pile.Concat (owner.Drop).ToList();
-			break;
+                cards = NetworkCardGameManager.sInstance.GetPlayerCards(owner);
+                break;
 		}
 
 		cards = cards.OrderBy(x => Guid.NewGuid()).ToList();

@@ -18,11 +18,6 @@ public class BlocksField : Photon.MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        GetComponent<PhotonView>().RPC("GenerateField", PhotonTargets.MasterClient, new object[0]);
-    }
-
     public List<Block> Blocks
 	{
 		get
@@ -67,40 +62,23 @@ public class BlocksField : Photon.MonoBehaviour
 			Destroy(t.gameObject);
 		}
 
-
+        //Instantiate blocks
 		foreach(KeyValuePair<Vector3, Vector2> v in RecalculateHexes())
 		{
-			GameObject newCell = PhotonNetwork.Instantiate ("BaseBlock", Vector3.zero, Quaternion.identity, 0);
-			newCell.transform.SetParent (transform);
-			newCell.transform.localScale = Vector3.one;
-			newCell.transform.localRotation = Quaternion.Euler (Vector3.up*60*Mathf.RoundToInt(Random.Range(0,6)));
-			newCell.transform.localPosition = v.Key;
+			GameObject newCell = PhotonNetwork.Instantiate ("BaseBlock", Vector3.zero, Quaternion.identity, 0);		
 			cells.Add (v.Value, newCell.GetComponent<Block>());
-			//newCell.GetComponentInChildren<TextMeshProUGUI> ().text = v.Value.x + "/" + v.Value.y;
 		}
 
-
+        //InitBlocks
 		foreach(KeyValuePair<Vector2, Block> pair in cells)
 		{
-			int rand = Random.Range (0, 4);
-			if (baseStates [rand]) {
-				pair.Value.Biom = baseStates [rand].Biom;
-			} else 
-			{
-				pair.Value.Biom = CombineModel.Biom.None;
-			}
-
-			pair.Value.State =  baseStates[rand];
+            int randomRotation = Mathf.RoundToInt(UnityEngine.Random.Range(0, 6));
+            int state = Random.Range(0, 4);
+            Vector3 worldPos = CellCoordToWorld(pair.Key);
+            float[] posArray = new float[] {worldPos.x, worldPos.y, worldPos.z};
+            pair.Value.GetComponent<PhotonView>().RPC("InitBlock", PhotonTargets.All, new object[] {posArray, randomRotation, state});	
 		}
 
-		foreach (EdgesController ec in GetComponentsInChildren<EdgesController>()) {
-			ec.RecalculateEdges ();
-		}
-
-		foreach (Block b in FindObjectsOfType<Block>())
-		{
-			b.RecalculateInkome();
-		}
 	}
 
 	public Dictionary<Vector3, Vector2> RecalculateHexes ()

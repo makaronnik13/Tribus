@@ -26,13 +26,13 @@ public class ResourcesManager : Singleton<ResourcesManager>
 
     public void StartTurn()
     {
-			foreach(Inkome ink in GetIncomeForPlayer(GameLobby.Instance.CurrentPlayer))
+			foreach(Inkome ink in GetIncomeForPlayer(NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer))
             {
 				AddResource(ink.resource, ink.value);
             }
     }
 
-	public List<Inkome> GetIncomeForPlayer(Player player)
+	public List<Inkome> GetIncomeForPlayer(PhotonPlayer player)
 	{
 		List<Inkome> inkome = new List<Inkome> ();
 		inkome.Clear ();
