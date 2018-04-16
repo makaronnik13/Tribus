@@ -13,10 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeckStruct:
     DeckName: StartingDeck
-    Cards:
-    - {fileID: 11400000, guid: 2c301bd4f0ddd42f796bcf4a9d0a2eb6, type: 2}
-    - {fileID: 11400000, guid: 2c301bd4f0ddd42f796bcf4a9d0a2eb6, type: 2}
-    - {fileID: 11400000, guid: 2c301bd4f0ddd42f796bcf4a9d0a2eb6, type: 2}
-    - {fileID: 11400000, guid: b57b6799ef39e4b9d9aa1feda83458c4, type: 2}
-    - {fileID: 11400000, guid: b57b6799ef39e4b9d9aa1feda83458c4, type: 2}
-    - {fileID: 11400000, guid: b57b6799ef39e4b9d9aa1feda83458c4, type: 2}
+    cardsIds: 

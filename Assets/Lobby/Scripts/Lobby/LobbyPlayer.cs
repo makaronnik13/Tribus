@@ -142,7 +142,7 @@ namespace Prototype.NetworkLobby
             CheckRemoveButton();
 			CmdNameChanged (LobbyPlayerIdentity.Instance.player.PlayerName);
 			CmdColorChange(LobbyPlayerIdentity.Instance.player.PlayerColor);
-			CmdAvatarChange(DefaultResourcesManager.Avatars.ToList().IndexOf(LobbyPlayerIdentity.Instance.player.PlayerAvatar));
+			CmdAvatarChange(LobbyPlayerIdentity.Instance.player.PlayerAvatarId);
 
             ChangeReadyButtonColor(JoinColor);
 
@@ -161,7 +161,7 @@ namespace Prototype.NetworkLobby
 
 			playerNameField.text = LobbyPlayerIdentity.Instance.player.PlayerName;
 			colorCircle.color = LobbyPlayerIdentity.Instance.player.PlayerColor;
-			playerAvatar.sprite = LobbyPlayerIdentity.Instance.player.PlayerAvatar;
+			playerAvatar.sprite = DefaultResourcesManager.Avatars.ToList().ElementAt( LobbyPlayerIdentity.Instance.player.PlayerAvatarId);
 
         }
 

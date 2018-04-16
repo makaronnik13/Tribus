@@ -16,6 +16,7 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
             this.playerColor = playerColor;
             this.spriteId = v;
             this.photonPlayer = player;
+            this.cardsIds = cards;
         }
 
         public string playerName;
@@ -27,6 +28,7 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
 
     static public NetworkCardGameManager sInstance = null;
     private Queue<ServerPlayer> playersQueue = new Queue<ServerPlayer>();
+
     public ServerPlayer CurrentPlayer;
 
     public Color GetPlayerColor(PhotonPlayer player)
@@ -68,21 +70,28 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
     {
         GameObject lobbyPlayer = PhotonNetwork.Instantiate("PhotonGamePlayer", Vector3.zero, Quaternion.identity, 0, new object[0]);
         lobbyPlayer.GetComponent<PhotonView>().TransferOwnership(player.ID);
-        lobbyPlayer.GetComponent<PlayerVisual>().Init(playerName, new float[3] { playerColor.r, playerColor.g, playerColor.b}, v, cards.ToList().OrderBy(c=>Guid.NewGuid()).ToArray());
+        lobbyPlayer.GetComponent<PlayerVisual>().Init(playerName, new float[3] { playerColor.r, playerColor.g, playerColor.b}, v, cards.ToList().OrderBy(c=>Guid.NewGuid()).ToArray(), player == playersQueue.ToList()[0].photonPlayer);
     }
 
     private void StartGame()
     {
         playersQueue = new Queue<ServerPlayer>(playersQueue.ToList().OrderBy(p=>Guid.NewGuid()));
 
-        foreach (ServerPlayer pp in playersQueue)
+        foreach (ServerPlayer pp in playersQueue.Reverse())
         {
             CreatePlayer(pp.playerName,  new Color(pp.playerColor[0], pp.playerColor[1], pp.playerColor[2], 1), pp.spriteId, pp.photonPlayer, pp.cardsIds);
         }
 
         ServerPlayer currentPlayer = playersQueue.Dequeue();
+        foreach (ServerPlayer sp in playersQueue)
+        {
+            for (int i = 0; i < 5; i++)
+            {
 
-        GetComponent<PhotonView>().RPC("SetActivePlayer", PhotonTargets.All, new object[5] {currentPlayer.photonPlayer, currentPlayer.playerName, currentPlayer.playerColor, currentPlayer.spriteId, currentPlayer.cardsIds});
+                PlayerGetCard(sp.photonPlayer);
+            }
+        }
+        GetComponent<PhotonView>().RPC("SetActivePlayer", PhotonTargets.All, new object[5] { currentPlayer.photonPlayer, currentPlayer.playerName, currentPlayer.playerColor, currentPlayer.spriteId, currentPlayer.cardsIds });
         GetComponent<PhotonView>().RPC("StartPlayerTurn", currentPlayer.photonPlayer, new object[0]);      
         BlocksField.Instance.GetComponent<PhotonView>().RPC("GenerateField", PhotonTargets.MasterClient, new object[0]);
     }
@@ -91,7 +100,6 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
     private void SetActivePlayer(PhotonPlayer player, string playerName, float[] playerColor, int v, int[] cards)
     {
         CurrentPlayer = new ServerPlayer(playerName, playerColor, v, player, cards);
-        PlayersVisualizer.Instance.SetActivePlayer();
     }
 
     void Awake()
@@ -118,21 +126,30 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
 
     [PunRPC]
     public void EndTurnOnServer()
-    {
-        GetComponent<PhotonView>().RPC("UpdatePlayersVisual", PhotonTargets.All, new object[0]);
+    { 
         playersQueue.Enqueue(CurrentPlayer);
         GetComponent<PhotonView>().RPC("EndPlayerTurn", CurrentPlayer.photonPlayer, new object[0]);
         CurrentPlayer = playersQueue.Dequeue();
+        GetComponent<PhotonView>().RPC("SetActivePlayer", PhotonTargets.All, new object[5] { CurrentPlayer.photonPlayer, CurrentPlayer.playerName, CurrentPlayer.playerColor, CurrentPlayer.spriteId, CurrentPlayer.cardsIds });
+        GetComponent<PhotonView>().RPC("RpcSetActivePlayerVisual", PhotonTargets.All, new object[0]);
         GetComponent<PhotonView>().RPC("StartPlayerTurn", CurrentPlayer.photonPlayer, new object[0]);
+    }
+
+    [PunRPC]
+    public void RpcSetActivePlayerVisual()
+    {
+        PlayersVisualizer.Instance.SetActivePlayer();
     }
 
     //player actions
     public void PlayerStartTurn(PhotonPlayer pp)
     {
-        if (GetPlayerHand(pp).Count<5)
-        {
-            for (int i = 0; i< 5 - GetPlayerHand(pp).Count;i++)
+        int cardsInHand = GetPlayerHand(pp).Count;
+        if (cardsInHand<4)
+        {         
+            for (int i = 0; i<4 - cardsInHand;i++)
             {
+
                 PlayerGetCard(pp);
             }
         }
@@ -141,7 +158,53 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
 
     public void PlayerGetCard(PhotonPlayer pp)
     {
+        //if pile is over, then shuffle drop into pile
+        if (GetPlayerPile(pp).Count == 0)
+        {
+            ReshuflePile(pp);
+        }
 
+        //if pile is still over, don't take card
+        if (GetPlayerPile(pp).Count == 0)
+        {
+            return;
+        }
+
+        Card c = GetPlayerPile(pp)[0];
+        RemoveCardFromPile(c, pp);
+        AddCardToHand(c, pp);
+    }
+
+    public void ReshuflePile(PhotonPlayer pp)
+    {
+        List<Card> drop = GetPlayerDrop(pp);
+        List<int> cardsIds = new List<int>();
+
+        drop = drop.OrderBy(c => Guid.NewGuid()).ToList();
+
+        foreach (Card c in drop)
+        {
+            cardsIds.Add(DefaultResourcesManager.AllCards.ToList().IndexOf(c));
+        }
+
+        ClearDrop(pp);
+        SetPile(drop, pp);
+    }
+
+    private void SetPile(List<Card> cards, PhotonPlayer player)
+    {
+        foreach (Card card in cards)
+        {
+            AddCardToPile(card, player);
+        }
+    }
+
+    private void ClearDrop(PhotonPlayer pp)
+    {
+        foreach (Card card in GetPlayerDrop(pp))
+        {
+            RemoveCardFromDrop(card, pp);
+        }
     }
 
     public void PlayerDropCard(Card c, PhotonPlayer pp)
@@ -152,37 +215,84 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
     //cards changes
     public void AddCardToDrop(Card card, PhotonPlayer player)
     {
+        GetComponent<PhotonView>().RPC("RpcAddCardToDrop", PhotonTargets.All, new object[] {DefaultResourcesManager.AllCards.ToList().IndexOf(card), player });
+    }
 
+    [PunRPC]
+    private void RpcAddCardToDrop(int cardId, PhotonPlayer player)
+    {
+        FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].AddCardToDrop(cardId);
     }
 
     public void AddCardToPile(Card card, PhotonPlayer player)
     {
+        GetComponent<PhotonView>().RPC("RpcAddCardToPile", PhotonTargets.All, new object[] { DefaultResourcesManager.AllCards.ToList().IndexOf(card), player });
+    }
 
+    [PunRPC]
+    private void RpcAddCardToPile(int cardId, PhotonPlayer player)
+    {
+        FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].AddCardToPile(cardId);
     }
 
     public void AddCardToHand(Card card, PhotonPlayer player)
     {
+        GetComponent<PhotonView>().RPC("RpcAddCardToHand", PhotonTargets.All, new object[] { DefaultResourcesManager.AllCards.ToList().IndexOf(card), player });
+    }
 
+    [PunRPC]
+    private void RpcAddCardToHand(int cardId, PhotonPlayer player)
+    {
+        FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].AddCardToHand(cardId);
+        if (player == PhotonNetwork.player)
+        {
+            LocalPlayerLogic.Instance.GetCard(cardId);
+        }
     }
 
     public void RemoveCardFromDrop(Card card, PhotonPlayer player)
     {
+        GetComponent<PhotonView>().RPC("RpcRemoveCardFromDrop", PhotonTargets.All, new object[] { DefaultResourcesManager.AllCards.ToList().IndexOf(card), player });
+    }
 
+    [PunRPC]
+    private void RpcRemoveCardFromDrop(int cardId, PhotonPlayer player)
+    {
+        FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].RemoveCardFromDrop(cardId);
     }
 
     public void RemoveCardFromPile(Card card, PhotonPlayer player)
     {
-
+        GetComponent<PhotonView>().RPC("RpcRemoveCardFromPile", PhotonTargets.All, new object[] { DefaultResourcesManager.AllCards.ToList().IndexOf(card), player });
     }
+
+    [PunRPC]
+    private void RpcRemoveCardFromPile(int cardId, PhotonPlayer player)
+    {
+        FindObjectsOfType<PlayerVisual>().Where(v=>v.Player == player).ToList()[0].RemoveCardFromPile(cardId);
+    }
+
 
     public void RemoveCardFromHand(Card card, PhotonPlayer player)
     {
+        GetComponent<PhotonView>().RPC("RpcRemoveCardFromHand", PhotonTargets.All, new object[] { DefaultResourcesManager.AllCards.ToList().IndexOf(card), player });
+    }
 
+    [PunRPC]
+    private void RpcRemoveCardFromHand(int cardId, PhotonPlayer player)
+    {
+        FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].RemoveCardFromHand(cardId);
     }
 
     public void RemoveCardFromPlayer(Card card, PhotonPlayer player)
     {
 
+    }
+
+    public void DropCard(Card cardAsset)
+    {
+        AddCardToDrop(cardAsset, PhotonNetwork.player);
+        RemoveCardFromHand(cardAsset, PhotonNetwork.player);
     }
 
     public List<Card> GetPlayerHand(PhotonPlayer pp)

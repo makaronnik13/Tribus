@@ -51,13 +51,13 @@ public class AvatarChooser : MonoBehaviour {
 
 	void OnEnable()
 	{
-		Id = Avatars.ToList().IndexOf(LobbyPlayerIdentity.Instance.player.PlayerAvatar);
+		Id = LobbyPlayerIdentity.Instance.player.PlayerAvatarId;
 		UpdateAvatar ();
 	}
 
 	private void UpdateAvatar()
 	{
 		Image.sprite = Avatars [id];
-		LobbyPlayerIdentity.Instance.player.PlayerAvatar = Avatars[Id];
+		LobbyPlayerIdentity.Instance.player.PlayerAvatarId = Id;
 	}
 }

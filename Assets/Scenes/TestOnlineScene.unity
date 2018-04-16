@@ -994,6 +994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endTurnButton: {fileID: 165078947}
   playersVisualiser: {fileID: 950209473}
+  hand: {fileID: 1990694800}
 --- !u!114 &535164315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8005,7 +8006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterText: {fileID: 936970420}
-  backgroundImg: {fileID: 0}
+  backgroundImg: {fileID: 1742424999}
   slot: {fileID: 1611861927}
 --- !u!114 &1742424999
 MonoBehaviour:
@@ -8430,7 +8431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.99264705, b: 0.99264705, a: 1}
+  m_Color: {r: 1, g: 0.99264705, b: 0.99264705, a: 0}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:

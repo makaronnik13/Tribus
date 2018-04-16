@@ -22,7 +22,6 @@ public class DropSlot : MonoBehaviour, IDropHandler
         }
     }
 
-    [ContextMenu("Reset")]
     public void ResetDrop()
     {
         awaliableDrops = 3;
@@ -37,7 +36,7 @@ public class DropSlot : MonoBehaviour, IDropHandler
 	}
 
 	public void DropCard(CardVisual visual)
-    {   
+    { 
 		visual.transform.SetParent (transform);
 		visual.transform.localPosition = Vector3.zero;
 			CardsManager.Instance.DropCard(visual);

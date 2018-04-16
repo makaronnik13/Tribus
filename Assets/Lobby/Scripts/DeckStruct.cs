@@ -1,12 +1,39 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
 public class DeckStruct
 {
+    [SerializeField]
 	public string DeckName;
-	public List<Card> Cards = new List<Card>();
+
+    [HideInInspector]
+    [SerializeField]
+	private List<int> cardsIds = new List<int>();
+
+    [ShowInInspector]
+    private List<Card> cards = new List<Card>();
+
+    public List<Card> Cards
+    {
+        get
+        {
+            return cards;
+        }
+        set
+        {
+            cards = value;
+            cardsIds.Clear();
+            foreach (Card c in value)
+            {
+                cardsIds.Add(DefaultResourcesManager.AllCards.ToList().IndexOf(c));
+            }
+        }
+    }
 
 	public bool Awaliable
 	{

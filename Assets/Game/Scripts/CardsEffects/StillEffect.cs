@@ -176,18 +176,23 @@ public class StillEffect :ICardEffect
 		switch(cardAim.cardsAimType2)
 		{
 		case CardEffect.CardsAimType.Hand:
-				CardsManager.Instance.AddCardsToPile (addedCards);
-				for(int i = 0; i< addedCards.Count;i++)
-				{
-					CardsManager.Instance.GetCard ();
-				}	
+                foreach (Card c in addedCards)
+                {
+                    NetworkCardGameManager.sInstance.AddCardToHand(c, PhotonNetwork.player);
+                }
 			break;
 		case CardEffect.CardsAimType.Drop:
-				CardsManager.Instance.AddCardsToDrop (addedCards);
-			break;
+                foreach (Card c in addedCards)
+                {
+                    NetworkCardGameManager.sInstance.AddCardToHand(c, PhotonNetwork.player);
+                }
+                break;
 		case CardEffect.CardsAimType.Pile:
-				CardsManager.Instance.AddCardsToPile (addedCards, true);
-			break;
+                foreach (Card c in addedCards)
+                {
+                    NetworkCardGameManager.sInstance.AddCardToHand(c, PhotonNetwork.player);
+                }
+                break;
 		}
 	}
 }

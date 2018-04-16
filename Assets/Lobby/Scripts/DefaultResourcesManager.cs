@@ -80,9 +80,9 @@ public static class DefaultResourcesManager
 		}
 	}
 
-	public static Sprite GetRandomAvatar()
+	public static int GetRandomAvatar()
 	{
-		return Avatars[Random.Range(0, Avatars.Length-1)];
+		return Random.Range(0, Avatars.Length-1);
 	}
 
 	public static string GetRandomName()

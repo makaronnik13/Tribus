@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class LobbyPlayerIdentity : Singleton<LobbyPlayerIdentity> 
@@ -8,7 +10,17 @@ public class LobbyPlayerIdentity : Singleton<LobbyPlayerIdentity>
 
 	private void Start()
 	{
-		InitPlayerDefault ();
+        string saveFolderPath = Path.Combine(Application.persistentDataPath, "Player");
+        string savePath = Path.Combine(saveFolderPath, "playerSave");
+
+        if (!File.Exists(savePath))
+        {
+            InitPlayerDefault();
+        }
+        else
+        {
+            player = JsonUtility.FromJson<PlayerSaveStruct>(File.ReadAllText(savePath));
+        }
 		DontDestroyOnLoad (this);
 	}
 
@@ -16,13 +28,37 @@ public class LobbyPlayerIdentity : Singleton<LobbyPlayerIdentity>
 	{
 		player.PlayerName = DefaultResourcesManager.GetRandomName();
 		player.PlayerColor = DefaultResourcesManager.GetRandomColor();
-		player.PlayerAvatar = DefaultResourcesManager.GetRandomAvatar ();
+		player.PlayerAvatarId = DefaultResourcesManager.GetRandomAvatar ();
 		player.Decks = new List<DeckStruct> (){ DefaultResourcesManager.StartingDeck};
         player.CurrentDeck = player.Decks[0];
 
-		for (int i = 0; i < 3; i++) 
+        Debug.Log(DefaultResourcesManager.AllCards.Length);
+
+        for (int i = 0; i < 3; i++) 
 		{
-			player.AllCards.AddRange (DefaultResourcesManager.AllCards);
+            for (int j = 0; j< DefaultResourcesManager.AllCards.Length;j++)
+            {
+                player.AllCards.Add(j);
+            }		
 		}
 	}
+
+    void OnApplicationQuit()
+    {
+        string json = JsonUtility.ToJson(player);
+
+        string saveFolderPath = Path.Combine(Application.persistentDataPath, "Player");
+
+        if (!Directory.Exists(saveFolderPath))
+        {
+            Directory.CreateDirectory(saveFolderPath);
+        }
+        string savePath = Path.Combine(saveFolderPath, "playerSave");   
+        if (!File.Exists(savePath))
+        {
+            FileStream fs = File.Create(savePath);
+            fs.Close();
+        }
+        File.WriteAllText(savePath, json);
+    }
 }

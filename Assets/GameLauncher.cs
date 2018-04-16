@@ -214,9 +214,8 @@ public class GameLauncher : Photon.PunBehaviour
         /// </remarks>
         public override void OnJoinedRoom()
         {
-            Debug.Log("joined");
             Color playerColor = LobbyPlayerIdentity.Instance.player.PlayerColor;
-            CreatePlayer(LobbyPlayerIdentity.Instance.player.PlayerName, new float[] { playerColor.r, playerColor.g, playerColor.b }, DefaultResourcesManager.Avatars.ToList().IndexOf(LobbyPlayerIdentity.Instance.player.PlayerAvatar), PhotonNetwork.player);
+            CreatePlayer(LobbyPlayerIdentity.Instance.player.PlayerName, new float[] { playerColor.r, playerColor.g, playerColor.b }, LobbyPlayerIdentity.Instance.player.PlayerAvatarId, PhotonNetwork.player);
 
 
         // #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.automaticallySyncScene to sync our instance scene.

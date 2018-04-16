@@ -59,9 +59,9 @@ public class AllCardsView : MonoBehaviour {
 		}
 		cardsPanels.Clear ();
 
-		foreach(Card c in LobbyPlayerIdentity.Instance.player.AllCards)
+		foreach(int c in LobbyPlayerIdentity.Instance.player.AllCards)
 		{
-			AddCard (c);
+			AddCard (DefaultResourcesManager.AllCards[c]);
 		}
 
 		foreach(Card c in ds.Cards)

@@ -381,6 +381,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Game\Resources\Fonts\Symbols.txt" />
+    <None Include="Assets\Game\Resources\RotationEffect\BurningCard.shader" />
     <None Include="Assets\Game\Resources\RotationEffect\RotateEffect.shader" />
     <None Include="Assets\Game\Resources\Shaders\PlayerShader (1).shader" />
     <None Include="Assets\Game\Resources\Shaders\ProjectorLight.shader" />

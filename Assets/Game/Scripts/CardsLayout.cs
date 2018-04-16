@@ -72,43 +72,43 @@ public class CardsLayout : MonoBehaviour
     public Quaternion GetRotation(CardVisual cardVisual, bool focused = false)
     {
 		int cards = transform.childCount;
-        float minRotation = -20;
+        float rotOffset = 3;
+        float maxRot = 20;
 
         Quaternion aimRotation = Quaternion.identity;
+        float offset = Mathf.Min(rotOffset, maxRot / cards);
+        int childId = CardsSiblings.IndexOf(cardVisual.transform);
+        float minOffset = -(cards - 1) * offset / 2;
+        float rot = (minOffset + childId * offset);
 
-		foreach (Transform t in transform)
+        if (!focused)
         {
-            if (t == cardVisual.transform)
-            {
-				float rotation = Mathf.Lerp(-minRotation, minRotation,  CardsSiblings.IndexOf(t) / (cards + 0.0f));
-                aimRotation = Quaternion.Euler(new Vector3(0, 0, rotation));
-
-                if (focused)
-                {
-                    aimRotation = Quaternion.identity;
-                }
-            }
+            aimRotation = Quaternion.Euler(new Vector3(0, 0, -rot));
         }
 
-            return aimRotation;
+        return aimRotation;
     }
 
     public Vector3 GetPosition(CardVisual cardVisual, bool focused = false)
     {
-		int cards = transform.childCount;
-        Vector3 aimPosition = Vector3.zero;
-        Vector3 minPosition = new Vector3(GetComponent<RectTransform>().rect.width / 2, 0, 0);
-		foreach (Transform t in transform)
-        {
-            if (t == cardVisual.transform)
-            {
-				aimPosition = Vector3.Lerp(-minPosition, minPosition, CardsSiblings.IndexOf(t) / (cards + 0.0f));
+        float yMultiplyer = 1f / 10000;
+        int cards = transform.childCount;
+        float fieldWidth = GetComponent<RectTransform>().rect.width;
+        float cardWidth = transform.GetChild(0).GetComponent<RectTransform>().rect.width;
+        float cardHeight = transform.GetChild(0).GetComponent<RectTransform>().rect.height;
+        float offset = Mathf.Min(cardWidth, fieldWidth/cards);
 
-                if (focused)
-                {
-                    aimPosition += Vector3.up * t.GetComponent<RectTransform>().rect.height / 2;
-                }
-            }
+        Vector3 aimPosition = Vector3.zero;
+        int childId = CardsSiblings.IndexOf(cardVisual.transform);
+        
+        float minOffset = -(cards - 1) * offset / 2;
+
+        float yPos = -Mathf.Pow(minOffset + childId * offset, 2) * yMultiplyer;
+        aimPosition = new Vector3(minOffset+childId*offset, yPos);
+
+        if (focused)
+        {
+            aimPosition += Vector3.up * transform.GetChild(0).GetComponent<RectTransform>().rect.height / 2;
         }
 
         return aimPosition;

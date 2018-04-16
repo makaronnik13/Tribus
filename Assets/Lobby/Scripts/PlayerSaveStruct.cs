@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [System.Serializable]
 public class PlayerSaveStruct
 {
+    [NonSerialized]
 	public Action<PlayerSaveStruct> OnParamsChanged = (PlayerSaveStruct p)=>{};
-	public Action<PlayerSaveStruct> OnDecksChanged = (PlayerSaveStruct p)=>{};
+
+    [NonSerialized]
+    public Action<PlayerSaveStruct> OnDecksChanged = (PlayerSaveStruct p)=>{};
 
 	[SerializeField]
 	private string playerName;
@@ -39,21 +43,23 @@ public class PlayerSaveStruct
 		}
 	}
 
-	[SerializeField]
-	private Sprite playerAvatar;
-	public Sprite PlayerAvatar
+    [SerializeField]
+    private int playerAvatarId;
+	public int PlayerAvatarId
 	{
 		get
 		{
-			return playerAvatar;
+			return playerAvatarId;
 		}
 		set
 		{
-			playerAvatar = value;
+			playerAvatarId = value;
 			OnParamsChanged.Invoke (this);
 		}
 	}
 
+
+    [SerializeField]
     public DeckStruct CurrentDeck;
 
 	[SerializeField]
@@ -71,17 +77,8 @@ public class PlayerSaveStruct
 		}
 	}
 
+   
 	[SerializeField]
-	private List<Card> allCards = new List<Card>();
-	public List<Card> AllCards
-	{
-		get
-		{
-			return allCards;
-		}
-		set
-		{
-			allCards = value;
-		}
-	}
+	public List<int> AllCards = new List<int>();
+	
 }

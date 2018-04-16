@@ -1753,6 +1753,8 @@ MonoBehaviour:
   border: {fileID: 114797451575059522}
   playerInfo: {fileID: 1250067587868362}
   portrait: {fileID: 1085911951523474}
+  PlayerName: 
+  Hand: 
 --- !u!114 &114797451575059522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2028,7 +2030,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1588152423014770}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 50

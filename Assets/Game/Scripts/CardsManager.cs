@@ -24,7 +24,6 @@ public class CardsManager : Singleton<CardsManager> {
 	public Action<CardVisual> OnCardDroped = (CardVisual visual)=>{};
 	public Action<CardVisual> OnCardTakenInChooseField = (CardVisual visual)=>{};
 
-	private List<CardVisual> cardsInHand = new List<CardVisual>();
 	private Action<List<CardVisual>> onChoseCardFieldClosed;
 	private List<CardVisual> cardsInChoseCardField = new List<CardVisual>();
 	private List<CardVisual> chosenCards
@@ -32,15 +31,6 @@ public class CardsManager : Singleton<CardsManager> {
 		get
 		{
 			return ChoseCardsLayout.Instance.chosedCards;
-		}
-	}
-
-	public int CardsCount
-	{
-		get
-		{
-			cardsInHand.RemoveAll (c=>c == null);
-			return cardsInHand.Count;
 		}
 	}
 
@@ -59,8 +49,6 @@ public class CardsManager : Singleton<CardsManager> {
 		}
 	}
 
-    private Queue<Card> pile = new Queue<Card>();
-	private Stack<Card> drop = new Stack<Card>();
     private Canvas _playerCanvas;
 	public Canvas playerCanvas
     {
@@ -74,84 +62,19 @@ public class CardsManager : Singleton<CardsManager> {
         }
     }
 
-	public void AddCardsToPile(List<Card> cards, bool shuffle = false)
-	{
-		Stack<Card> cardsInPile = new Stack<Card> (pile);
-		foreach (Card c in cards) {
-			cardsInPile.Push (c);
-		}
-		if(shuffle)
-		{
-			cardsInPile =  new Stack<Card>(cardsInPile.OrderBy (a => Guid.NewGuid ()));
-		}
-		pile = new Queue<Card> (cardsInPile);
-	}
+ 
 
-	public void AddCardsToDrop(List<Card> cards)
-	{
-		foreach (Card c in cards) {
-			drop.Push (c);
-		}
-	}
-
-	public void StartPlayer(Player player)
+    public void GetCard(Card card)
     {
-		pile = new Queue<Card>(player.Pile);
-		drop = new Stack<Card>(player.Drop);
-
-		/*Debug.Log (player.CardsInHand);
-		for(int i = 0; i<player.CardsInHand;i++)
-		{
-			GetCard();
-		}*/
-
-		GetCard();
-		for (int i = CardsManager.Instance.CardsCount; i < 5; i++)
-		{
-			CardsManager.Instance.GetCard();
-		}
-    }
-
-	public void EndPlayerTurn(Player player)
-	{
-		SavePlayer (player);
-
-		HandCardsLayout.EndTurn ();
-		for(int i = cardsInHand.Count-1; i>=0;i--)
-		{
-			Destroy(cardsInHand[i].gameObject);
-		}
-	}
-
-	public void SavePlayer(Player player)
-	{
-		player.Drop = drop;
-		Stack<Card> cardsStack = new Stack<Card> (pile);
-		//player.CardsInHand = cardsInHand.Count ();
-		foreach(CardVisual cv in cardsInHand)
-		{
-			cardsStack.Push (cv.CardAsset);
-		}
-		player.Pile = new Queue<Card>(cardsStack);
-	}
-
-    public void GetCard()
-    {
-		if (pile.Count > 0) {
-			GameObject newCard = Instantiate (CardPrefab);
-			OnCardTaken.Invoke (newCard.GetComponent<CardVisual> ());
-			newCard.GetComponent<CardVisual> ().Init (pile.Dequeue ());
-			cardsInHand.Add (newCard.GetComponent<CardVisual> ());
-			newCard.transform.SetParent (pileTransform);
-			newCard.transform.localPosition = Vector3.zero;
-			newCard.transform.localRotation = Quaternion.identity;
-			newCard.transform.localScale = Vector3.one;
-			if (pile.Count == 0) {
-				Resuffle ();
-			}
-			newCard.transform.SetParent (handTransform);
-			HandCardsLayout.CardsReposition ();
-		}
+	    GameObject newCard = Instantiate (CardPrefab);
+	    OnCardTaken.Invoke (newCard.GetComponent<CardVisual> ());
+	    newCard.GetComponent<CardVisual> ().Init (card);
+	    newCard.transform.SetParent (pileTransform);
+	    newCard.transform.localPosition = Vector3.zero;
+	    newCard.transform.localRotation = Quaternion.identity;
+	    newCard.transform.localScale = Vector3.one;
+	    newCard.transform.SetParent (handTransform);
+	    HandCardsLayout.CardsReposition ();
     }
 
     public Vector3 GetPosition(CardVisual cardVisual, bool hovered = false)
@@ -176,20 +99,9 @@ public class CardsManager : Singleton<CardsManager> {
 
     public void DropCard(CardVisual cardVisual)
     {
-			OnCardDroped.Invoke (cardVisual);
-			if (!cardVisual.CardAsset.DestroyAfterPlay) 
-			{
-				drop.Push (cardVisual.CardAsset);
-			}
-			cardsInHand.Remove (cardVisual);
+        NetworkCardGameManager.sInstance.DropCard(cardVisual.CardAsset);
+            OnCardDroped.Invoke (cardVisual);		
             Destroy(cardVisual.gameObject);
-    }
-
-    private void Resuffle()
-    {
-        List<Card> sorted = drop.OrderBy(a => Guid.NewGuid()).ToList();
-        pile = new Queue<Card>(sorted);
-        drop.Clear();
     }
 
 	public void MoveCardTo(Transform card, Transform aim, Action callback = null)

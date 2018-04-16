@@ -26,7 +26,7 @@ public class PlayerLobbyPanel : MonoBehaviour {
 	private void UpdateInfo(PlayerSaveStruct player)
 	{
 		PlayerName.text = player.PlayerName;
-		Avatar.sprite = player.PlayerAvatar;
+		Avatar.sprite = DefaultResourcesManager.Avatars.ToList().ElementAt(player.PlayerAvatarId);
 		ColorCircle.color = player.PlayerColor;
 	}
 

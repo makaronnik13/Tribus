@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class PlayerVisual : Photon.MonoBehaviour, ISkillAim 
 {
@@ -34,13 +35,13 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
 		}
 	}
 
-	public void Init(string name, float[] playerColor, int v, int[] cards)
+	public void Init(string name, float[] playerColor, int v, int[] cards, bool activePlayer)
 	{
-        GetComponent<PhotonView>().RPC("InitOnClient", PhotonTargets.AllBuffered, new object[] {name,  playerColor,v, cards});
+        GetComponent<PhotonView>().RPC("InitOnClient", PhotonTargets.AllBuffered, new object[] {name,  playerColor,v, cards, activePlayer});
 	}
 
     [PunRPC]
-    private void InitOnClient(string name, float[] c, int v, int[] cards)
+    private void InitOnClient(string name, float[] c, int v, int[] cards, bool activePlayer)
     {
         foreach (int cardId in cards)
         {
@@ -56,6 +57,10 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
         transform.localScale = Vector3.one;
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector3.zero;
+        if (activePlayer)
+        {
+            portrait.transform.localScale = Vector3.one * 1.5f;
+        }
     }
 
 	public void SetActivePlayer(bool v)
@@ -141,7 +146,7 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
 
 	public void HighlightSimple(bool v)
 	{
-		//playerInfo.SetActive (v);
+		playerInfo.SetActive (v);
 	}
 
 	void OnMouseEnter()
@@ -212,4 +217,38 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
 			CardsPlayer.Instance.SelectAim (null);
 		}
 	}
+
+    public void RemoveCardFromPile(int cardId)
+    {
+        List<int> newPile = Pile.ToList();
+        newPile.Remove(cardId);
+        Pile = new Queue<int>(newPile);
+    }
+
+    public void AddCardToHand(int cardId)
+    {
+        Hand.Add(cardId);
+    }
+
+    public void RemoveCardFromDrop(int cardId)
+    {
+        List<int> newDrop = Drop.ToList();
+        newDrop.Remove(cardId);
+        Drop = new Stack<int>(newDrop);
+    }
+
+    public void AddCardToPile(int cardId)
+    {
+        Pile.Enqueue(cardId);
+    }
+
+    public void AddCardToDrop(int cardId)
+    {
+        Drop.Push(cardId);
+    }
+
+    public void RemoveCardFromHand(int cardId)
+    {
+        Hand.Remove(cardId);
+    }
 }

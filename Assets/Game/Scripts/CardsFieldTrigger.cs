@@ -13,10 +13,9 @@ public class CardsFieldTrigger : Singleton<CardsFieldTrigger>, IPointerEnterHand
 		{
 			return;
 		}
-
 		activeCardVisual = eventData.pointerDrag.GetComponent<CardVisual> ();
 
-		if(activeCardVisual)
+        if (activeCardVisual)
 		{
             activeCardVisual.State = CardVisual.CardState.ChosingAim;
         }

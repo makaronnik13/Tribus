@@ -57,4 +57,12 @@ MonoBehaviour:
   - AddPlayer
   - UpdatePlayersVisual
   - SetActivePlayer
+  - RpcRemoveCardFromPile
+  - RpcAddCardToHand
+  - RpcAddCardToPile
+  - RpcRemoveCardFromDrop
+  - RpcAddCardToDrop
+  - RpcRemoveCardFromHand
+  - PunRpcSetActivePlayerVisual
+  - RpcSetActivePlayerVisual
   DisableAutoOpenWizard: 1

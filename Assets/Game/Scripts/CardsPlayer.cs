@@ -121,8 +121,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
 
     public void PlayCard(CardVisual card)
     {
-		
-		if(card.CardAsset.CardEffects.FirstOrDefault(e=>e.cardAim != CardEffect.CardAim.None)!=null)
+        if (card.CardAsset.CardEffects.FirstOrDefault(e=>e.cardAim != CardEffect.CardAim.None)!=null)
         {
             if (focusedAims.Count > 0)
             {
@@ -145,8 +144,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
 
 	private void PlayCard(CardVisual card, List<ISkillAim> aims)
     {
-
-		CardEffect cellAimedCard = activeCard.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Cell);
+        CardEffect cellAimedCard = activeCard.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Cell);
 		if (cellAimedCard != null) 
 		{
 			if(cellAimedCard.cellAimType == CardEffect.CellAimType.Random)
@@ -169,7 +167,8 @@ public class CardsPlayer : Singleton<CardsPlayer>
 						OnCardPlayed.Invoke (card.CardAsset);
 						CardsFieldTrigger.Instance.activeCardVisual.State = CardVisual.CardState.Played;
 			});
-		}	
+		}
+
 
 		if (cardShouldBePlayed) 
 		{

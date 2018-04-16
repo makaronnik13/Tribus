@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class LocalPlayerLogic : MonoBehaviour {
         {
             cardsIds.Add(DefaultResourcesManager.AllCards.ToList().IndexOf(c));
         }
-        NetworkCardGameManager.sInstance.GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.MasterClient, new object[] { LobbyPlayerIdentity.Instance.player.PlayerName, playerColor, DefaultResourcesManager.Avatars.ToList().IndexOf(LobbyPlayerIdentity.Instance.player.PlayerAvatar), PhotonNetwork.player, cardsIds.ToArray()});
+        NetworkCardGameManager.sInstance.GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.MasterClient, new object[] { LobbyPlayerIdentity.Instance.player.PlayerName, playerColor, LobbyPlayerIdentity.Instance.player.PlayerAvatarId, PhotonNetwork.player, cardsIds.ToArray()});
     }
 
     public void OnEndTurnPush()
@@ -35,12 +36,19 @@ public class LocalPlayerLogic : MonoBehaviour {
     public void EndTurn()
     {
         visual.EndTurn();
+        ResourcesManager.Instance.EndTurn();
     }
 
     public void StartTurn()
     {
         NetworkCardGameManager.sInstance.PlayerStartTurn(PhotonNetwork.player);
+        ResourcesManager.Instance.StartTurn();
         visual.StartTurn();
+    }
+
+    public void GetCard(int cardId)
+    {
+        visual.GetCard(DefaultResourcesManager.AllCards[cardId]);
     }
 
 }
