@@ -351,5 +351,28 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
         cards.AddRange(GetPlayerPile(pp));
         return cards;
     }
+
+
+	public void ActivateSkill(Block aimBlock, CombineModel.Skills skill, int skillLevel)
+	{
+		CellState cs = aimBlock.State.CombinationResult (skill,skillLevel);
+		if(cs)
+		{
+			GetComponent<PhotonView> ().RPC ("SetOwner", PhotonTargets.All, new object[]{aimBlock.GetComponent<PhotonView>(), PhotonNetwork.player});
+			GetComponent<PhotonView> ().RPC ("SetState", PhotonTargets.All, new object[]{aimBlock.GetComponent<PhotonView>(), DefaultResourcesManager.AllStatesList.States(cs)});
+		}
+	}
+
+	[PunRPC]
+	public void SetOwner(Block aimBlock, PhotonPlayer player)
+	{
+		aimBlock.GetComponent<Block>().Owner = player;
+	}
+
+	[PunRPC]
+	public void SetState(PhotonView aimBlock, int stateId)
+	{
+		aimBlock.GetComponent<Block>().State = DefaultResourcesManager.AllStatesList[stateId];
+	}
 }
 

@@ -263,18 +263,23 @@ public class CardsPlayer : Singleton<CardsPlayer>
 
 	void Start()
 	{
+		//base
 		cardEffects.Add (new ChangeStateEffect());
 		cardEffects.Add (new ChangeBiomEffect());
 		cardEffects.Add (new DestroyStateEffect());
 		cardEffects.Add (new MakeNeutralCardEffect());
 		cardEffects.Add (new MakeOwnerEffect());
 		cardEffects.Add (new DeevolveEffect());
+
+		//cards
 		cardEffects.Add (new AddCardEffect());
 		cardEffects.Add (new TakeCardEffect());
 		cardEffects.Add (new ObserveEffect());
 		cardEffects.Add (new BurnEffect());
 		cardEffects.Add (new DropEffect());
 		cardEffects.Add (new StillEffect());
+
+		//additional
 		cardEffects.Add (new ChooseEffect());
 	}
 }
