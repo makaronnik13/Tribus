@@ -39,7 +39,11 @@ public class ResourcesVisualizer : MonoBehaviour {
 
     private void ValueChanged(GameResource gr, int v)
     {
-        visualisers[gr].SetActive(v!=0);
-        visualisers[gr].GetComponentInChildren<TextMeshProUGUI>().text = "" + v;
+        Debug.Log(gr);
+        if (gr)
+        {
+            visualisers[gr].SetActive(v != 0);
+            visualisers[gr].GetComponentInChildren<TextMeshProUGUI>().text = "" + v;
+        }
     }
 }

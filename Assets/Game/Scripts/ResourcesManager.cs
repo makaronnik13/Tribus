@@ -8,7 +8,6 @@ public class ResourcesManager : Singleton<ResourcesManager>
 {
     public Action<GameResource, int> OnResourceValueChanged = (GameResource res, int value) => { };
     public List<Inkome> StartedReources = new List<Inkome>();
-
     private Dictionary<GameResource, int> ResourcesValues = new Dictionary<GameResource, int>();
 
     private void Start()
@@ -26,6 +25,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
 
     public void StartTurn()
     {
+
 			foreach(Inkome ink in GetIncomeForPlayer(NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer))
             {
 				AddResource(ink.resource, ink.value);
@@ -56,7 +56,9 @@ public class ResourcesManager : Singleton<ResourcesManager>
 			}
 		}
 
-		return inkome;
+        Debug.Log(inkome.Count);
+
+        return inkome;
 	}
 
     public bool CardAvailability(Card cardAsset)
@@ -82,6 +84,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
 
     public void SetResource(GameResource gr, int v)
     {
+        Debug.Log("set res");
         if (!ResourcesValues.ContainsKey(gr))
         {
             ResourcesValues.Add(gr, 0);
@@ -92,7 +95,6 @@ public class ResourcesManager : Singleton<ResourcesManager>
 
     public void AddResource(GameResource gr, int v)
     {
-        
         if (!ResourcesValues.ContainsKey(gr))
         {
             ResourcesValues.Add(gr, 0);

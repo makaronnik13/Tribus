@@ -14,9 +14,7 @@ MonoBehaviour:
   CardName: test
   CardDescription: sample text
   cardSprite: {fileID: 21300092, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
-  Cost:
-  - resource: {fileID: 11400000, guid: 09cc291755db7bb4893dca74fad8fad3, type: 2}
-    value: 1
+  Cost: []
   WinCard: 0
   DestroyAfterPlay: 0
   CardEffects:

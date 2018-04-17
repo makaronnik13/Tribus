@@ -65,4 +65,6 @@ MonoBehaviour:
   - RpcRemoveCardFromHand
   - PunRpcSetActivePlayerVisual
   - RpcSetActivePlayerVisual
+  - RpcChangeOwner
+  - RpcChangeState
   DisableAutoOpenWizard: 1

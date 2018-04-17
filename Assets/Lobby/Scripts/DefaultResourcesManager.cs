@@ -10,8 +10,10 @@ public static class DefaultResourcesManager
 	private static string ColorsAssetPath = "DefaultResources/PlayerColors";
 	private static string DeckAssetPath = "DefaultResources/StartingDeck";
 	private static string AllCardsAssetPath = "DefaultResources/AllCards";
+    private static string StatesPath = "DefaultResources/AllStatesList";
 
-	private static Card[] allCards;
+
+    private static Card[] allCards;
 	public static Card[] AllCards
 	{
 		get
@@ -99,7 +101,7 @@ public static class DefaultResourcesManager
     {
         get
         {
-            return Resources.Load<StatesList>("AllStatesList");
+            return Resources.Load<StatesList>(StatesPath);
         }
     }
 

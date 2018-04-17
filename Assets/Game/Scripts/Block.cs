@@ -6,7 +6,7 @@ using System;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class Block : MonoBehaviour, ISkillAim 
+public class Block : Photon.MonoBehaviour, ISkillAim 
 {
 	private CellModel cellModel;
 	private CellModel CellModel
@@ -129,8 +129,6 @@ public class Block : MonoBehaviour, ISkillAim
 				}
         }
     }
-
-
     public void RecalculateInkome()
     {
         currentIncome = new List<Inkome>();
@@ -176,17 +174,14 @@ public class Block : MonoBehaviour, ISkillAim
             }
         }
     }
-
 	void OnMouseDown()
 	{
 	
 	}
-
 	void OnMouseUp()
 	{
         
     }
-
 	void OnMouseEnter()
 	{
 		if (EventSystem.current.currentSelectedGameObject && EventSystem.current.currentSelectedGameObject.layer == 5) 
@@ -221,7 +216,6 @@ public class Block : MonoBehaviour, ISkillAim
 		CardsPlayer.Instance.SelectAim (this);
         InformationPanel.Instance.ShowInfo(this);
     }
-
 	void OnMouseExit()
 	{
 		bool shouldDehighlight = true;
@@ -251,13 +245,10 @@ public class Block : MonoBehaviour, ISkillAim
 			
         InformationPanel.Instance.ShowInfo(null);
     }
-
 	void OnMouseDrag()
 	{
 		
 	}
-		
-
     public bool IsAwaliable(Card card)
     {
 		if (!card)
@@ -326,22 +317,18 @@ public class Block : MonoBehaviour, ISkillAim
 
         return false;
     }
-
     public void Highlight(Card card, bool v)
     {
 		Highlighter.Set(v && IsAwaliable(card), false);   
     }
-
 	public void HighlightSimple(bool v)
 	{
 		Highlighter.Set(v, false);  
 	}
-
     public void HighlightSelected(Card card, bool v)
     {
 		Highlighter.Set(v && IsAwaliable(card), true);   
     }
-
 	void Start()
 	{
 		Animator anim = GetComponent<Animator> ();
@@ -368,5 +355,15 @@ public class Block : MonoBehaviour, ISkillAim
         }
 
         State = BlocksField.Instance.baseStates[state];
+    }
+    [PunRPC]
+    private void RpcChangeState(int stateId)
+    {
+        State = DefaultResourcesManager.AllStatesList.States[stateId];
+    }
+    [PunRPC]
+    private void RpcChangeOwner(PhotonPlayer player)
+    {
+        Owner = player;
     }
 }

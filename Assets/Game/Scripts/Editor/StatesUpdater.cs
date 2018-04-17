@@ -2,7 +2,7 @@
 	using UnityEngine;
 	using UnityEditor;
 
-	[InitializeOnLoad]
+	//[InitializeOnLoad]
 	public class StatesUpdater 	
 	{
 	public static StatesList AllStatesList

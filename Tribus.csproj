@@ -424,7 +424,6 @@
     <Compile Include="Assets\Game\Scripts\ResourcesManager.cs" />
     <Compile Include="Assets\Game\Scripts\ResourcesVisualizer.cs" />
     <Compile Include="Assets\Game\Scripts\Singleton.cs" />
-    <Compile Include="Assets\Game\Scripts\SkillsController.cs" />
     <Compile Include="Assets\Game\Scripts\StatesInfo.cs" />
     <Compile Include="Assets\Game\Scripts\StatesList.cs" />
     <Compile Include="Assets\Game\Scripts\StringWithParams.cs" />
@@ -614,6 +613,8 @@
     <Compile Include="Assets\UIDebug.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Game\Plugins\CardEffects\TribusCard.shader" />
+    <None Include="Assets\Game\Plugins\CardEffects\TribusCell.shader" />
     <None Include="Assets\Game\Resources\Fonts\Symbols.txt" />
     <None Include="Assets\Game\Resources\RotationEffect\BurningCard.shader" />
     <None Include="Assets\Game\Resources\RotationEffect\RotateEffect.shader" />

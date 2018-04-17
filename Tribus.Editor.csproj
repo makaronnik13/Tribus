@@ -381,6 +381,8 @@
     <Compile Include="Assets\Photon Unity Networking\UtilityScripts\PhotonPlayer\Editor\PunTeamsInspector.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Game\Plugins\CardEffects\TribusCard.shader" />
+    <None Include="Assets\Game\Plugins\CardEffects\TribusCell.shader" />
     <None Include="Assets\Game\Resources\Fonts\Symbols.txt" />
     <None Include="Assets\Game\Resources\RotationEffect\BurningCard.shader" />
     <None Include="Assets\Game\Resources\RotationEffect\RotateEffect.shader" />

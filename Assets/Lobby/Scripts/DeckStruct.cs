@@ -22,6 +22,13 @@ public class DeckStruct
     {
         get
         {
+            if (cards.Count == 0)
+            {
+                foreach (int cId in cardsIds)
+                {
+                    cards.Add(DefaultResourcesManager.AllCards[cId]);
+                }
+            }
             return cards;
         }
         set

@@ -41,6 +41,7 @@ public class LocalPlayerLogic : MonoBehaviour {
 
     public void StartTurn()
     {
+        Debug.Log("sst");
         NetworkCardGameManager.sInstance.PlayerStartTurn(PhotonNetwork.player);
         ResourcesManager.Instance.StartTurn();
         visual.StartTurn();

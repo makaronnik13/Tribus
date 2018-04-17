@@ -26,6 +26,28 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
         public int[] cardsIds;
     }
 
+    public void Mutate(Block block, CombineModel.Skills evolveType, int evolveLevel)
+    { 
+            CellState cs = block.State.CombinationResult(evolveType, evolveLevel);
+            if (cs)
+            {
+                ChangeOwner(block, PhotonNetwork.player);
+                ChangeState(block, cs);
+            }
+    }
+
+    public void ChangeOwner(Block block, PhotonPlayer player)
+    {
+        block.photonView.RPC("RpcChangeOwner", PhotonTargets.All, new object[] {player});
+    }
+
+
+
+    public void ChangeState(Block block, CellState state)
+    {
+        block.photonView.RPC("RpcChangeState", PhotonTargets.All, new object[] {DefaultResourcesManager.AllStatesList.States.IndexOf(state)});
+    }
+
     static public NetworkCardGameManager sInstance = null;
     private Queue<ServerPlayer> playersQueue = new Queue<ServerPlayer>();
 

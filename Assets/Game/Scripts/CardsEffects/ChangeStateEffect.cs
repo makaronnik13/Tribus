@@ -16,7 +16,7 @@ public class ChangeStateEffect :ICardEffect
 			}
 			foreach (ISkillAim aim in aims) {
 				if (aim.GetType () == typeof(Block)) {
-				SkillsController.Instance.ActivateSkill (aim as Block, changeStateEffect.EvolveType, changeStateEffect.EvolveLevel);
+				NetworkCardGameManager.sInstance.Mutate (aim as Block, changeStateEffect.EvolveType, changeStateEffect.EvolveLevel);
 				}
 			}
 			result = true;

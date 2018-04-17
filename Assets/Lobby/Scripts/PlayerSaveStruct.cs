@@ -72,8 +72,22 @@ public class PlayerSaveStruct
 		}
 		set
 		{
-			decks = value;
-			OnDecksChanged.Invoke (this);
+            List<DeckStruct> newDecks = new List<DeckStruct>();
+            foreach (DeckStruct ds in value)
+            {
+                DeckStruct newDeck = new DeckStruct
+                {
+                    DeckName = ds.DeckName,
+                    Cards = ds.Cards
+                };
+
+                newDecks.Add(newDeck);
+            }
+
+            decks.Clear();
+            decks = newDecks;
+
+            OnDecksChanged.Invoke (this);
 		}
 	}
 
