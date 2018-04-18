@@ -2585,14 +2585,14 @@ RectTransform:
   m_GameObject: {fileID: 996570812}
   m_LocalRotation: {x: -0.000000029802319, y: 0.000000029802319, z: -0.71940583, w: 0.69459003}
   m_LocalPosition: {x: 0, y: 0, z: -17.4}
-  m_LocalScale: {x: 49.74347, y: 49.74348, z: 49.74348}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children: []
   m_Father: {fileID: 1616183715}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -92.011}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 403.5, y: 6.7}
+  m_AnchoredPosition: {x: 439.2, y: -1.9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &996570814
@@ -2629,9 +2629,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 548eb8d1a5de64ca6be13294f8d1649d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e138359c432d4a578af85d7556f1756, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.56, y: 2.56}
@@ -2822,8 +2822,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 174.02539, y: 383.33398}
-  m_SizeDelta: {x: 100, y: 135}
+  m_AnchoredPosition: {x: 960, y: 197.7}
+  m_SizeDelta: {x: 329.2, y: 395.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1139230621
 MonoBehaviour:
@@ -3144,14 +3144,14 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1406012408}
-  m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 15.9, z: -8.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 878637226}
   m_Father: {fileID: 1672966955}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1406012410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4055,7 +4055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b60573c8e6b74b608ab3b069de8bc76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curving: 300
+  curving: 0
   tip: {fileID: 996570813}
 --- !u!120 &1616183717
 LineRenderer:
@@ -4103,13 +4103,13 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0.43563843
+        value: 0.16831207
         inSlope: -0.14257663
         outSlope: -0.14257663
         tangentMode: 0
       - serializedVersion: 2
-        time: 1
-        value: 1
+        time: 0.99694824
+        value: 0.45544434
         inSlope: 0
         outSlope: 0
         tangentMode: 0

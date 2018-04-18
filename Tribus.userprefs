@@ -1,21 +1,26 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Game/Ui/PlayerVisual.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ExternalPlugins/Sirenix/Source/Source/Source/Sirenix.Utilities/Misc/GlobalConfig.cs">
     <Files>
-      <File FileName="Assets/Scripts/Game/DataStructs/Card.cs" Line="9" Column="2" />
-      <File FileName="Assets/Scripts/Lobby/DataStructs/PlayerSaveStruct.cs" Line="108" Column="1" />
-      <File FileName="Assets/Scripts/Game/Ui/LineArrow.cs" Line="28" Column="30" />
-      <File FileName="Assets/Scripts/Game/DataStructs/Deck.cs" Line="9" Column="17" />
-      <File FileName="Assets/Scripts/Lobby/Structs/DeckStruct.cs" Line="43" Column="1" />
-      <File FileName="Assets/Scripts/Lobby/Managers/LobbyPlayerIdentity.cs" Line="9" Column="9" />
-      <File FileName="Assets/Scripts/Lobby/Managers/DefaultResourcesManager.cs" Line="125" Column="2" />
-      <File FileName="Assets/Scripts/Game/Managers/NetworkCardGameManager.cs" Line="91" Column="20" />
-      <File FileName="Assets/Scripts/Game/Managers/LocalPlayerLogic.cs" Line="52" Column="1" />
-      <File FileName="Assets/Scripts/Lobby/PhotonLobbyPlayer.cs" Line="217" Column="20" />
-      <File FileName="Assets/Scripts/Lobby/Ui/AllCardsView.cs" Line="1" Column="26" />
+      <File FileName="Assets/Scripts/Game/Managers/CardsPlayer.cs" Line="31" Column="31" />
+      <File FileName="Assets/Scripts/Game/DataStructs/Card.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Lobby/DataStructs/PlayerSaveStruct.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/Ui/LineArrow.cs" Line="32" Column="21" />
+      <File FileName="Assets/Scripts/Game/DataStructs/Deck.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Lobby/Structs/DeckStruct.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Lobby/Managers/LobbyPlayerIdentity.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Lobby/Managers/DefaultResourcesManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/Managers/NetworkCardGameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/Managers/LocalPlayerLogic.cs" Line="43" Column="6" />
+      <File FileName="Assets/Scripts/Lobby/PhotonLobbyPlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Lobby/Ui/AllCardsView.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Game/Ui/PlayerVisual.cs" Line="158" Column="70" />
-      <File FileName="Assets/Scripts/Game/Ui/CardVisual.cs" Line="52" Column="34" />
-      <File FileName="Assets/Scripts/Game/Managers/CardsPlayer.cs" Line="53" Column="52" />
+      <File FileName="Assets/Scripts/Game/Ui/CardVisual.cs" Line="328" Column="26" />
+      <File FileName="Assets/Scripts/Game/Components/Block.cs" Line="231" Column="1" />
+      <File FileName="Assets/Scripts/Game/DataStructs/ISkillAim.cs" Line="6" Column="32" />
+      <File FileName="Assets/Scripts/Game/Components/GUICamera.cs" Line="22" Column="26" />
+      <File FileName="Assets/Scripts/Game/Managers/ResourcesManager.cs" Line="57" Column="4" />
+      <File FileName="Assets/ExternalPlugins/Sirenix/Source/Source/Source/Sirenix.Utilities/Misc/GlobalConfig.cs" Line="10" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

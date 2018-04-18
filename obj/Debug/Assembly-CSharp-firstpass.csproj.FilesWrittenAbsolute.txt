@@ -22,9 +22,11 @@
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/UnityEditor.VR.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/UnityEditor.Graphs.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/UnityEditor.OSXStandalone.Extensions.dll
+/Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/Newtonsoft.Json.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/TextMeshPro-2017.3-1.0.56-Editor.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/TextMeshPro-2017.3-1.0.56-Runtime.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/Photon3Unity3D.dll
+/Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/websocket-sharp.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/UnityEngine.Advertisements.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/UnityEditor.Advertisements.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/UnityEngine.Analytics.dll
@@ -32,8 +34,6 @@
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/UnityEngine.Purchasing.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/UnityEditor.Purchasing.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/UnityEngine.StandardEvents.dll
-/Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/websocket-sharp.dll
-/Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/Newtonsoft.Json.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/Unity.Cecil.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/Unity.SerializationLogic.dll
 /Users/nikita/Desktop/Projects/Tribus/Temp/bin/Debug/Unity.DataContract.dll

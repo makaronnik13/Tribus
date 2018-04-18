@@ -55,9 +55,6 @@ public class ResourcesManager : Singleton<ResourcesManager>
 					inkome.Add (ink);	
 			}
 		}
-
-        Debug.Log(inkome.Count);
-
         return inkome;
 	}
 

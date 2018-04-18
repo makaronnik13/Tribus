@@ -193,7 +193,7 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 
 		if(CardsPlayer.Instance.ActiveCard)
 		{
-			CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Player);
+			CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Player);
 			if(cardEffect!=null)
 			{
 				if (cardEffect.playerAimType == CardEffect.PlayerAimType.All || cardEffect.playerAimType == CardEffect.PlayerAimType.Enemies || cardEffect.playerAimType == CardEffect.PlayerAimType.You) 
@@ -203,7 +203,7 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 			}
 
 
-			cardEffect = CardsPlayer.Instance.ActiveCard.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Cell);
+			cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Cell);
 			if(cardEffect!=null)
 			{
 				if(cardEffect.cellAimType == CardEffect.CellAimType.All  || cardEffect.cellAimType == CardEffect.CellAimType.Random)
@@ -221,14 +221,14 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 		bool shouldDehighlight = true;
 
 		if (CardsPlayer.Instance.ActiveCard) {
-			CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Player);
+			CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Player);
 			if (cardEffect != null) {
 				if (cardEffect.playerAimType == CardEffect.PlayerAimType.All || cardEffect.playerAimType == CardEffect.PlayerAimType.Enemies || cardEffect.playerAimType == CardEffect.PlayerAimType.You) {
 					shouldDehighlight = false;
 				}
 			}
 
-			cardEffect = CardsPlayer.Instance.ActiveCard.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Cell);
+			cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Cell);
 			if(cardEffect!=null)
 			{
 				if(cardEffect.cellAimType == CardEffect.CellAimType.All  || cardEffect.cellAimType == CardEffect.CellAimType.Random)

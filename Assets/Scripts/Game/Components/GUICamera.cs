@@ -16,4 +16,9 @@ public class GUICamera : Singleton<GUICamera>{
 			return guiCamera;
 		}
 	}
+
+	void Awake()
+	{
+		transform.localRotation = transform.parent.GetChild (0).transform.localRotation;
+	}
 }

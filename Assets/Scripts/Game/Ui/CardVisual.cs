@@ -11,6 +11,8 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
 	public Action<CardVisual> OnCardVisualClicked = (CardVisual cv)=>{};
 
+	private Vector3 aimPosition;
+
     public enum CardState
     {
         None,
@@ -46,10 +48,10 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 				if (_state == CardState.Dragging) {
 					if (CardCanBePlayed)
                     {
-                           // MoveCardTo (CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one / 2, () => {
+                           MoveCardTo (CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one*1.5f, () => {
 
-						//});
-						CardsPlayer.Instance.ActiveCard = CardAsset;
+						});
+						CardsPlayer.Instance.ActiveCard = this;
 						_state = CardState.ChosingAim;
 						break;
 					} 
@@ -60,7 +62,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 						MoveCardTo (CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one / 2, () => {
 
 						});
-						CardsPlayer.Instance.ActiveCard = CardAsset;
+						CardsPlayer.Instance.ActiveCard = this;
 						_state = CardState.ChosingAim;
 						break;
 					}
@@ -105,8 +107,9 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	
                     break;
 			case CardState.Played:
-				if (_state != CardState.Played) {
-
+				if (_state != CardState.Played) 
+				{
+					AvaliabilityFrame.enabled = false;
 					if (CardAsset.DestroyAfterPlay) 
 					{
 						CardsManager.Instance.DropCard (this);
@@ -163,6 +166,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 		{
 			return _cardAsset;
 		}
+	
 	}
 
     private bool _cardCanBePlayed = true;
@@ -210,6 +214,15 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         ResourcesManager.Instance.OnResourceValueChanged += ResourceChanged;
     }
 
+	void Update()
+	{
+		if (State == CardState.Dragging) 
+		{
+				transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.deltaTime*6);
+				transform.position = Vector3.Lerp(transform.position, aimPosition, Time.deltaTime*6);
+		}
+	}
+
     void OnDestroy()
     {
 		if(ResourcesManager.Instance)
@@ -248,8 +261,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 				Vector3 globalMousePos;
 				if (RectTransformUtility.ScreenPointToWorldPointInRectangle(eventData.pointerEnter.transform as RectTransform, eventData.position, guiCamera, out globalMousePos))
 				{
-					transform.localScale = Vector3.one;
-					transform.position = globalMousePos;
+					aimPosition = globalMousePos;
 				}
             }
         }
@@ -264,7 +276,8 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             CardsPlayer.Instance.PlayCard(this);
 		} else {
 			State = CardState.None;
-		}/*
+		}
+		/*
             GetComponent<CanvasGroup>().blocksRaycasts = true;
             transform.SetParent(CardsManager.Instance.handTransform);
             transform.SetSiblingIndex(takedFromSibling);
@@ -312,7 +325,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         transform.SetParent(parent);
         float time = 0;
-        float speed = 0.25f;
+        float speed = 0.5f;
 		while (time<speed)
 		{
 			transform.localPosition = Vector3.Lerp(transform.localPosition, localPosition, time/speed);

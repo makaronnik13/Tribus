@@ -14,7 +14,9 @@ MonoBehaviour:
   CardName: Battle spell
   CardDescription: Harder, Better, Faster, Stronger
   cardSprite: {fileID: 21300000, guid: 6ce18c99769657a4c80e4791dcc68759, type: 3}
-  Cost: []
+  Cost:
+  - resource: {fileID: 11400000, guid: f3768d0ac0771e34da0e3d1561f70bda, type: 2}
+    value: 1
   WinCard: 0
   DestroyAfterPlay: 0
   CardEffects:

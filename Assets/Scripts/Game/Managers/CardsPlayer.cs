@@ -22,8 +22,13 @@ public class CardsPlayer : Singleton<CardsPlayer>
 
             foreach (ISkillAim aim in InterfaceHelper.FindObjects<ISkillAim>())
             {
-                aim.Highlight(value, value!=null);
-                aim.HighlightSelected(value, false);
+				Card card = null;
+				if(value)
+				{
+					card = value.CardAsset;
+				}
+				aim.Highlight(card, value!=null);
+				aim.HighlightSelected(card, false);
             }
 
 			if (activeCard) {
@@ -144,7 +149,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
 
 	private void PlayCard(CardVisual card, List<ISkillAim> aims)
     {
-        CardEffect cellAimedCard = activeCard.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Cell);
+		CardEffect cellAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Cell);
 		if (cellAimedCard != null) 
 		{
 			if(cellAimedCard.cellAimType == CardEffect.CellAimType.Random)
@@ -182,7 +187,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
 		ISkillAim[] aims = new ISkillAim[]{ aim };
 		if(activeCard)
 		{
-		CardEffect cellAimedCard = activeCard.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Cell);
+			CardEffect cellAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Cell);
 		if (cellAimedCard != null) 
 		{
 			if(cellAimedCard.cellAimType == CardEffect.CellAimType.Circle)
@@ -239,7 +244,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
 			} 
 			else 
 			{
-				lastTaim.HighlightSelected(ActiveCard, false);
+				lastTaim.HighlightSelected(ActiveCard.CardAsset, false);
 			}
         }
 
@@ -247,9 +252,9 @@ public class CardsPlayer : Singleton<CardsPlayer>
 
 		foreach (ISkillAim aim in aims) 
 		{
-			if (ActiveCard && aim != null && aim.IsAwaliable (ActiveCard)) {
+			if (ActiveCard && aim != null && aim.IsAwaliable (ActiveCard.CardAsset)) {
 				focusedAims.Add (aim);
-				aim.HighlightSelected (ActiveCard, true);
+				aim.HighlightSelected (ActiveCard.CardAsset, true);
 			}
 			
 			if (!ActiveCard && aim != null) 

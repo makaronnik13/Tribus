@@ -25,22 +25,29 @@ public class LineArrow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (CardsPlayer.Instance.ActiveCard && ShowAimForCard(CardsPlayer.Instance.ActiveCard)) 
+		if (CardsPlayer.Instance.ActiveCard && ShowAimForCard(CardsPlayer.Instance.ActiveCard.CardAsset)) 
 		{
 			lr.enabled = true;
 			Vector3 endPosition = GUICamera.Instance.GuiCamera.WorldToScreenPoint(GetAimPosition ())- GUICamera.Instance.GuiCamera.WorldToScreenPoint(transform.parent.position);
+			endPosition.z = -50;
+
+			endPosition -= endPosition.normalized*125;
 			List<Vector3> points = new List<Vector3> ();
-			for(int i = 0;i<15;i++)
-			{
-				points.Add(GetPoint (Vector3.zero, Vector3.zero, endPosition/2+Vector3.up*curving, endPosition, i/15f));
-			}
-			lr.positionCount = points.Count+1;
+
+
+			points.Add (Vector3.zero);
+			points.Add (endPosition);
+			lr.positionCount = 2;
 			lr.SetPositions (points.ToArray());
-			lr.SetPosition (points.Count, endPosition);
+
 			tip.transform.localPosition = endPosition;
 
-			Vector3 endDirection = lr.GetPosition (Mathf.RoundToInt(points.Count/2)) - endPosition;
-			tip.transform.localRotation = Quaternion.Euler (new Vector3(0,0, endDirection.x));
+			Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - endPosition;
+			diff.Normalize();
+			float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+
+
+			tip.transform.localRotation = Quaternion.Euler(0f, 0f, rot_z + 90);
 			tip.gameObject.SetActive (true);
 		} else 
 		{
