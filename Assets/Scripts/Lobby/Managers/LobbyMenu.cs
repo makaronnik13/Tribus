@@ -6,7 +6,7 @@ using ExitGames.Demos.DemoAnimator;
 
 public class LobbyMenu : Singleton<LobbyMenu> {
 
-	public GameObject DeckPanel, PlayerPanel, MainMenuPanel, LobbyPanel, RoomPanel, SandboxPanel, Background;
+	public GameObject DeckPanel, PlayerPanel, MainMenuPanel, RoomPanel, SandboxPanel, Background;
     public GameLauncher launcher;
 
 	void Start()
@@ -47,7 +47,6 @@ public class LobbyMenu : Singleton<LobbyMenu> {
 
 	public void BackToMainMenu()
 	{
-		LobbyPanel.SetActive (false);
 		DeckPanel.SetActive (false);
 		PlayerPanel.SetActive (false);
 		MainMenuPanel.SetActive (true);
@@ -59,12 +58,6 @@ public class LobbyMenu : Singleton<LobbyMenu> {
 	{
 		//RoomPanel.SetActive (false);
 		Play ();
-	}
-
-	public void EnterLobby()
-	{
-		LobbyPanel.SetActive (false);
-		//RoomPanel.SetActive (true);
 	}
 
 	public void Sandbox()

@@ -20,6 +20,7 @@ public class LobbyPlayerIdentity : Singleton<LobbyPlayerIdentity>
         else
         {
             player = JsonUtility.FromJson<PlayerSaveStruct>(File.ReadAllText(savePath));
+			player.ReinitDecks ();
         }
 		DontDestroyOnLoad (this);
 	}
@@ -32,13 +33,11 @@ public class LobbyPlayerIdentity : Singleton<LobbyPlayerIdentity>
 		player.Decks = new List<DeckStruct> (){ DefaultResourcesManager.StartingDeck};
         player.CurrentDeck = player.Decks[0];
 
-        Debug.Log(DefaultResourcesManager.AllCards.Length);
-
         for (int i = 0; i < 3; i++) 
 		{
-            for (int j = 0; j< DefaultResourcesManager.AllCards.Length;j++)
-            {
-                player.AllCards.Add(j);
+			foreach(Card c in DefaultResourcesManager.AllCards)
+			{
+                player.AllCards.Add(c);
             }		
 		}
 	}
@@ -48,6 +47,8 @@ public class LobbyPlayerIdentity : Singleton<LobbyPlayerIdentity>
         string json = JsonUtility.ToJson(player);
 
         string saveFolderPath = Path.Combine(Application.persistentDataPath, "Player");
+
+		Debug.Log (saveFolderPath);
 
         if (!Directory.Exists(saveFolderPath))
         {

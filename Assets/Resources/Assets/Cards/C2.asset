@@ -16,6 +16,7 @@ MonoBehaviour:
   cardSprite: {fileID: 21300000, guid: 8dafaa55103db144b992ceaed5419386, type: 3}
   Cost: []
   WinCard: 0
+  DestroyAfterPlay: 0
   CardEffects:
   - cardAim: 1
     playerAimType: 0
@@ -24,7 +25,9 @@ MonoBehaviour:
     cellActionType: 4
     cellOwnership: 4
     cardsAimType: 0
-    CardsToAdd: []
+    cardsAimType2: 1
+    noneType: 1
+    Cards: []
     NumberOfCards: 0
     NumberOfChosenCards: 0
     biomsFilter: 03000000

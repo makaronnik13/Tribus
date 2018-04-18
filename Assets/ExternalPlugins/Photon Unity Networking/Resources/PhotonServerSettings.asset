@@ -27,12 +27,17 @@ MonoBehaviour:
   NetworkLogging: 1
   RunInBackground: 1
   RpcList:
+  - AddPlayer
   - Chat
   - ColorRpc
-  - CreatePlayer
   - DestroyRpc
   - DoJump
+  - EndPlayerTurn
+  - EndTurnOnServer
   - Flash
+  - GenerateField
+  - InitBlock
+  - InitOnClient
   - InstantiateRpc
   - Kicked
   - Marco
@@ -44,27 +49,19 @@ MonoBehaviour:
   - PunRespawn
   - RequestForPickupItems
   - RequestForPickupTimes
-  - TaggedPlayer
-  - InitOnClient
+  - RpcAddCardToDrop
+  - RpcAddCardToHand
+  - RpcAddCardToPile
+  - RpcChangeOwner
+  - RpcChangeState
+  - RpcRemoveCardFromDrop
+  - RpcRemoveCardFromHand
+  - RpcRemoveCardFromPile
+  - RpcSetActivePlayerVisual
+  - SetActivePlayer
   - SetReadyButtonState
   - StartGameOnClient
   - StartGameOnServer
-  - EndTurnOnServer
-  - GenerateField
-  - InitBlock
-  - EndPlayerTurn
   - StartPlayerTurn
-  - AddPlayer
-  - UpdatePlayersVisual
-  - SetActivePlayer
-  - RpcRemoveCardFromPile
-  - RpcAddCardToHand
-  - RpcAddCardToPile
-  - RpcRemoveCardFromDrop
-  - RpcAddCardToDrop
-  - RpcRemoveCardFromHand
-  - PunRpcSetActivePlayerVisual
-  - RpcSetActivePlayerVisual
-  - RpcChangeOwner
-  - RpcChangeState
+  - TaggedPlayer
   DisableAutoOpenWizard: 1

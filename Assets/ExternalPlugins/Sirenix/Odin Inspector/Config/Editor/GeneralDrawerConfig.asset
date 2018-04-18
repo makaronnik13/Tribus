@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -645759843, guid: a4865f1ab4504ed8a368670db22f409c, type: 3}
+  m_Script: {fileID: 11500000, guid: 259718f3d675244a1b888e7a947dad94, type: 3}
   m_Name: GeneralDrawerConfig
   m_EditorClassIdentifier: 
   showMonoScriptInEditor: 1

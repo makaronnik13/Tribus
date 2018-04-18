@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System;
 
 [CreateAssetMenu(menuName = "Card")]
 public class Card : ScriptableObject

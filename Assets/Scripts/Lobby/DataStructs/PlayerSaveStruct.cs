@@ -93,6 +93,29 @@ public class PlayerSaveStruct
 
    
 	[SerializeField]
-	public List<int> AllCards = new List<int>();
-	
+	public List<Card> AllCards = new List<Card>();
+		
+	public void ReinitDecks ()
+	{
+		List<string> ids = new List<string> ();
+		foreach(Card c in AllCards)
+		{
+			ids.Add (c.name);
+		}
+		AllCards.Clear ();
+		foreach(string id in ids)
+		{
+			AllCards.Add (DefaultResourcesManager.GetCardById(id));
+		}
+
+		
+		CurrentDeck.Reinit ();
+		foreach(DeckStruct ds in Decks)
+		{
+			ds.Reinit ();
+		}
+	}
+
+
 }
+

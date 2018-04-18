@@ -8,39 +8,8 @@ using UnityEngine;
 [System.Serializable]
 public class DeckStruct
 {
-    [SerializeField]
 	public string DeckName;
-
-    [HideInInspector]
-    [SerializeField]
-	private List<int> cardsIds = new List<int>();
-
-    [ShowInInspector]
-    private List<Card> cards = new List<Card>();
-
-    public List<Card> Cards
-    {
-        get
-        {
-            if (cards.Count == 0)
-            {
-                foreach (int cId in cardsIds)
-                {
-                    cards.Add(DefaultResourcesManager.AllCards[cId]);
-                }
-            }
-            return cards;
-        }
-        set
-        {
-            cards = value;
-            cardsIds.Clear();
-            foreach (Card c in value)
-            {
-                cardsIds.Add(DefaultResourcesManager.AllCards.ToList().IndexOf(c));
-            }
-        }
-    }
+	public List<Card> Cards = new List<Card>();
 
 	public bool Awaliable
 	{
@@ -69,5 +38,19 @@ public class DeckStruct
 			}
 		}
 		return winSprites;
+	}
+
+	public void Reinit()
+	{
+		List<string> ids = new List<string> ();
+		foreach(Card c in Cards)
+		{
+			ids.Add (c.name);
+		}
+		Cards.Clear ();
+		foreach(string id in ids)
+		{
+			Cards.Add (DefaultResourcesManager.GetCardById(id));
+		}
 	}
 }

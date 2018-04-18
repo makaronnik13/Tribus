@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 public static class DefaultResourcesManager
 {
 	private static string AtlasPath = "Assets/DefaultResources/PortraitsAtlas";
@@ -13,7 +14,7 @@ public static class DefaultResourcesManager
     private static string StatesPath = "Assets/DefaultResources/AllStatesList";
 
 
-    private static Card[] allCards;
+	private static Card[] allCards;
 	public static Card[] AllCards
 	{
 		get
@@ -120,4 +121,10 @@ public static class DefaultResourcesManager
 
         return result;
     }
+
+	public static Card GetCardById(string id)
+	{
+		return AllCards.ToList ().FirstOrDefault (c=>c.name == id);
+	}
+		
 }
