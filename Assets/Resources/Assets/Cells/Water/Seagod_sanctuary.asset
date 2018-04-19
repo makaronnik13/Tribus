@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Seagod_sanctuary
   m_EditorClassIdentifier: 
   StateName: Seagod sanctuary
-  type: 0
   Biom: 1
   X: 901
   Y: 182
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Seagod sanctuary
-  prefab: {fileID: 1659206084256416, guid: 88f0ae73c9e5d44cd994b22365e538ca, type: 2}
+  prefab: {fileID: 1694400102745340, guid: d1f4b29690cee4bb18ceea77fb3b39b9, type: 2}
   Sprite: {fileID: 0}
   types: 
   income:

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Fishing_Hut
   m_EditorClassIdentifier: 
   StateName: Fishing Hut
-  type: 0
   Biom: 1
   X: 1223
   Y: -14
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Fishing Hut
-  prefab: {fileID: 1294238690753772, guid: 56eda79224b6d494ba377650fe703004, type: 2}
+  prefab: {fileID: 1479324054034830, guid: 128cd0e8da71b419a96fd8017988a8a6, type: 2}
   Sprite: {fileID: 21300000, guid: 8cfec48e6437742d2a9d6920ac135a6c, type: 3}
   types: 
   income:

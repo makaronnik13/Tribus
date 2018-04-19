@@ -34,12 +34,12 @@ public class AllCardsView : MonoBehaviour {
 		}
 	}
 
-	public void RemoveCard(Card card)
+	public void RemoveCard(string card)
 	{
 		LibraryCardPanel cp = null;
 		foreach(LibraryCardPanel lcp in cardsPanels)
 		{
-			if(lcp.Card == card)
+			if(lcp.Card.name == card)
 			{
 				cp = lcp;
 			}
@@ -51,7 +51,7 @@ public class AllCardsView : MonoBehaviour {
 		}	
 	}
 
-	public void Init(DeckStruct ds)
+	public void Init(DeckStruct deck)
 	{
 		foreach(LibraryCardPanel lcp in cardsPanels)
 		{
@@ -59,12 +59,12 @@ public class AllCardsView : MonoBehaviour {
 		}
 		cardsPanels.Clear ();
 
-		foreach(Card card in LobbyPlayerIdentity.Instance.player.AllCards)
+		foreach(string card in LobbyPlayerIdentity.Instance.player.AllCards)
 		{
-			AddCard (card);
+			AddCard (DefaultResourcesManager.GetCardById(card));
 		}
 
-		foreach(Card c in ds.Cards)
+		foreach(string c in deck.Cards)
 		{
 			RemoveCard (c);
 		}

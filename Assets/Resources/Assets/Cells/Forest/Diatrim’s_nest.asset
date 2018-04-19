@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: "Diatrim\u2019s_nest"
   m_EditorClassIdentifier: 
   StateName: "Diatrim\u2019s nest"
-  type: 0
   Biom: 0
   X: 923
   Y: -221
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: "Diatrim\u2019s nest"
-  prefab: {fileID: 1550217444124506, guid: bf08e70f1387d4319b50368139b934bf, type: 2}
+  prefab: {fileID: 1146977620735458, guid: b32b9e07b2e524b5e8bff7f0175d7320, type: 2}
   Sprite: {fileID: 21300000, guid: 63030e7e3d49c49bdb73be0209370e16, type: 3}
   types: 
   income:

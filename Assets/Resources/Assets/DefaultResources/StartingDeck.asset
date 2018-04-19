@@ -14,15 +14,11 @@ MonoBehaviour:
   DeckStruct:
     DeckName: StartingDeck
     Cards:
-    - {fileID: 11400000, guid: 9704b7370ebbb564f97c21cd3d3f0c30, type: 2}
-    - {fileID: 11400000, guid: 9b140720f92b5c542aee5d389fc08477, type: 2}
-    - {fileID: 11400000, guid: 901ca4d02d7667b4fa2cd306f54cc87e, type: 2}
-    - {fileID: 11400000, guid: d2079406e1da14f418b46538cd066a84, type: 2}
-    - {fileID: 11400000, guid: 9704b7370ebbb564f97c21cd3d3f0c30, type: 2}
-    - {fileID: 11400000, guid: 9704b7370ebbb564f97c21cd3d3f0c30, type: 2}
-    - {fileID: 11400000, guid: 9b140720f92b5c542aee5d389fc08477, type: 2}
-    - {fileID: 11400000, guid: 9b140720f92b5c542aee5d389fc08477, type: 2}
-    - {fileID: 11400000, guid: 901ca4d02d7667b4fa2cd306f54cc87e, type: 2}
-    - {fileID: 11400000, guid: 901ca4d02d7667b4fa2cd306f54cc87e, type: 2}
-    - {fileID: 11400000, guid: d2079406e1da14f418b46538cd066a84, type: 2}
-    - {fileID: 11400000, guid: d2079406e1da14f418b46538cd066a84, type: 2}
+    - {fileID: 11400000, guid: a09c14822d8dd9741abcc10ed43f828e, type: 2}
+    - {fileID: 11400000, guid: a09c14822d8dd9741abcc10ed43f828e, type: 2}
+    - {fileID: 11400000, guid: a09c14822d8dd9741abcc10ed43f828e, type: 2}
+    - {fileID: 11400000, guid: a09c14822d8dd9741abcc10ed43f828e, type: 2}
+    - {fileID: 11400000, guid: a09c14822d8dd9741abcc10ed43f828e, type: 2}
+    - {fileID: 11400000, guid: a09c14822d8dd9741abcc10ed43f828e, type: 2}
+    - {fileID: 11400000, guid: a09c14822d8dd9741abcc10ed43f828e, type: 2}
+    - {fileID: 11400000, guid: a09c14822d8dd9741abcc10ed43f828e, type: 2}

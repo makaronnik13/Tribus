@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Birdwatcher
   m_EditorClassIdentifier: 
   StateName: Birdwatcher
-  type: 0
   Biom: 2
   X: 560
   Y: 297
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: birdwatcher
-  prefab: {fileID: 1237959698311858, guid: 7fce0bbc70008403082ad604d78e8b30, type: 2}
+  prefab: {fileID: 1704409232109890, guid: 4d789a24a83ae470789a0a0aee25ce0d, type: 2}
   Sprite: {fileID: 21300000, guid: d3b693f988b2b4a0783033b3e2716700, type: 3}
   types: 
   income:

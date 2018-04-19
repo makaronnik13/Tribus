@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: House_of_bones
   m_EditorClassIdentifier: 
   StateName: House of bones
-  type: 0
   Biom: 2
   X: 147
   Y: 291
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: House of bones
-  prefab: {fileID: 1603423458189378, guid: c72eff99be91947368ad96e54afad3f9, type: 2}
+  prefab: {fileID: 1694400102745340, guid: d1f4b29690cee4bb18ceea77fb3b39b9, type: 2}
   Sprite: {fileID: 21300000, guid: 61fb14defe4164d7381cf022a85e560e, type: 3}
   types: 
   income:

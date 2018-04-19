@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Wind_mills
   m_EditorClassIdentifier: 
   StateName: Wind mill
-  type: 0
   Biom: 2
   X: 12
   Y: 277

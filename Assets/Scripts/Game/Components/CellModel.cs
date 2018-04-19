@@ -9,11 +9,11 @@ public class CellModel : MonoBehaviour {
 
 	public void SetColor(Color color)
 	{
-		foreach(MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
 		{
 			foreach(Material material in mr.materials)
 			{
-				if(material.shader == Shader.Find("Shader Forge/PlayerShader"))
+                if (material.shader == Shader.Find("Shader Forge/PlayerShader"))
 				{
 					material.color = new Color (color.r, color.g, color.b, material.color.a);
 				}

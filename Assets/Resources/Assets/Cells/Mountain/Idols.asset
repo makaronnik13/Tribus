@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Idols
   m_EditorClassIdentifier: 
   StateName: Idol
-  type: 0
   Biom: 2
   X: 176
   Y: 76

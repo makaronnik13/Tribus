@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Algae_farm
   m_EditorClassIdentifier: 
   StateName: Algae farm
-  type: 0
   Biom: 1
   X: 1060
   Y: 5
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Algae farm
-  prefab: {fileID: 1937969823855076, guid: eaf05277d51c24f42b19f0998da2ac70, type: 2}
+  prefab: {fileID: 1479324054034830, guid: 128cd0e8da71b419a96fd8017988a8a6, type: 2}
   Sprite: {fileID: 21300000, guid: 46e7c42b716f243edab792d6d4050144, type: 3}
   types: 
   income:

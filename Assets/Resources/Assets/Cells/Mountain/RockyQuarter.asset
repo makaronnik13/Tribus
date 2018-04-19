@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Name: RockyQuarter
   m_EditorClassIdentifier: 
   StateName: Clay-hut
-  type: 0
   Biom: 2
-  X: 464
-  Y: 79
+  X: 450
+  Y: 77
   radiusType: 0
   radius: 1
   radiusResource: {fileID: 0}

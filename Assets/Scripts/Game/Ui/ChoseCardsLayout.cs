@@ -92,11 +92,6 @@ public class ChoseCardsLayout : Singleton<ChoseCardsLayout> {
 
 	public void CardsReposition()
 	{
-		foreach(Transform pair in CardsSiblings)
-		{
-			pair.GetComponent<CardVisual> ().State = pair.GetComponent<CardVisual> ().State;
-		}
-
 		OnCardsReposition.Invoke ();
 		CounterText.text = chosedCards.Count+"/"+maxChose;
 	}

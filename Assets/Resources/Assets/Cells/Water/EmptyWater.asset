@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: EmptyWater
   m_EditorClassIdentifier: 
   StateName: Water
-  type: 0
   Biom: 1
   X: 1060
   Y: -182

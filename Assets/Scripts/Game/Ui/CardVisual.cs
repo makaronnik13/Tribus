@@ -8,169 +8,55 @@ using System;
 
 public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-
-	public Action<CardVisual> OnCardVisualClicked = (CardVisual cv)=>{};
-
-	private Vector3 aimPosition;
-
     public enum CardState
     {
         None,
+        Hand,
         Hovered,
         Dragging,
         ChosingAim,
         Played,
-		Choosing,
-		HoveredInChoose,
-		Chosed
+        Choosing,
+        HoveredInChoose,
+        Chosed,
+        Burned,
+        Piled,
+        Visualising
     }
 
-	private Camera guiCamera
-	{
-		get
-		{
-			return GUICamera.Instance.GuiCamera;
-		}
-	}
+    #region callbacks
+    public Action<CardVisual> OnCardVisualClicked = (CardVisual cv) => { };
+    #endregion
 
+    #region privateFields
     private CardState _state = CardState.None;
-    public CardState State
+    private Vector3 aimPosition;
+    private Card _cardAsset;
+    private Camera guiCamera
     {
         get
         {
-            return _state;
-        }
-        set
-        {
-            switch (value)
-            {
-			case CardState.ChosingAim:
-				if (_state == CardState.Dragging) {
-					if (CardCanBePlayed)
-                    {
-                           MoveCardTo (CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one*1.5f, () => {
-
-						});
-						CardsPlayer.Instance.ActiveCard = this;
-						_state = CardState.ChosingAim;
-						break;
-					} 
-				}
-
-					if (_state == CardState.Chosed) 
-					{
-						MoveCardTo (CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one / 2, () => {
-
-						});
-						CardsPlayer.Instance.ActiveCard = this;
-						_state = CardState.ChosingAim;
-						break;
-					}
-						State = CardState.None;
-                    break;
-                case CardState.Hovered:
-                    if (_state == CardState.None)
-                    {
-						transform.SetAsLastSibling ();
-                        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this, true), CardsManager.Instance.GetRotation(this, true), Vector3.one*2f, () =>
-                        {
-							
-                        });
-                        _state = CardState.Hovered;
-                    }
-                    break;
-                case CardState.None:
-				if (_state == CardState.Hovered || _state == CardState.None||_state == CardState.Dragging || _state == CardState.ChosingAim)
-                    {
-                        GetComponent<CanvasGroup>().blocksRaycasts = true;
-						transform.SetParent (CardsManager.Instance.handTransform);
-						transform.SetSiblingIndex(GetComponentInParent<CardsLayout>().GetCardSibling(this));
-                        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, ()=>
-                        {	
-                        });
-                        _state = CardState.None;
-                        //make card small and return in hand
-                    }
-                    break;
-			case CardState.Dragging:
-				if (_state == CardState.ChosingAim) {
-					CardsPlayer.Instance.ActiveCard = null;
-				}
-				bool dragChoosing = (CardsManager.Instance.chooseType == CardsManager.ChooseType.Drag && _state == CardState.HoveredInChoose);
-				if (_state == CardState.Hovered || _state == CardState.None || _state == CardState.ChosingAim || dragChoosing) 
-					{
-	                    _state = CardState.Dragging;
-						GetComponent<CanvasGroup> ().blocksRaycasts = false;
-						transform.localScale = Vector3.one;
-						transform.SetParent (CardsManager.Instance.playerCanvas.transform);
-					}
-	
-                    break;
-			case CardState.Played:
-				if (_state != CardState.Played) 
-				{
-					AvaliabilityFrame.enabled = false;
-					if (CardAsset.DestroyAfterPlay) 
-					{
-						CardsManager.Instance.DropCard (this);
-					} 
-					else 
-					{
-						MoveCardTo (CardsManager.Instance.dropTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => {
-							CardsManager.Instance.DropCard (this);
-						});
-					}
-					_state = CardState.Played;
-				}
-                    //return card in deck
-                    break;
-			case CardState.Choosing:
-				MoveCardTo (CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this), CardsManager.Instance.GetChooseRotation(this), Vector3.one, () => {
-				});
-				_state = CardState.Choosing;
-				//return card in deck
-				break;
-			case CardState.HoveredInChoose:
-				if (_state == CardState.Chosed || _state == CardState.Choosing) {
-					transform.SetAsLastSibling ();
-					MoveCardTo (CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition (this, true), CardsManager.Instance.GetChooseRotation (this, true), Vector3.one * 1.5f, () => {
-
-					});
-					_state = CardState.HoveredInChoose;
-				}
-				break;
-			case CardState.Chosed:
-				if (_state == CardState.HoveredInChoose || _state == CardState.Choosing)
-				{
-					MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this, false), CardsManager.Instance.GetChooseRotation(this, false), Vector3.one, () =>
-						{
-
-						});
-					_state = CardState.Chosed;
-				}
-
-				break;
-            }
+            return GUICamera.Instance.GuiCamera;
         }
     }
+    private bool _cardCanBePlayed = true;
+    #endregion
 
+    #region publicFields
     public Transform costTransform;
     public GameObject costPrefab;
-	public TextMeshProUGUI CardName, CardDescription;
+    public TextMeshProUGUI CardName, CardDescription;
     public Image AvaliabilityFrame;
     public Image CardImage;
-    private Card _cardAsset;
-	public Card CardAsset
-	{
-		get
-		{
-			return _cardAsset;
-		}
-	
-	}
+    public Card CardAsset
+    {
+        get
+        {
+            return _cardAsset;
+        }
 
-    private bool _cardCanBePlayed = true;
-	public bool CardCanBePlayed
+    }
+    public bool CardCanBePlayed
     {
         get
         {
@@ -178,13 +64,99 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         set
         {
-            _cardCanBePlayed = ResourcesManager.Instance.CardAvailability(_cardAsset) && PhotonNetwork.player == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer;
+            _cardCanBePlayed = (State == CardState.Hand || State == CardState.Hovered || State == CardState.Dragging || State == CardState.ChosingAim) && ResourcesManager.Instance.CardAvailability(_cardAsset) && PhotonNetwork.player == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer;
             AvaliabilityFrame.enabled = _cardCanBePlayed;
         }
     }
+    public CardState State
+    {
+        get
+        {
+            return _state;
+        }
+    }
+    #endregion
 
+    #region privateMethods
+    private void UpdateAvaliablility()
+    {
+        ResourceChanged(null, 0);
+    }
+    private void ResourceChanged(GameResource arg1, int arg2)
+    {
+        CardCanBePlayed = CardCanBePlayed;
+    }
+    #endregion
 
-	public void Init(Card card)
+    #region publicMethods
+    public void SetState(CardState state, Action callback = null)
+    {
+        if (state == _state)
+        {
+            return;
+        }
+
+        GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+        switch (state)
+        {
+            case CardState.ChosingAim:
+                if (CardCanBePlayed)
+                {
+                    MoveCardTo(CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one * 1.5f, () => { });
+                    CardsPlayer.Instance.ActiveCard = this;
+                    break;
+                }
+                break;
+            case CardState.Hovered:
+                transform.SetAsLastSibling();
+                //set parent for detect need card position
+                transform.SetParent(CardsManager.Instance.handTransform);
+                GetComponent<CanvasGroup>().blocksRaycasts = true;
+                MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this, true), CardsManager.Instance.GetRotation(this, true), Vector3.one * 2f, () => {
+                    GetComponent<CanvasGroup>().blocksRaycasts = true;
+                });
+                break;
+            case CardState.Hand:
+                CardsPlayer.Instance.DraggingCard = null;
+                CardsLayout.Instance.AddCardToLayout(this);
+                MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => {
+                    GetComponent<CanvasGroup>().blocksRaycasts = true;
+                });
+                break;
+            case CardState.Dragging:
+                transform.SetParent(GUICamera.Instance.GetComponentInChildren<Canvas>().transform);
+                CardsPlayer.Instance.DraggingCard = this;
+                break;
+            case CardState.Played:
+                MoveCardTo(CardsManager.Instance.dropTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => { CardsManager.Instance.DropCard(this); });
+                break;
+            case CardState.Choosing:
+                MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this), CardsManager.Instance.GetChooseRotation(this), Vector3.one, () => { });
+                break;
+            case CardState.HoveredInChoose:
+                transform.SetAsLastSibling();
+                MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this, true), CardsManager.Instance.GetChooseRotation(this, true), Vector3.one * 1.5f, () => { });
+                break;
+            case CardState.Chosed:
+                MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this, false), CardsManager.Instance.GetChooseRotation(this, false), Vector3.one, () => { });
+                break;
+        }
+        _state = state;
+        CardCanBePlayed = CardCanBePlayed;
+    }
+    public void Reposition()
+    {
+        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => {GetComponent<CanvasGroup>().blocksRaycasts = true;});
+    }
+    #endregion
+
+    #region LifeCycle
+    void Awake()
+    {
+        ResourcesManager.Instance.OnResourceValueChanged += ResourceChanged;
+    }
+    public void Init(Card card)
     {
         _cardAsset = card;
         CardName.text = card.CardName;
@@ -197,153 +169,134 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             newVisualiser.GetComponent<Image>().sprite = ink.resource.sprite;
             newVisualiser.GetComponentInChildren<TextMeshProUGUI>().text = "" + ink.value;
         }
-
-        State = CardState.None;
     }
-
-    [ContextMenu("push")]
-    public void Push()
+    void Update()
     {
-        StartCoroutine(MoveCardToCoroutine(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () =>
+        if (_state == CardState.Dragging)
         {
-        }));
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.deltaTime * 10);
+            transform.position = Vector3.Lerp(transform.position, aimPosition, Time.deltaTime * 10);
+        }
     }
-
-    void Awake()
-    {
-        ResourcesManager.Instance.OnResourceValueChanged += ResourceChanged;
-    }
-
-	void Update()
-	{
-		if (State == CardState.Dragging) 
-		{
-				transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.deltaTime*6);
-				transform.position = Vector3.Lerp(transform.position, aimPosition, Time.deltaTime*6);
-		}
-	}
-
     void OnDestroy()
     {
-		if(ResourcesManager.Instance)
-		{
-        	ResourcesManager.Instance.OnResourceValueChanged -= ResourceChanged;
-		}
-    }
-
-    public void UpdateAvaliablility()
-    {
-        ResourceChanged(null, 0);
-    }
-
-    private void ResourceChanged(GameResource arg1, int arg2)
-    {
-        CardCanBePlayed = CardCanBePlayed;
-    }
-
-    #region IBeginDragHandler implementation
-    public void OnBeginDrag (PointerEventData eventData)
-	{
-        if (LocalPlayerLogic.Instance.MyTurn)
+        if (ResourcesManager.Instance)
         {
-            State = CardState.Dragging;
+            ResourcesManager.Instance.OnResourceValueChanged -= ResourceChanged;
         }
-	}
-	#endregion
+    }
+    #endregion
 
-	#region IDragHandler implementation
-	public void OnDrag (PointerEventData eventData)
-	{
-        if (State == CardState.Dragging)
+    #region Interaction implementation
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        Debug.Log("drag begin");
+        if (CardsPlayer.Instance.DraggingCard)
         {
-			if (LocalPlayerLogic.Instance.MyTurn && eventData.pointerEnter)
+            return;
+        }
+        if (LocalPlayerLogic.Instance.MyTurn && _state == CardState.Hovered)
+        {
+            SetState(CardState.Dragging);
+        }
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (_state == CardState.Dragging && CardsPlayer.Instance.DraggingCard)
+        {
+            if (LocalPlayerLogic.Instance.MyTurn && eventData.pointerEnter)
             {
-				Vector3 globalMousePos;
-				if (RectTransformUtility.ScreenPointToWorldPointInRectangle(eventData.pointerEnter.transform as RectTransform, eventData.position, guiCamera, out globalMousePos))
-				{
-					aimPosition = globalMousePos;
-				}
+                Vector3 globalMousePos;
+                if (RectTransformUtility.ScreenPointToWorldPointInRectangle(eventData.pointerEnter.transform as RectTransform, eventData.position, guiCamera, out globalMousePos))
+                {
+                    aimPosition = globalMousePos;
+                }
             }
         }
-	}
-	#endregion
-
-	#region IEndDragHandler implementation
-	public void OnEndDrag (PointerEventData eventData)
-	{
-		if (State == CardState.ChosingAim) 
-		{
-            CardsPlayer.Instance.PlayCard(this);
-		} else {
-			State = CardState.None;
-		}
-		/*
-            GetComponent<CanvasGroup>().blocksRaycasts = true;
-            transform.SetParent(CardsManager.Instance.handTransform);
-            transform.SetSiblingIndex(takedFromSibling);
-            GetComponentInParent<CardsLayout>().RecalculateSibling();
-            */
-	}
-	#endregion
-
-	public void OnPointerEnter (PointerEventData eventData)
-	{
-		if (State == CardState.None && !CardsManager.Instance.CardDragging) {
-			State = CardState.Hovered; 
-		}
-		if (State == CardState.Choosing || State == CardState.Chosed && !CardsManager.Instance.CardDragging) {
-			State = CardState.HoveredInChoose; 
-		}
-	}
-
-	public void OnPointerExit(PointerEventData eventData)
-	{
-		if(State == CardState.Hovered && !CardsManager.Instance.CardDragging)
-		{
-        	State = CardState.None;
-		}
-
-		if(State == CardState.HoveredInChoose && !CardsManager.Instance.CardDragging)
-		{
-			if (GetComponentInParent<ChoseCardsLayout> ().chosedCards.Contains (this)) {
-				State = CardState.Chosed;
-			} else 
-			{
-				State = CardState.Choosing;
-			}
-
-		}
     }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (_state == CardState.ChosingAim)
+        {
+            CardsPlayer.Instance.PlayCard(this);
+        }
+        else
+        {
+            SetState(CardState.Hand);
+        }
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(CardsPlayer.Instance.DraggingCard)
+        {
+            return;
+        }
+        if (State == CardState.Hand)
+        {
+            SetState(CardState.Hovered);
+        }
+        if (State == CardState.Choosing || State == CardState.Chosed)
+        {
+            SetState(CardState.HoveredInChoose);
+        }
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (CardsPlayer.Instance.DraggingCard)
+        {
+            return;
+        }
 
+        if (_state == CardState.Hovered)
+        {
+            SetState(CardState.Hand);
+        }
+
+        if (_state == CardState.HoveredInChoose)
+        {
+            if (GetComponentInParent<ChoseCardsLayout>().chosedCards.Contains(this))
+            {
+                SetState(CardState.Chosed);
+            }
+            else
+            {
+                SetState(CardState.Choosing);
+            }
+
+        }
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        OnCardVisualClicked.Invoke(this);
+    }
+    #endregion
+
+    #region Animation
     private void MoveCardTo(Transform parent, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, Action callback = null)
     {
+        StopAllCoroutines();
         StopCoroutine(MoveCardToCoroutine(parent, localPosition, localRotation, localScale, callback));
         StartCoroutine(MoveCardToCoroutine(parent, localPosition, localRotation, localScale, callback));
     }
-
-    IEnumerator MoveCardToCoroutine(Transform parent, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, Action callback = null)
+    private IEnumerator MoveCardToCoroutine(Transform parent, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, Action callback = null)
     {
         transform.SetParent(parent);
-        float time = 0;
+        float time = 0.0f;
         float speed = 0.5f;
-		while (time<speed)
-		{
-			transform.localPosition = Vector3.Lerp(transform.localPosition, localPosition, time/speed);
-			transform.localScale = Vector3.Lerp(transform.localScale, localScale, time/speed);
-			transform.localRotation = Quaternion.Lerp(transform.localRotation, localRotation, time/speed);
-            time += Time.fixedDeltaTime;
-            yield return new WaitForEndOfFrame();
-        }        
-        if (callback!=null)
+        while (time < speed)
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, localPosition, time / speed);
+            transform.localScale = Vector3.Lerp(transform.localScale, localScale, time / speed);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, localRotation, time / speed);
+            time += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        if (callback != null)
         {
             callback.Invoke();
         }
-   
+
         //StopAllCoroutines();
     }
-
-	public void OnPointerClick (PointerEventData eventData)
-	{
-		OnCardVisualClicked.Invoke (this);
-	}
+    #endregion
 }

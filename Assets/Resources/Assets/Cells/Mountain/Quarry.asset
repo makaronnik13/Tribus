@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Quarry
   m_EditorClassIdentifier: 
   StateName: Quarry
-  type: 0
   Biom: 2
   X: -49
   Y: 109

@@ -43,8 +43,7 @@ public class DecsPanel : MonoBehaviour {
 
 	public void CreateDeck()
 	{
-		DeckStruct newDs = new DeckStruct ();
-		newDs.DeckName = "NewDeck";
+		DeckStruct newDs = new DeckStruct ("NewDeck", new List<string>());
 		LobbyPlayerIdentity.Instance.player.Decks.Add (newDs);
 		Transform deck = Instantiate (DeckPrefab).transform;
 		deck.transform.SetParent (Dock);

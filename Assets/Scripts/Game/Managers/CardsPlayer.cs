@@ -9,7 +9,8 @@ public class CardsPlayer : Singleton<CardsPlayer>
 	public Action<List<ISkillAim>> OnAimsChanged = (List<ISkillAim> aims)=>{};
 	private List<ICardEffect> cardEffects = new List<ICardEffect> ();
 
-	private CardVisual activeCard;
+    public CardVisual DraggingCard;
+    private CardVisual activeCard;
 	public CardVisual ActiveCard
     {
         get
@@ -134,14 +135,14 @@ public class CardsPlayer : Singleton<CardsPlayer>
             }
             else
             {
-                card.State = CardVisual.CardState.None;
+                card.SetState(CardVisual.CardState.Hand);
             }
             
         }
         else
         {
             PlayCard(card, focusedAims);
-            card.State = CardVisual.CardState.Played;
+            card.SetState(CardVisual.CardState.Played);
         }
 
         ActiveCard = null;
@@ -170,7 +171,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
 		{
 			cardShouldBePlayed |= cardEffect.TryToPlayCard (card.CardAsset.CardEffects, aims, ()=>{
 						OnCardPlayed.Invoke (card.CardAsset);
-						CardsFieldTrigger.Instance.activeCardVisual.State = CardVisual.CardState.Played;
+						CardsFieldTrigger.Instance.activeCardVisual.SetState(CardVisual.CardState.Played);
 			});
 		}
 
@@ -178,7 +179,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
 		if (cardShouldBePlayed) 
 		{
 			OnCardPlayed.Invoke (card.CardAsset);
-			CardsFieldTrigger.Instance.activeCardVisual.State = CardVisual.CardState.Played;
+			CardsFieldTrigger.Instance.activeCardVisual.SetState(CardVisual.CardState.Played);
 		}
     }
 

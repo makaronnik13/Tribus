@@ -18,9 +18,18 @@ public class DestroyStateEffect :ICardEffect
 			}
 			foreach (ISkillAim aim in aims) {
 				if (aim.GetType () == typeof(Block)) {
-					if (!BlocksField.Instance.baseStates.Contains ((aim as Block).State)) {
-						CellState state = BlocksField.Instance.baseStates.FirstOrDefault (bs => bs.Biom == (aim as Block).Biom);
-						(aim as Block).State = state;
+					if (!BlocksField.Instance.baseStates.Contains ((aim as Block).State))
+                    {
+                        CellState state = null;
+
+                        foreach (CellState cs in BlocksField.Instance.baseStates)
+                        {
+                            if (cs && cs.Biom == (aim as Block).Biom)
+                            {
+                                state = cs;
+                            }
+                        }
+                        NetworkCardGameManager.sInstance.ChangeState(aim as Block, state);
 					}
 				}
 			}

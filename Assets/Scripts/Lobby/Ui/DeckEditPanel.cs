@@ -23,15 +23,15 @@ public class DeckEditPanel : Singleton<DeckEditPanel>
 
 	public void TapCard(LibraryCardPanel lcp)
 	{
-		editingDeck.Cards.Add (lcp.Card);
-		deckView.AddCard (lcp.Card);
-		cardsView.RemoveCard (lcp.Card);
+		editingDeck.Cards.Add (lcp.Card.name);
+		deckView.AddCard (lcp.Card.name);
+		cardsView.RemoveCard (lcp.Card.name);
 		SaveDeck ();
 	}
 
 	public void TapCard(DeckCardPanel dcp)
 	{
-		editingDeck.Cards.Remove (dcp.Card);
+		editingDeck.Cards.Remove (dcp.Card.name);
 		deckView.RemoveCard (dcp.Card);
 		cardsView.AddCard (dcp.Card);
 		SaveDeck ();

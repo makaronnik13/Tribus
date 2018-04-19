@@ -72,50 +72,14 @@ public class PlayerSaveStruct
 		}
 		set
 		{
-            List<DeckStruct> newDecks = new List<DeckStruct>();
-            foreach (DeckStruct ds in value)
-            {
-                DeckStruct newDeck = new DeckStruct
-                {
-                    DeckName = ds.DeckName,
-                    Cards = ds.Cards
-                };
-
-                newDecks.Add(newDeck);
-            }
-
-            decks.Clear();
-            decks = newDecks;
-
+            decks = value;
             OnDecksChanged.Invoke (this);
 		}
 	}
 
    
 	[SerializeField]
-	public List<Card> AllCards = new List<Card>();
-		
-	public void ReinitDecks ()
-	{
-		List<string> ids = new List<string> ();
-		foreach(Card c in AllCards)
-		{
-			ids.Add (c.name);
-		}
-		AllCards.Clear ();
-		foreach(string id in ids)
-		{
-			AllCards.Add (DefaultResourcesManager.GetCardById(id));
-		}
-
-		
-		CurrentDeck.Reinit ();
-		foreach(DeckStruct ds in Decks)
-		{
-			ds.Reinit ();
-		}
-	}
-
+	public List<string> AllCards = new List<string>();
 
 }
 

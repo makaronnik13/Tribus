@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -12466,7 +12466,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
+  m_fontAsset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
@@ -13272,8 +13272,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: +
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d62a573c923f5cb47b8ff65261033b90, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 102e7c5c5e3b1f3468518cb166967d77, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13665,17 +13665,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: TMPro.TMP_InputField+SubmitEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+SubmitEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_InputField+SubmitEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+SubmitEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnSelect:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_InputField+SelectionEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+SelectionEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnDeselect:
     m_PersistentCalls:
@@ -13691,22 +13691,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: TMPro.TMP_InputField+SelectionEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+SelectionEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnTextSelection:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_InputField+TextSelectionEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+TextSelectionEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnEndTextSelection:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_InputField+TextSelectionEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+TextSelectionEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_InputField+OnChangeEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+OnChangeEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
@@ -13716,7 +13716,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
+  m_GlobalFontAsset: {fileID: 0}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
@@ -13856,7 +13856,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
+  m_fontAsset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
@@ -13974,17 +13974,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: TMPro.TMP_InputField+SubmitEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+SubmitEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_InputField+SubmitEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+SubmitEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnSelect:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_InputField+SelectionEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+SelectionEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnDeselect:
     m_PersistentCalls:
@@ -14000,22 +14000,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: TMPro.TMP_InputField+SelectionEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+SelectionEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnTextSelection:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_InputField+TextSelectionEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+TextSelectionEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnEndTextSelection:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_InputField+TextSelectionEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+TextSelectionEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_InputField+OnChangeEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_InputField+OnChangeEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
@@ -14025,7 +14025,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
+  m_GlobalFontAsset: {fileID: 0}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
@@ -14137,7 +14137,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TMPro.TMP_Dropdown+DropdownEvent, TextMeshPro-2017.3-1.0.56-Runtime,
+    m_TypeName: TMPro.TMP_Dropdown+DropdownEvent, TextMeshPro-2017.1-1.0.56-Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!224 &2085329971
 RectTransform:

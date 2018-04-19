@@ -27,7 +27,7 @@ public class EditingDeckView : MonoBehaviour {
 			Destroy (dcp.gameObject);
 		}
 
-		foreach(Card c in ds.Cards)
+		foreach(string c in ds.Cards)
 		{
 			AddCard (c);
 		}
@@ -46,9 +46,9 @@ public class EditingDeckView : MonoBehaviour {
 		}
 	}
 
-	public void AddCard(Card c)
+	public void AddCard(string c)
 	{
-		DeckCardPanel dcp = cardPanels.FirstOrDefault (cardPanel=>cardPanel.Card == c);
+		DeckCardPanel dcp = cardPanels.FirstOrDefault (cardPanel=>cardPanel.Card.name == c);
 		if (dcp) 
 		{
 			dcp.Add ();
@@ -56,7 +56,7 @@ public class EditingDeckView : MonoBehaviour {
 		else 
 		{
 			dcp = Instantiate (CardPrefab).GetComponent<DeckCardPanel>();
-			dcp.Init (c);
+			dcp.Init (DefaultResourcesManager.GetCardById(c));
 			dcp.transform.SetParent (Dock);
 			dcp.transform.localScale = Vector3.one;
 			cardPanels.Add (dcp);

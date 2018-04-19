@@ -24,7 +24,7 @@ public class DeevolveEffect :ICardEffect
 				if(previousStates.Count>0)
 				{
 					CellState cs = previousStates[UnityEngine.Random.Range(0, previousStates.Count()-1)];
-					(aim as Block).State = cs;
+                    NetworkCardGameManager.sInstance.ChangeState(aim as Block, cs);
 				}
 			}
 		}

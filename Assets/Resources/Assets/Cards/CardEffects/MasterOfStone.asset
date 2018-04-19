@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4805ed0026ca9418a389718f30adbf, type: 3}
+  m_Name: MasterOfStone
+  m_EditorClassIdentifier: 
+  CardName: Master of stone
+  CardDescription: add 2/4 cards to hand
+  cardSprite: {fileID: 21300050, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
+  Cost:
+  - resource: {fileID: 11400000, guid: 09cc291755db7bb4893dca74fad8fad3, type: 2}
+    value: 2
+  - resource: {fileID: 11400000, guid: 64d92121c6c2dc743b578551fe4af803, type: 2}
+    value: 1
+  - resource: {fileID: 11400000, guid: f3768d0ac0771e34da0e3d1561f70bda, type: 2}
+    value: 4
+  WinCard: 0
+  DestroyAfterPlay: 0
+  CardEffects:
+  - cardAim: 2
+    playerAimType: 0
+    cellAimType: 0
+    playerActionType: 0
+    cellActionType: 0
+    cellOwnership: 0
+    cardsAimType: 1
+    cardsAimType2: 0
+    noneType: 0
+    Cards:
+    - {fileID: 11400000, guid: 97ff9aae3b0714a4c940f8abad4ec174, type: 2}
+    - {fileID: 11400000, guid: ff513525992f5bb46954ec52452cea2a, type: 2}
+    - {fileID: 11400000, guid: 240c7ecfa7c489e438ae582d6fbe94fb, type: 2}
+    - {fileID: 11400000, guid: 725a757bcb04ac04584b413ca079b014, type: 2}
+    - {fileID: 11400000, guid: b766671cb0e4e754bb0d16c67a7292bd, type: 2}
+    - {fileID: 11400000, guid: e1a31063f3e338b47ab94d3991f96a13, type: 2}
+    - {fileID: 11400000}
+    - {fileID: 11400000, guid: 9b99064d4904fa346b08d1a42bbd1f4d, type: 2}
+    - {fileID: 11400000, guid: 8994fd439c2d04a4a8a9ccd737238328, type: 2}
+    - {fileID: 11400000, guid: 46bae231bd70f8a4296460b8ca0636ec, type: 2}
+    - {fileID: 11400000, guid: f7eb69dc1f96f5c40bec4c20d0d7e704, type: 2}
+    - {fileID: 11400000, guid: a8c5a36521e2467448e98f5f01ec0ee8, type: 2}
+    - {fileID: 11400000, guid: ebd37a956469b9b4faee9839efcc3ed6, type: 2}
+    - {fileID: 11400000, guid: d341ea0afc8a3664fbbfb146a6ba5e68, type: 2}
+    - {fileID: 11400000, guid: f30518e5f8d95484788bab6d4a352387, type: 2}
+    - {fileID: 11400000, guid: 68019f127c1a611459f267579774a8ab, type: 2}
+    - {fileID: 11400000, guid: b542bd5e6a2961c4c9453fa28b054656, type: 2}
+    - {fileID: 11400000, guid: 4635082eeacabd84ba96de37095728b7, type: 2}
+    - {fileID: 11400000, guid: 8ef7496073ba200499791fdebb02c15b, type: 2}
+    - {fileID: 11400000, guid: 4dda98a52d2bc92438f74a1445a3cc5a, type: 2}
+    NumberOfCards: 0
+    NumberOfChosenCards: 0
+    biomsFilter: 
+    statesFilter: []
+    EvolveType: 0
+    EvolveLevel: 0
+    BiomToChange: 0
+    NumberOfCells: 0
+    Radius: 0

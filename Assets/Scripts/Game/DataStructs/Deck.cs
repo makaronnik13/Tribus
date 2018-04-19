@@ -6,5 +6,5 @@ using UnityEngine;
 public class Deck : ScriptableObject
 {
 	[SerializeField]
-	public DeckStruct DeckStruct;
+	public EditorDeckStruct DeckStruct;
 }

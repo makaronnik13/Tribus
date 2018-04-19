@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: EmptyMountain
   m_EditorClassIdentifier: 
   StateName: Mountains
-  type: 0
   Biom: 2
   X: 177
   Y: -111

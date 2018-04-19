@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4805ed0026ca9418a389718f30adbf, type: 3}
+  m_Name: JudgmentOf TheDepth
+  m_EditorClassIdentifier: 
+  CardName: Judgment of the depth
+  CardDescription: change biom to <color="blue">water</color>
+  cardSprite: {fileID: 21300022, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
+  Cost:
+  - resource: {fileID: 11400000, guid: 64d92121c6c2dc743b578551fe4af803, type: 2}
+    value: 2
+  - resource: {fileID: 11400000, guid: f3768d0ac0771e34da0e3d1561f70bda, type: 2}
+    value: 2
+  WinCard: 0
+  DestroyAfterPlay: 0
+  CardEffects:
+  - cardAim: 1
+    playerAimType: 0
+    cellAimType: 0
+    playerActionType: 0
+    cellActionType: 6
+    cellOwnership: 0
+    cardsAimType: 0
+    cardsAimType2: 0
+    noneType: 0
+    Cards: []
+    NumberOfCards: 0
+    NumberOfChosenCards: 0
+    biomsFilter: 
+    statesFilter: []
+    EvolveType: 0
+    EvolveLevel: 0
+    BiomToChange: 1
+    NumberOfCells: 0
+    Radius: 0

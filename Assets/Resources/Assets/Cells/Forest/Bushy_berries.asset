@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Bushy_berries
   m_EditorClassIdentifier: 
   StateName: bushy berries
-  type: 0
   Biom: 0
   X: 232
   Y: -388
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: bushy berries
-  prefab: {fileID: 1786108382482434, guid: 4067fc1ff02a94e44bff2b8c72f0ebbf, type: 2}
+  prefab: {fileID: 1146977620735458, guid: b32b9e07b2e524b5e8bff7f0175d7320, type: 2}
   Sprite: {fileID: 21300000, guid: 61fb14defe4164d7381cf022a85e560e, type: 3}
   types: 
   income:

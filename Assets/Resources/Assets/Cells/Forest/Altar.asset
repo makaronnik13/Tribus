@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Altar
   m_EditorClassIdentifier: 
   StateName: altar
-  type: 0
   Biom: 0
   X: 504
   Y: -211
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: altar
-  prefab: {fileID: 1292562487118080, guid: e06fc70613e44475e8632479b458ece8, type: 2}
+  prefab: {fileID: 1259396019547842, guid: d4ff05d40fafb4754b72cb2396ed7947, type: 2}
   Sprite: {fileID: 21300010, guid: ccfde77eb8842473e8fddb8ed48e039c, type: 3}
   types: 
   income:

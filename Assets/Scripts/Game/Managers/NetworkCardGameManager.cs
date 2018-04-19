@@ -31,8 +31,8 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
             CellState cs = block.State.CombinationResult(evolveType, evolveLevel);
             if (cs)
             {
-                ChangeOwner(block, PhotonNetwork.player);
                 ChangeState(block, cs);
+                ChangeOwner(block, PhotonNetwork.player);
             }
     }
 
@@ -41,7 +41,10 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
         block.photonView.RPC("RpcChangeOwner", PhotonTargets.All, new object[] {player});
     }
 
-
+    public void ChangeBiom(Block block, CombineModel.Biom biom)
+    {
+        block.photonView.RPC("RpcChangeBiom", PhotonTargets.All, new object[] {biom});
+    }
 
     public void ChangeState(Block block, CellState state)
     {
@@ -193,8 +196,9 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
         }
 
         Card c = GetPlayerPile(pp)[0];
+
         RemoveCardFromPile(c, pp);
-        AddCardToHand(c, pp);
+        AddCardToHand(c , pp, LocalPlayerVisual.CardAnimationAim.Pile);
     }
 
     public void ReshuflePile(PhotonPlayer pp)
@@ -257,19 +261,31 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
         FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].AddCardToPile(cardId);
     }
 
-    public void AddCardToHand(Card card, PhotonPlayer player)
+    public void AddCardToHand(Card card, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim = LocalPlayerVisual.CardAnimationAim.Top)
     {
-		GetComponent<PhotonView>().RPC("RpcAddCardToHand", PhotonTargets.All, new object[] { card.name, player });
+        AddCardsToHand(new List<Card> {card}, player, aim);
     }
 
-    [PunRPC]
-	private void RpcAddCardToHand(string  cardId, PhotonPlayer player)
+    public void AddCardsToHand(List<Card> cards, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim)
     {
-        FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].AddCardToHand(cardId);
+        string[] cardsNames = cards.Select(c=>c.name).ToArray();
+        GetComponent<PhotonView>().RPC("RpcAddCardsToHand", PhotonTargets.All, new object[] { cardsNames, player, aim});
+    }
+
+
+    [PunRPC]
+    private void RpcAddCardsToHand(string[] cardsIds, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim)
+    {
+
         if (player == PhotonNetwork.player)
         {
-            LocalPlayerLogic.Instance.GetCard(cardId);
+            LocalPlayerVisual.Instance.AddCardsToHand(cardsIds.ToList(), (CardVisual visual) =>
+        {
+
+        }, aim);   
         }
+
+        FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].AddCardsToHand(cardsIds);
     }
 
     public void RemoveCardFromDrop(Card card, PhotonPlayer player)

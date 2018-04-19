@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Sunny_Calendar
   m_EditorClassIdentifier: 
   StateName: Sun calendar
-  type: 0
   Biom: 2
   X: 262
   Y: 289

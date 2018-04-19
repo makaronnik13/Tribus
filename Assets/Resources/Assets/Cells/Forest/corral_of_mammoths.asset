@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: corral_of_mammoths
   m_EditorClassIdentifier: 
   StateName: corral of mammoths
-  type: 0
   Biom: 0
   X: 765
   Y: -229
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: corral of mammoths
-  prefab: {fileID: 1562982731402622, guid: 5ef40f46ff01d46bcbf46f0f5f61bb11, type: 2}
+  prefab: {fileID: 1146977620735458, guid: b32b9e07b2e524b5e8bff7f0175d7320, type: 2}
   Sprite: {fileID: 21300000, guid: cfc2517c2139c4b98b8d4b2b64e3255b, type: 3}
   types: 
   income:

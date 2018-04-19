@@ -7,9 +7,9 @@ public class CombineModel {
 	public enum Skills
 	{
 		None,
-		Song,
-		Spell,
-		Formula
+		Dance,
+		Ritual,
+		Word
 	}
 		
 	public enum Biom

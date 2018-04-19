@@ -17,7 +17,7 @@ public class CardsFieldTrigger : Singleton<CardsFieldTrigger>, IPointerEnterHand
 
         if (activeCardVisual)
 		{
-            activeCardVisual.State = CardVisual.CardState.ChosingAim;
+            //activeCardVisual.SetState(CardVisual.CardState.ChosingAim);
         }
 	}
 
@@ -25,7 +25,7 @@ public class CardsFieldTrigger : Singleton<CardsFieldTrigger>, IPointerEnterHand
 	{
 		if (activeCardVisual && (activeCardVisual.State == CardVisual.CardState.Dragging || activeCardVisual.State == CardVisual.CardState.ChosingAim) && !ChoseCardsLayout.Instance.Choosing) 
 		{
-            activeCardVisual.State = CardVisual.CardState.Dragging;
+            activeCardVisual.SetState(CardVisual.CardState.Dragging);
 			activeCardVisual = null;
 		}
 	}

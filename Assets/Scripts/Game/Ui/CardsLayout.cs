@@ -4,10 +4,22 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public class CardsLayout : MonoBehaviour
+public class CardsLayout : Singleton<CardsLayout>
 {
 	private List<Transform> CardsSiblings = new List<Transform>();
-	public Action OnCardsReposition = ()=>{};
+
+    private Vector2 _cardSize = Vector2.zero;
+    private Vector2 cardSize
+    {
+        get
+        {
+            if (_cardSize == Vector2.zero)
+            {
+                _cardSize = FindObjectOfType<CardVisual>().GetComponent<RectTransform>().rect.size;
+            }
+            return _cardSize;
+        }
+    }
 
 	public List<CardVisual> Cards
 	{
@@ -35,38 +47,31 @@ public class CardsLayout : MonoBehaviour
         }
     }
 
-	void Awake()
-	{
-		CardsManager.Instance.OnCardTaken += CardTaken;
-		CardsManager.Instance.OnCardDroped += CardDroped;
-	}
-
 	public int GetCardSibling(CardVisual cv)
 	{
 		return CardsSiblings.IndexOf(cv.transform);
 	}
 
-	private void CardTaken(CardVisual visual)
+	public void AddCardToLayout(CardVisual visual)
 	{
+        visual.transform.SetParent(transform);
 		CardsSiblings.Add (visual.transform);
-		CardsReposition ();
-	}
+        CardsReposition();
+    }
 
-	private void CardDroped(CardVisual visual)
+	public void RemoveCardFromLayout(CardVisual visual)
 	{
-		CardsSiblings.Remove (visual.transform);
-		CardsReposition ();
+        visual.transform.SetParent(null);
+        CardsSiblings.Remove (visual.transform);
+        CardsReposition();
 	}
 
 	public void CardsReposition()
 	{
 		foreach(Transform pair in CardsSiblings)
 		{
-			pair.GetComponent<CardVisual> ().State = pair.GetComponent<CardVisual> ().State;
-			pair.GetComponent<CardVisual> ().CardCanBePlayed = pair.GetComponent<CardVisual> ().CardCanBePlayed;
+            pair.GetComponent<CardVisual>().Reposition();
 		}
-
-		OnCardsReposition.Invoke ();
 	}
 
     public Quaternion GetRotation(CardVisual cardVisual, bool focused = false)
@@ -94,8 +99,8 @@ public class CardsLayout : MonoBehaviour
         float yMultiplyer = 1f / 10000;
         int cards = transform.childCount;
         float fieldWidth = GetComponent<RectTransform>().rect.width;
-        float cardWidth = transform.GetChild(0).GetComponent<RectTransform>().rect.width;
-        float cardHeight = transform.GetChild(0).GetComponent<RectTransform>().rect.height;
+        float cardWidth = cardSize.x;
+        float cardHeight = cardSize.y;
         float offset = Mathf.Min(cardWidth, fieldWidth/cards);
 
         Vector3 aimPosition = Vector3.zero;
@@ -108,7 +113,7 @@ public class CardsLayout : MonoBehaviour
 
         if (focused)
         {
-            aimPosition += Vector3.up * transform.GetChild(0).GetComponent<RectTransform>().rect.height / 2;
+            aimPosition += Vector3.up * cardSize.y / 2;
         }
 
         return aimPosition;

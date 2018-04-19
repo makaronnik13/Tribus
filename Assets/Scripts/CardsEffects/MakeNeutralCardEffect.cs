@@ -16,7 +16,7 @@ public class MakeNeutralCardEffect :ICardEffect
 			}
 			foreach (ISkillAim aim in aims) {
 				if (aim.GetType () == typeof(Block)) {
-					(aim as Block).Owner = null;
+					NetworkCardGameManager.sInstance.ChangeOwner(aim as Block, null);
 				}
 			}
 			result = true;

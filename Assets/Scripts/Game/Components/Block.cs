@@ -46,6 +46,8 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 		set
 		{
 			owner = value;
+
+
 			if (owner==null) {
 				if(GetComponentInChildren<CellModel>()!=null)
 				{
@@ -53,7 +55,7 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 				}
 			} else 
 			{
-				if(GetComponentInChildren<CellModel>()!=null)
+                if (GetComponentInChildren<CellModel>()!=null)
 				{
 					GetComponentInChildren<CellModel> ().SetColor (NetworkCardGameManager.sInstance.GetPlayerColor(owner));
 				}
@@ -70,21 +72,29 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 		}
 		set
 		{
-			biom = value;
-			GetComponentInChildren<ModelReplacer> ().SetModel ((int)Biom);
+            if (biom!=value)
+            {
+                GetComponentInChildren<ModelReplacer>().SetModel((int)value);
 
-			try
-			{
-				state = BlocksField.Instance.baseStates.FirstOrDefault (bs => bs.Biom == biom);
-				CellModel.SetCell (state);
-				RecalculateInkome ();
-			}
-			catch
-			{
-				state = null;
-				CellModel.SetCell (state);
-				RecalculateInkome ();
-			}
+                if (value == CombineModel.Biom.None)
+                {
+                    State = null;
+                }
+                else
+                {
+                    foreach (CellState cs in BlocksField.Instance.baseStates)
+                    {
+                        if (cs && cs.Biom == value)
+                        {
+                            State = cs;
+                        }
+                    }    
+                }
+                biom = value;
+                CellModel.SetCell(State);
+                CellModel.SetCell(State);
+                RecalculateInkome();
+            }	    
 		}
 	}
 		
@@ -356,6 +366,7 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 
         State = BlocksField.Instance.baseStates[state];
     }
+
     [PunRPC]
     private void RpcChangeState(int stateId)
     {
@@ -365,5 +376,11 @@ public class Block : Photon.MonoBehaviour, ISkillAim
     private void RpcChangeOwner(PhotonPlayer player)
     {
         Owner = player;
+    }
+
+    [PunRPC]
+    private void RpcChangeBiom(CombineModel.Biom biom)
+    {
+        Biom = biom;
     }
 }

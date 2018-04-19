@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Pearl_divers
   m_EditorClassIdentifier: 
   StateName: Pearl divers
-  type: 0
   Biom: 1
   X: 905
   Y: 10
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Pearl divers
-  prefab: {fileID: 1770671683274468, guid: 466890f9faef44f02bc73affccceb18b, type: 2}
+  prefab: {fileID: 1479324054034830, guid: 128cd0e8da71b419a96fd8017988a8a6, type: 2}
   Sprite: {fileID: 0}
   types: 
   income:

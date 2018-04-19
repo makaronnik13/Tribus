@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Boating_market
   m_EditorClassIdentifier: 
   StateName: Boating market
-  type: 0
   Biom: 1
   X: 1060
   Y: 173
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Boating market
-  prefab: {fileID: 1660813329186356, guid: f26ba5e8f1d9742489da6e12a2c63462, type: 2}
+  prefab: {fileID: 1479324054034830, guid: 128cd0e8da71b419a96fd8017988a8a6, type: 2}
   Sprite: {fileID: 0}
   types: 
   income:

@@ -8,10 +8,20 @@ using UnityEngine;
 [System.Serializable]
 public class DeckStruct
 {
-	public string DeckName;
-	public List<Card> Cards = new List<Card>();
 
-	public bool Awaliable
+    public DeckStruct(string name, List<string> cards)
+    {
+        DeckName = name;
+        Cards = cards;
+    }
+
+	public string DeckName;
+
+
+	public List<string> Cards = new List<string>();
+    
+
+    public bool Awaliable
 	{
 		get
 		{
@@ -24,33 +34,20 @@ public class DeckStruct
 	{
 		Sprite[] winSprites = new Sprite[3]{null, null, null};
 		int i = 0;
-		foreach(Card c in Cards)
+		foreach(string c in Cards)
 		{
+            Card card = DefaultResourcesManager.GetCardById(c);
 			if(i == 3)
 			{
 				break;
 			}
 
-			if(c.WinCard)
+			if(card.WinCard)
 			{
-				winSprites [i] = c.cardSprite;
+				winSprites [i] = card.cardSprite;
 				i++;
 			}
 		}
 		return winSprites;
-	}
-
-	public void Reinit()
-	{
-		List<string> ids = new List<string> ();
-		foreach(Card c in Cards)
-		{
-			ids.Add (c.name);
-		}
-		Cards.Clear ();
-		foreach(string id in ids)
-		{
-			Cards.Add (DefaultResourcesManager.GetCardById(id));
-		}
 	}
 }

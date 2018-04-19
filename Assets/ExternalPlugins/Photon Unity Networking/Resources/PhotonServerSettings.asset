@@ -64,4 +64,6 @@ MonoBehaviour:
   - StartGameOnServer
   - StartPlayerTurn
   - TaggedPlayer
+  - RpcChangeBiom
+  - RpcAddCardsToHand
   DisableAutoOpenWizard: 1

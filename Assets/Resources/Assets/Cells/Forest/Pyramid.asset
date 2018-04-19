@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Pyramid
   m_EditorClassIdentifier: 
   StateName: pyramid
-  type: 0
   Biom: 0
   X: 638
   Y: -217
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: pyramid
-  prefab: {fileID: 1828481107254870, guid: 38b7051a6103e4d4390f758995df3415, type: 2}
+  prefab: {fileID: 1259396019547842, guid: d4ff05d40fafb4754b72cb2396ed7947, type: 2}
   Sprite: {fileID: 21300010, guid: 75cfdefc8742a4a88a817933b476b25d, type: 3}
   types: 
   income:

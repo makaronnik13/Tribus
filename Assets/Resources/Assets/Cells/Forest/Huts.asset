@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Name: Huts
   m_EditorClassIdentifier: 
   StateName: Huts
-  type: 0
   Biom: 0
-  X: 538
+  X: 542
   Y: -382
   radiusType: 0
   radius: 1
   radiusResource: {fileID: 0}
   description: Huts
-  prefab: {fileID: 1705327866675976, guid: 138088571c32d4efdbc7343f5fdc6b5b, type: 2}
+  prefab: {fileID: 1479324054034830, guid: 128cd0e8da71b419a96fd8017988a8a6, type: 2}
   Sprite: {fileID: 21300000, guid: 8dafaa55103db144b992ceaed5419386, type: 3}
   types: 
   income:

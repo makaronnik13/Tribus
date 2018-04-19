@@ -225,7 +225,15 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
 		Pile = new Queue<string>(newPile);
     }
 
-	public void AddCardToHand(string cardId)
+    public void AddCardsToHand(string[] cardsIds)
+    {
+        foreach (string cardId in cardsIds)
+        {
+            AddCardToHand(cardId);
+        }
+    }
+
+    public void AddCardToHand(string cardId)
     {
         Hand.Add(cardId);
     }

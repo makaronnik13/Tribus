@@ -212,9 +212,9 @@ namespace Prototype.NetworkLobby
         {
             LobbyPlayerIdentity.Instance.player.CurrentDeck = LobbyPlayerIdentity.Instance.player.Decks.Where(d => d.Awaliable).ToList()[v];
             string cards = "";
-            foreach (Card c in LobbyPlayerIdentity.Instance.player.CurrentDeck.Cards)
+            foreach (string c in LobbyPlayerIdentity.Instance.player.CurrentDeck.Cards)
             {
-				cards += c.name + ",";
+				cards += c + ",";
             }
         }
 

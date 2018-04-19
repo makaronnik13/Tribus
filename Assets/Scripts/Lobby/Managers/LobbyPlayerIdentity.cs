@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -20,7 +21,6 @@ public class LobbyPlayerIdentity : Singleton<LobbyPlayerIdentity>
         else
         {
             player = JsonUtility.FromJson<PlayerSaveStruct>(File.ReadAllText(savePath));
-			player.ReinitDecks ();
         }
 		DontDestroyOnLoad (this);
 	}
@@ -30,14 +30,18 @@ public class LobbyPlayerIdentity : Singleton<LobbyPlayerIdentity>
 		player.PlayerName = DefaultResourcesManager.GetRandomName();
 		player.PlayerColor = DefaultResourcesManager.GetRandomColor();
 		player.PlayerAvatarId = DefaultResourcesManager.GetRandomAvatar ();
-		player.Decks = new List<DeckStruct> (){ DefaultResourcesManager.StartingDeck};
-        player.CurrentDeck = player.Decks[0];
+        player.Decks = new List<DeckStruct>();
+
+        DeckStruct startingDeck =  DefaultResourcesManager.StartingDeck;
+        startingDeck = new DeckStruct(startingDeck.DeckName, startingDeck.Cards);
+        player.Decks.Add(startingDeck);
+        player.CurrentDeck = startingDeck;
 
         for (int i = 0; i < 3; i++) 
 		{
 			foreach(Card c in DefaultResourcesManager.AllCards)
 			{
-                player.AllCards.Add(c);
+                player.AllCards.Add(c.name);
             }		
 		}
 	}

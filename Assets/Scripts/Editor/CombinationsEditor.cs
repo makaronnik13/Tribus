@@ -13,9 +13,9 @@ using System.Linq;
 
 	private Dictionary<CombineModel.Skills, Color> skillsCollors = new Dictionary<CombineModel.Skills, Color> () {
 		{CombineModel.Skills.None, Color.white/2},
-		{CombineModel.Skills.Song, Color.green},
-		{CombineModel.Skills.Spell, Color.yellow},
-		{CombineModel.Skills.Formula, Color.blue}
+		{CombineModel.Skills.Dance, Color.green},
+		{CombineModel.Skills.Ritual, Color.yellow},
+		{CombineModel.Skills.Word, Color.blue}
 	};
 
 	

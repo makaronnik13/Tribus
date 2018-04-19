@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 
 [System.Serializable]
 public class Condition

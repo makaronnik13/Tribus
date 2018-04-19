@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Beastmaster_lair
   m_EditorClassIdentifier: 
   StateName: Beastmaster lair
-  type: 0
   Biom: 0
   X: 366
   Y: -215
@@ -20,7 +19,7 @@ MonoBehaviour:
   radius: 1
   radiusResource: {fileID: 0}
   description: Beastmaster lair
-  prefab: {fileID: 1499630037778778, guid: 174cca9821e344e1aa55d47b7ec78985, type: 2}
+  prefab: {fileID: 1479324054034830, guid: 128cd0e8da71b419a96fd8017988a8a6, type: 2}
   Sprite: {fileID: 21300000, guid: 79bdee9030e6b4ff085befdc21c49332, type: 3}
   types: 
   income:

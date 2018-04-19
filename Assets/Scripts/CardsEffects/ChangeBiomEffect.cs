@@ -15,8 +15,9 @@ public class ChangeBiomEffect:ICardEffect
 				continue;
 			}
 			foreach (ISkillAim aim in aims) {
-				if (aim.GetType () == typeof(Block)) {
-					(aim as Block).Biom = changeBiomEffect.BiomToChange;
+				if (aim.GetType () == typeof(Block))
+                {
+                    NetworkCardGameManager.sInstance.ChangeBiom(aim as Block, changeBiomEffect.BiomToChange);
 				}
 			}
 			result = true;

@@ -3054,6 +3054,7 @@ RectTransform:
   - {fileID: 765095972}
   - {fileID: 1990694799}
   - {fileID: 1139230620}
+  - {fileID: 1502158371}
   m_Father: {fileID: 878637226}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3109,6 +3110,7 @@ MonoBehaviour:
   handTransform: {fileID: 1990694799}
   activationSlotTransform: {fileID: 1139230620}
   chooseCardField: {fileID: 1012915937}
+  topTransform: {fileID: 1502158371}
   HandCardsLayout: {fileID: 1990694800}
   ChoseCardsLayout: {fileID: 1012915935}
 --- !u!222 &1209960312
@@ -3610,6 +3612,39 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1498233913}
+--- !u!1 &1502158370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1502158371}
+  m_Layer: 5
+  m_Name: Top
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1502158371
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1502158370}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1209960309}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 980}
+  m_SizeDelta: {x: 188.7, y: 246.3}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1547385481
 GameObject:
   m_ObjectHideFlags: 0
@@ -8315,11 +8350,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartedReources:
   - resource: {fileID: 11400000, guid: 09cc291755db7bb4893dca74fad8fad3, type: 2}
-    value: 1
+    value: 10
   - resource: {fileID: 11400000, guid: 64d92121c6c2dc743b578551fe4af803, type: 2}
-    value: 1
+    value: 10
   - resource: {fileID: 11400000, guid: f3768d0ac0771e34da0e3d1561f70bda, type: 2}
-    value: 1
+    value: 10
 --- !u!114 &1838882263
 MonoBehaviour:
   m_ObjectHideFlags: 0

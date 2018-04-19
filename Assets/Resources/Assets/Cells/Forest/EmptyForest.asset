@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: EmptyForest
   m_EditorClassIdentifier: 
   StateName: Forest
-  type: 0
   Biom: 0
   X: 598
   Y: -548

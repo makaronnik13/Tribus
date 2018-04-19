@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,13 +35,15 @@ public static class DefaultResourcesManager
 		{
 			if (startingDeck == null) 
 			{
-				startingDeck = Resources.Load<Deck> (DeckAssetPath).DeckStruct;
-			}
+                List<string> cards = new List<string>();
+                foreach (Card c in Resources.Load<Deck>(DeckAssetPath).DeckStruct.Cards)
+                {
+                    cards.Add(c.name);
+                }
+                startingDeck = new DeckStruct(Resources.Load<Deck>(DeckAssetPath).DeckStruct.DeckName, cards);
+            }
 
-			DeckStruct newDeck = new DeckStruct ();
-			newDeck.DeckName = startingDeck.DeckName;
-			newDeck.Cards = new List<Card>(startingDeck.Cards);
-			return newDeck;
+			return startingDeck;
 		}
 	}
 
@@ -85,17 +88,17 @@ public static class DefaultResourcesManager
 
 	public static int GetRandomAvatar()
 	{
-		return Random.Range(0, Avatars.Length-1);
+		return UnityEngine.Random.Range(0, Avatars.Length-1);
 	}
 
 	public static string GetRandomName()
 	{
-		return Names[Random.Range(0, Names.Length-1)];
+		return Names[UnityEngine.Random.Range(0, Names.Length-1)];
 	}
 
 	public static Color GetRandomColor()
 	{
-		return Colors[Random.Range(0, Colors.Length-1)];
+		return Colors[UnityEngine.Random.Range(0, Colors.Length-1)];
 	}
 
     public static StatesList AllStatesList
@@ -124,7 +127,13 @@ public static class DefaultResourcesManager
 
 	public static Card GetCardById(string id)
 	{
-		return AllCards.ToList ().FirstOrDefault (c=>c.name == id);
+
+         Card card = AllCards.ToList().FirstOrDefault(c => c.name == id);
+        if (card == null)
+        {
+            throw new Exception("Card "+ id+ " does not contains in all cards!");
+        }
+         return card;
 	}
 		
 }

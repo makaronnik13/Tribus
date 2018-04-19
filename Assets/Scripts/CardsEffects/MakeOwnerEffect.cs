@@ -16,8 +16,9 @@ public class MakeOwnerEffect : ICardEffect
 				continue;
 			}
 			foreach (ISkillAim aim in aims) {
-				if (aim.GetType () == typeof(Block)) {						
-					(aim as Block).Owner = NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer;
+				if (aim.GetType () == typeof(Block))
+                {
+                    NetworkCardGameManager.sInstance.ChangeOwner(aim as Block, PhotonNetwork.player);
 				}
 			}
 			result = true;
