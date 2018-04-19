@@ -6,6 +6,10 @@
 
 .idea/
 
+obj/
+
+UnityPackageManager/
+
 Temp/
 
 Obj/
@@ -86,6 +90,8 @@ obj/
 
 *.opendb
 
+*.meta
+/*.meta
 WSATestCertificate.pfx
 WSATestCertificate.pfx.meta
 
@@ -100,3 +106,5 @@ WSATestCertificate.pfx.meta
 !/*.rsp
 
 *.unitypackage
+
+.DS_Store
