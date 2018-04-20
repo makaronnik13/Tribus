@@ -32,7 +32,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #endregion
 
     #region privateFields
-    private CardState _state = CardState.None;
+    public CardState _state = CardState.None;
     private Vector3 aimPosition;
     private Card _cardAsset;
     private Camera guiCamera
@@ -283,7 +283,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
         if (_state == CardState.HoveredInChoose)
         {
-            if (GetComponentInParent<ChoseCardsLayout>().chosedCards.Contains(this))
+            if (GetComponentInParent<ChooseManager>().chosedCards.Contains(this))
             {
                 SetState(CardState.Chosed);
             }

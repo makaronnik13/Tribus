@@ -24,10 +24,11 @@ MonoBehaviour:
     playerActionType: 0
     cellActionType: 0
     cellOwnership: 0
-    cardsAimType: 1
+    cardsAimType: 0
     cardsAimType2: 0
     noneType: 0
-    Cards: []
+    Cards:
+    - {fileID: 11400000}
     NumberOfCards: 0
     NumberOfChosenCards: 0
     biomsFilter: 

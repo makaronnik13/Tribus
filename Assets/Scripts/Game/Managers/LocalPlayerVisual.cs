@@ -88,7 +88,7 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
 
     private void Visualize(CardAnimationAim from, CardAnimationAim to, List<string> cards, Action<CardVisual> callback = null)
     {
-        if (CardsManager.Instance.ChoseCardsLayout.Choosing)
+        if (CardsManager.Instance.ChooseManager.Choosing)
         {
             from = CardAnimationAim.Choose;
         }

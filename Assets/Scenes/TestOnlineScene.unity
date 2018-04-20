@@ -6065,6 +6065,7 @@ GameObject:
   - component: {fileID: 1012915937}
   - component: {fileID: 1012915936}
   - component: {fileID: 1012915935}
+  - component: {fileID: 1012915938}
   m_Layer: 5
   m_Name: ChooseCardField
   m_TagString: Untagged
@@ -6081,10 +6082,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1012915934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88764bbee3b114699b7785c5ae9ba7ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 82e3fb8fe7602fc47b91fa100db2657f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 395842798}
+  ButtonsVisual: {fileID: 0}
   chosedCards: []
   CounterText: {fileID: 2011230915}
   maxChose: 0
@@ -6115,6 +6116,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -118}
   m_SizeDelta: {x: -1312.7, y: -506.49}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1012915938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1012915934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ff35b7f4260fb4289d410165348b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotOffset: 0
+  maxRot: 0
 --- !u!1 &1119218476
 GameObject:
   m_ObjectHideFlags: 0
@@ -6527,7 +6541,7 @@ MonoBehaviour:
   chooseCardField: {fileID: 1012915937}
   topTransform: {fileID: 1502158371}
   HandCardsLayout: {fileID: 1990694800}
-  ChoseCardsLayout: {fileID: 1012915935}
+  ChoseManager: {fileID: 0}
 --- !u!222 &1209960312
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12021,6 +12035,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ff35b7f4260fb4289d410165348b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotOffset: 3
+  maxRot: 20
 --- !u!114 &1990694801
 MonoBehaviour:
   m_ObjectHideFlags: 0

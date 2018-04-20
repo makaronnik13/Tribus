@@ -23,7 +23,7 @@ public class CardsFieldTrigger : Singleton<CardsFieldTrigger>, IPointerEnterHand
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
-		if (activeCardVisual && (activeCardVisual.State == CardVisual.CardState.Dragging || activeCardVisual.State == CardVisual.CardState.ChosingAim) && !CardsManager.Instance.ChoseCardsLayout.Choosing) 
+		if (activeCardVisual && (activeCardVisual.State == CardVisual.CardState.Dragging || activeCardVisual.State == CardVisual.CardState.ChosingAim) && !CardsManager.Instance.ChooseManager.Choosing) 
 		{
             activeCardVisual.SetState(CardVisual.CardState.Dragging);
 			activeCardVisual = null;

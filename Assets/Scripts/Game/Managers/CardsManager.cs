@@ -6,19 +6,50 @@ using UnityEngine;
 
 public class CardsManager : Singleton<CardsManager> {
 
-	public enum ChooseType
-	{
-		Simple,
-		Drag
-	}
+    public enum ChooseType
+    {
+        Simple,
+        Drag
+    }
 
-	public ChooseType chooseType = ChooseType.Simple;
+    public ChooseType chooseType = ChooseType.Simple;
 
     public GameObject CardPrefab;
     public Transform dropTransform, pileTransform, handTransform, activationSlotTransform, chooseCardField, topTransform;
 
-	public CardsLayout HandCardsLayout;
-	public ChoseCardsLayout ChoseCardsLayout;
+    private CardsLayout handCardsLayout;
+    public CardsLayout HandCardsLayout
+    {
+        get
+        {
+            if (!handCardsLayout)
+            {
+                handCardsLayout = handTransform.GetComponent<CardsLayout>();
+            }
+            return handCardsLayout;
+        }
+    }
+
+    private ChooseManager chooseManager;
+    public ChooseManager ChooseManager
+    {
+        get
+        {
+            if (!chooseManager)
+            {
+                chooseManager = chooseCardField.GetComponent<ChooseManager>();
+            }
+            return ChooseManager;
+        }
+    }
+
+    public CardsLayout ChoseCardsLayout
+    {
+        get
+        {
+            return ChooseManager.Layout;
+        }
+    }
 
 	public Action<CardVisual> OnCardTaken = (CardVisual visual)=>{};
 	public Action<CardVisual> OnCardDroped = (CardVisual visual)=>{};
@@ -30,7 +61,7 @@ public class CardsManager : Singleton<CardsManager> {
 	{
 		get
 		{
-			return ChoseCardsLayout.chosedCards;
+			return ChooseManager.chosedCards;
 		}
 	}
 
@@ -140,7 +171,7 @@ public class CardsManager : Singleton<CardsManager> {
 		}
 			
 
-		ChoseCardsLayout.Choosing = true;
+		ChooseManager.Choosing = true;
 		onChoseCardFieldClosed = callback;
 
 		foreach(Card c in cards)
@@ -150,7 +181,7 @@ public class CardsManager : Singleton<CardsManager> {
 			newCard.GetComponent<CardVisual> ().SetState(CardVisual.CardState.Choosing);
 			cardsInChoseCardField.Add (newCard.GetComponent<CardVisual> ());
 		}
-		ChoseCardsLayout.SetMax (max);
+		ChooseManager.SetMax (max);
 		ChoseCardsLayout.CardsReposition ();
 	}
 
@@ -162,6 +193,6 @@ public class CardsManager : Singleton<CardsManager> {
 			onChoseCardFieldClosed = null;
 			lastCallback(chosenCards);
 		}
-        ChoseCardsLayout.Choosing = false;
+        ChooseManager.Choosing = false;
     }
 }

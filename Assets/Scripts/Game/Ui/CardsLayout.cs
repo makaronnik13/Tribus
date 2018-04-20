@@ -44,7 +44,13 @@ public class CardsLayout : MonoBehaviour
         }
     }
 
-	public int GetCardSibling(CardVisual cv)
+    public float rotOffset = 3;
+    public float maxRot = 20;
+
+    public Action<CardVisual> OnCardAddedToLayout = (cv) => { };
+    public Action<CardVisual> OnCardRemovedFromLayout = (cv) => { };
+
+    public int GetCardSibling(CardVisual cv)
 	{
 		return CardsSiblings.IndexOf(cv.transform);
 	}
@@ -58,6 +64,7 @@ public class CardsLayout : MonoBehaviour
 		if(!CardsSiblings.Contains(visual.transform))
 		{
             visual.transform.SetParent(transform);
+            OnCardAddedToLayout.Invoke(visual);
             CardsSiblings.Add (visual.transform);
 		}
         CardsReposition();
@@ -68,6 +75,7 @@ public class CardsLayout : MonoBehaviour
         if (CardsSiblings.Contains(visual.transform))
         {
             visual.transform.SetParent(null);
+            OnCardRemovedFromLayout(visual);
             CardsSiblings.Remove(visual.transform);
         }
         CardsReposition();
@@ -82,20 +90,19 @@ public class CardsLayout : MonoBehaviour
     public Quaternion GetRotation(CardVisual cardVisual, bool focused = false)
     {
 		int cards = transform.childCount;
-        float rotOffset = 3;
-        float maxRot = 20;
-
         Quaternion aimRotation = Quaternion.identity;
-        float offset = Mathf.Min(rotOffset, maxRot / cards);
-        int childId = CardsSiblings.IndexOf(cardVisual.transform);
-        float minOffset = -(cards - 1) * offset / 2;
-        float rot = (minOffset + childId * offset);
-
-        if (!focused)
+        if (rotOffset != 0)
         {
-            aimRotation = Quaternion.Euler(new Vector3(0, 0, -rot));
-        }
+            float offset = Mathf.Min(rotOffset, maxRot / cards);
+            int childId = CardsSiblings.IndexOf(cardVisual.transform);
+            float minOffset = -(cards - 1) * offset / 2;
+            float rot = (minOffset + childId * offset);
 
+            if (!focused)
+            {
+                aimRotation = Quaternion.Euler(new Vector3(0, 0, -rot));
+            }
+        }
         return aimRotation;
     }
     public Vector3 GetPosition(CardVisual cardVisual, bool focused = false)
