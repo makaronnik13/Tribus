@@ -7,7 +7,11 @@
 .idea/
 
 obj/
-
+Plugins/
+TextMesh Pro/
+Photon Unity Networking/
+PhotonChatApi/
+ExternalPugins/
 UnityPackageManager/
 
 Temp/
