@@ -125,10 +125,12 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 });
                 break;
             case CardState.Dragging:
+				StopAllCoroutines();
                 transform.SetParent(GUICamera.Instance.GetComponentInChildren<Canvas>().transform);
                 CardsPlayer.Instance.DraggingCard = this;
                 break;
             case CardState.Played:
+				CardsLayout.Instance.RemoveCardFromLayout(this);
                 MoveCardTo(CardsManager.Instance.dropTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => { CardsManager.Instance.DropCard(this); });
                 break;
             case CardState.Choosing:
@@ -190,7 +192,6 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #region Interaction implementation
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("drag begin");
         if (CardsPlayer.Instance.DraggingCard)
         {
             return;
@@ -282,7 +283,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         transform.SetParent(parent);
         float time = 0.0f;
-        float speed = 0.5f;
+        float speed = 0.3f;
         while (time < speed)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, localPosition, time / speed);

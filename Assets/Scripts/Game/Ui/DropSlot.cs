@@ -39,7 +39,7 @@ public class DropSlot : MonoBehaviour, IDropHandler
     { 
 		visual.transform.SetParent (transform);
 		visual.transform.localPosition = Vector3.zero;
-			CardsManager.Instance.DropCard(visual);
-            awaliableDrops--;
+		CardsManager.Instance.DropCard(visual);
+        awaliableDrops--;
     }
 }

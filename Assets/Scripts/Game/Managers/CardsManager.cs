@@ -98,8 +98,8 @@ public class CardsManager : Singleton<CardsManager> {
     public void DropCard(CardVisual cardVisual)
     {
         NetworkCardGameManager.sInstance.DropCard(cardVisual.CardAsset);
-            OnCardDroped.Invoke (cardVisual);		
-            Destroy(cardVisual.gameObject);
+		cardVisual.SetState(CardVisual.CardState.Played);
+        Destroy(cardVisual.gameObject);
     }
 
 	public void MoveCardTo(Transform card, Transform aim, Action callback = null)

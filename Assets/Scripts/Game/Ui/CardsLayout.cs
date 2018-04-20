@@ -55,8 +55,11 @@ public class CardsLayout : Singleton<CardsLayout>
 	public void AddCardToLayout(CardVisual visual)
 	{
         visual.transform.SetParent(transform);
-		CardsSiblings.Add (visual.transform);
-        CardsReposition();
+		if(!CardsSiblings.Contains(visual.transform))
+		{
+			CardsSiblings.Add (visual.transform);
+			CardsReposition();
+		}
     }
 
 	public void RemoveCardFromLayout(CardVisual visual)
@@ -64,6 +67,7 @@ public class CardsLayout : Singleton<CardsLayout>
         visual.transform.SetParent(null);
         CardsSiblings.Remove (visual.transform);
         CardsReposition();
+		Debug.Log (CardsSiblings.Count);
 	}
 
 	public void CardsReposition()
