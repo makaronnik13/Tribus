@@ -29,7 +29,7 @@ public class BlockInfo : MonoBehaviour {
 
 		foreach(Transform t in content)
 		{
-			Destroy (t.gameObject);
+            Lean.Pool.LeanPool.Despawn(t.gameObject);
 		}
 
 			

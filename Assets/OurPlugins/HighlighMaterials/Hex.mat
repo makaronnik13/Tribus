@@ -36,7 +36,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DistoreMap:
         m_Texture: {fileID: 2800000, guid: 026ca9ae48af8bf4cbbac3eed81a49d8, type: 3}
-        m_Scale: {x: 2, y: 2}
+        m_Scale: {x: 0.1, y: 0.2}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}

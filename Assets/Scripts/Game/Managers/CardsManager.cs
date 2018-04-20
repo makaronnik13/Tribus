@@ -30,7 +30,7 @@ public class CardsManager : Singleton<CardsManager> {
 	{
 		get
 		{
-			return ChoseCardsLayout.Instance.chosedCards;
+			return ChoseCardsLayout.chosedCards;
 		}
 	}
 
@@ -52,7 +52,7 @@ public class CardsManager : Singleton<CardsManager> {
  
     public GameObject CreateCard(Card card)
     {
-        GameObject newCard = Instantiate(CardPrefab);
+        GameObject newCard = Lean.Pool.LeanPool.Spawn(CardPrefab);
         newCard.GetComponent<CardVisual>().Init(card);
         return newCard;
     }
@@ -99,7 +99,8 @@ public class CardsManager : Singleton<CardsManager> {
     {
         NetworkCardGameManager.sInstance.DropCard(cardVisual.CardAsset);
 		cardVisual.SetState(CardVisual.CardState.Played);
-        Destroy(cardVisual.gameObject);
+        CardsPlayer.Instance.DraggingCard = null;
+        Lean.Pool.LeanPool.Despawn(cardVisual.gameObject);
     }
 
 	public void MoveCardTo(Transform card, Transform aim, Action callback = null)
@@ -139,18 +140,18 @@ public class CardsManager : Singleton<CardsManager> {
 		}
 			
 
-		ChoseCardsLayout.Instance.Choosing = true;
+		ChoseCardsLayout.Choosing = true;
 		onChoseCardFieldClosed = callback;
 
 		foreach(Card c in cards)
 		{
-			GameObject newCard = Instantiate (CardPrefab);
+			GameObject newCard = Lean.Pool.LeanPool.Spawn(CardPrefab);
 			newCard.GetComponent<CardVisual> ().Init (c);
 			newCard.GetComponent<CardVisual> ().SetState(CardVisual.CardState.Choosing);
 			cardsInChoseCardField.Add (newCard.GetComponent<CardVisual> ());
 		}
-		ChoseCardsLayout.Instance.SetMax (max);
-		ChoseCardsLayout.Instance.CardsReposition ();
+		ChoseCardsLayout.SetMax (max);
+		ChoseCardsLayout.CardsReposition ();
 	}
 
 	public void HideChooseCardField()
@@ -161,6 +162,6 @@ public class CardsManager : Singleton<CardsManager> {
 			onChoseCardFieldClosed = null;
 			lastCallback(chosenCards);
 		}
-        ChoseCardsLayout.Instance.Choosing = false;
+        ChoseCardsLayout.Choosing = false;
     }
 }

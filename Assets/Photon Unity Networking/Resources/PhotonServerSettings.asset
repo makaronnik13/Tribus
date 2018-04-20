@@ -8,13 +8,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
+  m_Script: {fileID: 11500000, guid: 748834f3c1d35174d80a4cc9a9a7c6e9, type: 3}
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppID: 5ae52e9a-3932-46e1-8a8e-5e5c7faa9508
   VoiceAppID: 
   ChatAppID: 
-  HostType: 3
+  HostType: 1
   PreferredRegion: 0
   EnabledRegions: -1
   Protocol: 0

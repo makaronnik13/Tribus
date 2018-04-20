@@ -109,7 +109,6 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 	}
 
 	[SerializeField]
-    //[HideInInspector]
 	public CellState state;
 	public CellState State
 	{
@@ -139,6 +138,30 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 				}
         }
     }
+
+    #region lifecycle
+    void Start()
+    {
+        GetComponent<MeshCollider>().enabled = false;
+        Animator anim = GetComponent<Animator>();
+        float randomIdleStart = UnityEngine.Random.Range(0, anim.GetCurrentAnimatorStateInfo(0).length/4f);
+        anim.Play("CellFlowingIn", 0, randomIdleStart);
+        StartCoroutine(SetupAnimation(2));
+    }
+
+    private IEnumerator SetupAnimation(int v)
+    {
+        yield return new WaitForSeconds(2);
+        GetComponent<MeshCollider>().enabled = true;
+        Animator anim = GetComponent<Animator>();
+        anim.speed = UnityEngine.Random.Range(0.3f, 0.6f);
+    }
+
+
+
+    #endregion
+
+    #region publicMethods
     public void RecalculateInkome()
     {
         currentIncome = new List<Inkome>();
@@ -184,7 +207,91 @@ public class Block : Photon.MonoBehaviour, ISkillAim
             }
         }
     }
-	void OnMouseDown()
+    public bool IsAwaliable(Card card)
+    {
+        if (!card)
+        {
+            return false;
+        }
+
+        if (card.CardEffects.Count() == 0)
+        {
+            return false;
+        }
+
+        CardEffect ce = card.CardEffects.FirstOrDefault(cardEffect => cardEffect.cardAim == CardEffect.CardAim.Cell);
+
+        if (ce != null)
+        {
+            if (ce.cellOwnership == CardEffect.CellOwnership.Neutral && Owner != null)
+            {
+                return false;
+            }
+            if (ce.cellOwnership == CardEffect.CellOwnership.Player && Owner != NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
+            {
+                return false;
+            }
+            if (ce.cellOwnership == CardEffect.CellOwnership.Oponent && (Owner == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer || Owner == null))
+            {
+                return false;
+            }
+            if (ce.cellOwnership == CardEffect.CellOwnership.PlayerAndNeutral && (Owner != NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer && Owner != null))
+            {
+                return false;
+            }
+
+            if (ce.cellOwnership == CardEffect.CellOwnership.OponentAndNeutral && Owner == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
+            {
+                return false;
+            }
+
+            if (ce.biomsFilter.Contains(Biom))
+            {
+                return false;
+            }
+
+            if (ce.statesFilter.Contains(State))
+            {
+                return false;
+            }
+
+            if (ce.cellActionType == CardEffect.CellActionType.Evolve)
+            {
+                if (State == null)
+                {
+                    return false;
+                }
+                foreach (Combination comb in State.Combinations)
+                {
+                    if (comb.skill == ce.EvolveType && comb.skillLevel == ce.EvolveLevel)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+    public void Highlight(Card card, bool v)
+    {
+        Highlighter.Set(v && IsAwaliable(card), false);
+    }
+    public void HighlightSimple(bool v)
+    {
+        Highlighter.Set(v, false);
+    }
+    public void HighlightSelected(Card card, bool v)
+    {
+        Highlighter.Set(v && IsAwaliable(card), true);
+    }
+    #endregion
+
+    #region mouseEvents
+    void OnMouseDown()
 	{
 	
 	}
@@ -194,10 +301,22 @@ public class Block : Photon.MonoBehaviour, ISkillAim
     }
 	void OnMouseEnter()
 	{
-		if (EventSystem.current.currentSelectedGameObject && EventSystem.current.currentSelectedGameObject.layer == 5) 
-		{ // UI elements getting the hit/hover
-			return;
-		}
+        List<RaycastResult> results = new List<RaycastResult>();
+        PointerEventData pointerData = new PointerEventData(EventSystem.current);
+        pointerData.position = Input.mousePosition;
+        EventSystem.current.RaycastAll(pointerData, results);
+        foreach (RaycastResult rr in results)
+        {
+            if (rr.gameObject.layer == 5)
+            {
+                return;
+            }
+        }
+
+        if (CardsPlayer.Instance.DraggingCard)
+        {
+            return;
+        }
 
 		CameraController.Instance.AimedBlockChanged (this);
 
@@ -259,94 +378,10 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 	{
 		
 	}
-    public bool IsAwaliable(Card card)
-    {
-		if (!card)
-        {
-            return false;
-        }
+    #endregion
+	
 
-		if(card.CardEffects.Count() == 0)
-		{
-			return false;
-		}
-
-		CardEffect ce = card.CardEffects.FirstOrDefault(cardEffect=>cardEffect.cardAim == CardEffect.CardAim.Cell); 
-
-		if (ce!=null)
-        {
-			if(ce.cellOwnership == CardEffect.CellOwnership.Neutral && Owner != null)
-			{
-				return false;
-			}
-			if(ce.cellOwnership == CardEffect.CellOwnership.Player && Owner != NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-			{
-				return false;
-			}
-			if(ce.cellOwnership == CardEffect.CellOwnership.Oponent && (Owner == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer || Owner == null))
-			{
-				return false;
-			}
-			if(ce.cellOwnership == CardEffect.CellOwnership.PlayerAndNeutral && (Owner != NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer && Owner!=null))
-			{
-				return false;
-			}
-
-			if(ce.cellOwnership == CardEffect.CellOwnership.OponentAndNeutral && Owner == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-			{
-				return false;
-			}
-
-			if(ce.biomsFilter.Contains(Biom))
-			{
-				return false;
-			}
-
-			if(ce.statesFilter.Contains(State))
-			{
-				return false;
-			}
-
-			if (ce.cellActionType == CardEffect.CellActionType.Evolve) 
-			{
-				if(State == null)
-				{
-					return false;
-				}
-				foreach (Combination comb in State.Combinations) {
-					if (comb.skill == ce.EvolveType && comb.skillLevel == ce.EvolveLevel) 
-					{
-						return true;
-					}
-				}
-				return false;
-			}
-
-			return true;
-        }
-
-        return false;
-    }
-    public void Highlight(Card card, bool v)
-    {
-		Highlighter.Set(v && IsAwaliable(card), false);   
-    }
-	public void HighlightSimple(bool v)
-	{
-		Highlighter.Set(v, false);  
-	}
-    public void HighlightSelected(Card card, bool v)
-    {
-		Highlighter.Set(v && IsAwaliable(card), true);   
-    }
-	void Start()
-	{
-		Animator anim = GetComponent<Animator> ();
-		anim.speed = UnityEngine.Random.Range (0.3f, 0.6f);
-		float randomIdleStart = UnityEngine.Random.Range(0,anim.GetCurrentAnimatorStateInfo(0).length);
-		anim.Play("CellFlowing", 0, randomIdleStart);
-	}
-
+    #region PRCMethods
     [PunRPC]
     public void InitBlock(float[] localPos, int randomRotation, int state)
     {
@@ -366,7 +401,6 @@ public class Block : Photon.MonoBehaviour, ISkillAim
 
         State = BlocksField.Instance.baseStates[state];
     }
-
     [PunRPC]
     private void RpcChangeState(int stateId)
     {
@@ -377,10 +411,10 @@ public class Block : Photon.MonoBehaviour, ISkillAim
     {
         Owner = player;
     }
-
     [PunRPC]
     private void RpcChangeBiom(CombineModel.Biom biom)
     {
         Biom = biom;
     }
+    #endregion
 }

@@ -67,7 +67,7 @@ namespace ExitGames.Demos.DemoAnimator
 		{
 			// Destroy itself if the target is null, It's a fail safe when Photon is destroying Instances of a Player over the network
 			if (_target == null) {
-				Destroy(this.gameObject);
+                Lean.Pool.LeanPool.Despawn(this.gameObject);
 				return;
 			}
 

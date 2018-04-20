@@ -25,12 +25,12 @@ public class CellModel : MonoBehaviour {
 	{
 		if(model)
 		{
-			Destroy(model);
+            Lean.Pool.LeanPool.Despawn(model);
 		}
 
 		if (state && state.prefab) 
 		{
-			model = Instantiate (state.prefab);
+			model = Lean.Pool.LeanPool.Spawn(state.prefab);
 			model.transform.SetParent (transform);
 			model.transform.localRotation = Quaternion.identity;
 			model.transform.localPosition = Vector3.zero;

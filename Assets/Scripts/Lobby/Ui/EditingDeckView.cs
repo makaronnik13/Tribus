@@ -16,7 +16,7 @@ public class EditingDeckView : MonoBehaviour {
 	{
 		foreach(DeckCardPanel lcp in cardPanels)
 		{
-			Destroy (lcp.gameObject);
+            Lean.Pool.LeanPool.Despawn(lcp.gameObject);
 		}
 		cardPanels.Clear ();
 
@@ -24,7 +24,7 @@ public class EditingDeckView : MonoBehaviour {
 		DeckName.text = ds.DeckName;
 		foreach(DeckCardPanel dcp in cardPanels)
 		{
-			Destroy (dcp.gameObject);
+            Lean.Pool.LeanPool.Despawn(dcp.gameObject);
 		}
 
 		foreach(string c in ds.Cards)
@@ -41,7 +41,7 @@ public class EditingDeckView : MonoBehaviour {
 			dcp.Remove (()=>
 			{
 				cardPanels.Remove(dcp);
-				Destroy(dcp.gameObject);
+                Lean.Pool.LeanPool.Despawn(dcp.gameObject);
 			});
 		}
 	}
@@ -55,7 +55,7 @@ public class EditingDeckView : MonoBehaviour {
 		} 
 		else 
 		{
-			dcp = Instantiate (CardPrefab).GetComponent<DeckCardPanel>();
+			dcp = Lean.Pool.LeanPool.Spawn(CardPrefab).GetComponent<DeckCardPanel>();
 			dcp.Init (DefaultResourcesManager.GetCardById(c));
 			dcp.transform.SetParent (Dock);
 			dcp.transform.localScale = Vector3.one;

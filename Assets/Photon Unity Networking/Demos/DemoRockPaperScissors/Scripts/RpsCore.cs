@@ -116,7 +116,7 @@ public class RpsCore : PunBehaviour, IPunTurnManagerCallbacks
 		// Check if we are out of context, which means we likely got back to the demo hub.
 		if (this.DisconnectedPanel ==null)
 		{
-			Destroy(this.gameObject);
+            Lean.Pool.LeanPool.Despawn(this.gameObject);
 		}
 
         // for debugging, it's useful to have a few actions tied to keys:

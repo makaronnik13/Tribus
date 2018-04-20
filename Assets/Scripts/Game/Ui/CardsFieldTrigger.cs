@@ -17,13 +17,13 @@ public class CardsFieldTrigger : Singleton<CardsFieldTrigger>, IPointerEnterHand
 
         if (activeCardVisual)
 		{
-            //activeCardVisual.SetState(CardVisual.CardState.ChosingAim);
+            activeCardVisual.SetState(CardVisual.CardState.ChosingAim);
         }
 	}
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
-		if (activeCardVisual && (activeCardVisual.State == CardVisual.CardState.Dragging || activeCardVisual.State == CardVisual.CardState.ChosingAim) && !ChoseCardsLayout.Instance.Choosing) 
+		if (activeCardVisual && (activeCardVisual.State == CardVisual.CardState.Dragging || activeCardVisual.State == CardVisual.CardState.ChosingAim) && !CardsManager.Instance.ChoseCardsLayout.Choosing) 
 		{
             activeCardVisual.SetState(CardVisual.CardState.Dragging);
 			activeCardVisual = null;

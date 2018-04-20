@@ -237,8 +237,7 @@ using System.Linq;
 
 
         Rect aim = new Rect(state.Value.Position.x + screenDelta.x + 100f / 2-15f, state.Value.Position.y + screenDelta.y- 18, 30, 30);
-		Rect aim2 = new Rect(state.Value.Position.x + screenDelta.x + 100f / 2-10f, state.Value.Position.y + screenDelta.y- 13, 20, 20);
-
+		
             if (Event.current.type == EventType.MouseUp && aim.Contains(Event.current.mousePosition) && selectedPath != null)
             {
         
@@ -273,8 +272,6 @@ using System.Linq;
                     size = 20;
                 }
                 Rect start = new Rect(state.Value.Position.x + screenDelta.x + offset-size/4, state.Value.Position.y + screenDelta.y + 110, size, size);
-
-                Vector3 aimPosition = start.position + Vector2.down * 5f;
 
                 GUI.color = skillsCollors[c.skill];
 

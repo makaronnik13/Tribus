@@ -59,7 +59,7 @@ public class BlocksField : Photon.MonoBehaviour
 		cells.Clear ();
 		foreach(Transform t in transform)
 		{
-			Destroy(t.gameObject);
+            Lean.Pool.LeanPool.Despawn(t.gameObject);
 		}
 
         //Instantiate blocks

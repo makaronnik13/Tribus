@@ -8,6 +8,9 @@ using System;
 
 public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    private static float _movementSpeed = 0.3f;
+    private static float _scaleSpeed = 0.2f;
+
     public enum CardState
     {
         None,
@@ -96,6 +99,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             return;
         }
 
+
         GetComponent<CanvasGroup>().blocksRaycasts = false;
 
         switch (state)
@@ -106,6 +110,10 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                     MoveCardTo(CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one * 1.5f, () => { });
                     CardsPlayer.Instance.ActiveCard = this;
                     break;
+                }
+                else
+                {
+                    state = CardState.Hand;
                 }
                 break;
             case CardState.Hovered:
@@ -118,20 +126,29 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 });
                 break;
             case CardState.Hand:
+                CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
                 CardsPlayer.Instance.DraggingCard = null;
-                CardsLayout.Instance.AddCardToLayout(this);
+                CardsManager.Instance.HandCardsLayout.AddCardToLayout(this);
                 MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => {
                     GetComponent<CanvasGroup>().blocksRaycasts = true;
                 });
+                CardsManager.Instance.HandCardsLayout.AddCardToLayout(this);
                 break;
             case CardState.Dragging:
-				StopAllCoroutines();
+                CardsPlayer.Instance.ActiveCard = null;
+                StopAllCoroutines();
                 transform.SetParent(GUICamera.Instance.GetComponentInChildren<Canvas>().transform);
                 CardsPlayer.Instance.DraggingCard = this;
                 break;
             case CardState.Played:
-				CardsLayout.Instance.RemoveCardFromLayout(this);
-                MoveCardTo(CardsManager.Instance.dropTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => { CardsManager.Instance.DropCard(this); });
+                CardsPlayer.Instance.ActiveCard = null;
+
+                MoveCardTo(CardsManager.Instance.dropTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => 
+                {
+                    CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
+                    CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout(this);
+                    CardsManager.Instance.DropCard(this);
+                });
                 break;
             case CardState.Choosing:
                 MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this), CardsManager.Instance.GetChooseRotation(this), Vector3.one, () => { });
@@ -143,13 +160,24 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             case CardState.Chosed:
                 MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this, false), CardsManager.Instance.GetChooseRotation(this, false), Vector3.one, () => { });
                 break;
+            case CardState.Visualising:
+                CardsManager.Instance.ChoseCardsLayout.AddCardToLayout(this);
+                MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this), CardsManager.Instance.GetChooseRotation(this), Vector3.one, () => { });
+                break;
+            case CardState.Piled:
+                CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
+                MoveCardTo(CardsManager.Instance.pileTransform, CardsManager.Instance.GetChoosePosition(this), CardsManager.Instance.GetChooseRotation(this), Vector3.one, () => {
+                    Destroy(gameObject);
+                });
+                break;
         }
         _state = state;
         CardCanBePlayed = CardCanBePlayed;
     }
     public void Reposition()
     {
-        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => {GetComponent<CanvasGroup>().blocksRaycasts = true;});
+        //MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => { });
+        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => {});
     }
     #endregion
 
@@ -176,9 +204,9 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         if (_state == CardState.Dragging)
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.deltaTime * 10);
-            transform.position = Vector3.Lerp(transform.position, aimPosition, Time.deltaTime * 10);
-        }
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.deltaTime * 100 * _scaleSpeed/2f);
+            transform.position = aimPosition;
+        }    
     }
     void OnDestroy()
     {
@@ -275,29 +303,41 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #region Animation
     private void MoveCardTo(Transform parent, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, Action callback = null)
     {
+        Debug.Log("move "+gameObject.GetInstanceID()+" to "+parent.gameObject.name);
         StopAllCoroutines();
-        StopCoroutine(MoveCardToCoroutine(parent, localPosition, localRotation, localScale, callback));
         StartCoroutine(MoveCardToCoroutine(parent, localPosition, localRotation, localScale, callback));
     }
     private IEnumerator MoveCardToCoroutine(Transform parent, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, Action callback = null)
     {
         transform.SetParent(parent);
         float time = 0.0f;
-        float speed = 0.3f;
+        float speed = Mathf.Max(_movementSpeed, _scaleSpeed);
+
         while (time < speed)
         {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, localPosition, time / speed);
-            transform.localScale = Vector3.Lerp(transform.localScale, localScale, time / speed);
+            if (time<_scaleSpeed)
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, localScale, time / _scaleSpeed);
+            }
+
+            if (time < _movementSpeed)
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, localPosition, time / _movementSpeed);
+            }
+
             transform.localRotation = Quaternion.Lerp(transform.localRotation, localRotation, time / speed);
             time += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
+
+        transform.localPosition = localPosition;
+        transform.localRotation = localRotation;
+        transform.localScale = localScale;
+
         if (callback != null)
         {
             callback.Invoke();
         }
-
-        //StopAllCoroutines();
     }
     #endregion
 }

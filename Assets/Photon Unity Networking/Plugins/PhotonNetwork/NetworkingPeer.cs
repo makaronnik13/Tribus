@@ -3499,7 +3499,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
         }
         else
         {
-            GameObject.Destroy(go);
+            Lean.Pool.LeanPool.Despawn(go);
         }
     }
 

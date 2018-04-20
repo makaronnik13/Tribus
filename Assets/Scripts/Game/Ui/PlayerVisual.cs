@@ -245,12 +245,28 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
 		Drop = new Stack<string>(newDrop);
     }
 
-	public void AddCardToPile(string cardId)
+    public void AddCardsToPile(string[] cardsIds)
+    {
+        foreach (string cardId in cardsIds)
+        {
+            AddCardToPile(cardId);
+        }
+    }
+
+    public void AddCardToPile(string cardId)
     {
         Pile.Enqueue(cardId);
     }
 
-	public void AddCardToDrop(string cardId)
+    public void AddCardsToDrop(string[] cardsIds)
+    {
+        foreach (string cardId in cardsIds)
+        {
+            AddCardToDrop(cardId);
+        }
+    }
+
+    public void AddCardToDrop(string cardId)
     {
         Drop.Push(cardId);
     }

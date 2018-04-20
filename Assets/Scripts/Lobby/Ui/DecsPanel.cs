@@ -26,14 +26,14 @@ public class DecsPanel : MonoBehaviour {
 		{
 			if(t.gameObject!= AddDeckButton)
 			{
-				Destroy (t.gameObject);
+                Lean.Pool.LeanPool.Despawn(t.gameObject);
 			}
 		}
 	}
 
 	private void AddDeckToDock(DeckStruct ds)
 	{
-		Transform deck = Instantiate (DeckPrefab).transform;
+		Transform deck = Lean.Pool.LeanPool.Spawn(DeckPrefab).transform;
 		deck.transform.SetParent (Dock);
 		deck.transform.localScale = Vector3.one;
 		deck.SetAsFirstSibling ();
@@ -45,7 +45,7 @@ public class DecsPanel : MonoBehaviour {
 	{
 		DeckStruct newDs = new DeckStruct ("NewDeck", new List<string>());
 		LobbyPlayerIdentity.Instance.player.Decks.Add (newDs);
-		Transform deck = Instantiate (DeckPrefab).transform;
+		Transform deck = Lean.Pool.LeanPool.Spawn(DeckPrefab).transform;
 		deck.transform.SetParent (Dock);
 		deck.transform.localScale = Vector3.one;
 		deck.GetComponent<DeckButton> ().Init (newDs);

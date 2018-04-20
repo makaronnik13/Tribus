@@ -34,7 +34,7 @@ public class InformationPanel : Singleton<InformationPanel>
             symbiosys.gameObject.SetActive(true);
             foreach (Transform t in incomeContent)
             {
-                Destroy(t.gameObject);
+                Lean.Pool.LeanPool.Despawn(t.gameObject);
             }
             blockName.text = block.State.StateName;
             icon.sprite = block.State.Sprite;
@@ -54,8 +54,6 @@ public class InformationPanel : Singleton<InformationPanel>
 
 	private string ApplyTags(string s)
 	{
-		List<Material> materials = new List<Material> ();
-
 		string resourceName = "";
 		do {
 			resourceName = GetNextResourceName (ref s);

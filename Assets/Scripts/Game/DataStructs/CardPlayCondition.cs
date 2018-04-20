@@ -138,19 +138,14 @@ public class CardPlayCondition : MonoBehaviour
 		{
 		case ConditionCheckType.Equeal:
 			return number == count;
-				break;
-			case ConditionCheckType.Less:
+		case ConditionCheckType.Less:
 			return number < count;
-				break;
-			case ConditionCheckType.LessOrEq:
+		case ConditionCheckType.LessOrEq:
 			return number <= count;
-				break;
-			case ConditionCheckType.More:
+		case ConditionCheckType.More:
 			return number > count;
-				break;
-			case ConditionCheckType.MoreOrEq:
+		case ConditionCheckType.MoreOrEq:
 			return number >= count;
-				break;
 		}
 
 		return false;

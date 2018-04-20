@@ -38,7 +38,7 @@ public class OnClickDestroy : Photon.MonoBehaviour
     [PunRPC]
     public IEnumerator DestroyRpc()
     {
-        GameObject.Destroy(this.gameObject);
+        Lean.Pool.LeanPool.Despawn(this.gameObject);
         yield return 0; // if you allow 1 frame to pass, the object's OnDestroy() method gets called and cleans up references.
         PhotonNetwork.UnAllocateViewID(this.photonView.viewID);
     }

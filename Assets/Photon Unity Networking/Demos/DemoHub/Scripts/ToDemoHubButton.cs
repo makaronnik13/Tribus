@@ -43,7 +43,7 @@ namespace ExitGames.Demos
 	    {
 	        if (Instance != null && Instance != this)
 	        {
-	            Destroy(gameObject);
+                Lean.Pool.LeanPool.Despawn(gameObject);
 	        }
 	    }
 

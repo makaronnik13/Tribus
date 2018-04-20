@@ -26,7 +26,7 @@ public class HighlightOwnedGameObj : Photon.MonoBehaviour
         }
         else if (this.markerTransform != null)
         {
-            Destroy(this.markerTransform.gameObject);
+            Lean.Pool.LeanPool.Despawn(this.markerTransform.gameObject);
             this.markerTransform = null;
         }
     }

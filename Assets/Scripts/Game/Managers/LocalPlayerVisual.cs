@@ -35,12 +35,12 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
     }
 
     #region cardsAnimation
-    public void AddCardsToDrop(List<string> cards, Action<CardVisual> callback)
+    public void AddCardsToDrop(List<string> cards, Action<CardVisual> callback, CardAnimationAim from = CardAnimationAim.Top)
     {
         Visualize(CardAnimationAim.Top, CardAnimationAim.Drop, cards, callback);
     }
 
-    public void AddCardsToPile(List<string> cards, Action<CardVisual> callback)
+    public void AddCardsToPile(List<string> cards, Action<CardVisual> callback, CardAnimationAim from = CardAnimationAim.Top)
     {
         Visualize(CardAnimationAim.Top, CardAnimationAim.Pile, cards, callback);
     }
@@ -88,7 +88,7 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
 
     private void Visualize(CardAnimationAim from, CardAnimationAim to, List<string> cards, Action<CardVisual> callback = null)
     {
-        if(ChoseCardsLayout.Instance.Choosing)
+        if (CardsManager.Instance.ChoseCardsLayout.Choosing)
         {
             from = CardAnimationAim.Choose;
         }
@@ -103,7 +103,6 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
         {
             Card nextCard = DefaultResourcesManager.GetCardById(movingCards.Dequeue());
             GameObject newCard = null;
-
             if (from != CardAnimationAim.Choose && from != CardAnimationAim.Hand)
             {
                 newCard = CardsManager.Instance.CreateCard(nextCard);
@@ -129,7 +128,7 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
 
             if(from == CardAnimationAim.Choose)
             {
-                foreach (Transform t in ChoseCardsLayout.Instance.transform)
+                foreach (Transform t in CardsManager.Instance.ChoseCardsLayout.transform)
                 {
                     if (t.GetComponent<CardVisual>().CardAsset == nextCard && !createdVisuals.Contains(t.GetComponent<CardVisual>()))
                     {
@@ -141,7 +140,7 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
 
             if (from == CardAnimationAim.Hand)
             {
-                foreach (Transform t in CardsLayout.Instance.transform)
+                foreach (Transform t in CardsManager.Instance.HandCardsLayout.transform)
                 {
                     if (t.GetComponent<CardVisual>().CardAsset == nextCard && !createdVisuals.Contains(t.GetComponent<CardVisual>()))
                     {
@@ -162,8 +161,10 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
             waitTime += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
+
         StartCoroutine(MoveCardOut(to, createdVisuals, callback));
     }
+
     private IEnumerator MoveCardOut(CardAnimationAim to, List<CardVisual> cards, Action<CardVisual> callback = null)
     {
         Queue<CardVisual> movingCards = new Queue<CardVisual>(cards);
@@ -172,7 +173,6 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
         {
             CardVisual card = movingCards.Dequeue();
 
-            Debug.Log(to);
 
             switch (to)
             {

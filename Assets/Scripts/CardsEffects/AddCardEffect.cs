@@ -17,7 +17,7 @@ public class AddCardEffect : ICardEffect
                 continue;
             }
 
-            if (addCardsEffect.NumberOfChosenCards < addCardsEffect.Cards.Count() || addCardsEffect.NumberOfChosenCards==0)
+            if (addCardsEffect.NumberOfChosenCards < addCardsEffect.Cards.Count() && addCardsEffect.NumberOfChosenCards!=0)
             {
                 CardsManager.Instance.FillChooseCardField(addCardsEffect.Cards, addCardsEffect.NumberOfChosenCards, (List<CardVisual> chodenCards) =>
                 {

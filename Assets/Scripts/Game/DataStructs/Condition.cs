@@ -111,7 +111,7 @@ public class Condition
 
         List<CombineModel.Biom> checkedBioms = new List<CombineModel.Biom>();
         List<CellState> checkedStates = new List<CellState>();
-        List<CombineModel.ResourceType> chackedTypes = new List<CombineModel.ResourceType>();
+        //List<CombineModel.ResourceType> chackedTypes = new List<CombineModel.ResourceType>();
 
         foreach (Block block in blocks)
         {

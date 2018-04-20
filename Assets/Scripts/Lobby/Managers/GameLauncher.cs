@@ -59,10 +59,6 @@ public class GameLauncher : Photon.PunBehaviour
         /// </summary>
         void Awake()
         {
-            if (loaderAnime == null)
-            {
-                Debug.LogError("<Color=Red><b>Missing</b></Color> loaderAnime Reference.", this);
-            }
 
             // #Critical
             // we don't join the lobby. There is no need to join a lobby to get the list of rooms.

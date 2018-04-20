@@ -36,7 +36,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DistoreMap:
         m_Texture: {fileID: 2800000, guid: f44d7709ef34e064a82d4eb52dff442f, type: 3}
-        m_Scale: {x: 0.5, y: 2}
+        m_Scale: {x: 0.1, y: 0.5}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
@@ -83,7 +83,7 @@ Material:
     - _PanerSpeed: 1
     - _Parallax: 0.02
     - _PulsingPeriod: 0
-    - _RotatorSpeed: -0.04
+    - _RotatorSpeed: 0.08
     - _Saturate: 3.09
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

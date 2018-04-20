@@ -4,10 +4,9 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public class CardsLayout : Singleton<CardsLayout>
+public class CardsLayout : MonoBehaviour
 {
 	private List<Transform> CardsSiblings = new List<Transform>();
-
     private Vector2 _cardSize = Vector2.zero;
     private Vector2 cardSize
     {
@@ -20,7 +19,6 @@ public class CardsLayout : Singleton<CardsLayout>
             return _cardSize;
         }
     }
-
 	public List<CardVisual> Cards
 	{
 		get
@@ -33,7 +31,6 @@ public class CardsLayout : Singleton<CardsLayout>
 			return cv;
 		}
 	}
-
     private RectTransform _rectTransform;
     private RectTransform rectTransform
     {
@@ -51,25 +48,30 @@ public class CardsLayout : Singleton<CardsLayout>
 	{
 		return CardsSiblings.IndexOf(cv.transform);
 	}
-
 	public void AddCardToLayout(CardVisual visual)
 	{
-        visual.transform.SetParent(transform);
+        if (CardsSiblings.Contains(visual.transform))
+        {
+            visual.transform.SetSiblingIndex(CardsSiblings.IndexOf(visual.transform));
+        }
+
 		if(!CardsSiblings.Contains(visual.transform))
 		{
-			CardsSiblings.Add (visual.transform);
-			CardsReposition();
+            visual.transform.SetParent(transform);
+            CardsSiblings.Add (visual.transform);
 		}
+        CardsReposition();
     }
-
 	public void RemoveCardFromLayout(CardVisual visual)
 	{
-        visual.transform.SetParent(null);
-        CardsSiblings.Remove (visual.transform);
+       
+        if (CardsSiblings.Contains(visual.transform))
+        {
+            visual.transform.SetParent(null);
+            CardsSiblings.Remove(visual.transform);
+        }
         CardsReposition();
-		Debug.Log (CardsSiblings.Count);
-	}
-
+    }
 	public void CardsReposition()
 	{
 		foreach(Transform pair in CardsSiblings)
@@ -77,7 +79,6 @@ public class CardsLayout : Singleton<CardsLayout>
             pair.GetComponent<CardVisual>().Reposition();
 		}
 	}
-
     public Quaternion GetRotation(CardVisual cardVisual, bool focused = false)
     {
 		int cards = transform.childCount;
@@ -97,14 +98,12 @@ public class CardsLayout : Singleton<CardsLayout>
 
         return aimRotation;
     }
-
     public Vector3 GetPosition(CardVisual cardVisual, bool focused = false)
     {
         float yMultiplyer = 1f / 10000;
         int cards = transform.childCount;
         float fieldWidth = GetComponent<RectTransform>().rect.width;
         float cardWidth = cardSize.x;
-        float cardHeight = cardSize.y;
         float offset = Mathf.Min(cardWidth, fieldWidth/cards);
 
         Vector3 aimPosition = Vector3.zero;
@@ -122,22 +121,4 @@ public class CardsLayout : Singleton<CardsLayout>
 
         return aimPosition;
     }
-
-    IEnumerator MoveTo(Transform card, Vector3 position, Quaternion rotation)
-    {
-        float time = 0;
-        while (card.transform.localPosition != position|| card.transform.localRotation != rotation)
-        {
-            card.localRotation =  Quaternion.Lerp(card.localRotation, rotation, time);
-            card.localPosition = Vector3.Lerp(card.localPosition, position, time);
-            time += Time.deltaTime*2;
-
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
-	public void EndTurn()
-	{
-		CardsSiblings.Clear ();
-	}
 }

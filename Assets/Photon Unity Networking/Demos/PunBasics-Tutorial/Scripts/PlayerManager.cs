@@ -92,7 +92,7 @@ namespace ExitGames.Demos.DemoAnimator
             // Create the UI
             if (this.PlayerUiPrefab != null)
             {
-                GameObject _uiGo = Instantiate(this.PlayerUiPrefab) as GameObject;
+                GameObject _uiGo = Lean.Pool.LeanPool.Spawn(this.PlayerUiPrefab) as GameObject;
                 _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
             }
             else
@@ -212,7 +212,7 @@ namespace ExitGames.Demos.DemoAnimator
                 transform.position = new Vector3(0f, 5f, 0f);
             }
 
-            GameObject _uiGo = Instantiate(this.PlayerUiPrefab) as GameObject;
+            GameObject _uiGo = Lean.Pool.LeanPool.Spawn(this.PlayerUiPrefab) as GameObject;
             _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
 

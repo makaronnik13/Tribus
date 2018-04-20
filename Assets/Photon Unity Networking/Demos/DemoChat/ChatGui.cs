@@ -166,7 +166,7 @@ public class ChatGui : MonoBehaviour, IChatClientListener
 		// check if we are missing context, which means we got kicked out to get back to the Photon Demo hub.
 		if ( this.StateText == null)
 		{
-			Destroy(this.gameObject);
+            Lean.Pool.LeanPool.Despawn(this.gameObject);
 			return;
 		}
 		
@@ -467,7 +467,7 @@ public class ChatGui : MonoBehaviour, IChatClientListener
 			if (this.channelToggles.ContainsKey(channelName))
 			{
 				Toggle t = this.channelToggles[channelName];
-				Destroy(t.gameObject);
+                Lean.Pool.LeanPool.Despawn(t.gameObject);
 				
 				this.channelToggles.Remove(channelName);
 				

@@ -177,7 +177,7 @@ namespace Prototype.NetworkLobby
             {
                 if (player == plp.owner)
                 {
-                    Destroy(plp.gameObject);
+                    Lean.Pool.LeanPool.Despawn(plp.gameObject);
                 }
             }
         }
@@ -189,7 +189,7 @@ namespace Prototype.NetworkLobby
             FindObjectOfType<GameLauncher>().OnDisconnectedFromPhoton();
             foreach (PhotonLobbyPlayer plp in FindObjectsOfType<PhotonLobbyPlayer>())
             {
-                Destroy(plp.gameObject);
+                Lean.Pool.LeanPool.Despawn(plp.gameObject);
             }
             LobbyMenu.Instance.BackToMainMenu();
         }

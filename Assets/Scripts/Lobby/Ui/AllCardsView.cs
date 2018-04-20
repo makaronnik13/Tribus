@@ -24,7 +24,7 @@ public class AllCardsView : MonoBehaviour {
 
 
 		if (!cp) {
-			cp = Instantiate (CardPrefab).GetComponent<LibraryCardPanel> ();
+			cp = Lean.Pool.LeanPool.Spawn(CardPrefab).GetComponent<LibraryCardPanel> ();
 			cp.Init (card);
 			cp.transform.SetParent (Hab);
 			cp.transform.localScale = Vector3.one;
@@ -55,7 +55,7 @@ public class AllCardsView : MonoBehaviour {
 	{
 		foreach(LibraryCardPanel lcp in cardsPanels)
 		{
-			Destroy (lcp.gameObject);
+            Lean.Pool.LeanPool.Despawn(lcp.gameObject);
 		}
 		cardsPanels.Clear ();
 

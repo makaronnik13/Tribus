@@ -20,13 +20,13 @@ public class FieldCreator : MonoBehaviour {
 	{
 		foreach(Transform t in transform)
 		{
-			Destroy(t.gameObject);
+            Lean.Pool.LeanPool.Despawn(t.gameObject);
 		}
 
 
 		foreach(KeyValuePair<Vector3, Vector2> v in RecalculateHexes())
 		{
-			GameObject newCell = Instantiate (cellPrefab);
+			GameObject newCell = Lean.Pool.LeanPool.Spawn(cellPrefab);
 			newCell.transform.SetParent (transform);
 			newCell.transform.localScale = Vector3.one;
 			newCell.transform.localRotation = Quaternion.identity;

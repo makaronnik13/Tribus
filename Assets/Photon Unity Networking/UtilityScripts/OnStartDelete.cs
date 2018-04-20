@@ -6,6 +6,6 @@ public class OnStartDelete : MonoBehaviour
 	// Use this for initialization
 	void Start()
     {
-		Destroy(this.gameObject);
+        Lean.Pool.LeanPool.Despawn(this.gameObject);
 	}
 }
