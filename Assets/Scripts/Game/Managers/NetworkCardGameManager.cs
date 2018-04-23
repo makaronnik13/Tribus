@@ -323,17 +323,24 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
 		RemoveCardsFromDrop (new List<Card>(){card}, player, animate);
 	}
 
-	public void RemoveCardsFromDrop(List<Card> cards, PhotonPlayer player, bool animate = false)
+	public void RemoveCardsFromDrop(List<Card> cards, PhotonPlayer player, bool animate = false, bool burn = true)
     {
-		GetComponent<PhotonView>().RPC("RpcRemoveCardsFromDrop", PhotonTargets.AllBuffered, new object[] {cards.Select(c=>c.name).ToArray(), player, animate});
+		GetComponent<PhotonView>().RPC("RpcRemoveCardsFromDrop", PhotonTargets.AllBuffered, new object[] {cards.Select(c=>c.name).ToArray(), player, animate, burn});
     }
 
     [PunRPC]
-	private void RpcRemoveCardsFromDrop(string[] cardsIds, PhotonPlayer player, bool animate = false)
+	private void RpcRemoveCardsFromDrop(string[] cardsIds, PhotonPlayer player, bool animate = false, bool burn = true)
     {
 		if(player == PhotonNetwork.player && animate)
 		{
-			LocalPlayerVisual.Instance.BurnCardsFromDrop (cardsIds.ToList());
+            if (burn)
+            {
+                LocalPlayerVisual.Instance.BurnCardsFromDrop(cardsIds.ToList());
+            }
+            else
+            {
+                LocalPlayerVisual.Instance.SteelCardsFromDrop(cardsIds.ToList());
+            }
 		}
 		FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].RemoveCardsFromDrop(cardsIds.ToList());
     }
@@ -343,24 +350,31 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
 		RemoveCardsFromPile (new List<Card>(){card}, player, animate);
 	}
 
-	public void RemoveCardsFromPile(List<Card> cards, PhotonPlayer player, bool animate = false)
+	public void RemoveCardsFromPile(List<Card> cards, PhotonPlayer player, bool animate = false, bool burn = true)
     {
-		GetComponent<PhotonView>().RPC("RpcRemoveCardsFromPile", PhotonTargets.AllBuffered, new object[] { cards.Select(c=>c.name).ToArray(), player,animate });
+		GetComponent<PhotonView>().RPC("RpcRemoveCardsFromPile", PhotonTargets.AllBuffered, new object[] { cards.Select(c=>c.name).ToArray(), player,animate, burn });
     }
 
     [PunRPC]
-	private void RpcRemoveCardsFromPile(string[]  cardsIds, PhotonPlayer player, bool animate = false)
+	private void RpcRemoveCardsFromPile(string[]  cardsIds, PhotonPlayer player, bool animate = false, bool burn = true)
     {
 		if(player == PhotonNetwork.player && animate)
 		{
-			LocalPlayerVisual.Instance.BurnCardsFromPile (cardsIds.ToList());
+            if (burn)
+            {
+                LocalPlayerVisual.Instance.BurnCardsFromPile(cardsIds.ToList());
+            }
+            else
+            {
+                LocalPlayerVisual.Instance.SteelCardsFromPile(cardsIds.ToList());
+            }
 		}
 		FindObjectsOfType<PlayerVisual>().Where(v=>v.Player == player).ToList()[0].RemoveCardsFromPile(cardsIds.ToList());
     }
 
-	public void RemoveCardsFromHand(List<Card> cards, PhotonPlayer player, bool animate = false)
+	public void RemoveCardsFromHand(List<Card> cards, PhotonPlayer player, bool animate = false, bool burn = true)
 	{
-		GetComponent<PhotonView>().RPC("RpcRemoveCardsFromHand", PhotonTargets.AllBuffered, new object[] {cards.Select(c=>c.name).ToList(), player, animate});
+		GetComponent<PhotonView>().RPC("RpcRemoveCardsFromHand", PhotonTargets.AllBuffered, new object[] {cards.Select(c=>c.name).ToList(), player, animate, burn});
 	}
 
 	public void RemoveCardFromHand(Card card, PhotonPlayer player, bool animate = false)
@@ -369,16 +383,23 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
     }
 
     [PunRPC]
-	private void RpcRemoveCardsFromHand(List<string> cardsIds, PhotonPlayer player, bool animate)
+	private void RpcRemoveCardsFromHand(List<string> cardsIds, PhotonPlayer player, bool animate, bool burn = true)
     {
 		if(player == PhotonNetwork.player && animate)
 		{
-			LocalPlayerVisual.Instance.BurnCardsFromHand(cardsIds);
+            if (burn)
+            {
+                LocalPlayerVisual.Instance.BurnCardsFromHand(cardsIds);
+            }
+            else
+            {
+                LocalPlayerVisual.Instance.SteelCardsFromHand(cardsIds);
+            }
 		}
         FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].RemoveCardsFromHand(cardsIds);
     }
 
-	public void RemoveCardsFromPlayer(List<Card> card, PhotonPlayer player, bool animate = false)
+	public void RemoveCardsFromPlayer(List<Card> card, PhotonPlayer player, bool animate = false, bool burn = true)
     {
 
     }

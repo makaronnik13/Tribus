@@ -17,7 +17,8 @@ public class ChooseEffect :ICardEffect
 				
 			CardsManager.Instance.ChooseManager.FillChooseCardField (observeEffect.Cards, 1, (List<CardVisual> chosenCards)=>
 			{
-					
+                chosenCards[0].SetState(CardVisual.CardState.ChosingAim);
+                CardsPlayer.Instance.PlayCard(chosenCards[0]);    
 			});
 		}
 

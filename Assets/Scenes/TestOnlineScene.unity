@@ -344,7 +344,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 263670681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d1fe1c5297e62941b28d14b573e4d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ownerId: 0
@@ -556,7 +556,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8a3993f936e674c69855d22d0e6e34cc, type: 2}
+  - {fileID: 2100000, guid: 836d88c505d3aac45a2c5fd15f438cc3, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -655,7 +655,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1246673629
+  randomSeed: -618703873
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5522,10 +5522,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 895227454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ab5289b95084a64afaab4ded1b7b69, type: 3}
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: c4d35008bd7974ed7afd658d5572dfd1, type: 2}
+  profile: {fileID: 11400000, guid: 8587561ba1d756d49a1b40694db97bfb, type: 2}
 --- !u!81 &895227458
 AudioListener:
   m_ObjectHideFlags: 0
@@ -6081,7 +6081,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1012915934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b1eb2237901b4eab9bbf59f36e0b942, type: 3}
+  m_Script: {fileID: 11500000, guid: 82e3fb8fe7602fc47b91fa100db2657f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonsVisual: {fileID: 395842798}
@@ -6126,9 +6126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ff35b7f4260fb4289d410165348b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotOffset: 0
-  maxRot: 0
-  gap: 20
+  rotOffset: 3
+  maxRot: 20
+  gap: 10
 --- !u!1 &1119218476
 GameObject:
   m_ObjectHideFlags: 0
@@ -7116,7 +7116,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: e19b885c272e84146bd844ba5229bd67, type: 2}
+  - {fileID: 2100000, guid: 430827470b2897340aad642ad55124fe, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -7215,7 +7215,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 167737495
+  randomSeed: -1320549333
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -11370,7 +11370,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1701122305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d1fe1c5297e62941b28d14b573e4d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ownerId: 0

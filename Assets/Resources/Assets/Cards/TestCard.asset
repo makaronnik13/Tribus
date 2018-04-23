@@ -16,24 +16,22 @@ MonoBehaviour:
   cardSprite: {fileID: 0}
   Cost: []
   WinCard: 0
-  DestroyAfterPlay: 0
+  DestroyAfterPlay: 1
   CardEffects:
-  - cardAim: 2
+  - cardAim: 0
     playerAimType: 1
     cellAimType: 0
-    playerActionType: 2
+    playerActionType: 5
     cellActionType: 0
     cellOwnership: 0
     cardsAimType: 1
     cardsAimType2: 1
-    noneType: 0
+    noneType: 1
     Cards:
-    - {fileID: 11400000}
-    - {fileID: 11400000}
-    - {fileID: 11400000}
-    - {fileID: 11400000}
-    NumberOfCards: 3
-    NumberOfChosenCards: 0
+    - {fileID: 11400000, guid: 665aedb83e1917e40ab333ea009ebabc, type: 2}
+    - {fileID: 11400000, guid: dd1642a4cc07b03418214b8085b29b04, type: 2}
+    NumberOfCards: 2
+    NumberOfChosenCards: 1
     biomsFilter: 
     statesFilter: []
     EvolveType: 0

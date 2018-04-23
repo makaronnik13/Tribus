@@ -66,7 +66,8 @@ public class ChooseManager : MonoBehaviour
             }
         }
 
-		if(onChoseCardFieldClosed!=null)
+
+        if (onChoseCardFieldClosed!=null)
 		{
 			Action<List<CardVisual>> lastCallback = onChoseCardFieldClosed;
 			onChoseCardFieldClosed = null;
@@ -117,6 +118,12 @@ public class ChooseManager : MonoBehaviour
 		SetMax (max);
 		Choosing = true;
 		Layout.CardsReposition ();
-	}
+
+        if (cards.Count <= max)
+        {
+            chosedCards = layout.Cards;
+            HideChoseCardField();
+        }
+    }
 		
 }

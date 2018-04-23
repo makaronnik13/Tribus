@@ -84,7 +84,7 @@ Material:
     - _Parallax: 0.02
     - _PulsingPeriod: 0
     - _RotatorSpeed: -0.1
-    - _Saturate: 5
+    - _Saturate: 2
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

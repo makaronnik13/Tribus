@@ -10,6 +10,18 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 {
 	private static float _movementSpeed = 0.3f;
     private static float _scaleSpeed = 0.2f;
+    private Material _disolveMaterial;
+    private Material disolveMateral
+    {
+        get
+        {
+            if (!_disolveMaterial)
+            {
+                _disolveMaterial = new Material(Resources.Load("Materials/CardDisolve") as Material);
+            }
+            return _disolveMaterial;
+        }
+    }
 
     public enum CardState
     {
@@ -24,7 +36,8 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         Chosed,
         Burned,
         Piled,
-        Visualising
+        Visualising,
+        Stolen
     }
 
     #region callbacks
@@ -67,7 +80,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         set
         {
-            _cardCanBePlayed = (State == CardState.Hand || State == CardState.Hovered || State == CardState.Dragging || State == CardState.ChosingAim) && ResourcesManager.Instance.CardAvailability(_cardAsset) && PhotonNetwork.player == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer;
+            _cardCanBePlayed = (State == CardState.Hand || State == CardState.Hovered || State == CardState.Dragging || State == CardState.ChosingAim || State == CardState.Chosed) && ResourcesManager.Instance.CardAvailability(_cardAsset) && PhotonNetwork.player == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer;
             
 			if(State!= CardState.Choosing && State!= CardState.Chosed && State!= CardState.HoveredInChoose)
 			{
@@ -111,6 +124,10 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             case CardState.ChosingAim:
                 if (CardCanBePlayed)
                 {
+                    CardsPlayer.Instance.DraggingCard = null;
+                    Vector3 startPositionn = transform.position;
+                    CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
+                    transform.position = startPositionn;
                     MoveCardTo(CardsManager.Instance.activationSlotTransform, Vector3.zero, Quaternion.identity, Vector3.one * 1.5f, () => { });
                     CardsPlayer.Instance.ActiveCard = this;
                     break;
@@ -190,16 +207,19 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 });
                 break;
 		case CardState.Burned:
-			startPosition = transform.position;
-			CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout (this);
-			transform.SetParent (CardsManager.Instance.chooseCardField);
-			transform.position = startPosition;
-			MoveCardTo(CardsManager.Instance.chooseCardField, Vector3.zero, Quaternion.identity, Vector3.zero, () => 
-			{
-				CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
-				Destroy(gameObject);
-			});
+            Disolve();
 			break;
+        case CardState.Stolen:
+                startPosition = transform.position;
+                CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
+                CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout(this);
+                transform.SetParent(CardsManager.Instance.pileTransform);
+                transform.position = startPosition;
+                MoveCardTo(CardsManager.Instance.topTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => {
+                    CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
+                    Destroy(gameObject);
+                });
+                break;
         }
         _state = state;
         CardCanBePlayed = CardCanBePlayed;
@@ -226,9 +246,14 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         CardName.text = card.CardName;
         CardDescription.text = card.CardDescription;
         CardImage.sprite = card.cardSprite;
+        foreach (Transform t in costTransform)
+        {
+            Destroy(t.gameObject);
+        }
         foreach (Inkome ink in card.Cost)
         {
             GameObject newVisualiser = Instantiate(costPrefab, Vector3.zero, Quaternion.identity, costTransform);
+            newVisualiser.transform.SetParent(costTransform);
             newVisualiser.transform.localScale = Vector3.one;
             newVisualiser.GetComponent<Image>().sprite = ink.resource.sprite;
             newVisualiser.GetComponentInChildren<TextMeshProUGUI>().text = "" + ink.value;
@@ -310,7 +335,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 			SetState(CardState.HoveredInChoose);
 		}
 
-        if(CardsPlayer.Instance.DraggingCard)
+        if(CardsPlayer.Instance.DraggingCard || CardsPlayer.Instance.ActiveCard)
         {
             return;
         }
@@ -334,7 +359,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 			}
 		}
 
-        if (CardsPlayer.Instance.DraggingCard)
+        if (CardsPlayer.Instance.DraggingCard || CardsPlayer.Instance.ActiveCard)
         {
             return;
         }
@@ -388,6 +413,36 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         {
             callback.Invoke();
         }
+    }
+
+    [ContextMenu("disolve")]
+    private void Disolve()
+    {
+        foreach (Image img in GetComponentsInChildren<Image>())
+        {
+            img.material = disolveMateral;
+        }
+        StartCoroutine(Disolve(1f));
+    }
+
+    private IEnumerator Disolve(float v)
+    {
+        float t = v/3f;
+        while (t<v)
+        {           
+            disolveMateral.SetFloat("_disolveValue", t/v);
+            if (t>v/2)
+            {
+                CardDescription.color = Color.Lerp(CardDescription.color, new Color(0, 0, 0, 0), t/v);
+                CardName.color = Color.Lerp(CardName.color, new Color(0, 0, 0, 0), t/v);
+            }          
+            t += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
+        CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout(this);
+        Destroy(gameObject);
     }
     #endregion
 }

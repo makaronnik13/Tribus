@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 114985329438254476}
   - component: {fileID: 95793591125133416}
   - component: {fileID: 64716044591746226}
-  - component: {fileID: 114406911547594184}
+  - component: {fileID: 114217310797386344}
   m_Layer: 0
   m_Name: BaseBlock
   m_TagString: Untagged
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114406911547594184
+--- !u!114 &114217310797386344
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -677,7 +677,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1311533724640336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d1fe1c5297e62941b28d14b573e4d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ownerId: 0

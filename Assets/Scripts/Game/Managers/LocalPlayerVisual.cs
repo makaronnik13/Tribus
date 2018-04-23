@@ -57,17 +57,17 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
 
 	public void BurnCardsFromDrop(List<string> cards, Action<CardVisual> callback = null)
     {
-		Visualize(CardAnimationAim.Drop, CardAnimationAim.Burn, cards, callback, false, false);
+		Visualize(CardAnimationAim.Drop, CardAnimationAim.Burn, cards, callback, true, false);
     }
 
 	public void BurnCardsFromPile(List<string> cards, Action<CardVisual> callback = null)
     {
-		Visualize(CardAnimationAim.Pile, CardAnimationAim.Burn, cards, callback, false, false);
+		Visualize(CardAnimationAim.Pile, CardAnimationAim.Burn, cards, callback, true, false);
     }
 
 	public void BurnCardsFromHand(List<string> cards, Action<CardVisual> callback = null)
     {
-		Visualize(CardAnimationAim.Hand, CardAnimationAim.Burn, cards, callback, false, false);
+		Visualize(CardAnimationAim.Hand, CardAnimationAim.Burn, cards, callback, true, false);
     }
 
 	public void SteelCardsFromDrop(List<string> cards, Action<CardVisual> callback = null)
@@ -157,6 +157,7 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
 
 	private IEnumerator MoveCardOut(CardAnimationAim to, List<CardVisual> cards, Action<CardVisual> callback = null, bool withDelay = true)
     {
+
         Queue<CardVisual> movingCards = new Queue<CardVisual>(cards);
 
         while (movingCards.Count > 0)
@@ -173,12 +174,15 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
                 case CardAnimationAim.Hand:
                     card.SetState(CardVisual.CardState.Hand);
                     break;
-			case CardAnimationAim.Pile:
-				Debug.Log ("chose to pile");
-                    card.SetState(CardVisual.CardState.Piled);
+			    case CardAnimationAim.Pile:
+				    Debug.Log ("chose to pile");
+                        card.SetState(CardVisual.CardState.Piled);
+                        break;
+                case CardAnimationAim.Top:
+                    card.SetState(CardVisual.CardState.Stolen);
                     break;
             }
-				
+
 			if(withDelay)
 			{
 				yield return new WaitForSeconds(0.5f);

@@ -47,7 +47,8 @@ public class DropEffect :ICardEffect
 	{
 		List<Card> cards = GetCards (owner, effect.NumberOfCards);
 		CardsManager.Instance.ChooseManager.FillChooseCardField (cards, effect.NumberOfChosenCards, (List<CardVisual> chosenCards)=>{
-			BurnCards(owner, chosenCards.Select(c=>c.CardAsset).ToList());
+
+            BurnCards(owner, chosenCards.Select(c=>c.CardAsset).ToList());
 			if(stayedPlayers.Count>0)
 			{
 				PhotonPlayer aimPlayer = (stayedPlayers[0] as PlayerVisual).Player;

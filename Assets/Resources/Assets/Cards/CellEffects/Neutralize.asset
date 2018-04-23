@@ -11,10 +11,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4805ed0026ca9418a389718f30adbf, type: 3}
   m_Name: Neutralize
   m_EditorClassIdentifier: 
-  CardName: 
-  CardDescription: 
-  cardSprite: {fileID: 0}
-  Cost: []
+  CardName: "\u0421rossroads"
+  CardDescription: take 2 cards or +3 all resources
+  cardSprite: {fileID: 21300144, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
+  Cost:
+  - resource: {fileID: 11400000, guid: 09cc291755db7bb4893dca74fad8fad3, type: 2}
+    value: 2
+  - resource: {fileID: 11400000, guid: f3768d0ac0771e34da0e3d1561f70bda, type: 2}
+    value: 2
   WinCard: 0
-  DestroyAfterPlay: 0
-  CardEffects: []
+  DestroyAfterPlay: 1
+  CardEffects:
+  - cardAim: 0
+    playerAimType: 0
+    cellAimType: 0
+    playerActionType: 4
+    cellActionType: 0
+    cellOwnership: 0
+    cardsAimType: 0
+    cardsAimType2: 0
+    noneType: 1
+    Cards:
+    - {fileID: 11400000, guid: 665aedb83e1917e40ab333ea009ebabc, type: 2}
+    - {fileID: 11400000, guid: dd1642a4cc07b03418214b8085b29b04, type: 2}
+    NumberOfCards: 2
+    NumberOfChosenCards: 0
+    biomsFilter: 
+    statesFilter: []
+    EvolveType: 0
+    EvolveLevel: 0
+    BiomToChange: 0
+    NumberOfCells: 0
+    Radius: 0

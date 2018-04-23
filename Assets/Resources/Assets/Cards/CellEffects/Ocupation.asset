@@ -23,7 +23,7 @@ MonoBehaviour:
     cellAimType: 0
     playerActionType: 0
     cellActionType: 1
-    cellOwnership: 5
+    cellOwnership: 4
     cardsAimType: 0
     cardsAimType2: 0
     noneType: 0
@@ -31,7 +31,10 @@ MonoBehaviour:
     NumberOfCards: 0
     NumberOfChosenCards: 0
     biomsFilter: 
-    statesFilter: []
+    statesFilter:
+    - {fileID: 11400000, guid: 5cf13d8dd745b40b39487c6fc597316d, type: 2}
+    - {fileID: 11400000, guid: 5f0775de07ed34a13890f63c6569bc1d, type: 2}
+    - {fileID: 11400000, guid: 5f0775de07ed34a13890f63c6569bc1d, type: 2}
     EvolveType: 0
     EvolveLevel: 0
     BiomToChange: 0

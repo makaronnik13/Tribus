@@ -115,6 +115,10 @@ public static class DefaultResourcesManager
 
         foreach (CellState cs in AllStatesList.States)
         {
+            if (cs== null)
+            {
+                continue;
+            }
             Combination comb = cs.Combinations.FirstOrDefault(c => c.ResultState == state);
             if (comb != null)
             {

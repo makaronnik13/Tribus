@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95f6e800a94fe4868909669810305fa9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a3bdb2cd68f901469e7cc149151eb49, type: 3}
   m_Name: PostProcess
   m_EditorClassIdentifier: 
   debugViews:
@@ -40,9 +40,9 @@ MonoBehaviour:
         stationaryBlending: 0.95
         motionBlending: 0.85
   ambientOcclusion:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
-      intensity: 1
+      intensity: 4
       radius: 0.3
       sampleCount: 10
       downsampling: 1
@@ -101,9 +101,9 @@ MonoBehaviour:
     m_Settings:
       bloom:
         intensity: 0.1
-        threshold: 0.49
+        threshold: 0.68
         softKnee: 0.5
-        radius: 2
+        radius: 2.14
         antiFlicker: 0
       lensDirt:
         texture: {fileID: 0}
@@ -121,11 +121,11 @@ MonoBehaviour:
         neutralWhiteClip: 10
       basic:
         postExposure: 0
-        temperature: 7
+        temperature: 0
         tint: 0
         hueShift: 0
-        saturation: 0.95
-        contrast: 1.45
+        saturation: 1
+        contrast: 1
       channelMixer:
         red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
@@ -134,9 +134,9 @@ MonoBehaviour:
       colorWheels:
         mode: 1
         log:
-          slope: {r: 1, g: 0.9623481, b: 0.9976844, a: 0}
-          power: {r: 0.9843357, g: 0.9686716, b: 1, a: -0.046242774}
-          offset: {r: 1, g: 1, b: 1, a: -0.023121387}
+          slope: {r: 1, g: 1, b: 1, a: 0}
+          power: {r: 1, g: 1, b: 1, a: 0}
+          offset: {r: 1, g: 1, b: 1, a: 0}
         linear:
           lift: {r: 0, g: 0, b: 0, a: 0}
           gamma: {r: 0, g: 0, b: 0, a: 0}
@@ -298,10 +298,10 @@ MonoBehaviour:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.193
-      smoothness: 0.341
+      intensity: 0.45
+      smoothness: 0.2
       roundness: 1
-      mask: {fileID: 2800000, guid: 04eb87e72b3c1c648ba47a869ee00505, type: 3}
+      mask: {fileID: 0}
       opacity: 1
       rounded: 0
   dithering:

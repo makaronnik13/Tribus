@@ -147,37 +147,38 @@ public class CardsPlayer : Singleton<CardsPlayer>
         ActiveCard = null;
     }
 
-	private void PlayCard(CardVisual card, List<ISkillAim> aims)
+    private void PlayCard(CardVisual card, List<ISkillAim> aims)
     {
-		CardEffect cellAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Cell);
-		if (cellAimedCard != null) 
-		{
-			if(cellAimedCard.cellAimType == CardEffect.CellAimType.Random)
-			{
-				ISkillAim[] shuffledAims = aims.OrderBy (a => Guid.NewGuid ()).ToArray ();
-				SelectAims (shuffledAims.Take(Mathf.Min(cellAimedCard.NumberOfCells, shuffledAims.Length)).ToArray());
-				aims = this.focusedAims;
-			}
-		}
-			
+        CardEffect cellAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault(ce => ce.cardAim == CardEffect.CardAim.Cell);
+        if (cellAimedCard != null)
+        {
+            if (cellAimedCard.cellAimType == CardEffect.CellAimType.Random)
+            {
+                ISkillAim[] shuffledAims = aims.OrderBy(a => Guid.NewGuid()).ToArray();
+                SelectAims(shuffledAims.Take(Mathf.Min(cellAimedCard.NumberOfCells, shuffledAims.Length)).ToArray());
+                aims = this.focusedAims;
+            }
+        }
+
         ActiveCard = null;
 
-		CardsManager.Instance.OnCardDroped.Invoke (card);
+        NetworkCardGameManager.sInstance.RemoveCardFromHand(card.CardAsset, PhotonNetwork.player);
 
-		bool cardShouldBePlayed = false;
+        if (card.CardAsset.DestroyAfterPlay)
+        {
+            card.SetState(CardVisual.CardState.Burned);
+        }
+        else
+        {
+            NetworkCardGameManager.sInstance.AddCardToDrop(card.CardAsset, PhotonNetwork.player, LocalPlayerVisual.CardAnimationAim.Hand, false);
+            CardsManager.Instance.DropCard(card);
+        }
 
-		NetworkCardGameManager.sInstance.AddCardToDrop(card.CardAsset, PhotonNetwork.player, LocalPlayerVisual.CardAnimationAim.Hand, false);
-		NetworkCardGameManager.sInstance.RemoveCardFromHand(card.CardAsset, PhotonNetwork.player);
-
-		CardsManager.Instance.DropCard(card);
 		OnCardPlayed.Invoke (card.CardAsset);
 
 		foreach(ICardEffect cardEffect in cardEffects)
 		{
-			cardShouldBePlayed |= cardEffect.TryToPlayCard (card.CardAsset.CardEffects, aims, ()=>{
-				
-
-			});
+			cardEffect.TryToPlayCard (card.CardAsset.CardEffects, aims, ()=> { });
 		}
     }
 
