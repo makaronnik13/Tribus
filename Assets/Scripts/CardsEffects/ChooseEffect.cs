@@ -15,10 +15,10 @@ public class ChooseEffect :ICardEffect
 				continue;
 			}
 				
-			CardsManager.Instance.FillChooseCardField (observeEffect.Cards, 1, (List<CardVisual> chosenCards)=>
+			CardsManager.Instance.ChooseManager.FillChooseCardField (observeEffect.Cards, 1, (List<CardVisual> chosenCards)=>
 			{
 					
-			}, false);
+			});
 		}
 
 		return false;

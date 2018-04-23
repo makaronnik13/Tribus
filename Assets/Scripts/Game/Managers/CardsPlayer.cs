@@ -142,7 +142,6 @@ public class CardsPlayer : Singleton<CardsPlayer>
         else
         {
             PlayCard(card, focusedAims);
-            card.SetState(CardVisual.CardState.Played);
         }
 
         ActiveCard = null;
@@ -167,19 +166,18 @@ public class CardsPlayer : Singleton<CardsPlayer>
 
 		bool cardShouldBePlayed = false;
 
+		NetworkCardGameManager.sInstance.AddCardToDrop(card.CardAsset, PhotonNetwork.player, LocalPlayerVisual.CardAnimationAim.Hand, false);
+		NetworkCardGameManager.sInstance.RemoveCardFromHand(card.CardAsset, PhotonNetwork.player);
+
+		CardsManager.Instance.DropCard(card);
+		OnCardPlayed.Invoke (card.CardAsset);
+
 		foreach(ICardEffect cardEffect in cardEffects)
 		{
 			cardShouldBePlayed |= cardEffect.TryToPlayCard (card.CardAsset.CardEffects, aims, ()=>{
-						OnCardPlayed.Invoke (card.CardAsset);
-						CardsFieldTrigger.Instance.activeCardVisual.SetState(CardVisual.CardState.Played);
+				
+
 			});
-		}
-
-
-		if (cardShouldBePlayed) 
-		{
-			OnCardPlayed.Invoke (card.CardAsset);
-			CardsFieldTrigger.Instance.activeCardVisual.SetState(CardVisual.CardState.Played);
 		}
     }
 

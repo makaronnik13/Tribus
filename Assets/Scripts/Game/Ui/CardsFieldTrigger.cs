@@ -9,7 +9,7 @@ public class CardsFieldTrigger : Singleton<CardsFieldTrigger>, IPointerEnterHand
 
 	public void OnPointerEnter (PointerEventData eventData)
 	{
-		if(!eventData.pointerDrag)
+		if(!eventData.pointerDrag || CardsPlayer.Instance.ActiveCard || CardsManager.Instance.ChooseManager.Choosing)
 		{
 			return;
 		}
@@ -23,6 +23,11 @@ public class CardsFieldTrigger : Singleton<CardsFieldTrigger>, IPointerEnterHand
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
+		if(CardsManager.Instance.ChooseManager.Choosing)
+		{
+			return;
+		}
+
 		if (activeCardVisual && (activeCardVisual.State == CardVisual.CardState.Dragging || activeCardVisual.State == CardVisual.CardState.ChosingAim) && !CardsManager.Instance.ChooseManager.Choosing) 
 		{
             activeCardVisual.SetState(CardVisual.CardState.Dragging);

@@ -8,7 +8,7 @@ using System;
 
 public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    private static float _movementSpeed = 0.3f;
+	private static float _movementSpeed = 0.3f;
     private static float _scaleSpeed = 0.2f;
 
     public enum CardState
@@ -68,7 +68,11 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         set
         {
             _cardCanBePlayed = (State == CardState.Hand || State == CardState.Hovered || State == CardState.Dragging || State == CardState.ChosingAim) && ResourcesManager.Instance.CardAvailability(_cardAsset) && PhotonNetwork.player == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer;
-            AvaliabilityFrame.enabled = _cardCanBePlayed;
+            
+			if(State!= CardState.Choosing && State!= CardState.Chosed && State!= CardState.HoveredInChoose)
+			{
+				AvaliabilityFrame.enabled = _cardCanBePlayed;
+			}
         }
     }
     public CardState State
@@ -94,11 +98,11 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #region publicMethods
     public void SetState(CardState state, Action callback = null)
     {
-        if (state == _state)
+		if (state == _state || _state == CardState.Played)
         {
             return;
         }
-
+			
 
         GetComponent<CanvasGroup>().blocksRaycasts = false;
 
@@ -122,17 +126,20 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 transform.SetParent(CardsManager.Instance.handTransform);
                 GetComponent<CanvasGroup>().blocksRaycasts = true;
                 MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this, true), CardsManager.Instance.GetRotation(this, true), Vector3.one * 2f, () => {
-                    GetComponent<CanvasGroup>().blocksRaycasts = true;
+					GetComponent<CanvasGroup>().blocksRaycasts = true;
                 });
                 break;
-            case CardState.Hand:
-                CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
-                CardsPlayer.Instance.DraggingCard = null;
-                CardsManager.Instance.HandCardsLayout.AddCardToLayout(this);
+		case CardState.Hand:
+			Vector3 startPosition = transform.position;
+			CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
+			CardsPlayer.Instance.DraggingCard = null;
+			CardsManager.Instance.HandCardsLayout.AddCardToLayout (this);
+			transform.position = startPosition;
                 MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => {
-                    GetComponent<CanvasGroup>().blocksRaycasts = true;
+					GetComponent<CanvasGroup>().blocksRaycasts = true;
                 });
                 CardsManager.Instance.HandCardsLayout.AddCardToLayout(this);
+				GetComponent<CanvasGroup>().blocksRaycasts = true;
                 break;
             case CardState.Dragging:
                 CardsPlayer.Instance.ActiveCard = null;
@@ -140,44 +147,71 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 transform.SetParent(GUICamera.Instance.GetComponentInChildren<Canvas>().transform);
                 CardsPlayer.Instance.DraggingCard = this;
                 break;
-            case CardState.Played:
-                CardsPlayer.Instance.ActiveCard = null;
-
+		case CardState.Played:
+			startPosition = transform.position;
+			CardsPlayer.Instance.ActiveCard = null;
+			CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
+			CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout (this);
+			transform.SetParent (CardsManager.Instance.dropTransform);
+			transform.position = startPosition;
                 MoveCardTo(CardsManager.Instance.dropTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => 
                 {
-                    CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
-                    CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout(this);
-                    CardsManager.Instance.DropCard(this);
+					Lean.Pool.LeanPool.Despawn(gameObject);   
                 });
                 break;
-            case CardState.Choosing:
-                MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this), CardsManager.Instance.GetChooseRotation(this), Vector3.one, () => { });
+		case CardState.Choosing:
+				GetComponent<CanvasGroup>().blocksRaycasts = true;
+				CardsManager.Instance.ChoseCardsLayout.AddCardToLayout(this);
+				MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => { });
                 break;
             case CardState.HoveredInChoose:
+				GetComponent<CanvasGroup>().blocksRaycasts = true;
                 transform.SetAsLastSibling();
-                MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this, true), CardsManager.Instance.GetChooseRotation(this, true), Vector3.one * 1.5f, () => { });
+			MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetPosition(this, false), CardsManager.Instance.GetRotation(this, false), Vector3.one * 1.5f, () => { });
                 break;
             case CardState.Chosed:
-                MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this, false), CardsManager.Instance.GetChooseRotation(this, false), Vector3.one, () => { });
+				GetComponent<CanvasGroup>().blocksRaycasts = true;
+                MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetPosition(this, false), CardsManager.Instance.GetRotation(this, false), Vector3.one, () => { });
                 break;
             case CardState.Visualising:
                 CardsManager.Instance.ChoseCardsLayout.AddCardToLayout(this);
-                MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetChoosePosition(this), CardsManager.Instance.GetChooseRotation(this), Vector3.one, () => { });
+				transform.SetParent (CardsManager.Instance.chooseCardField);
+                MoveCardTo(CardsManager.Instance.chooseCardField, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => { });
                 break;
-            case CardState.Piled:
-                CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
-                MoveCardTo(CardsManager.Instance.pileTransform, CardsManager.Instance.GetChoosePosition(this), CardsManager.Instance.GetChooseRotation(this), Vector3.one, () => {
+		case CardState.Piled:
+			startPosition = transform.position;
+			CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
+			CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout (this);
+			transform.SetParent (CardsManager.Instance.pileTransform);
+			transform.position = startPosition;
+				MoveCardTo(CardsManager.Instance.pileTransform, Vector3.zero, Quaternion.identity, Vector3.one, () => {
+					CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
                     Destroy(gameObject);
                 });
                 break;
+		case CardState.Burned:
+			startPosition = transform.position;
+			CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout (this);
+			transform.SetParent (CardsManager.Instance.chooseCardField);
+			transform.position = startPosition;
+			MoveCardTo(CardsManager.Instance.chooseCardField, Vector3.zero, Quaternion.identity, Vector3.zero, () => 
+			{
+				CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
+				Destroy(gameObject);
+			});
+			break;
         }
         _state = state;
         CardCanBePlayed = CardCanBePlayed;
     }
     public void Reposition()
     {
-        //MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => { });
-        MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => {});
+		if(State == CardState.Hand || State == CardState.Choosing || State == CardState.Chosed || State == CardState.Hovered || State == CardState.HoveredInChoose || State == CardState.Visualising)
+		{
+			CardsLayout layout = CardsManager.Instance.GetCardLayout (this);
+        	//MoveCardTo(CardsManager.Instance.handTransform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => { });
+			MoveCardTo(layout.transform, CardsManager.Instance.GetPosition(this), CardsManager.Instance.GetRotation(this), Vector3.one, () => {});
+		}
     }
     #endregion
 
@@ -199,6 +233,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             newVisualiser.GetComponent<Image>().sprite = ink.resource.sprite;
             newVisualiser.GetComponentInChildren<TextMeshProUGUI>().text = "" + ink.value;
         }
+		_state = CardVisual.CardState.None;
     }
     void Update()
     {
@@ -210,6 +245,15 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     }
     void OnDestroy()
     {
+		if(CardsManager.Instance && CardsManager.Instance.ChoseCardsLayout.Cards.Contains(this))
+		{
+			CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
+		}
+		if(CardsManager.Instance && CardsManager.Instance.HandCardsLayout.Cards.Contains(this))
+		{
+			CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout (this);
+		}
+
         if (ResourcesManager.Instance)
         {
             ResourcesManager.Instance.OnResourceValueChanged -= ResourceChanged;
@@ -220,7 +264,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #region Interaction implementation
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (CardsPlayer.Instance.DraggingCard)
+		if (CardsPlayer.Instance.DraggingCard || CardsManager.Instance.ChooseManager.Choosing)
         {
             return;
         }
@@ -245,17 +289,27 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+		if (CardsManager.Instance.ChooseManager.Choosing)
+		{
+			return;
+		}
+
         if (_state == CardState.ChosingAim)
         {
             CardsPlayer.Instance.PlayCard(this);
         }
-        else
+		else if(State!= CardState.Choosing && State!=CardState.Chosed && State!=CardState.HoveredInChoose)
         {
             SetState(CardState.Hand);
         }
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+		if (State == CardState.Choosing || State == CardState.Chosed)
+		{
+			SetState(CardState.HoveredInChoose);
+		}
+
         if(CardsPlayer.Instance.DraggingCard)
         {
             return;
@@ -264,13 +318,22 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         {
             SetState(CardState.Hovered);
         }
-        if (State == CardState.Choosing || State == CardState.Chosed)
-        {
-            SetState(CardState.HoveredInChoose);
-        }
+       
     }
     public void OnPointerExit(PointerEventData eventData)
     {
+		if (_state == CardState.HoveredInChoose)
+		{
+			if (GetComponentInParent<ChooseManager>().chosedCards.Contains(this))
+			{
+				SetState(CardState.Chosed);
+			}
+			else
+			{
+				SetState(CardState.Choosing);
+			}
+		}
+
         if (CardsPlayer.Instance.DraggingCard)
         {
             return;
@@ -279,19 +342,6 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         if (_state == CardState.Hovered)
         {
             SetState(CardState.Hand);
-        }
-
-        if (_state == CardState.HoveredInChoose)
-        {
-            if (GetComponentInParent<ChooseManager>().chosedCards.Contains(this))
-            {
-                SetState(CardState.Chosed);
-            }
-            else
-            {
-                SetState(CardState.Choosing);
-            }
-
         }
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -303,7 +353,6 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #region Animation
     private void MoveCardTo(Transform parent, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, Action callback = null)
     {
-        Debug.Log("move "+gameObject.GetInstanceID()+" to "+parent.gameObject.name);
         StopAllCoroutines();
         StartCoroutine(MoveCardToCoroutine(parent, localPosition, localRotation, localScale, callback));
     }
@@ -329,6 +378,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             time += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
+			
 
         transform.localPosition = localPosition;
         transform.localRotation = localRotation;

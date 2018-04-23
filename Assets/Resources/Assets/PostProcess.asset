@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a3bdb2cd68f901469e7cc149151eb49, type: 3}
+  m_Script: {fileID: 11500000, guid: 95f6e800a94fe4868909669810305fa9, type: 3}
   m_Name: PostProcess
   m_EditorClassIdentifier: 
   debugViews:
@@ -31,20 +31,20 @@ MonoBehaviour:
   antialiasing:
     m_Enabled: 0
     m_Settings:
-      method: 1
+      method: 0
       fxaaSettings:
-        preset: 1
+        preset: 2
       taaSettings:
-        jitterSpread: 0.209
-        sharpen: 0
-        stationaryBlending: 0.843
-        motionBlending: 0.456
+        jitterSpread: 0.75
+        sharpen: 0.3
+        stationaryBlending: 0.95
+        motionBlending: 0.85
   ambientOcclusion:
     m_Enabled: 0
     m_Settings:
-      intensity: 1.96
-      radius: 0.09
-      sampleCount: 6
+      intensity: 1
+      radius: 0.3
+      sampleCount: 10
       downsampling: 1
       forceForwardCompatibility: 0
       ambientOnly: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 0
     m_Settings:
-      focusDistance: 8.54
+      focusDistance: 10
       aperture: 5.6
       focalLength: 50
       useCameraFov: 0
@@ -79,9 +79,9 @@ MonoBehaviour:
   motionBlur:
     m_Enabled: 0
     m_Settings:
-      shutterAngle: 286
-      sampleCount: 5
-      frameBlending: 0.086
+      shutterAngle: 270
+      sampleCount: 10
+      frameBlending: 0
   eyeAdaptation:
     m_Enabled: 0
     m_Settings:
@@ -97,19 +97,19 @@ MonoBehaviour:
       logMin: -8
       logMax: 4
   bloom:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.79
-        threshold: 0.67
-        softKnee: 0.7
-        radius: 1.87
+        intensity: 0.1
+        threshold: 0.49
+        softKnee: 0.5
+        radius: 2
         antiFlicker: 0
       lensDirt:
         texture: {fileID: 0}
         intensity: 3
   colorGrading:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       tonemapping:
         tonemapper: 1
@@ -121,11 +121,11 @@ MonoBehaviour:
         neutralWhiteClip: 10
       basic:
         postExposure: 0
-        temperature: 0
+        temperature: 7
         tint: 0
         hueShift: 0
-        saturation: 1.59
-        contrast: 0.72
+        saturation: 0.95
+        contrast: 1.45
       channelMixer:
         red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
@@ -134,13 +134,13 @@ MonoBehaviour:
       colorWheels:
         mode: 1
         log:
-          slope: {r: 1, g: 1, b: 1, a: 0}
-          power: {r: 1, g: 1, b: 1, a: 0}
-          offset: {r: 1, g: 1, b: 1, a: 0}
+          slope: {r: 1, g: 0.9623481, b: 0.9976844, a: 0}
+          power: {r: 0.9843357, g: 0.9686716, b: 1, a: -0.046242774}
+          offset: {r: 1, g: 1, b: 1, a: -0.023121387}
         linear:
-          lift: {r: 1, g: 1, b: 1, a: 0}
-          gamma: {r: 1, g: 1, b: 1, a: 0}
-          gain: {r: 1, g: 1, b: 1, a: 0}
+          lift: {r: 0, g: 0, b: 0, a: 0}
+          gamma: {r: 0, g: 0, b: 0, a: 0}
+          gain: {r: 0, g: 0, b: 0, a: 0}
       curves:
         master:
           curve:
@@ -278,7 +278,7 @@ MonoBehaviour:
   userLut:
     m_Enabled: 0
     m_Settings:
-      lut: {fileID: 2800000, guid: ef656a92b5be2d043b5bf03b4113af23, type: 3}
+      lut: {fileID: 0}
       contribution: 1
   chromaticAberration:
     m_Enabled: 0
@@ -293,15 +293,15 @@ MonoBehaviour:
       size: 1
       luminanceContribution: 0.8
   vignette:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       mode: 0
-      color: {r: 0.22794116, g: 0.22458908, b: 0.22458908, a: 1}
+      color: {r: 0, g: 0, b: 0, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.477
-      smoothness: 0.719
-      roundness: 0.773
-      mask: {fileID: 0}
+      intensity: 0.193
+      smoothness: 0.341
+      roundness: 1
+      mask: {fileID: 2800000, guid: 04eb87e72b3c1c648ba47a869ee00505, type: 3}
       opacity: 1
       rounded: 0
   dithering:

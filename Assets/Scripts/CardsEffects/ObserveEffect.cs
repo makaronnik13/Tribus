@@ -50,7 +50,7 @@ public class ObserveEffect :ICardEffect
 			cards = NetworkCardGameManager.sInstance.GetPlayerDrop(owner);
 			break;
 		case CardEffect.CardsAimType.Hand:
-                NetworkCardGameManager.sInstance.GetPlayerHand(owner);
+			cards = NetworkCardGameManager.sInstance.GetPlayerHand(owner);
                 break;
 		case CardEffect.CardsAimType.Pile:
 			cards = NetworkCardGameManager.sInstance.GetPlayerPile(owner);
@@ -66,9 +66,10 @@ public class ObserveEffect :ICardEffect
 		cards = cards.Take (Mathf.Min(cards.Count, count)).ToList();
 
 
-		CardsManager.Instance.FillChooseCardField (cards, 0, (List<CardVisual> chodenCards)=>{
+		Debug.Log (cards.Count);
 
-			Debug.Log (stayedPlayers.Count);
+		CardsManager.Instance.ChooseManager.FillChooseCardField (cards, 0, (List<CardVisual> chodenCards)=>{
+
 			if(stayedPlayers.Count>0)
 			{
 				

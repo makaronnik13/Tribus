@@ -19,6 +19,7 @@ public class CardsLayout : MonoBehaviour
             return _cardSize;
         }
     }
+
 	public List<CardVisual> Cards
 	{
 		get
@@ -26,8 +27,9 @@ public class CardsLayout : MonoBehaviour
 			List<CardVisual> cv = new List<CardVisual> ();
 			foreach(Transform pair in CardsSiblings)
 			{
-				cv.Add (pair.GetComponent<CardVisual>());
+					cv.Add (pair.GetComponent<CardVisual>());
 			}
+				
 			return cv;
 		}
 	}
@@ -46,6 +48,7 @@ public class CardsLayout : MonoBehaviour
 
     public float rotOffset = 3;
     public float maxRot = 20;
+	public float gap = 0;
 
     public Action<CardVisual> OnCardAddedToLayout = (cv) => { };
     public Action<CardVisual> OnCardRemovedFromLayout = (cv) => { };
@@ -110,8 +113,8 @@ public class CardsLayout : MonoBehaviour
         float yMultiplyer = 1f / 10000;
         int cards = transform.childCount;
         float fieldWidth = GetComponent<RectTransform>().rect.width;
-        float cardWidth = cardSize.x;
-        float offset = Mathf.Min(cardWidth, fieldWidth/cards);
+		float cardWidth = cardSize.x;
+		float offset = Mathf.Min(cardWidth, fieldWidth/cards)+gap;
 
         Vector3 aimPosition = Vector3.zero;
         int childId = CardsSiblings.IndexOf(cardVisual.transform);

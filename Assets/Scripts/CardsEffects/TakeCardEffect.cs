@@ -11,7 +11,7 @@ public class TakeCardEffect :ICardEffect
 		bool result = false;
 		foreach (CardEffect effect in effects) 
 		{
-            /*
+            
 			if(effect.cardAim!=CardEffect.CardAim.Player || effect.playerActionType!=CardEffect.PlayerActionType.TakeCards)
 			{
 				continue;
@@ -20,19 +20,16 @@ public class TakeCardEffect :ICardEffect
 			foreach (ISkillAim aim in aims) 
 			{
 				if (aim.GetType () == typeof(PlayerVisual)) 
-				{						
-					if ((aim as PlayerVisual).Player == GameLobby.Instance.CurrentPlayer) 
+				{
+					PhotonPlayer player = (aim as PlayerVisual).Player;
+					for(int i = 0; i<effect.NumberOfCards;i++)
 					{
-							for (int i = 0; i < effect.NumberOfCards; i++) {
-								CardsManager.Instance.GetCard ();
-							}	
-					} else {
-						(aim as PlayerVisual).Player.CardsInHand += effect.NumberOfCards;
+						NetworkCardGameManager.sInstance.PlayerGetCard(player);
 					}
 				}
 			}
 			result = true;
-            */
+            
 		}
         
 		return result;

@@ -218,11 +218,14 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
 		}
 	}
 
-	public void RemoveCardFromPile(string cardId)
+	public void RemoveCardsFromPile(List<string> cardsIds)
     {
-		List<string> newPile = Pile.ToList();
-        newPile.Remove(cardId);
-		Pile = new Queue<string>(newPile);
+		foreach(string id in cardsIds)
+		{
+			List<string> newPile = Pile.ToList ();
+			newPile.Remove (id);
+			Pile = new Queue<String> (newPile);
+		}
     }
 
     public void AddCardsToHand(string[] cardsIds)
@@ -238,11 +241,14 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
         Hand.Add(cardId);
     }
 
-	public void RemoveCardFromDrop(string cardId)
+	public void RemoveCardsFromDrop(List<string>  cardsIds)
     {
-		List<string> newDrop = Drop.ToList();
-        newDrop.Remove(cardId);
-		Drop = new Stack<string>(newDrop);
+		foreach(string id in cardsIds)
+		{
+			List<string> newDrop = Drop.ToList ();
+			newDrop.Remove (id);
+			Drop = new Stack<String> (newDrop);
+		}
     }
 
     public void AddCardsToPile(string[] cardsIds)
@@ -271,8 +277,11 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
         Drop.Push(cardId);
     }
 
-	public void RemoveCardFromHand(string cardId)
+	public void RemoveCardsFromHand(List<string> cardsIds)
     {
-        Hand.Remove(cardId);
+		foreach(string id in cardsIds)
+		{
+			Hand.Remove(id);
+		}
     }
 }

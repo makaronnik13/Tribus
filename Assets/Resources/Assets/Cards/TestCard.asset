@@ -21,15 +21,18 @@ MonoBehaviour:
   - cardAim: 2
     playerAimType: 1
     cellAimType: 0
-    playerActionType: 0
+    playerActionType: 2
     cellActionType: 0
     cellOwnership: 0
-    cardsAimType: 0
-    cardsAimType2: 0
+    cardsAimType: 1
+    cardsAimType2: 1
     noneType: 0
     Cards:
     - {fileID: 11400000}
-    NumberOfCards: 0
+    - {fileID: 11400000}
+    - {fileID: 11400000}
+    - {fileID: 11400000}
+    NumberOfCards: 3
     NumberOfChosenCards: 0
     biomsFilter: 
     statesFilter: []

@@ -50,8 +50,7 @@ public class BurnEffect :ICardEffect
 		List<Card> cards = GetCards (effect.cardsAimType, owner, effect.NumberOfCards);
 
 
-		CardsManager.Instance.FillChooseCardField (cards, effect.NumberOfChosenCards, (List<CardVisual> chosenCards)=>{
-			Debug.Log(chosenCards.Count);
+		CardsManager.Instance.ChooseManager.FillChooseCardField (cards, effect.NumberOfChosenCards, (List<CardVisual> chosenCards)=>{
 			BurnCards(owner, aim, chosenCards.Select(c=>c.CardAsset).ToList());
 			if(stayedPlayers.Count>0)
 			{
@@ -64,39 +63,30 @@ public class BurnEffect :ICardEffect
 			{
 				callback.Invoke();
 			}
+
+			foreach(CardVisual cv in chosenCards)
+			{
+				GameObject.Destroy(cv.gameObject);
+			}
 		});
 	}
 
 	private void BurnCards(PhotonPlayer owner, CardEffect.CardsAimType aim, List<Card> chosenCards)
 	{
-		Debug.Log (chosenCards.Count);
 		switch(aim)
 		{
 		case CardEffect.CardsAimType.Drop:
-                foreach (Card c in chosenCards)
-                {
-                    NetworkCardGameManager.sInstance.RemoveCardFromDrop(c, owner);
-                }
-                break;
+			NetworkCardGameManager.sInstance.RemoveCardsFromDrop (chosenCards, owner, true);
+			break;
 		case CardEffect.CardsAimType.Hand:
-                foreach (Card c in chosenCards)
-                {
-                    NetworkCardGameManager.sInstance.RemoveCardFromHand(c, owner);
-                }
-                break;
+			NetworkCardGameManager.sInstance.RemoveCardsFromHand(chosenCards, owner, true);
+            break;
 		case CardEffect.CardsAimType.Pile:
-                foreach (Card c in chosenCards)
-                {
-                    NetworkCardGameManager.sInstance.RemoveCardFromPile(c, owner);
-                }
-                break;
+			NetworkCardGameManager.sInstance.RemoveCardsFromPile(chosenCards, owner, true);
+            break;
 		case CardEffect.CardsAimType.All:
-
-                foreach (Card c in chosenCards)
-                {
-                    NetworkCardGameManager.sInstance.RemoveCardFromPlayer(c, owner);
-                }
-                break;
+			NetworkCardGameManager.sInstance.RemoveCardsFromPlayer(chosenCards, owner, true);
+            break;
 		}
 
 	}

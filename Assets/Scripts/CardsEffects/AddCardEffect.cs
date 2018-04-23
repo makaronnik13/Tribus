@@ -19,14 +19,15 @@ public class AddCardEffect : ICardEffect
 
             if (addCardsEffect.NumberOfChosenCards < addCardsEffect.Cards.Count() && addCardsEffect.NumberOfChosenCards!=0)
             {
-                CardsManager.Instance.FillChooseCardField(addCardsEffect.Cards, addCardsEffect.NumberOfChosenCards, (List<CardVisual> chodenCards) =>
+				CardsManager.Instance.ChooseManager.FillChooseCardField(addCardsEffect.Cards, addCardsEffect.NumberOfChosenCards, (List<CardVisual> chodenCards) =>
                 {
                     List<Card> addingCards = new List<Card>();
                     foreach (CardVisual cv in chodenCards)
                     {
                         addingCards.Add(cv.CardAsset);
                     }
-                    AddCardsToAim(addingCards, aims, addCardsEffect.cardsAimType);
+
+                    AddCardsToAim(addingCards, aims, addCardsEffect.cardsAimType, true);
                     if (addCardsEffect == addCardsEffects[addCardsEffects.Count - 1])
                     {
                         callback.Invoke();
@@ -35,7 +36,7 @@ public class AddCardEffect : ICardEffect
             }
             else
             {
-                AddCardsToAim(addCardsEffect.Cards, aims, addCardsEffect.cardsAimType);
+                AddCardsToAim(addCardsEffect.Cards, aims, addCardsEffect.cardsAimType, false);
                 result = true;
             }
 
@@ -45,31 +46,29 @@ public class AddCardEffect : ICardEffect
         return result;
     }
 
-    private void AddCardsToAim(List<Card> addedCards, List<ISkillAim> aims, CardEffect.CardsAimType cardAim)
+	private void AddCardsToAim(List<Card> addedCards, List<ISkillAim> aims, CardEffect.CardsAimType cardAim, bool dontWait)
     {
         foreach (ISkillAim aim in aims)
         {
             if (aim.GetType() == typeof(PlayerVisual))
             {
+				LocalPlayerVisual.CardAnimationAim animationAim = LocalPlayerVisual.CardAnimationAim.Top;
+
+				if(dontWait)
+				{
+					animationAim = LocalPlayerVisual.CardAnimationAim.Choose;
+				}
+
                 switch (cardAim)
                 {
                     case CardEffect.CardsAimType.Hand:
-                        foreach (Card c in addedCards)
-                        {
-                            NetworkCardGameManager.sInstance.AddCardToHand(c, ((PlayerVisual)aim).Player);
-                        }
+					NetworkCardGameManager.sInstance.AddCardsToHand(addedCards, ((PlayerVisual)aim).Player, animationAim, true, dontWait);
                         break;
                     case CardEffect.CardsAimType.Drop:
-                        foreach (Card c in addedCards)
-                        {
-                            NetworkCardGameManager.sInstance.AddCardToDrop(c, ((PlayerVisual)aim).Player);
-                        }
+					NetworkCardGameManager.sInstance.AddCardsToDrop(addedCards, ((PlayerVisual)aim).Player, animationAim, true, dontWait);
                         break;
-                    case CardEffect.CardsAimType.Pile:
-                        foreach (Card c in addedCards)
-                        {
-                            NetworkCardGameManager.sInstance.AddCardToPile(c, ((PlayerVisual)aim).Player);
-                        }
+                    case CardEffect.CardsAimType.Pile:         
+					NetworkCardGameManager.sInstance.AddCardsToPile(addedCards, ((PlayerVisual)aim).Player, animationAim, true, dontWait);
                         break;
                 }
             }

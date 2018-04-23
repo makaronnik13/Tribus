@@ -55,7 +55,7 @@ public class StillEffect :ICardEffect
 		List<Card> cards = GetCards (effect.cardsAimType, owner, effect.NumberOfCards);
 
 
-		CardsManager.Instance.FillChooseCardField (cards, effect.NumberOfChosenCards, (List<CardVisual> chosenCards)=>{
+		CardsManager.Instance.ChooseManager.FillChooseCardField (cards, effect.NumberOfChosenCards, (List<CardVisual> chosenCards)=>{
 			BurnCards(owner, aim, chosenCards.Select(c=>c.CardAsset).ToList());
 			if(stayedPlayers.Count>0)
 			{

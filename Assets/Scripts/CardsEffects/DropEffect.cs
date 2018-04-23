@@ -46,10 +46,7 @@ public class DropEffect :ICardEffect
 	private void Watch(PhotonPlayer owner, CardEffect effect, List<PlayerVisual> stayedPlayers)
 	{
 		List<Card> cards = GetCards (owner, effect.NumberOfCards);
-
-
-		CardsManager.Instance.FillChooseCardField (cards, effect.NumberOfChosenCards, (List<CardVisual> chosenCards)=>{
-			Debug.Log(chosenCards.Count);
+		CardsManager.Instance.ChooseManager.FillChooseCardField (cards, effect.NumberOfChosenCards, (List<CardVisual> chosenCards)=>{
 			BurnCards(owner, chosenCards.Select(c=>c.CardAsset).ToList());
 			if(stayedPlayers.Count>0)
 			{
@@ -62,35 +59,23 @@ public class DropEffect :ICardEffect
 			{
 				callback.Invoke();
 			}
+				
+			foreach(CardVisual pv in chosenCards)
+			{
+				GameObject.Destroy(pv.gameObject);
+			}
 		});
 	}
 
 	private void BurnCards(PhotonPlayer owner, List<Card> chosenCards)
 	{
-        /*
-			List<Card> newPile = owner.Pile.ToList();
-			List<Card> newHand = newPile.GetRange(0, owner.CardsInHand);
-			newPile =  newPile.GetRange(owner.CardsInHand, newPile.Count - owner.CardsInHand);
-			foreach(Card cv in chosenCards)
-			{
-				owner.CardsInHand--;
-				newHand.Remove(cv);
-				owner.Drop.Push (cv);
-			}
-			Queue<Card> pileQueue = new Queue<Card>(newPile);
-			foreach(Card c in newHand)
-			{
-				pileQueue.Enqueue(c);
-			}
-			owner.Pile = pileQueue;
-            */
+		NetworkCardGameManager.sInstance.DropCards (owner, chosenCards);
 	}
 
 	private List<Card> GetCards(PhotonPlayer owner, int count)
 	{
 		List<Card> cards = new List<Card> ();
-
-		cards = NetworkCardGameManager.sInstance.GetPlayerCards(owner);
+		cards = NetworkCardGameManager.sInstance.GetPlayerHand(owner);
 		cards = cards.OrderBy(x => Guid.NewGuid()).ToList();
 		cards = cards.Take (Mathf.Min(cards.Count, count)).ToList();
 		return cards;

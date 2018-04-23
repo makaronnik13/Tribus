@@ -8,11 +8,14 @@ using TMPro;
 public class ChooseManager : MonoBehaviour
 {
     public GameObject ButtonsVisual;
+	[HideInInspector]
     public List<CardVisual> chosedCards = new List<CardVisual>();
     public TextMeshProUGUI CounterText;
     [HideInInspector]
     public int maxChose;
     public Button ApplyButton;
+
+	private Action<List<CardVisual>> onChoseCardFieldClosed;
     private CardsLayout layout;
     public CardsLayout Layout
     {
@@ -26,61 +29,56 @@ public class ChooseManager : MonoBehaviour
         }
     }
 
-    private void Awake()
+	public bool Choosing
     {
-        Layout.OnCardAddedToLayout += (visual) =>
-        {
-            if (CardsManager.Instance.chooseType == CardsManager.ChooseType.Simple)
-            {
-                visual.OnCardVisualClicked += CardClicked;
-            }
-            CounterText.text = chosedCards.Count + "/" + maxChose;
-        };
-
-        Layout.OnCardAddedToLayout += (visual) =>
-        {
-            if (CardsManager.Instance.chooseType == CardsManager.ChooseType.Simple)
-            {
-                visual.OnCardVisualClicked -= CardClicked;
-            }
-            CounterText.text = chosedCards.Count + "/" + maxChose;
-        };
-    }
-    public bool Choosing
-    {
-        set
+		set
         {
             ButtonsVisual.SetActive(value);
         }
-        get
+		get
         {
             return ButtonsVisual.activeInHierarchy;
         }
     }
-    public void SetMax(int max)
+    
+
+	private void SetMax(int max)
     {
         maxChose = max;
         CounterText.text = chosedCards.Count + "/" + maxChose;
-        CounterText.enabled = (maxChose != 0 && CardsManager.Instance.chooseType == CardsManager.ChooseType.Simple);
+        CounterText.enabled = (maxChose != 0);
         ApplyButton.interactable = (maxChose == 0);
-        ApplyButton.gameObject.SetActive(CardsManager.Instance.chooseType == CardsManager.ChooseType.Simple);
+		ApplyButton.gameObject.SetActive(true);
     }
+
     public void HideChoseCardField()
     {
         ApplyButton.interactable = false;
 
-        foreach (Transform t in transform)
+
+		foreach (CardVisual cv in Layout.Cards)
         {
-            Layout.RemoveCardFromLayout(t.GetComponent<CardVisual>());
-            if (!chosedCards.Contains(t.GetComponent<CardVisual>()))
-            {
-                Lean.Pool.LeanPool.Despawn(t.gameObject);
+			cv.OnCardVisualClicked -= CardClicked;
+			if (!chosedCards.Contains(cv))
+			{
+				Layout.RemoveCardFromLayout(cv);
+				Lean.Pool.LeanPool.Despawn(cv.gameObject);
             }
         }
-        CardsManager.Instance.HideChooseCardField();
+
+		if(onChoseCardFieldClosed!=null)
+		{
+			Action<List<CardVisual>> lastCallback = onChoseCardFieldClosed;
+			onChoseCardFieldClosed = null;
+			lastCallback(chosedCards);
+		}
+
         chosedCards.Clear();
+		Choosing = false;
     }
-    private void CardClicked(CardVisual cv)
+    
+
+	public void CardClicked(CardVisual cv)
     {
         if (chosedCards.Contains(cv))
         {
@@ -98,4 +96,27 @@ public class ChooseManager : MonoBehaviour
         ApplyButton.interactable = (chosedCards.Count == maxChose);
         CounterText.text = chosedCards.Count + "/" + maxChose;
     }
+
+	public void FillChooseCardField(List<Card> cards, int max, Action<List<CardVisual>> callback = null)
+	{
+		onChoseCardFieldClosed = callback;
+
+		foreach(Card c in cards)
+		{
+
+			GameObject newCard = Lean.Pool.LeanPool.Spawn(CardsManager.Instance.CardPrefab);
+			newCard.GetComponent<CardVisual> ().Init (c);
+			newCard.transform.SetParent (CardsManager.Instance.topTransform);
+			newCard.transform.localScale = Vector3.one;
+			newCard.transform.localPosition = Vector3.one;
+			newCard.transform.localRotation = Quaternion.identity;
+			newCard.GetComponent<CardVisual> ().OnCardVisualClicked = CardClicked;
+			CounterText.text = chosedCards.Count + "/" + maxChose;
+			newCard.GetComponent<CardVisual> ().SetState(CardVisual.CardState.Choosing);
+		}
+		SetMax (max);
+		Choosing = true;
+		Layout.CardsReposition ();
+	}
+		
 }

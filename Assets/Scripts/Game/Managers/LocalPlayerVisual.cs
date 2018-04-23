@@ -35,162 +35,154 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
     }
 
     #region cardsAnimation
-    public void AddCardsToDrop(List<string> cards, Action<CardVisual> callback, CardAnimationAim from = CardAnimationAim.Top)
+	public void AddCardsToDrop(List<string> cards, Action<CardVisual> callback, CardAnimationAim from = CardAnimationAim.Top, bool dontWait = false)
     {
-        Visualize(CardAnimationAim.Top, CardAnimationAim.Drop, cards, callback);
+		Visualize(from, CardAnimationAim.Drop, cards, callback, dontWait);
     }
 
-    public void AddCardsToPile(List<string> cards, Action<CardVisual> callback, CardAnimationAim from = CardAnimationAim.Top)
+	public void AddCardsToPile(List<string> cards, Action<CardVisual> callback, CardAnimationAim from = CardAnimationAim.Top, bool dontWait = false)
     {
-        Visualize(CardAnimationAim.Top, CardAnimationAim.Pile, cards, callback);
+		Visualize(from, CardAnimationAim.Pile, cards, callback, dontWait);
     }
 
-    public void AddCardsToHand(List<string> cards, Action<CardVisual> callback, CardAnimationAim from = CardAnimationAim.Top)
+	public void AddCardsToHand(List<string> cards, Action<CardVisual> callback, CardAnimationAim from = CardAnimationAim.Top, bool dontWait = false)
     {
         if (from == CardAnimationAim.Pile)
         {
             CardsManager.Instance.GetCards(cards);
             return;
         }
-
-        Visualize(from, CardAnimationAim.Hand, cards, callback);
+        Visualize(from, CardAnimationAim.Hand, cards, callback, dontWait);
     }
 
-    public void BurnCardsFromDrop(List<string> cards, Action<CardVisual> callback)
+	public void BurnCardsFromDrop(List<string> cards, Action<CardVisual> callback = null)
     {
-        Visualize(CardAnimationAim.Drop, CardAnimationAim.Burn, cards, callback);
+		Visualize(CardAnimationAim.Drop, CardAnimationAim.Burn, cards, callback, false, false);
     }
 
-    public void BurnCardsFromPile(List<string> cards, Action<CardVisual> callback)
+	public void BurnCardsFromPile(List<string> cards, Action<CardVisual> callback = null)
     {
-        Visualize(CardAnimationAim.Pile, CardAnimationAim.Burn, cards, callback);
+		Visualize(CardAnimationAim.Pile, CardAnimationAim.Burn, cards, callback, false, false);
     }
 
-    public void BurnCardsFromHand(List<string> cards, Action<CardVisual> callback)
+	public void BurnCardsFromHand(List<string> cards, Action<CardVisual> callback = null)
     {
-        Visualize(CardAnimationAim.Hand, CardAnimationAim.Burn, cards, callback);
+		Visualize(CardAnimationAim.Hand, CardAnimationAim.Burn, cards, callback, false, false);
     }
 
-    public void SteelCardsFromDrop(List<string> cards, Action<CardVisual> callback)
+	public void SteelCardsFromDrop(List<string> cards, Action<CardVisual> callback = null)
     {
         Visualize(CardAnimationAim.Drop, CardAnimationAim.Top, cards, callback);
     }
 
-    public void SteelCardsFromPile(List<string> cards, Action<CardVisual> callback)
+	public void SteelCardsFromPile(List<string> cards, Action<CardVisual> callback = null)
     {
         Visualize(CardAnimationAim.Pile, CardAnimationAim.Top, cards, callback);
     }
 
-    public void SteelCardsFromHand(List<string> cards, Action<CardVisual> callback)
+	public void SteelCardsFromHand(List<string> cards, Action<CardVisual> callback = null)
     {
         Visualize(CardAnimationAim.Hand, CardAnimationAim.Top, cards, callback);
     }
 
-    private void Visualize(CardAnimationAim from, CardAnimationAim to, List<string> cards, Action<CardVisual> callback = null)
+	private void Visualize(CardAnimationAim from, CardAnimationAim to, List<string> cards, Action<CardVisual> callback = null, bool dontWait = false, bool outDelay = true)
     {
-        if (CardsManager.Instance.ChooseManager.Choosing)
-        {
-            from = CardAnimationAim.Choose;
-        }
-
-        StartCoroutine(MoveCardIn(from, to, cards, callback));
+        StartCoroutine(MoveCardIn(from, to, cards, callback, dontWait, outDelay));
     }
-    private IEnumerator MoveCardIn(CardAnimationAim from, CardAnimationAim to, List<string> cards, Action<CardVisual> callback = null)
+	private IEnumerator MoveCardIn(CardAnimationAim fromAim, CardAnimationAim to, List<string> cards, Action<CardVisual> callback = null, bool dontWait = false, bool outDelay = true)
     {
         Queue<string> movingCards = new Queue<string>(cards);
         List<CardVisual> createdVisuals = new List<CardVisual>();
-        while (movingCards.Count>0)
-        {
-            Card nextCard = DefaultResourcesManager.GetCardById(movingCards.Dequeue());
-            GameObject newCard = null;
-            if (from != CardAnimationAim.Choose && from != CardAnimationAim.Hand)
-            {
-                newCard = CardsManager.Instance.CreateCard(nextCard);
-                switch (from)
-                {
-                    case CardAnimationAim.Drop:
-                        newCard.transform.SetParent(CardsManager.Instance.dropTransform);
-                        newCard.transform.localScale = Vector3.one;
-                        newCard.transform.localPosition = Vector3.one;
-                        break;
-                    case CardAnimationAim.Pile:
-                        newCard.transform.SetParent(CardsManager.Instance.pileTransform);
-                        newCard.transform.localScale = Vector3.one;
-                        newCard.transform.localPosition = Vector3.one;
-                        break;
-                    case CardAnimationAim.Top:
-                        newCard.transform.SetParent(CardsManager.Instance.topTransform);
-                        newCard.transform.localScale = Vector3.one;
-                        newCard.transform.localPosition = Vector3.one;
-                        break;
-                }
-            }
 
-            if(from == CardAnimationAim.Choose)
-            {
-                foreach (Transform t in CardsManager.Instance.ChoseCardsLayout.transform)
-                {
-                    if (t.GetComponent<CardVisual>().CardAsset == nextCard && !createdVisuals.Contains(t.GetComponent<CardVisual>()))
-                    {
-                        newCard = t.gameObject;
-                        break;
-                    }
-                }
-            }
+		if (fromAim == CardAnimationAim.Choose) {
+			createdVisuals = new List<CardVisual>(CardsManager.Instance.ChooseManager.chosedCards);
+			movingCards.Clear ();
+		}
 
-            if (from == CardAnimationAim.Hand)
-            {
-                foreach (Transform t in CardsManager.Instance.HandCardsLayout.transform)
-                {
-                    if (t.GetComponent<CardVisual>().CardAsset == nextCard && !createdVisuals.Contains(t.GetComponent<CardVisual>()))
-                    {
-                        newCard = t.gameObject;
-                        break;
-                    }
-                }
-            }
+		if (fromAim == CardAnimationAim.Hand) 
+		{
+			foreach (string movingCard in movingCards) 
+			{
+				foreach (CardVisual visual in CardsManager.Instance.HandCardsLayout.Cards) 
+				{
+					if(!createdVisuals.Contains(visual) && visual.CardAsset.name == movingCard)
+					{
+						createdVisuals.Add(visual);
+						break;
+					}
+				}
+			}
+				
+			movingCards.Clear ();
+		}
+			
 
-            newCard.GetComponent<CardVisual>().SetState(CardVisual.CardState.Visualising);
-            createdVisuals.Add(newCard.GetComponent<CardVisual>());
-            yield return new WaitForSeconds(0.5f);
-        }
+		while (movingCards.Count > 0) {
+			Card nextCard = DefaultResourcesManager.GetCardById (movingCards.Dequeue ());
+			GameObject newCard = null;
+
+				newCard = CardsManager.Instance.CreateCard (nextCard);
+				switch (fromAim) {
+				case CardAnimationAim.Drop:
+					newCard.transform.SetParent (CardsManager.Instance.dropTransform);
+					break;
+				case CardAnimationAim.Pile:
+					newCard.transform.SetParent (CardsManager.Instance.pileTransform);
+					break;
+				case CardAnimationAim.Top:
+					newCard.transform.SetParent (CardsManager.Instance.topTransform);
+					break;
+				}
+				newCard.transform.localScale = Vector3.one;
+				newCard.transform.localPosition = Vector3.one;
+				newCard.transform.localRotation = Quaternion.identity;
+			createdVisuals.Add (newCard.GetComponent<CardVisual> ());
+		}
+			
+
+		for(int i = 0; i<createdVisuals.Count; i++)
+		{
+			createdVisuals[i].SetState (CardVisual.CardState.Visualising);	
+			yield return new WaitForSeconds (0.2f);
+		}
 
         float waitTime = 0;
-        while (waitTime<1)
+		while (waitTime<1 && !dontWait)
         {
             waitTime += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
-
-        StartCoroutine(MoveCardOut(to, createdVisuals, callback));
+		StartCoroutine(MoveCardOut(to, createdVisuals, callback, outDelay));
     }
 
-    private IEnumerator MoveCardOut(CardAnimationAim to, List<CardVisual> cards, Action<CardVisual> callback = null)
+	private IEnumerator MoveCardOut(CardAnimationAim to, List<CardVisual> cards, Action<CardVisual> callback = null, bool withDelay = true)
     {
         Queue<CardVisual> movingCards = new Queue<CardVisual>(cards);
 
         while (movingCards.Count > 0)
         {
             CardVisual card = movingCards.Dequeue();
-
-
             switch (to)
             {
                 case CardAnimationAim.Burn:
                     card.SetState(CardVisual.CardState.Burned);
                     break;
                 case CardAnimationAim.Drop:
-                    card.SetState(CardVisual.CardState.Played); 
+				card.SetState(CardVisual.CardState.Played);
                     break;
                 case CardAnimationAim.Hand:
                     card.SetState(CardVisual.CardState.Hand);
                     break;
-                case CardAnimationAim.Pile:
+			case CardAnimationAim.Pile:
+				Debug.Log ("chose to pile");
                     card.SetState(CardVisual.CardState.Piled);
                     break;
             }
-
-            yield return new WaitForSeconds(0.5f);
+				
+			if(withDelay)
+			{
+				yield return new WaitForSeconds(0.5f);
+			}
         }
     }
     #endregion

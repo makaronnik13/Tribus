@@ -205,7 +205,7 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
         Card c = GetPlayerPile(pp)[0];
 
         RemoveCardFromPile(c, pp);
-        AddCardToHand(c , pp, LocalPlayerVisual.CardAnimationAim.Pile);
+		AddCardToHand(c , pp, LocalPlayerVisual.CardAnimationAim.Pile, true);
     }
 
     public void ReshuflePile(PhotonPlayer pp)
@@ -239,132 +239,160 @@ public class NetworkCardGameManager : Photon.MonoBehaviour
             RemoveCardFromDrop(card, pp);
         }
     }
-
-    public void PlayerDropCard(Card c, PhotonPlayer pp)
-    {
-
-    }
+		
 
     //cards changes
-    public void AddCardToDrop(Card card, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim = LocalPlayerVisual.CardAnimationAim.Top, bool animate = true)
+	public void AddCardToDrop(Card card, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim = LocalPlayerVisual.CardAnimationAim.Top, bool animate = true, bool dontWait = false)
     {
-        AddCardsToDrop(new List<Card> { card }, player, aim, animate);
+		AddCardsToDrop(new List<Card> { card }, player, aim, animate,dontWait);
     }
 
-    public void AddCardsToDrop(List<Card> cards, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim, bool animate = true)
+	public void AddCardsToDrop(List<Card> cards, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim, bool animate = true, bool dontWait = false)
     {
         string[] cardsNames = cards.Select(c => c.name).ToArray();
-        GetComponent<PhotonView>().RPC("RpcAddCardsToDrop", PhotonTargets.All, new object[] { cardsNames, player, aim, animate});
+		GetComponent<PhotonView>().RPC("RpcAddCardsToDrop", PhotonTargets.AllBuffered, new object[] { cardsNames, player, aim, animate, dontWait});
     }
 
 
     [PunRPC]
-	private void RpcAddCardsToDrop(string[] cardsIds, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim, bool animate = false)
+	private void RpcAddCardsToDrop(string[] cardsIds, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim, bool animate = false, bool dontWait = false)
     {
         if (player == PhotonNetwork.player && animate)
         {
             LocalPlayerVisual.Instance.AddCardsToDrop(cardsIds.ToList(), (CardVisual visual) =>
             {
 
-            }, aim);
+            }, aim, dontWait);
         }
         FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].AddCardsToDrop(cardsIds);
     }
 
-    public void AddCardToPile(Card card, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim = LocalPlayerVisual.CardAnimationAim.Top)
+	public void AddCardToPile(Card card, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim = LocalPlayerVisual.CardAnimationAim.Top,  bool animate = false, bool dontWait = false)
     {
-        AddCardsToPile(new List<Card> { card }, player, aim);
+        AddCardsToPile(new List<Card> { card }, player, aim, dontWait);
     }
 
-    public void AddCardsToPile(List<Card> cards, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim)
+	public void AddCardsToPile(List<Card> cards, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim,  bool animate = false, bool dontWait = false)
     {
         string[] cardsNames = cards.Select(c => c.name).ToArray();
-        GetComponent<PhotonView>().RPC("RpcAddCardsToPile", PhotonTargets.All, new object[] {cardsNames, player, aim});
+		GetComponent<PhotonView>().RPC("RpcAddCardsToPile", PhotonTargets.AllBuffered, new object[] {cardsNames, player, aim, animate, dontWait});
     }
 
     [PunRPC]
-	private void RpcAddCardsToPile(string[]  cardsIds, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim)
+	private void RpcAddCardsToPile(string[]  cardsIds, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim,  bool animate = false,  bool dontWait = false)
     {
-        if (player == PhotonNetwork.player)
+		if (player == PhotonNetwork.player && animate)
         {
             LocalPlayerVisual.Instance.AddCardsToPile(cardsIds.ToList(), (CardVisual visual) =>
             {
 
-            }, aim);
+            }, aim, dontWait);
         }
         FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].AddCardsToPile(cardsIds);
     }
 
-    public void AddCardToHand(Card card, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim = LocalPlayerVisual.CardAnimationAim.Top)
+	public void AddCardToHand(Card card, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim = LocalPlayerVisual.CardAnimationAim.Top,  bool animate = false, bool dontWait = false)
     {
-        AddCardsToHand(new List<Card> {card}, player, aim);
+		AddCardsToHand(new List<Card> {card}, player, aim, animate, dontWait);
     }
 
-    public void AddCardsToHand(List<Card> cards, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim)
+	public void AddCardsToHand(List<Card> cards, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim,  bool animate = false, bool dontWait = false)
     {
         string[] cardsNames = cards.Select(c=>c.name).ToArray();
-        GetComponent<PhotonView>().RPC("RpcAddCardsToHand", PhotonTargets.All, new object[] { cardsNames, player, aim});
+		GetComponent<PhotonView>().RPC("RpcAddCardsToHand", PhotonTargets.AllBuffered, new object[] { cardsNames, player, aim, animate, dontWait});
     }
 
 
     [PunRPC]
-    private void RpcAddCardsToHand(string[] cardsIds, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim)
+	private void RpcAddCardsToHand(string[] cardsIds, PhotonPlayer player, LocalPlayerVisual.CardAnimationAim aim,  bool animate = false, bool dontWait = false)
     {
 
-        if (player == PhotonNetwork.player)
+		if (player == PhotonNetwork.player && animate)
         {
             LocalPlayerVisual.Instance.AddCardsToHand(cardsIds.ToList(), (CardVisual visual) =>
         {
 
-        }, aim);   
+				}, aim, dontWait);   
         }
 
         FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].AddCardsToHand(cardsIds);
     }
 
-    public void RemoveCardFromDrop(Card card, PhotonPlayer player)
+	public void RemoveCardFromDrop(Card card, PhotonPlayer player, bool animate = false)
+	{
+		RemoveCardsFromDrop (new List<Card>(){card}, player, animate);
+	}
+
+	public void RemoveCardsFromDrop(List<Card> cards, PhotonPlayer player, bool animate = false)
     {
-		GetComponent<PhotonView>().RPC("RpcRemoveCardFromDrop", PhotonTargets.All, new object[] {card.name, player });
+		GetComponent<PhotonView>().RPC("RpcRemoveCardsFromDrop", PhotonTargets.AllBuffered, new object[] {cards.Select(c=>c.name).ToArray(), player, animate});
     }
 
     [PunRPC]
-	private void RpcRemoveCardFromDrop(string  cardId, PhotonPlayer player)
+	private void RpcRemoveCardsFromDrop(string[] cardsIds, PhotonPlayer player, bool animate = false)
     {
-        FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].RemoveCardFromDrop(cardId);
+		if(player == PhotonNetwork.player && animate)
+		{
+			LocalPlayerVisual.Instance.BurnCardsFromDrop (cardsIds.ToList());
+		}
+		FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].RemoveCardsFromDrop(cardsIds.ToList());
     }
 
-    public void RemoveCardFromPile(Card card, PhotonPlayer player)
-    {
-		GetComponent<PhotonView>().RPC("RpcRemoveCardFromPile", PhotonTargets.All, new object[] { card.name, player });
-    }
+	public void RemoveCardFromPile(Card card, PhotonPlayer player, bool animate = false)
+	{
+		RemoveCardsFromPile (new List<Card>(){card}, player, animate);
+	}
 
-    [PunRPC]
-	private void RpcRemoveCardFromPile(string  cardId, PhotonPlayer player)
+	public void RemoveCardsFromPile(List<Card> cards, PhotonPlayer player, bool animate = false)
     {
-        FindObjectsOfType<PlayerVisual>().Where(v=>v.Player == player).ToList()[0].RemoveCardFromPile(cardId);
-    }
-
-
-    public void RemoveCardFromHand(Card card, PhotonPlayer player)
-    {
-		GetComponent<PhotonView>().RPC("RpcRemoveCardFromHand", PhotonTargets.All, new object[] {card.name, player });
+		GetComponent<PhotonView>().RPC("RpcRemoveCardsFromPile", PhotonTargets.AllBuffered, new object[] { cards.Select(c=>c.name).ToArray(), player,animate });
     }
 
     [PunRPC]
-	private void RpcRemoveCardFromHand(string cardId, PhotonPlayer player)
+	private void RpcRemoveCardsFromPile(string[]  cardsIds, PhotonPlayer player, bool animate = false)
     {
-        FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].RemoveCardFromHand(cardId);
+		if(player == PhotonNetwork.player && animate)
+		{
+			LocalPlayerVisual.Instance.BurnCardsFromPile (cardsIds.ToList());
+		}
+		FindObjectsOfType<PlayerVisual>().Where(v=>v.Player == player).ToList()[0].RemoveCardsFromPile(cardsIds.ToList());
     }
 
-    public void RemoveCardFromPlayer(Card card, PhotonPlayer player)
+	public void RemoveCardsFromHand(List<Card> cards, PhotonPlayer player, bool animate = false)
+	{
+		GetComponent<PhotonView>().RPC("RpcRemoveCardsFromHand", PhotonTargets.AllBuffered, new object[] {cards.Select(c=>c.name).ToList(), player, animate});
+	}
+
+	public void RemoveCardFromHand(Card card, PhotonPlayer player, bool animate = false)
+    {
+		RemoveCardsFromHand (new List<Card>(){card}, player, animate);
+    }
+
+    [PunRPC]
+	private void RpcRemoveCardsFromHand(List<string> cardsIds, PhotonPlayer player, bool animate)
+    {
+		if(player == PhotonNetwork.player && animate)
+		{
+			LocalPlayerVisual.Instance.BurnCardsFromHand(cardsIds);
+		}
+        FindObjectsOfType<PlayerVisual>().Where(v => v.Player == player).ToList()[0].RemoveCardsFromHand(cardsIds);
+    }
+
+	public void RemoveCardsFromPlayer(List<Card> card, PhotonPlayer player, bool animate = false)
     {
 
     }
 
-    public void DropCard(Card cardAsset)
+	public void DropCards(PhotonPlayer player, List<Card> cardsAsset)
+	{
+		AddCardsToDrop(cardsAsset, player, LocalPlayerVisual.CardAnimationAim.Hand, true);
+		RemoveCardsFromHand(cardsAsset, player);
+	}
+
+	public void DropCard(PhotonPlayer player, Card cardAsset)
     {
-        AddCardToDrop(cardAsset, PhotonNetwork.player, LocalPlayerVisual.CardAnimationAim.Drop, false);
-        RemoveCardFromHand(cardAsset, PhotonNetwork.player);
+		AddCardToDrop(cardAsset, player, LocalPlayerVisual.CardAnimationAim.Hand, true);
+		RemoveCardFromHand(cardAsset, player);
     }
 
     public List<Card> GetPlayerHand(PhotonPlayer pp)
