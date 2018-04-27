@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224084856729074860}
   - component: {fileID: 222198360463015936}
-  - component: {fileID: 114894153246219346}
+  - component: {fileID: 114577369383415620}
   m_Layer: 5
   m_Name: Token
   m_TagString: Untagged
@@ -114,7 +114,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114894153246219346}
+        - m_Target: {fileID: 0}
           m_MethodName: ShowInfo
           m_Mode: 1
           m_Arguments:
@@ -131,7 +131,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114894153246219346}
+        - m_Target: {fileID: 0}
           m_MethodName: HideInfo
           m_Mode: 1
           m_Arguments:
@@ -172,6 +172,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114577369383415620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815980941796840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a1a284a8af93a4c9f7bc029369c2e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warrior: {fileID: 0}
 --- !u!114 &114629989336099542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,18 +211,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114894153246219346
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1815980941796840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e26f3c4ea122a4889a1a97313fd7053c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warrior: {fileID: 0}
 --- !u!114 &114916104203452260
 MonoBehaviour:
   m_ObjectHideFlags: 1

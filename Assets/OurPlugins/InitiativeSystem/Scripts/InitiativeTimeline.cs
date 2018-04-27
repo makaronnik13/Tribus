@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon;
+using System;
 
 public class InitiativeTimeline : Singleton<InitiativeTimeline> {
 
@@ -97,4 +98,15 @@ public class InitiativeTimeline : Singleton<InitiativeTimeline> {
 		StopTimeline ();
 		BattleField.Instance.GiveTurn (warrior);
 	}
+
+    public void RemoveWarrior(WarriorObject warriorObject)
+    {
+        foreach (InitiativeToken token in GetComponentsInChildren<InitiativeToken>())
+        {
+            if (token.warrior == warriorObject)
+            {
+                Destroy(token.gameObject);
+            }
+        }
+    }
 }

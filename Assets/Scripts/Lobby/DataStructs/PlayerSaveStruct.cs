@@ -8,59 +8,65 @@ using System.Linq;
 public class PlayerSaveStruct
 {
     [NonSerialized]
-	public Action<PlayerSaveStruct> OnParamsChanged = (PlayerSaveStruct p)=>{};
+    public Action<PlayerSaveStruct> OnParamsChanged = (PlayerSaveStruct p) => { };
 
     [NonSerialized]
-    public Action<PlayerSaveStruct> OnDecksChanged = (PlayerSaveStruct p)=>{};
+    public Action<PlayerSaveStruct> OnDecksChanged = (PlayerSaveStruct p) => { };
 
-	[SerializeField]
-	private string playerName;
-	public string PlayerName
-	{
-		get
-		{
-			return playerName;
-		}
-		set
-		{
-			playerName = value;
-			OnParamsChanged.Invoke (this);
-		}
-	}
+    [SerializeField]
+    private string playerName;
+    public string PlayerName
+    {
+        get
+        {
+            return playerName;
+        }
+        set
+        {
+            playerName = value;
+            OnParamsChanged.Invoke(this);
+        }
+    }
 
-	[SerializeField]
-	private Color playerColor;
-	public Color PlayerColor
-	{
-		get
-		{
-			return playerColor;
-		}
-		set
-		{
-			playerColor = value;
-			OnParamsChanged.Invoke (this);
-		}
-	}
+    [SerializeField]
+    private Color playerColor;
+    public Color PlayerColor
+    {
+        get
+        {
+            return playerColor;
+        }
+        set
+        {
+            playerColor = value;
+            OnParamsChanged.Invoke(this);
+        }
+    }
 
     [SerializeField]
     private int playerAvatarId;
-	public int PlayerAvatarId
-	{
-		get
-		{
-			return playerAvatarId;
-		}
-		set
-		{
-			playerAvatarId = value;
-			OnParamsChanged.Invoke (this);
-		}
-	}
+    public int PlayerAvatarId
+    {
+        get
+        {
+            return playerAvatarId;
+        }
+        set
+        {
+            playerAvatarId = value;
+            OnParamsChanged.Invoke(this);
+        }
+    }
 
 
     [SerializeField]
-    public DeckStruct CurrentDeck;
+    public List<Card> CurrentDeck
+    {
+        get
+        {
+            return DefaultResourcesManager.Warriors[PlayerAvatarId].startingDeck.DeckStruct.Cards;
+        }
+    }
 
 	[SerializeField]
 	private List<DeckStruct> decks = new List<DeckStruct>();

@@ -35,7 +35,6 @@ public class LobbyPlayerIdentity : Singleton<LobbyPlayerIdentity>
         DeckStruct startingDeck =  DefaultResourcesManager.StartingDeck;
         startingDeck = new DeckStruct(startingDeck.DeckName, startingDeck.Cards);
         player.Decks.Add(startingDeck);
-        player.CurrentDeck = startingDeck;
 
         for (int i = 0; i < 3; i++) 
 		{

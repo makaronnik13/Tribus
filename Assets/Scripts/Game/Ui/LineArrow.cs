@@ -65,11 +65,9 @@ public class LineArrow : MonoBehaviour {
 		}
 		foreach(CardEffect ce in c.CardEffects)
 		{
-			
-
-			if(ce.cardAim == CardEffect.CardAim.Player)
+			if(ce.cardAim != CardEffect.CardAim.None)
 			{
-				if(ce.playerAimType != CardEffect.PlayerAimType.All && ce.playerAimType != CardEffect.PlayerAimType.Enemies && ce.playerAimType != CardEffect.PlayerAimType.You)
+				if(ce.cardAim != CardEffect.CardAim.All && ce.cardAim != CardEffect.CardAim.Allies && ce.cardAim != CardEffect.CardAim.Enemies && ce.cardAim != CardEffect.CardAim.You)
 				{
 					v = true;	
 				}

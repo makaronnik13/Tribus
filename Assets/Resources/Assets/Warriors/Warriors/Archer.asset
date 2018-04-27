@@ -8,12 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea8a24d6f42ea43c0b4779bf13877698, type: 3}
+  m_Script: {fileID: 11500000, guid: dbbad6d20855a114daf146a0eb9084e0, type: 3}
   m_Name: Archer
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300112, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
-  initiative: 20
-  hp: 50
-  damage: 5
-  visual: {fileID: 1480862096884644, guid: 92fb1f198cf954417a87853094d9c4d7, type: 2}
+  initiative: 12
+  hp: 40
+  damage: 10
+  visual: {fileID: 1749809518820348, guid: c78bf6a9c0ee1a6479b874d8a4b5fb2c, type: 2}
   WarriorName: Archer
+  Enemy: 0
+  startingDeck: {fileID: 11400000, guid: 312bb9d2096d42443b866192ed5cc388, type: 2}

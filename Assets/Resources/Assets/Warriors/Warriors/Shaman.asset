@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbbad6d20855a114daf146a0eb9084e0, type: 3}
+  m_Name: Shaman
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300118, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
+  initiative: 5
+  hp: 80
+  damage: 15
+  visual: {fileID: 1749809518820348, guid: c78bf6a9c0ee1a6479b874d8a4b5fb2c, type: 2}
+  WarriorName: Shaman
+  Enemy: 0
+  startingDeck: {fileID: 11400000, guid: 98236c3025611bf46be8db4a1b2c7003, type: 2}

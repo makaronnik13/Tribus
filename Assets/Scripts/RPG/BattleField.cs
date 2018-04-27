@@ -6,7 +6,6 @@ using System.Linq;
 
 public class BattleField : Singleton<BattleField> {
 
-	public Warrior[] players;
 	public Warrior[] enemies;
 	public GameObject WarriorPrefab;
 
@@ -53,7 +52,7 @@ public class BattleField : Singleton<BattleField> {
 		for(int i = 0; i<enemies.Length; i++)
 		{
 			GameObject w = Instantiate (WarriorPrefab);
-			w.GetComponent<WarriorObject> ().Init (enemies[i], null);
+            w.GetComponent<WarriorObject> ().Init (enemies[i], null);
 			w.transform.SetParent (enemiesTransform.GetChild(i));
 			w.transform.localPosition = Vector3.zero;
 			w.transform.localScale = Vector3Int.one;
@@ -68,8 +67,8 @@ public class BattleField : Singleton<BattleField> {
 
 	public void GiveTurn(WarriorObject warrior)
 	{
-		if (warrior.IsEnemy) {
-			Debug.Log ("skip");
+		if (warrior.IsEnemy)
+        {
 			AIController.Instance.PerformAction (warrior);
 		} else 
 		{

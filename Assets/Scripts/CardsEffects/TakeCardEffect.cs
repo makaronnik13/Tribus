@@ -12,7 +12,7 @@ public class TakeCardEffect :ICardEffect
 		foreach (CardEffect effect in effects) 
 		{
             
-			if(effect.cardAim!=CardEffect.CardAim.Player || effect.playerActionType!=CardEffect.PlayerActionType.TakeCards)
+			if(effect.cardAim == CardEffect.CardAim.None || effect.playerActionType!=CardEffect.CardsActionType.TakeCards)
 			{
 				continue;
 			}

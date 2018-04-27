@@ -33,30 +33,45 @@ public class CardsPlayer : Singleton<CardsPlayer>
             }
 
 			if (activeCard) {
-				CardEffect playerAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Player);
+				CardEffect playerAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim != CardEffect.CardAim.None);
 				if (playerAimedCard != null) 
 				{
-					foreach (PlayerVisual pv in FindObjectsOfType<PlayerVisual>()) {
-						if (pv.Player == RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer && playerAimedCard.playerAimType == CardEffect.PlayerAimType.You) 
-						{
-							SelectAim(pv);
-						}
+                    List<ISkillAim> aims = new List<ISkillAim>();
+					foreach (WarriorObject w in FindObjectsOfType<WarriorObject>())
+                    {
+                        switch (playerAimedCard.cardAim)
+                        {
+                            case CardEffect.CardAim.All:      
+                                aims.Add(w);
+                                break;
+                            case CardEffect.CardAim.Allies:
+                                if (w.Player != null)
+                                {
+                                    aims.Add(w);
+                                }
+                                break;
+                            case CardEffect.CardAim.Ally:
+                                break;
+                            case CardEffect.CardAim.Any:
+                                break;
+                            case CardEffect.CardAim.Enemies:
+                                if (w.Player == null)
+                                {
+                                    aims.Add(w);
+                                }
+                                break;
+                            case CardEffect.CardAim.Enemy:
+                                break;
+                            case CardEffect.CardAim.You:
+                                if (w.Player == PhotonNetwork.player)
+                                {
+                                    aims.Add(w);
+                                }
+                                break;
+                        }	
 					}
-
-					if (playerAimedCard.playerAimType == CardEffect.PlayerAimType.All) 
-					{
-						ISkillAim[] aims = FindObjectsOfType<PlayerVisual> ();
-						SelectAims (aims);
-					}
-
-					if (playerAimedCard.playerAimType == CardEffect.PlayerAimType.Enemies) 
-					{
-						ISkillAim[] aims = FindObjectsOfType<PlayerVisual> ().Where(pv=>pv.Player!= RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer).ToArray();
-						SelectAims (aims);
-					}
-				}
-
-
+                    SelectAims(aims.ToArray());
+                }
 			}
         }
     }
@@ -156,10 +171,13 @@ public class CardsPlayer : Singleton<CardsPlayer>
 		//cards
 		cardEffects.Add (new AddCardEffect());
 		cardEffects.Add (new TakeCardEffect());
-		cardEffects.Add (new ObserveEffect());
 		cardEffects.Add (new BurnEffect());
 		cardEffects.Add (new DropEffect());
-		cardEffects.Add (new StillEffect());
+
+        //warriors
+        cardEffects.Add(new DamageEffect());
+        cardEffects.Add(new BlockEffect());
+        cardEffects.Add(new AddModifierEffect());
 
 		//additional
 		cardEffects.Add (new ChooseEffect());

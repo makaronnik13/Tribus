@@ -18,18 +18,9 @@ public class HpSlider : MonoBehaviour {
 			return _hpSlider;
 		}
 	}
-	private TextMeshProUGUI hp;
-	private TextMeshProUGUI HpText
-	{
-		get
-		{
-			if(!hp)
-			{
-				hp = GetComponentInChildren<TextMeshProUGUI> ();
-			}
-			return hp;
-		}
-	}
+
+    public TextMeshProUGUI HpText;
+	
 
 
 	private int _hp;

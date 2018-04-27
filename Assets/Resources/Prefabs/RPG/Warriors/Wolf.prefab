@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 212668525166672194}
   - component: {fileID: 95630599937395894}
   - component: {fileID: 60028369789968012}
-  - component: {fileID: 114879561240758284}
+  - component: {fileID: 114852797075529034}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Untagged
@@ -89,7 +89,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.5, y: 0.35}
-    newSize: {x: 2.56, y: 2.56}
+    newSize: {x: 0.5, y: 0.35}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -116,7 +116,7 @@ Animator:
   m_GameObject: {fileID: 1868080154395880}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 0a1c84eb749c24a3796d0b7bf2b6475c, type: 2}
+  m_Controller: {fileID: 22100000, guid: d887ec4b1586266489f98e242f0b3d45, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -124,7 +124,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114879561240758284
+--- !u!114 &114852797075529034
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1868080154395880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6409fe6f461647509990e1802bbfba6, type: 3}
+  m_Script: {fileID: 11500000, guid: ca6232a00495c4343a06dae452e813a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212668525166672194
@@ -169,12 +169,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a330d34053e314cf89e546eb523a11c1, type: 3}
+  m_Sprite: {fileID: 21300002, guid: b953737b64c14e648b9afe281ed86052, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 0.5, y: 0.35}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

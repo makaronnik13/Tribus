@@ -15,7 +15,7 @@ public class DropEffect :ICardEffect
 		effects = observeEffects;
 		foreach(CardEffect observeEffect in observeEffects)
 		{
-			if(observeEffect.cardAim!=CardEffect.CardAim.Player || observeEffect.playerActionType!=CardEffect.PlayerActionType.DropCards)
+			if(observeEffect.cardAim == CardEffect.CardAim.None || observeEffect.playerActionType!=CardEffect.CardsActionType.DropCards)
 			{
 				continue;
 			}

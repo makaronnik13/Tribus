@@ -13,7 +13,7 @@ public class InitiativeToken : MonoBehaviour
 	private float visualValue = 0;
 	private static float startValue = 0f;
 
-	private static Color playerColor = Color.gray;
+	private Color playerColor = Color.gray;
 
     private bool selected = false;
 	private float randomInitiativeModificator = 0;
@@ -85,7 +85,8 @@ public class InitiativeToken : MonoBehaviour
 		if(warrior.Player!=null)
 		{
 			playerColor = RPGCardGameManager.sInstance.GetPlayerColor (warrior.Player);
-		}
+            Debug.Log("set color " + playerColor +" "+warrior.warriorName);
+        }
 		this.warrior = warrior;
 		value = startValue;
 		parentTransform = transform.parent.GetComponent<RectTransform> ();

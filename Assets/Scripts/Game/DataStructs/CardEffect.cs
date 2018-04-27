@@ -7,27 +7,18 @@ using Sirenix.OdinInspector;
 
 public class CardEffect 
 {
+
 	public enum CardAim
 	{
-		None,
-		Player
-	}
-
-	public enum PlayerAimType
-	{
+        None,
 		You,
 		Any,
 		All,
 		Enemy,
-		Enemies
+		Enemies,
+        Ally,
+        Allies
 	}
-
-	public enum NoneType
-	{
-		Win,
-		Choose
-	}
-		
 
 	public enum CardsAimType
 	{
@@ -37,100 +28,104 @@ public class CardEffect
 		All
 	}
 
-	public enum PlayerActionType
-	{
-		AddCards,
-		DropCards,
-		BurnCards,
-		WatchCards,
-		TakeCards,
-		StillCards
-	}
+    public enum CardsActionType
+    {
+        AddCards,
+        DropCards,
+        BurnCards,
+        TakeCards
+    }
 
+    public enum WariorActionType
+    {
+        None,
+        Damage,
+        Block,
+        AddEffect
+    }
 
-	public CardAim cardAim = CardAim.None;
+    public CardAim cardAim;
 
-	[ShowIf("AimIsPlayer")]
-	public PlayerAimType playerAimType = PlayerAimType.Enemy;
-	[ShowIf("AimIsPlayer")]
-	public PlayerActionType playerActionType = PlayerActionType.TakeCards;
-	[ShowIf("AimIsCards")]
-	public CardsAimType cardsAimType = CardsAimType.Hand;
-	[ShowIf("AimIsCards2")]
-	public CardsAimType cardsAimType2 = CardsAimType.Hand;
-	[ShowIf("NoAim")]
-	public NoneType noneType = NoneType.Choose;
+    [ShowIf("HasAim")]
+    public WariorActionType warriorActionType = WariorActionType.Damage;
+    private bool HasAim
+    {
+        get
+        {
+            return cardAim != CardAim.None;
+        }
+    }
 
-	private bool NoAim()
-	{
-		return cardAim == CardAim.None;
-	}
+    [ShowIf("HasCardAim")]
+    public CardsActionType playerActionType = CardsActionType.TakeCards;
+    private bool HasCardAim
+    {
+        get
+        {
+            return (cardAim == CardAim.Allies || cardAim == CardAim.Ally || cardAim == CardAim.You) && warriorActionType== WariorActionType.None;
+        }
+    }
 
-	private bool AimIsPlayer()
-	{
-		return cardAim == CardAim.Player;
-	}
-		
+    [ShowIf("HasCardSubAim")]
+    public CardsAimType cardsAimType = CardsAimType.Hand;
+    private bool HasCardSubAim
+    {
+        get
+        {
+            return HasCardAim && (playerActionType != CardsActionType.TakeCards) ;
+        }
+    }
 
-	private bool AimIsCards()
-	{
-		return (cardAim == CardAim.Player && (playerActionType == PlayerActionType.StillCards || playerActionType == PlayerActionType.BurnCards || playerActionType == PlayerActionType.AddCards|| playerActionType == PlayerActionType.WatchCards));
-	}
+    [ShowIf("ShowCardsList")]
+    public List<Card> Cards = new List<Card>();
+    private bool ShowCardsList
+    {
+        get
+        {
+            return (HasCardAim && (playerActionType == CardsActionType.AddCards))|| cardAim == CardAim.None;
+        }
+    }
 
-	private bool AimIsCards2()
-	{
-		return (cardAim == CardAim.Player && playerActionType == PlayerActionType.StillCards);
-	}
+    [ShowIf("ShowNumberOfCards")]
+    public int NumberOfCards = 1;
+    private bool ShowNumberOfCards
+    {
+        get
+        {
+            return HasCardAim && (playerActionType != CardsActionType.AddCards);
+        }
+    }
 
-	[ShowIf("ShowCardsList")]
-	public List<Card> Cards = new List<Card>();
+    [ShowIf("ShowNumberOfChosenCards")]
+    public int NumberOfChosenCards = 0;
+    private bool ShowNumberOfChosenCards
+    {
+        get
+        {
+            return HasCardSubAim;
+        }
+    }
 
-	private bool ShowCardsList()
-	{
-		if(cardAim == CardAim.Player)
-		{
-			if(playerActionType == PlayerActionType.AddCards)
-			{
-				return true;
-			}
-		}
+    [ShowIf("ShowValue")]
+    public int Value = 1;
+    private bool ShowValue
+    {
+        get
+        {
+            return warriorActionType == WariorActionType.Block || warriorActionType == WariorActionType.Damage;
+        }
+    }
 
-		if (cardAim == CardAim.None && noneType == NoneType.Choose) 
-		{
-			return true;
-		}
+    [ShowIf("ShowEffect")]
+    public Effect addingEffect;
+    [ShowIf("ShowEffect")]
+    public float duration;
 
-		return false;
-	}
-
-	[ShowIf("ShowNumberOfCards")]
-	public int NumberOfCards = 1;
-	private bool ShowNumberOfCards()
-	{
-		if(cardAim == CardAim.Player)
-		{
-			if(playerActionType == PlayerActionType.BurnCards || playerActionType == PlayerActionType.DropCards || playerActionType == PlayerActionType.TakeCards || playerActionType == PlayerActionType.WatchCards || playerActionType == PlayerActionType.StillCards)
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	[ShowIf("ShowNumberOfChosenCards")]
-	public int NumberOfChosenCards = 0;
-	private bool ShowNumberOfChosenCards()
-	{
-		if(cardAim == CardAim.Player)
-		{
-			if(playerActionType == PlayerActionType.BurnCards || playerActionType == PlayerActionType.DropCards || playerActionType == PlayerActionType.AddCards || playerActionType == PlayerActionType.StillCards)
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
+    private bool ShowEffect
+    {
+        get
+        {
+            return warriorActionType == WariorActionType.AddEffect;
+        }
+    }
 }

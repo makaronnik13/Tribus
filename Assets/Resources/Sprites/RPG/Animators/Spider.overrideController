@@ -6,9 +6,9 @@ AnimatorOverrideController:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Spider
-  m_Controller: {fileID: 9100000, guid: 7c1fa43fc42bd4fd58480f1d0cbac438, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2489299d91875434c95aa3c0f6f081b6, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 396d1359297e14e409b09d913c5f7202, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 169500878c8d947d4b7d823f3654e7e6, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 4b07c1aec25a94829a80a3fdc57f6c69, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 787cd19ce8cf542d781b65ae2055f07a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a2cea6a3865517240ab0c9a1943b5fcc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e47caefd53e095243bbe4529fb78295d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e0eb52de63961bd4994cc0a87e228561, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 770a7dfc7735b8a41b3780a2e29e7ad2, type: 2}

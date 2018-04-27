@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212952307804874830}
   - component: {fileID: 95844815131528540}
   - component: {fileID: 60049032023303096}
-  - component: {fileID: 114289123360283326}
+  - component: {fileID: 114196607701593540}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -116,7 +116,7 @@ Animator:
   m_GameObject: {fileID: 1206594816180100}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: f9d3d2c1bf63f400c82c63922a88382a, type: 2}
+  m_Controller: {fileID: 22100000, guid: e3d68592717ae61479e64bad688ca7af, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -124,7 +124,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114289123360283326
+--- !u!114 &114196607701593540
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1206594816180100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6409fe6f461647509990e1802bbfba6, type: 3}
+  m_Script: {fileID: 11500000, guid: ca6232a00495c4343a06dae452e813a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212952307804874830
@@ -177,5 +177,5 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0

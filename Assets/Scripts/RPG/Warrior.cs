@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
+using System;
 
 [CreateAssetMenu(menuName = "Warrior")]
 public class Warrior : ScriptableObject {
@@ -11,4 +13,11 @@ public class Warrior : ScriptableObject {
 	public int damage;
 	public GameObject visual;
 	public string WarriorName;
+
+    public bool Enemy = true;
+
+
+    [HideIf("Enemy")]
+    public Deck startingDeck;
+
 }

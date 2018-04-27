@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 212782223992869518}
   - component: {fileID: 95234302953777094}
   - component: {fileID: 60019975192343622}
-  - component: {fileID: 114486460584747076}
+  - component: {fileID: 114102872183943082}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Untagged
@@ -130,7 +130,7 @@ Animator:
   m_GameObject: {fileID: 1785472090474052}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 5d27b805e8cca41289570dbcbaa38adf, type: 2}
+  m_Controller: {fileID: 22100000, guid: 156e9d6a34a7b77479e990e3f3aaa901, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -138,7 +138,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114486460584747076
+--- !u!114 &114102872183943082
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1785472090474052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6409fe6f461647509990e1802bbfba6, type: 3}
+  m_Script: {fileID: 11500000, guid: ca6232a00495c4343a06dae452e813a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212782223992869518
@@ -191,5 +191,5 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0

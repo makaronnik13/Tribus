@@ -8,12 +8,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea8a24d6f42ea43c0b4779bf13877698, type: 3}
+  m_Script: {fileID: 11500000, guid: dbbad6d20855a114daf146a0eb9084e0, type: 3}
   m_Name: Cerberus
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300044, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
-  initiative: 3
+  sprite: {fileID: 21300058, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
+  initiative: 4
   hp: 200
-  damage: 25
-  visual: {fileID: 1479274877313338, guid: 9ea4bc9996e2b4124b39604cb8a0f8c2, type: 2}
-  WarriorName: Cerebrus
+  damage: 15
+  visual: {fileID: 1479274877313338, guid: d1314a1950816ec45add76e45331bc19, type: 2}
+  WarriorName: Cerberus

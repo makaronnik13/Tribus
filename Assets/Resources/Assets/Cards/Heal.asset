@@ -19,4 +19,14 @@ MonoBehaviour:
     value: 1
   WinCard: 0
   DestroyAfterPlay: 0
-  CardEffects: []
+  CardEffects:
+  - cardAim: 1
+    warriorActionType: 1
+    playerActionType: 0
+    cardsAimType: 0
+    Cards: []
+    NumberOfCards: 0
+    NumberOfChosenCards: 0
+    Value: -4
+    addingEffect: {fileID: 0}
+    duration: 0

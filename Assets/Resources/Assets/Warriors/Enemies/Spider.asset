@@ -8,12 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea8a24d6f42ea43c0b4779bf13877698, type: 3}
+  m_Script: {fileID: 11500000, guid: dbbad6d20855a114daf146a0eb9084e0, type: 3}
   m_Name: Spider
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300042, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
+  sprite: {fileID: 21300092, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
   initiative: 10
   hp: 20
   damage: 5
-  visual: {fileID: 1165209783979318, guid: eb810151e4d4843509b8f15fe33c4910, type: 2}
+  visual: {fileID: 1165209783979318, guid: d47659643401ef34db19c463b358b413, type: 2}
   WarriorName: Spider
+  Enemy: 1
+  startingDeck: {fileID: 0}

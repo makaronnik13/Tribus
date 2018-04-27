@@ -25,8 +25,42 @@ public class RPGCardGameManager : Photon.MonoBehaviour
 		public PhotonPlayer photonPlayer;
 		public string[] cardsIds;
 	}
-		
-	static public RPGCardGameManager sInstance = null;
+
+    public void AddModifier(WarriorObject p, Effect addingEffect, float time)
+    {
+        p.AddModifier(addingEffect, time);
+    }
+
+    public void Block(WarriorObject p, int value)
+    {
+        PlayersWarrior(PhotonNetwork.player).Animate(() =>
+        {
+            p.GetBlock(value);
+        });
+    }
+
+    public void Damage(WarriorObject p, int value)
+    {
+        PlayersWarrior(PhotonNetwork.player).Animate(()=>
+        {
+            p.RecieveDamage(value);
+        });
+        
+    }
+
+    private WarriorObject PlayersWarrior(PhotonPlayer player)
+    {
+        foreach (WarriorObject w in BattleField.Instance.Players)
+        {
+            if (w.Player == player)
+            {
+                return w;
+            }
+        }
+        return null;
+    }
+
+    static public RPGCardGameManager sInstance = null;
 
 	private Queue<ServerPlayer> playersQueue = new Queue<ServerPlayer> ();
 	public ServerPlayer CurrentPlayer;
@@ -82,13 +116,16 @@ public class RPGCardGameManager : Photon.MonoBehaviour
 			CreatePlayer(pp.playerName,  new Color(pp.playerColor[0], pp.playerColor[1], pp.playerColor[2], 1), pp.spriteId, pp.photonPlayer, pp.cardsIds);
 		}
 
+
+        //add cards at start
+        /*
 		foreach (ServerPlayer pp in playersQueue.Reverse()) 
 		{
 			for (int i = 0; i < 5; i++) {
 
 				PlayerGetCard (pp.photonPlayer);
 			}
-		}
+		}*/
 
 		BattleField.Instance.StartBattle (FindObjectsOfType<PlayerVisual>().ToList());
 	}
@@ -118,10 +155,8 @@ public class RPGCardGameManager : Photon.MonoBehaviour
 
 	public void EndTurn()
 	{
-		foreach(Card c in GetPlayerHand(PhotonNetwork.player))
-		{
-			DropCard (PhotonNetwork.player, c);
-		}
+        AddCardsToDrop(GetPlayerHand(PhotonNetwork.player), PhotonNetwork.player, LocalPlayerVisual.CardAnimationAim.Hand, true, true);
+        RemoveCardsFromHand(GetPlayerHand(PhotonNetwork.player), PhotonNetwork.player);
 
 		GetComponent<PhotonView>().RPC("EndTurnOnServer", PhotonTargets.MasterClient, new object[0]);
 	}

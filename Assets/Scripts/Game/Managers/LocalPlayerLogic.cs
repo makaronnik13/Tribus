@@ -21,9 +21,9 @@ public class LocalPlayerLogic : MonoBehaviour {
         Instance = this;
         float[] playerColor = new float[3] { LobbyPlayerIdentity.Instance.player.PlayerColor.r, LobbyPlayerIdentity.Instance.player.PlayerColor.g, LobbyPlayerIdentity.Instance.player.PlayerColor.b};
 		List<string> cardsIds = new List<string>();
-        foreach (string c in LobbyPlayerIdentity.Instance.player.CurrentDeck.Cards)
+        foreach (Card c in LobbyPlayerIdentity.Instance.player.CurrentDeck)
         {
-			cardsIds.Add(c);
+			cardsIds.Add(c.name);
         }
 		RPGCardGameManager.sInstance.GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.MasterClient, new object[] { LobbyPlayerIdentity.Instance.player.PlayerName, playerColor, LobbyPlayerIdentity.Instance.player.PlayerAvatarId, PhotonNetwork.player, cardsIds.ToArray()});
     }

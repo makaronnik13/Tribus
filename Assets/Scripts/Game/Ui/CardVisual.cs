@@ -147,8 +147,9 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 });
                 break;
 		case CardState.Hand:
-			Vector3 startPosition = transform.position;
-			CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
+            Vector3 startPosition = transform.position;
+            transform.SetParent(CardsManager.Instance.handTransform);
+            CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
 			CardsPlayer.Instance.DraggingCard = null;
 			CardsManager.Instance.HandCardsLayout.AddCardToLayout (this);
 			transform.position = startPosition;

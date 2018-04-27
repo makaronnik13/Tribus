@@ -12,7 +12,7 @@ public class AddCardEffect : ICardEffect
 
         foreach (CardEffect addCardsEffect in addCardsEffects)
         {
-            if (addCardsEffect.cardAim != CardEffect.CardAim.Player || addCardsEffect.playerActionType != CardEffect.PlayerActionType.AddCards)
+            if (addCardsEffect.cardAim == CardEffect.CardAim.None || addCardsEffect.playerActionType != CardEffect.CardsActionType.AddCards)
             {
                 continue;
             }

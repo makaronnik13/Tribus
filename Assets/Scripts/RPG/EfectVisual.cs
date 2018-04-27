@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class EfectVisual : MonoBehaviour {
 
-	private int stayTime = 0;
-	public int StayTime
+	private float stayTime = 0;
+	public float StayTime
 	{
 		get
 		{
@@ -23,9 +23,9 @@ public class EfectVisual : MonoBehaviour {
 	public TextMeshProUGUI counter;
 	public Image img;
 
-	private void Init(Effect effect)
+	private void Init(Effect effect, float time)
 	{
 		img.sprite = effect.effectImage;
-		stayTime = effect.Time;
+        StayTime = time;
 	}
 }

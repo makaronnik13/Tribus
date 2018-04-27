@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 
-public class PlayerVisual : Photon.MonoBehaviour, ISkillAim 
+public class PlayerVisual : Photon.MonoBehaviour 
 {
     public string PlayerName;
 
@@ -61,129 +61,7 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
     }
 		
 
-	public bool IsAwaliable(Card card)
-	{
-		if (card) 
-		{
-			CardEffect cardEffect = card.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Player);
-			if(cardEffect!=null)
-			{
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.All)
-				{
-					return true;
-				}
-
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Any)
-				{
-					return true;
-				}
-
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemies && Player!=RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-				{
-					return true;
-				}
-
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemy && Player!= RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-				{
-					return true;
-				}
-
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.You && Player==RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-				{
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	public void Highlight(Card card, bool v)
-	{
-		if (v) 
-		{
-			//selector.enabled = true;
-			//selector.material.color = Color.yellow;
-		} else 
-		{
-			//selector.enabled = false;
-		}
-	}
-
-	public void HighlightSelected(Card card, bool v)
-	{
-		if (v && IsAwaliable (card)) 
-		{
-			//selector.material.color = Color.red;	
-		}
-
-		if(!v)
-		{
-			if (IsAwaliable(card)) 
-			{
-				//selector.material.color = Color.yellow;
-			} 
-			else 
-			{
-				//selector.enabled = false;
-			}
-		}
-	}
-
-	public void HighlightSimple(bool v)
-	{
-		//playerInfo.SetActive (v);
-	}
-
-	void OnMouseEnter()
-	{
-		if (CardsPlayer.Instance.ActiveCard == null) {
-			HighlightSimple (true);
-		} else 
-		{
-			CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Player);
-
-			if(cardEffect!=null)
-			{
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Any)
-				{
-
-					CardsPlayer.Instance.SelectAim(this);
-				}
-
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemy && Player!= RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-				{
-
-					CardsPlayer.Instance.SelectAim (this);
-				}
-			}
-
-
-		}
-	}
-
-	void OnMouseExit()
-	{
-		HighlightSimple (false);
-
-		bool shouldDehighlight = true;
-
-		if (CardsPlayer.Instance.ActiveCard) {
-			CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Player);
-			if (cardEffect != null) {
-				if (cardEffect.playerAimType == CardEffect.PlayerAimType.All || cardEffect.playerAimType == CardEffect.PlayerAimType.Enemies || cardEffect.playerAimType == CardEffect.PlayerAimType.You) {
-					shouldDehighlight = false;
-				}
-			}
-				
-
-		}
-
-
-		if(shouldDehighlight)
-		{
-			CardsPlayer.Instance.SelectAim (null);
-		}
-	}
+	
 
 	public void RemoveCardsFromPile(List<string> cardsIds)
     {
