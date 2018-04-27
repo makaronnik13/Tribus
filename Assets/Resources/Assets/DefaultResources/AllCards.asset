@@ -14,15 +14,4 @@ MonoBehaviour:
   DeckStruct:
     DeckName: AllCards
     Cards:
-    - {fileID: 11400000, guid: 9319ce558bafc9644a2853279b80ec6e, type: 2}
-    - {fileID: 11400000, guid: 97ff9aae3b0714a4c940f8abad4ec174, type: 2}
-    - {fileID: 11400000, guid: ff513525992f5bb46954ec52452cea2a, type: 2}
-    - {fileID: 11400000, guid: ff513525992f5bb46954ec52452cea2a, type: 2}
-    - {fileID: 11400000, guid: 4635082eeacabd84ba96de37095728b7, type: 2}
-    - {fileID: 11400000, guid: b542bd5e6a2961c4c9453fa28b054656, type: 2}
-    - {fileID: 11400000, guid: f30518e5f8d95484788bab6d4a352387, type: 2}
-    - {fileID: 11400000, guid: 9b99064d4904fa346b08d1a42bbd1f4d, type: 2}
-    - {fileID: 11400000, guid: 8ef7496073ba200499791fdebb02c15b, type: 2}
-    - {fileID: 11400000, guid: e1a31063f3e338b47ab94d3991f96a13, type: 2}
-    - {fileID: 11400000, guid: 8994fd439c2d04a4a8a9ccd737238328, type: 2}
-    - {fileID: 11400000, guid: d341ea0afc8a3664fbbfb146a6ba5e68, type: 2}
+    - {fileID: 11400000, guid: c2c9489503d074d688b733df0cccc1d3, type: 2}

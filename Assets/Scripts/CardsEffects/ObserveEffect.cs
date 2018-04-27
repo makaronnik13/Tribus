@@ -47,16 +47,16 @@ public class ObserveEffect :ICardEffect
 		switch(aim)
 		{
 		case CardEffect.CardsAimType.Drop:
-			cards = NetworkCardGameManager.sInstance.GetPlayerDrop(owner);
+			cards = RPGCardGameManager.sInstance.GetPlayerDrop(owner);
 			break;
 		case CardEffect.CardsAimType.Hand:
-			cards = NetworkCardGameManager.sInstance.GetPlayerHand(owner);
+			cards = RPGCardGameManager.sInstance.GetPlayerHand(owner);
                 break;
 		case CardEffect.CardsAimType.Pile:
-			cards = NetworkCardGameManager.sInstance.GetPlayerPile(owner);
+			cards = RPGCardGameManager.sInstance.GetPlayerPile(owner);
                 break;
 		case CardEffect.CardsAimType.All:
-			cards = NetworkCardGameManager.sInstance.GetPlayerCards(owner);
+			cards = RPGCardGameManager.sInstance.GetPlayerCards(owner);
                 break;
 		}
 

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea8a24d6f42ea43c0b4779bf13877698, type: 3}
+  m_Name: Archer
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300112, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
+  initiative: 20
+  hp: 50
+  damage: 5
+  visual: {fileID: 1480862096884644, guid: 92fb1f198cf954417a87853094d9c4d7, type: 2}
+  WarriorName: Archer

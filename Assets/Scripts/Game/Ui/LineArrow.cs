@@ -65,13 +65,7 @@ public class LineArrow : MonoBehaviour {
 		}
 		foreach(CardEffect ce in c.CardEffects)
 		{
-			if(ce.cardAim == CardEffect.CardAim.Cell)
-			{
-				if(ce.cellAimType != CardEffect.CellAimType.All && ce.cellAimType != CardEffect.CellAimType.Random)
-				{
-					v = true;	
-				}
-			}
+			
 
 			if(ce.cardAim == CardEffect.CardAim.Player)
 			{

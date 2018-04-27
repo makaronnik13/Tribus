@@ -24,7 +24,7 @@ public class TakeCardEffect :ICardEffect
 					PhotonPlayer player = (aim as PlayerVisual).Player;
 					for(int i = 0; i<effect.NumberOfCards;i++)
 					{
-						NetworkCardGameManager.sInstance.PlayerGetCard(player);
+						RPGCardGameManager.sInstance.PlayerGetCard(player);
 					}
 				}
 			}

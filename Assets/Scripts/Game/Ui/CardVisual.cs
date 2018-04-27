@@ -80,7 +80,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         set
         {
-            _cardCanBePlayed = (State == CardState.Hand || State == CardState.Hovered || State == CardState.Dragging || State == CardState.ChosingAim || State == CardState.Chosed) && ResourcesManager.Instance.CardAvailability(_cardAsset) && PhotonNetwork.player == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer;
+			_cardCanBePlayed = (State == CardState.Hand || State == CardState.Hovered || State == CardState.Dragging || State == CardState.ChosingAim || State == CardState.Chosed) && ResourcesManager.Instance.CardAvailability(_cardAsset) && RPGCardGameManager.sInstance.CurrentPlayer!=null && PhotonNetwork.player == RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer;
             
 			if(State!= CardState.Choosing && State!= CardState.Chosed && State!= CardState.HoveredInChoose)
 			{
@@ -98,7 +98,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #endregion
 
     #region privateMethods
-    private void UpdateAvaliablility()
+	public void UpdateAvaliablility()
     {
         ResourceChanged(null, 0);
     }
@@ -258,6 +258,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             newVisualiser.GetComponent<Image>().sprite = ink.resource.sprite;
             newVisualiser.GetComponentInChildren<TextMeshProUGUI>().text = "" + ink.value;
         }
+		UpdateAvaliablility ();
 		_state = CardVisual.CardState.None;
     }
     void Update()

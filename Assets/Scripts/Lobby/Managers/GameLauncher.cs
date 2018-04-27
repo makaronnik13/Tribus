@@ -26,6 +26,7 @@ public class GameLauncher : Photon.PunBehaviour
 
     #region Public Variables
 
+		public string OnlineScene = "TestOnlineScene";
         public GameObject lobbyPlayerPrefab;
         public Transform lobbyPlayersHub;
 
@@ -243,7 +244,7 @@ public class GameLauncher : Photon.PunBehaviour
         [PunRPC]
         private void StartGameOnServer()
         {
-            PhotonNetwork.LoadLevel("TestOnlineScene");
+		PhotonNetwork.LoadLevel(OnlineScene);
             foreach (PhotonLobbyPlayer plp in FindObjectsOfType<PhotonLobbyPlayer>())
             {
                 plp.StartGame();

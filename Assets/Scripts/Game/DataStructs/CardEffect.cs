@@ -10,7 +10,6 @@ public class CardEffect
 	public enum CardAim
 	{
 		None,
-		Cell,
 		Player
 	}
 
@@ -28,14 +27,7 @@ public class CardEffect
 		Win,
 		Choose
 	}
-
-	public enum CellAimType
-	{
-		Single,
-		All,
-		Random,
-		Circle
-	}
+		
 
 	public enum CardsAimType
 	{
@@ -55,39 +47,13 @@ public class CardEffect
 		StillCards
 	}
 
-	public enum CellActionType
-	{
-		Deevolve,
-		MakeOwn,
-		MakeNeutral,
-		BuffDebuf,
-		Evolve,
-		DestroyState,
-		ChangeBiom
-	}
-
-	public enum CellOwnership
-	{
-		Every,
-		Neutral,
-		Player,
-		Oponent,
-		PlayerAndNeutral,
-		OponentAndNeutral
-	}
 
 	public CardAim cardAim = CardAim.None;
 
 	[ShowIf("AimIsPlayer")]
 	public PlayerAimType playerAimType = PlayerAimType.Enemy;
-	[ShowIf("AimIsCell")]
-	public CellAimType cellAimType = CellAimType.Single;
 	[ShowIf("AimIsPlayer")]
 	public PlayerActionType playerActionType = PlayerActionType.TakeCards;
-	[ShowIf("AimIsCell")]
-	public CellActionType cellActionType = CellActionType.Evolve;
-	[ShowIf("AimIsCell")]
-	public CellOwnership cellOwnership = CellOwnership.Player;
 	[ShowIf("AimIsCards")]
 	public CardsAimType cardsAimType = CardsAimType.Hand;
 	[ShowIf("AimIsCards2")]
@@ -104,11 +70,7 @@ public class CardEffect
 	{
 		return cardAim == CardAim.Player;
 	}
-
-	private bool AimIsCell()
-	{
-		return cardAim == CardAim.Cell;
-	}
+		
 
 	private bool AimIsCards()
 	{
@@ -171,64 +133,4 @@ public class CardEffect
 		return false;
 	}
 
-	[ShowIf("ShowCellsFilter")]
-	public List<CombineModel.Biom> biomsFilter = new List<CombineModel.Biom>();
-	[ShowIf("ShowCellsFilter")]
-	public List<CellState> statesFilter = new List<CellState>();
-	private bool ShowCellsFilter()
-	{
-		return (cardAim == CardAim.Cell);
-	}
-
-	[ShowIf("Evolve")]
-	public CombineModel.Skills EvolveType;
-	[ShowIf("Evolve")]
-	public int EvolveLevel;
-	private bool Evolve()
-	{
-		if(cardAim == CardAim.Cell)
-		{
-			if(cellActionType == CellActionType.Evolve)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	[ShowIf("ShowBiom")]
-	public CombineModel.Biom BiomToChange = CombineModel.Biom.None;
-	private bool ShowBiom()
-	{
-		if(cardAim == CardAim.Cell)
-		{
-			if(cellActionType == CellActionType.ChangeBiom)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	[ShowIf("ShowNumberOfCells")]
-	public int NumberOfCells = 1;
-	private bool ShowNumberOfCells()
-	{
-		if(cardAim == CardAim.Cell && cellAimType == CellAimType.Random)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	[ShowIf("ShowRadius")]
-	public int Radius = 1;
-	private bool ShowRadius()
-	{
-		if(cardAim == CardAim.Cell && cellAimType == CellAimType.Circle)
-		{
-			return true;
-		}
-		return false;
-	}
 }

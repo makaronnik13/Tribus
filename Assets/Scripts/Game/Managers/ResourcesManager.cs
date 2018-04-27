@@ -26,7 +26,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
     public void StartTurn()
     {
 
-			foreach(Inkome ink in GetIncomeForPlayer(NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer))
+		foreach(Inkome ink in GetIncomeForPlayer(RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer))
             {
 				AddResource(ink.resource, ink.value);
             }
@@ -41,20 +41,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		{
 			inkome.Add(ink);
 		}
-
-
-		foreach (Block cs in BlocksField.Instance.Blocks)
-		{
-			if(cs.Owner!=player)
-			{
-				continue;
-			}
-				
-			foreach(Inkome ink in cs.CurrentIncome)
-			{
-					inkome.Add (ink);	
-			}
-		}
+			
         return inkome;
 	}
 

@@ -70,13 +70,13 @@ public class DropEffect :ICardEffect
 
 	private void BurnCards(PhotonPlayer owner, List<Card> chosenCards)
 	{
-		NetworkCardGameManager.sInstance.DropCards (owner, chosenCards);
+		RPGCardGameManager.sInstance.DropCards (owner, chosenCards);
 	}
 
 	private List<Card> GetCards(PhotonPlayer owner, int count)
 	{
 		List<Card> cards = new List<Card> ();
-		cards = NetworkCardGameManager.sInstance.GetPlayerHand(owner);
+		cards = RPGCardGameManager.sInstance.GetPlayerHand(owner);
 		cards = cards.OrderBy(x => Guid.NewGuid()).ToList();
 		cards = cards.Take (Mathf.Min(cards.Count, count)).ToList();
 		return cards;

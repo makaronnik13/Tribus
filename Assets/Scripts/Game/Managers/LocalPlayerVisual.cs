@@ -27,7 +27,6 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
     public void StartTurn()
     {
         endTurnButton.interactable = true;
-        FindObjectOfType<DropSlot>().ResetDrop();
     }
     public void GetCard(Card card)
     {
@@ -55,34 +54,34 @@ public class LocalPlayerVisual : Singleton<LocalPlayerVisual>
         Visualize(from, CardAnimationAim.Hand, cards, callback, dontWait);
     }
 
-	public void BurnCardsFromDrop(List<string> cards, Action<CardVisual> callback = null)
+	public void BurnCardsFromDrop(string[] cards, Action<CardVisual> callback = null)
     {
-		Visualize(CardAnimationAim.Drop, CardAnimationAim.Burn, cards, callback, true, false);
+		Visualize(CardAnimationAim.Drop, CardAnimationAim.Burn, cards.ToList(), callback, true, false);
     }
 
-	public void BurnCardsFromPile(List<string> cards, Action<CardVisual> callback = null)
+	public void BurnCardsFromPile(string[] cards, Action<CardVisual> callback = null)
     {
-		Visualize(CardAnimationAim.Pile, CardAnimationAim.Burn, cards, callback, true, false);
+		Visualize(CardAnimationAim.Pile, CardAnimationAim.Burn, cards.ToList(), callback, true, false);
     }
 
-	public void BurnCardsFromHand(List<string> cards, Action<CardVisual> callback = null)
+	public void BurnCardsFromHand(string[] cards, Action<CardVisual> callback = null)
     {
-		Visualize(CardAnimationAim.Hand, CardAnimationAim.Burn, cards, callback, true, false);
+		Visualize(CardAnimationAim.Hand, CardAnimationAim.Burn, cards.ToList(), callback, true, false);
     }
 
-	public void SteelCardsFromDrop(List<string> cards, Action<CardVisual> callback = null)
+	public void SteelCardsFromDrop(string[] cards, Action<CardVisual> callback = null)
     {
-        Visualize(CardAnimationAim.Drop, CardAnimationAim.Top, cards, callback);
+		Visualize(CardAnimationAim.Drop, CardAnimationAim.Top, cards.ToList(), callback);
     }
 
-	public void SteelCardsFromPile(List<string> cards, Action<CardVisual> callback = null)
+	public void SteelCardsFromPile(string[] cards, Action<CardVisual> callback = null)
     {
-        Visualize(CardAnimationAim.Pile, CardAnimationAim.Top, cards, callback);
+		Visualize(CardAnimationAim.Pile, CardAnimationAim.Top, cards.ToList(), callback);
     }
 
-	public void SteelCardsFromHand(List<string> cards, Action<CardVisual> callback = null)
+	public void SteelCardsFromHand(string[] cards, Action<CardVisual> callback = null)
     {
-        Visualize(CardAnimationAim.Hand, CardAnimationAim.Top, cards, callback);
+		Visualize(CardAnimationAim.Hand, CardAnimationAim.Top, cards.ToList(), callback);
     }
 
 	private void Visualize(CardAnimationAim from, CardAnimationAim to, List<string> cards, Action<CardVisual> callback = null, bool dontWait = false, bool outDelay = true)
