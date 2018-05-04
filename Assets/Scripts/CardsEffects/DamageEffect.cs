@@ -14,13 +14,11 @@ public class DamageEffect : ICardEffect
             {
                 continue;
             }
-
-            Debug.Log(aims.Count);
             if (aims.Count > 0)
             {
                 foreach (ISkillAim p in aims)
                 {
-                    RPGCardGameManager.sInstance.Damage((WarriorObject)p, observeEffect.Value);
+					RPGCardGameManager.sInstance.Damage(((WarriorVisual)p).Warrior, observeEffect.Value);
                 }
                 return true;
             }

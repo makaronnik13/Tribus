@@ -37,7 +37,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
 				if (playerAimedCard != null) 
 				{
                     List<ISkillAim> aims = new List<ISkillAim>();
-					foreach (WarriorObject w in FindObjectsOfType<WarriorObject>())
+					foreach (WarriorVisual w in FindObjectsOfType<WarriorVisual>())
                     {
                         switch (playerAimedCard.cardAim)
                         {
@@ -45,9 +45,9 @@ public class CardsPlayer : Singleton<CardsPlayer>
                                 aims.Add(w);
                                 break;
                             case CardEffect.CardAim.Allies:
-                                if (w.Player != null)
+							if (w.Warrior.Player != null)
                                 {
-                                    aims.Add(w);
+								aims.Add(w);
                                 }
                                 break;
                             case CardEffect.CardAim.Ally:
@@ -55,17 +55,17 @@ public class CardsPlayer : Singleton<CardsPlayer>
                             case CardEffect.CardAim.Any:
                                 break;
                             case CardEffect.CardAim.Enemies:
-                                if (w.Player == null)
+								if (w.Warrior.Player == null)
                                 {
-                                    aims.Add(w);
+									aims.Add(w);
                                 }
                                 break;
                             case CardEffect.CardAim.Enemy:
                                 break;
                             case CardEffect.CardAim.You:
-                                if (w.Player == PhotonNetwork.player)
+							if (w.Warrior.Player == PhotonNetwork.player)
                                 {
-                                    aims.Add(w);
+									aims.Add(w);
                                 }
                                 break;
                         }	

@@ -191,7 +191,7 @@ public class GameLauncher : Photon.PunBehaviour
             Debug.LogError("DemoAnimator/Launcher:Disconnected");
 
             // #Critical: we failed to connect or got disconnected. There is not much we can do. Typically, a UI system should be in place to let the user attemp to connect again.
-            loaderAnime.StopLoaderAnimation();
+            //loaderAnime.StopLoaderAnimation();
 
             isConnecting = false;
             //controlPanel.SetActive(true);

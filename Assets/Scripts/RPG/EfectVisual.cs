@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class EfectVisual : MonoBehaviour {
 
+	public Effect Modifier;
+	private WarriorObject warrior;
+
 	private float stayTime = 0;
 	public float StayTime
 	{
@@ -16,16 +19,31 @@ public class EfectVisual : MonoBehaviour {
 		set
 		{
 			stayTime = value;
-			counter.text = stayTime + "";
+			counter.text = Mathf.RoundToInt(stayTime) + "";
 		}
 	}
 
 	public TextMeshProUGUI counter;
 	public Image img;
 
-	private void Init(Effect effect, float time)
+	public void Init(Effect effect, float time)
 	{
+		Modifier = effect;
 		img.sprite = effect.effectImage;
         StayTime = time;
+		warrior = GetComponentInParent<WarriorObject> ();
+	}
+
+	public void Activate()
+	{
+		if(Modifier.addHpEveryTurn!=0)
+		{
+			float hpChange = Modifier.addHpEveryTurn;
+			if(Modifier.multiplyOnLength)
+			{
+				hpChange *= StayTime;
+			}
+			warrior.RecieveDamage (Mathf.CeilToInt (hpChange));	
+		}
 	}
 }

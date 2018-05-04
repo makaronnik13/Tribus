@@ -27,22 +27,27 @@ public class LineArrow : MonoBehaviour {
 	void Update () {
 		if (CardsPlayer.Instance.ActiveCard && ShowAimForCard(CardsPlayer.Instance.ActiveCard.CardAsset)) 
 		{
+
+			transform.position = CardsPlayer.Instance.ActiveCard.transform.position;
+
 			lr.enabled = true;
-			Vector3 endPosition = GUICamera.Instance.GuiCamera.WorldToScreenPoint(GetAimPosition ())- GUICamera.Instance.GuiCamera.WorldToScreenPoint(transform.parent.position);
-			endPosition.z = -50;
-
-			endPosition -= endPosition.normalized*125;
-			List<Vector3> points = new List<Vector3> ();
+			Vector3 endPosition = GetAimPosition ();
+			endPosition = transform.InverseTransformPoint(endPosition);
 
 
-			points.Add (Vector3.zero);
-			points.Add (endPosition);
-			lr.positionCount = 2;
-			lr.SetPositions (points.ToArray());
+			Vector3[] points = new Vector3[]{Vector3.zero, endPosition/2+Vector3.up*curving* Mathf.Abs(endPosition.x), endPosition };
+
+
+		
+
+			points = LineArrow.MakeSmoothCurve (points, 10);
+
+			lr.positionCount = points.Length;
+			lr.SetPositions (points);
 
 			tip.transform.localPosition = endPosition;
 
-			Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - endPosition;
+			Vector3 diff = points[points.Length-5] - endPosition;
 			diff.Normalize();
 			float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 
@@ -79,20 +84,16 @@ public class LineArrow : MonoBehaviour {
 
 	private Vector3 GetAimPosition()
 	{
-		if(CardsPlayer.Instance.focusedAims.Count == 1)
-		{
-			return (CardsPlayer.Instance.focusedAims [0] as MonoBehaviour).transform.position;
-		}
+		var ray = guiCamera.ScreenPointToRay(Input.mousePosition);
+		var plane = new Plane(transform.forward, (transform.position-guiCamera.transform.position).z* transform.forward);
 
-		RaycastHit hit;
-		Ray ray = guiCamera.ScreenPointToRay(Input.mousePosition);
-		if (Physics.Raycast(ray, out hit)) 
-		{
-			return hit.point;
-		}
+			float rayDistance;
+			if (plane.Raycast(ray, out rayDistance))
+			{
+				return ray.GetPoint(rayDistance);
 
-		return ray.origin + ray.direction * Vector3.Distance (guiCamera.transform.position, GetComponentInParent<Canvas>().transform.position);
-
+			}
+		return Vector3.zero;
 	}
 
 	public Vector3 GetPoint (Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t) {
@@ -103,5 +104,36 @@ public class LineArrow : MonoBehaviour {
 			3f * oneMinusT * oneMinusT * t * p1 +
 			3f * oneMinusT * t * t * p2 +
 			t * t * t * p3;
+	}
+
+	public static Vector3[] MakeSmoothCurve(Vector3[] arrayToCurve,float smoothness){
+		List<Vector3> points;
+		List<Vector3> curvedPoints;
+		int pointsLength = 0;
+		int curvedLength = 0;
+
+		if(smoothness < 1.0f) smoothness = 1.0f;
+
+		pointsLength = arrayToCurve.Length;
+
+		curvedLength = (pointsLength*Mathf.RoundToInt(smoothness))-1;
+		curvedPoints = new List<Vector3>(curvedLength);
+
+		float t = 0.0f;
+		for(int pointInTimeOnCurve = 0;pointInTimeOnCurve < curvedLength+1;pointInTimeOnCurve++){
+			t = Mathf.InverseLerp(0,curvedLength,pointInTimeOnCurve);
+
+			points = new List<Vector3>(arrayToCurve);
+
+			for(int j = pointsLength-1; j > 0; j--){
+				for (int i = 0; i < j; i++){
+					points[i] = (1-t)*points[i] + t*points[i+1];
+				}
+			}
+
+			curvedPoints.Add(points[0]);
+		}
+
+		return(curvedPoints.ToArray());
 	}
 }

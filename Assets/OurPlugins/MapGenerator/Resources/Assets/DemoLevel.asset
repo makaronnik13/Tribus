@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b81ea149bcf2642923b77dda383d8b, type: 3}
+  m_Name: DemoLevel
+  m_EditorClassIdentifier: 
+  LevelSettings:
+    LevelName: Demo level
+    LevelSprite: {fileID: 21300012, guid: 5b32c2d36abe44540bed74c1f787033b, type: 3}
+    Battles:
+    - {fileID: 11400000, guid: 24e748b59c1aa4f489e7a6918e70aa12, type: 2}
+    - {fileID: 11400000, guid: 437034b166b423844a949e9029186083, type: 2}
+    - {fileID: 11400000, guid: 7d24d9e108791d34d910d7fe1d13afa1, type: 2}
+    - {fileID: 11400000, guid: 79f0e45251770bf48b9e92e75a719b5d, type: 2}
+    - {fileID: 11400000, guid: ebedb1edd21e74944803eedf6f7d525f, type: 2}
+    - {fileID: 11400000, guid: d19cdbe0b47df0b4ab51c726f40a8fce, type: 2}
+    - {fileID: 11400000, guid: 5667d61d0be7f4643a8d30e12cf2e9fe, type: 2}
+    Chalenges:
+    - {fileID: 11400000, guid: 61163c05b10dc794393b925d8aaae079, type: 2}
+    - {fileID: 11400000, guid: 4002b8c97c13f014b8e63c343c95de19, type: 2}
+    - {fileID: 11400000, guid: e02f7009edfc1b24caf7083eb667484f, type: 2}
+    - {fileID: 11400000, guid: 3ca4877a5c9c440448559d3db029ec35, type: 2}
+    EmptyRooms: 4
+    Shops: 2
+    Chests: 2
+  BattlePRD:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.028930664
+      inSlope: 0.07316888
+      outSlope: 0.07316888
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 17.888443
+      value: 3.2516856
+      inSlope: 0.34752834
+      outSlope: 0.34752834
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 30.054684
+      value: 9.438491
+      inSlope: 0.06621296
+      outSlope: 0.06621296
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 39.83935
+      value: 9.752919
+      inSlope: 0.06038318
+      outSlope: 0.06038318
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  ChestPRD:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.028930664
+      inSlope: 0.07316888
+      outSlope: 0.07316888
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 17.888443
+      value: 3.2516856
+      inSlope: 0.34752834
+      outSlope: 0.34752834
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 30.054684
+      value: 9.438491
+      inSlope: 0.06621296
+      outSlope: 0.06621296
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 39.83935
+      value: 9.752919
+      inSlope: 0.06038318
+      outSlope: 0.06038318
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  ChallengePDR:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.028930664
+      inSlope: 0.07316888
+      outSlope: 0.07316888
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 17.888443
+      value: 3.2516856
+      inSlope: 0.34752834
+      outSlope: 0.34752834
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 30.054684
+      value: 9.438491
+      inSlope: 0.06621296
+      outSlope: 0.06621296
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 39.83935
+      value: 9.752919
+      inSlope: 0.06038318
+      outSlope: 0.06038318
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  EmptyRoomPRD:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.028930664
+      inSlope: 0.07316888
+      outSlope: 0.07316888
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 17.888443
+      value: 3.2516856
+      inSlope: 0.34752834
+      outSlope: 0.34752834
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 30.054684
+      value: 9.438491
+      inSlope: 0.06621296
+      outSlope: 0.06621296
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 39.83935
+      value: 9.752919
+      inSlope: 0.06038318
+      outSlope: 0.06038318
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  ShopPRD:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.028930664
+      inSlope: 0.07316888
+      outSlope: 0.07316888
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 17.888443
+      value: 3.2516856
+      inSlope: 0.34752834
+      outSlope: 0.34752834
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 30.054684
+      value: 9.438491
+      inSlope: 0.06621296
+      outSlope: 0.06621296
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 39.83935
+      value: 9.752919
+      inSlope: 0.06038318
+      outSlope: 0.06038318
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  Items:
+  - {fileID: 11400000, guid: 67f7b3ddeb8a840b9ac6f5f2736256c3, type: 2}
+  - {fileID: 11400000, guid: d7ec37e84572d40be951f6b44a4333dd, type: 2}
+  - {fileID: 11400000, guid: 09f236f713bab44d8b1343ac393bd3f0, type: 2}
+  - {fileID: 11400000, guid: 0e04ba8384e3f42db8821dc97cd31806, type: 2}
+  - {fileID: 11400000, guid: f42eda889bfdb4f97ab2521599634196, type: 2}
+  - {fileID: 11400000, guid: 80979568115d148608ea9294c5b763d5, type: 2}
+  - {fileID: 11400000, guid: 73d08b81776d94be2aa5f6e2e917cf59, type: 2}
+  - {fileID: 11400000, guid: 70c5300de8fce4bb088d17fe277e62ad, type: 2}
+  - {fileID: 11400000, guid: 54adc48d7206d4d75b61d9d2d467553b, type: 2}
+  - {fileID: 11400000, guid: f396a3dbf9db7457a92838f2f184dbb5, type: 2}

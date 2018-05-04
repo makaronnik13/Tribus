@@ -12,6 +12,10 @@ public class InitiativeTimeline : Singleton<InitiativeTimeline> {
 	public Image timeLineImage;
 	private float textureHeight = 100;
 	private float textureWidth = 25;
+
+	public Action OnTick = ()=>{};
+	private float timeToTick = 0;
+
 	private GameObject token
 	{
 		get
@@ -26,7 +30,15 @@ public class InitiativeTimeline : Singleton<InitiativeTimeline> {
 		timeLineImage.sprite = GetGradientSprite (timeLineColorV, timeLineColorH);
 	}
 
-
+	void Update()
+	{
+		timeToTick+=InitiativeToken.speedCoef*Time.deltaTime;
+		if(timeToTick>=1)
+		{
+			OnTick();
+			timeToTick = 0;
+		}	
+	}
 
 	public void StartBattle(WarriorObject[] warriors)
 	{

@@ -15,12 +15,12 @@ MonoBehaviour:
     DeckName: WarriorDeck
     Cards:
     - {fileID: 11400000, guid: ddb19c72e729b9643b39a2c592711276, type: 2}
-    - {fileID: 11400000, guid: ddb19c72e729b9643b39a2c592711276, type: 2}
-    - {fileID: 11400000, guid: ddb19c72e729b9643b39a2c592711276, type: 2}
-    - {fileID: 11400000, guid: ddb19c72e729b9643b39a2c592711276, type: 2}
+    - {fileID: 11400000, guid: a213f030246cf7843ac5c03c187a9043, type: 2}
+    - {fileID: 11400000, guid: 9cdd22bc18264594482b8c973e5ab093, type: 2}
+    - {fileID: 11400000, guid: 9cdd22bc18264594482b8c973e5ab093, type: 2}
     - {fileID: 11400000, guid: ddb19c72e729b9643b39a2c592711276, type: 2}
     - {fileID: 11400000, guid: ea674b4a89938d64d8f0047ce382e3cf, type: 2}
-    - {fileID: 11400000, guid: ea674b4a89938d64d8f0047ce382e3cf, type: 2}
+    - {fileID: 11400000, guid: a213f030246cf7843ac5c03c187a9043, type: 2}
     - {fileID: 11400000, guid: ea674b4a89938d64d8f0047ce382e3cf, type: 2}
     - {fileID: 11400000, guid: ea674b4a89938d64d8f0047ce382e3cf, type: 2}
     - {fileID: 11400000, guid: ea674b4a89938d64d8f0047ce382e3cf, type: 2}

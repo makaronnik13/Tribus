@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4641611634023796}
-  - component: {fileID: 212952307804874830}
   - component: {fileID: 95844815131528540}
-  - component: {fileID: 60049032023303096}
   - component: {fileID: 114196607701593540}
+  - component: {fileID: 60778013789827396}
+  - component: {fileID: 212339251341448248}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1206594816180100}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19000009, y: 0.13000041, z: 0}
+  m_LocalPosition: {x: 0.19000009, y: 0.13000041, z: -2.23}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 4902382977621378}
@@ -64,7 +64,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1749809518820348}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -72,7 +72,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &60049032023303096
+--- !u!60 &60778013789827396
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -89,24 +89,20 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.36, y: 0.35}
-    newSize: {x: 2.56, y: 2.56}
+    newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.10544224, y: -0.050235603}
-      - {x: 0.033536606, y: 0.07595275}
-      - {x: 0.0035557754, y: 0.1764445}
-      - {x: -0.0633008, y: 0.184873}
-      - {x: -0.11263282, y: 0.15239753}
-      - {x: -0.15196484, y: 0.114498}
-      - {x: -0.15882124, y: 0.014596328}
-      - {x: -0.13691561, y: -0.05563929}
-      - {x: -0.16571711, y: -0.1700594}
-      - {x: 0.044342007, y: -0.16719055}
-      - {x: 0.17286861, y: -0.14923353}
+    - - {x: -0.14, y: 0.175}
+      - {x: -0.17999999, y: 0.105}
+      - {x: -0.17999999, y: -0.175}
+      - {x: 0.17999999, y: -0.175}
+      - {x: 0.17999999, y: -0.105}
+      - {x: 0.14, y: 0.035}
+      - {x: 0.02, y: 0.175}
 --- !u!95 &95844815131528540
 Animator:
   serializedVersion: 3
@@ -135,7 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6232a00495c4343a06dae452e813a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!212 &212952307804874830
+  selector: {fileID: 212339251341448248}
+--- !u!212 &212339251341448248
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -149,7 +146,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 500404b25e7c6294782e357fe060e03e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -169,13 +166,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fa3707c43e2d44d42b74dd7fe06426bf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3742061c2b68a3942bdcc2c224c92dad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0

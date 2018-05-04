@@ -11,17 +11,18 @@ public class TakeCardEffect :ICardEffect
 		bool result = false;
 		foreach (CardEffect effect in effects) 
 		{
-            
 			if(effect.cardAim == CardEffect.CardAim.None || effect.playerActionType!=CardEffect.CardsActionType.TakeCards)
 			{
 				continue;
 			}
 				
+
+
 			foreach (ISkillAim aim in aims) 
 			{
-				if (aim.GetType () == typeof(PlayerVisual)) 
+				if (aim.GetType () == typeof(WarriorVisual)) 
 				{
-					PhotonPlayer player = (aim as PlayerVisual).Player;
+					PhotonPlayer player = (aim as WarriorVisual).Warrior.Player;
 					for(int i = 0; i<effect.NumberOfCards;i++)
 					{
 						RPGCardGameManager.sInstance.PlayerGetCard(player);

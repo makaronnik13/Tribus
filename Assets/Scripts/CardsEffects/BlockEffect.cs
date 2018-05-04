@@ -18,7 +18,7 @@ public class BlockEffect : ICardEffect
             {
                 foreach (ISkillAim p in aims)
                 {
-                    RPGCardGameManager.sInstance.Block((WarriorObject)p, observeEffect.Value);
+					RPGCardGameManager.sInstance.Block(((WarriorVisual)p).Warrior, observeEffect.Value);
                 }
                 return true;
             }

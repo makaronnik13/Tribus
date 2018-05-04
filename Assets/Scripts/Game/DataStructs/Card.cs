@@ -20,4 +20,7 @@ public class Card : ScriptableObject
 	public bool DestroyAfterPlay;
 
 	public List<CardEffect> CardEffects = new List<CardEffect>();
+
+	public int MoneyCost;
+	public int Level;
 }

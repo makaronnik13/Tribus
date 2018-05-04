@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Name: Poision
   m_EditorClassIdentifier: 
   effectImage: {fileID: 21300008, guid: 75cfdefc8742a4a88a817933b476b25d, type: 3}
+  addHpEveryTurn: 0.5
+  multiplyOnLength: 1

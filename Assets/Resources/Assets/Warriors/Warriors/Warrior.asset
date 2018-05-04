@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300040, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
-  initiative: 7
+  initiative: 12
   hp: 100
   damage: 10
-  visual: {fileID: 1749809518820348, guid: c78bf6a9c0ee1a6479b874d8a4b5fb2c, type: 2}
+  visual: {fileID: 1950001017333088, guid: 7b4ee7b4c7780498f8d15861d3cf0180, type: 2}
   WarriorName: Warrior
   Enemy: 0
   startingDeck: {fileID: 11400000, guid: af14f742ec4508c4abb85cf9d00df064, type: 2}

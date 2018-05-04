@@ -4,14 +4,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class WarriorObject : MonoBehaviour, ISkillAim
+public class WarriorObject : MonoBehaviour
 {
 	public HpSlider hpSlider;
     public BlockVisual blockVisual;
 	public TextMeshProUGUI warriorName;
-    public SpriteRenderer selector;
+	public Transform modifiersHab;
 
-    private Dictionary<Effect, float> modifiers = new Dictionary<Effect, float>();
+	private GameObject _hpParticle;
+	private GameObject hpParticle
+	{
+		get
+		{
+			if(!_hpParticle)
+			{
+				_hpParticle = Resources.Load ("Prefabs/RPG/HpParticle") as GameObject;
+			}
+			return _hpParticle;
+		}
+	}
+
+	private List<EfectVisual> effects = new List<EfectVisual> ();
 
 	private WarriorVisual warriorVisual;
 
@@ -45,24 +58,31 @@ public class WarriorObject : MonoBehaviour, ISkillAim
 		this.player = player;
 		this.warriorAsset = warrior;
 		hpSlider.Init(warrior.hp);
-        blockVisual.Init(warrior.hp);
+        blockVisual.Init();
 		warriorName.text = warrior.WarriorName;
 		warriorVisual = Instantiate (warrior.visual).GetComponentInChildren<WarriorVisual>();
 		warriorVisual.transform.parent.SetParent (transform);
 		warriorVisual.transform.parent.SetAsFirstSibling ();
 		warriorVisual.transform.parent.localPosition = Vector3.zero;
 		warriorVisual.transform.parent.localScale = Vector3.one;
+		InitiativeTimeline.Instance.OnTick += OnTick;
 	}
 
     public void AddModifier(Effect addingEffect, float time)
     {
-        if (modifiers.ContainsKey(addingEffect))
+		EfectVisual ev = effects.FirstOrDefault (e=>e.Modifier == addingEffect);
+		if (ev)
         {
-            modifiers[addingEffect]+=time;
+			ev.Init(addingEffect, ev.StayTime+time);
         }
         else
         {
-            modifiers.Add(addingEffect, time);
+			ev = Instantiate (Resources.Load("Prefabs/RPG/Modifier") as GameObject).GetComponent<EfectVisual>();
+			ev.transform.SetParent (modifiersHab);
+			ev.transform.localScale = Vector3.one;
+			ev.transform.localPosition = Vector3.zero;
+			ev.Init (addingEffect, time);
+			effects.Add (ev);
         }
     }
 
@@ -80,7 +100,8 @@ public class WarriorObject : MonoBehaviour, ISkillAim
             GetBlock(damageToHp-dmg);
             damageToHp = Mathf.Clamp(damageToHp, 0, damageToHp);
         }
-		hpSlider.Hp -= dmg;
+
+		hpSlider.Hp -= damageToHp;
 
         if (dmg > 0)
         {
@@ -99,6 +120,7 @@ public class WarriorObject : MonoBehaviour, ISkillAim
 
     private void Die()
     {
+		InitiativeTimeline.Instance.OnTick -= OnTick;
         Animate(()=> {
             GetComponentInChildren<Canvas>().gameObject.SetActive(false);
             InitiativeTimeline.Instance.RemoveWarrior(this);
@@ -111,129 +133,28 @@ public class WarriorObject : MonoBehaviour, ISkillAim
 		warriorVisual.Animate (animation, action);
 	}
 
-    public bool IsAwaliable(Card card)
-    {
-        if (card)
-        {
-            CardEffect cardEffect = card.CardEffects.FirstOrDefault(ce => ce.cardAim != CardEffect.CardAim.None);
-            if (cardEffect != null)
-            {
-                if (cardEffect.cardAim == CardEffect.CardAim.All)
-                {
-                    return true;
-                }
+	void OnTick()
+	{
+		for(int i = effects.Count()-1; i>=0; i--)
+		{
+			EfectVisual ev = effects [i];
+			ev.Activate ();
+			AddModifier (ev.Modifier, -1);
+			if(ev.StayTime<=0)
+			{
+				effects.Remove (ev);
+				Destroy (ev.gameObject);
+			}
+		}
+	}
 
-                if (cardEffect.cardAim == CardEffect.CardAim.Any)
-                {
-                    return true;
-                }
-
-                if (cardEffect.cardAim == CardEffect.CardAim.Enemies && Player == null)
-                {
-                    return true;
-                }
-
-                if (cardEffect.cardAim == CardEffect.CardAim.Enemy && Player == null)
-                {
-                    return true;
-                }
-
-                if (cardEffect.cardAim == CardEffect.CardAim.You && Player == RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public void Highlight(Card card, bool v)
-    {
-        if (v)
-        {
-            selector.enabled = true;
-            selector.material.color = Color.yellow;
-        }
-        else
-        {
-            selector.enabled = false;
-        }
-    }
-
-    public void HighlightSimple(bool v)
-    {
-       
-    }
-
-    public void HighlightSelected(Card card, bool v)
-    {
-        if (v && IsAwaliable(card))
-        {
-            selector.material.color = Color.red;	
-        }
-
-        if (!v)
-        {
-            if (IsAwaliable(card))
-            {
-                selector.material.color = Color.yellow;
-            }
-            else
-            {
-                selector.enabled = false;
-            }
-        }
-    }
-
-    void OnMouseEnter()
-    {
-        Debug.Log("mouse enter");
-
-        if (CardsPlayer.Instance.ActiveCard == null)
-        {
-            HighlightSimple(true);
-        }
-        else
-        {
-            CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault(ce => ce.cardAim != CardEffect.CardAim.None);
-
-            if (cardEffect != null)
-            {
-                if (cardEffect.cardAim == CardEffect.CardAim.Any)
-                {
-                    CardsPlayer.Instance.SelectAim(this);
-                }
-
-                if (cardEffect.cardAim == CardEffect.CardAim.Enemy && Player == null)
-                {
-                    CardsPlayer.Instance.SelectAim(this);
-                }
-            }
-
-
-        }
-    }
-
-    void OnMouseExit()
-    {
-        HighlightSimple(false);
-        bool shouldDehighlight = true;
-        if (CardsPlayer.Instance.ActiveCard)
-        {
-            CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault(ce => ce.cardAim != CardEffect.CardAim.None);
-            if (cardEffect != null)
-            {
-                if (cardEffect.cardAim == CardEffect.CardAim.All || cardEffect.cardAim == CardEffect.CardAim.Enemies || cardEffect.cardAim == CardEffect.CardAim.You)
-                {
-                    shouldDehighlight = false;
-                }
-            }
-
-
-        }
-        if (shouldDehighlight)
-        {
-            CardsPlayer.Instance.SelectAim(null);
-        }
-    }
+	public void EmmitParticle(int dmg, bool toBlock = false)
+	{
+		GameObject chh = Instantiate (hpParticle) as GameObject;
+		chh.transform.SetParent (GetComponentInChildren<Canvas>().transform);
+		chh.transform.localScale = Vector3.one;
+		chh.transform.localPosition = Vector3.zero;
+		chh.GetComponent<ChangeHpPartice> ().Init (-dmg, toBlock);
+	}
+		
 }

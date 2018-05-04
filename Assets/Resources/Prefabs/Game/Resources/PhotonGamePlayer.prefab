@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224013143077296536}
   - component: {fileID: 222233233272163342}
   - component: {fileID: 114641865456472274}
-  - component: {fileID: 114980362900908212}
+  - component: {fileID: 114950179412246140}
   m_Layer: 5
   m_Name: PhotonGamePlayer
   m_TagString: Untagged
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerName: 
   Hand: []
---- !u!114 &114980362900908212
+--- !u!114 &114950179412246140
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1267244535916788}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d1fe1c5297e62941b28d14b573e4d00, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ownerId: 0

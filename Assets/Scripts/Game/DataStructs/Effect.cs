@@ -6,4 +6,7 @@ using UnityEngine;
 public class Effect : ScriptableObject 
 {
 	public Sprite effectImage;
+
+	public float addHpEveryTurn = 0;
+	public bool multiplyOnLength = false;
 }

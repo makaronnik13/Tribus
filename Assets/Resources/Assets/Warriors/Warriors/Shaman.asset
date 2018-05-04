@@ -11,11 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbbad6d20855a114daf146a0eb9084e0, type: 3}
   m_Name: Shaman
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300118, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
-  initiative: 5
+  sprite: {fileID: 21300000, guid: 2f4a2ede8f864442b992e6b1b4198a96, type: 3}
+  initiative: 12
   hp: 80
   damage: 15
-  visual: {fileID: 1749809518820348, guid: c78bf6a9c0ee1a6479b874d8a4b5fb2c, type: 2}
+  visual: {fileID: 1368830046272750, guid: 80f4a1c7830ba48158e92393390e9e18, type: 2}
   WarriorName: Shaman
   Enemy: 0
   startingDeck: {fileID: 11400000, guid: 98236c3025611bf46be8db4a1b2c7003, type: 2}

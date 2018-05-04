@@ -15,7 +15,7 @@ MonoBehaviour:
   initiative: 12
   hp: 40
   damage: 10
-  visual: {fileID: 1749809518820348, guid: c78bf6a9c0ee1a6479b874d8a4b5fb2c, type: 2}
+  visual: {fileID: 1950001017333088, guid: 7b4ee7b4c7780498f8d15861d3cf0180, type: 2}
   WarriorName: Archer
   Enemy: 0
   startingDeck: {fileID: 11400000, guid: 312bb9d2096d42443b866192ed5cc388, type: 2}

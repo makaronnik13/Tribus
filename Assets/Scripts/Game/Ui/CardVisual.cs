@@ -291,7 +291,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #region Interaction implementation
     public void OnBeginDrag(PointerEventData eventData)
     {
-		if (CardsPlayer.Instance.DraggingCard || CardsManager.Instance.ChooseManager.Choosing)
+		if (CardsPlayer.Instance.DraggingCard || CardsManager.Instance.ChooseManager.Choosing || !CardCanBePlayed)
         {
             return;
         }

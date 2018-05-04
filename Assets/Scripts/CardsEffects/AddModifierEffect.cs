@@ -17,7 +17,7 @@ public class AddModifierEffect : ICardEffect
             {
                 foreach (ISkillAim p in aims)
                 {
-                    RPGCardGameManager.sInstance.AddModifier((WarriorObject)p, observeEffect.addingEffect, observeEffect.duration);
+					RPGCardGameManager.sInstance.AddModifier(((WarriorVisual)p).Warrior, observeEffect.addingEffect, observeEffect.duration);
                 }
                 return true;
             }
