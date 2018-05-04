@@ -68,6 +68,34 @@ public class WarriorObject : MonoBehaviour
 		InitiativeTimeline.Instance.OnTick += OnTick;
 	}
 
+    public void DealDamage(WarriorObject p, int value, Action callback = null)
+    {
+
+        value += AtackModificator();
+
+        Animate(() =>
+        {
+            p.RecieveDamage(value);
+            if (callback!=null)
+            {
+                callback.Invoke();
+            }
+        });
+    }
+
+    private int AtackModificator()
+    {
+        int result = 0;
+        foreach (EfectVisual ev in effects)
+        {
+            if (ev.Modifier.extraDamage > 0)
+            {
+                result += ev.Modifier.extraDamage;
+            }
+        }
+        return result;
+    }
+
     public void AddModifier(Effect addingEffect, float time)
     {
 		EfectVisual ev = effects.FirstOrDefault (e=>e.Modifier == addingEffect);
@@ -93,7 +121,7 @@ public class WarriorObject : MonoBehaviour
 
     public void RecieveDamage(int dmg)
 	{
-        int damageToHp = dmg;
+        int damageToHp = dmg - DamageReduction();
         if (blockVisual.Block>0 && dmg>0)
         {
             damageToHp -= blockVisual.Block;
@@ -117,6 +145,19 @@ public class WarriorObject : MonoBehaviour
             Die();
         }
 	}
+
+    private int DamageReduction()
+    {
+        int result = 0;
+        foreach (EfectVisual ev in effects)
+        {
+            if (ev.Modifier.extraBlock>0)
+            {
+                result += ev.Modifier.extraBlock;
+            }
+        }
+        return result;
+    }
 
     private void Die()
     {
@@ -150,11 +191,14 @@ public class WarriorObject : MonoBehaviour
 
 	public void EmmitParticle(int dmg, bool toBlock = false)
 	{
-		GameObject chh = Instantiate (hpParticle) as GameObject;
-		chh.transform.SetParent (GetComponentInChildren<Canvas>().transform);
-		chh.transform.localScale = Vector3.one;
-		chh.transform.localPosition = Vector3.zero;
-		chh.GetComponent<ChangeHpPartice> ().Init (-dmg, toBlock);
+        if (dmg != 0)
+        {
+            GameObject chh = Instantiate(hpParticle) as GameObject;
+            chh.transform.SetParent(GetComponentInChildren<Canvas>().transform);
+            chh.transform.localScale = Vector3.one;
+            chh.transform.localPosition = Vector3.zero;
+            chh.GetComponent<ChangeHpPartice>().Init(-dmg, toBlock);
+        }
 	}
 		
 }

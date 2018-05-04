@@ -9,4 +9,7 @@ public class Effect : ScriptableObject
 
 	public float addHpEveryTurn = 0;
 	public bool multiplyOnLength = false;
+
+    public int extraBlock = 0;
+    public int extraDamage = 0;
 }

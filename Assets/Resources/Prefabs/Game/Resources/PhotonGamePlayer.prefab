@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224013143077296536}
   - component: {fileID: 222233233272163342}
   - component: {fileID: 114641865456472274}
-  - component: {fileID: 114950179412246140}
+  - component: {fileID: 114376224023708098}
   m_Layer: 5
   m_Name: PhotonGamePlayer
   m_TagString: Untagged
@@ -29,7 +29,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114641865456472274
+--- !u!114 &114376224023708098
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -37,20 +37,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1267244535916788}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37590bf6d88d84abf84790266c42904a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerName: 
-  Hand: []
---- !u!114 &114950179412246140
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1267244535916788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d1fe1c5297e62941b28d14b573e4d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ownerId: 0
@@ -68,6 +55,19 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114641865456472274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267244535916788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37590bf6d88d84abf84790266c42904a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerName: 
+  Hand: []
 --- !u!222 &222233233272163342
 CanvasRenderer:
   m_ObjectHideFlags: 1

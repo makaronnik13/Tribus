@@ -50,7 +50,7 @@ public class RoomActivator : MonoBehaviour
         }
 
         int encounterType = 0;
-        object nextEncounter = GetRandomEncounter(FindObjectOfType<PlayerStats>().CurrentLevel, out encounterType);
+        object nextEncounter = GetRandomEncounter(FindObjectOfType<PlayerStats>().CurrentPartyLevel, out encounterType);
 
         switch (encounterType)
         {
@@ -61,17 +61,17 @@ public class RoomActivator : MonoBehaviour
                 StartBattle((Battle)nextEncounter);
                 break;
             case 2:
-                ShowChest(FindObjectOfType<PlayerStats>().CurrentLevel);
+                ShowChest(FindObjectOfType<PlayerStats>().CurrentPartyLevel);
                 break;
             case 3:
                 StartChellenge((Chalenge)nextEncounter);
                 break;
             case 4:
-                ShowShop(FindObjectOfType<PlayerStats>().CurrentLevel);
+                ShowShop(FindObjectOfType<PlayerStats>().CurrentPartyLevel);
                 break;
         }
 
-        FindObjectOfType<PlayerStats>().CurrentLevel++;
+        FindObjectOfType<PlayerStats>().CurrentPartyLevel++;
     }
 
     private void ShowShop(int currentLevel)

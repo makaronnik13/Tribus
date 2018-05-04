@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour {
 
-    public int CurrentLevel = 0;
+    public int CurrentPartyLevel = 0;
 
 	private List<Item> playerItems = new List<Item>();
 	public List<Item> PlayerItems

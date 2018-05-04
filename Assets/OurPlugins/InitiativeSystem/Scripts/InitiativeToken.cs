@@ -20,37 +20,19 @@ public class InitiativeToken : MonoBehaviour
 
 	public WarriorObject warrior;
 
-	private RectTransform line
-	{
-		get
-		{
-			return transform.GetChild (0).GetComponent<RectTransform> ();
-		}
-	}
+    public RectTransform line;
 
-	private Image circle
-	{
-		get
-		{
-			return transform.GetChild (1).GetComponent<Image> ();
-		}
-	}
+    public Image circle;
 
 	private Image portrait
 	{
 		get
 		{
-			return transform.GetChild (2).GetChild(0).GetComponent<Image> ();
+			return portraitTransform.GetComponent<Image> ();
 		}
 	}
 
-	private RectTransform portraitTransform
-	{
-		get
-		{
-			return transform.GetChild (2).GetComponent<RectTransform> ();
-		}
-	}
+    public RectTransform portraitTransform;
 
 	private float speed
 	{

@@ -191,3 +191,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 70c5300de8fce4bb088d17fe277e62ad, type: 2}
   - {fileID: 11400000, guid: 54adc48d7206d4d75b61d9d2d467553b, type: 2}
   - {fileID: 11400000, guid: f396a3dbf9db7457a92838f2f184dbb5, type: 2}
+  Cards:
+  - {fileID: 11400000, guid: ddb19c72e729b9643b39a2c592711276, type: 2}
+  - {fileID: 11400000, guid: ea674b4a89938d64d8f0047ce382e3cf, type: 2}
+  - {fileID: 11400000, guid: 3cb809a6a2ea3454ea0eea9aef8f7292, type: 2}
+  - {fileID: 11400000, guid: ba37d96525e68994dad8a1942e785abc, type: 2}
+  - {fileID: 11400000, guid: a213f030246cf7843ac5c03c187a9043, type: 2}
+  - {fileID: 11400000, guid: 9cdd22bc18264594482b8c973e5ab093, type: 2}
+  - {fileID: 11400000, guid: 7e4bfd1a0e6e6244987e6ea41540f4f2, type: 2}
+  - {fileID: 11400000, guid: 7d9b770e34a35844bb84e5a732421c1b, type: 2}
+  - {fileID: 11400000, guid: afb72bcd72a356d43b194e388f47c406, type: 2}
+  PercentGap: 0.2

@@ -14,4 +14,5 @@ MonoBehaviour:
   ItemName: Golden ring
   Cost: 100
   ItemSprite: {fileID: 21300014, guid: 157ffe78f8ce34338919111f17f05054, type: 3}
-  level: 3
+  level: 25
+  ItemDescription: 

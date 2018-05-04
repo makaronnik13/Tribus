@@ -28,4 +28,6 @@ public class LevelSettingsAsset : ScriptableObject
     }
 
 	public List<Item> Items;
+    public List<Card> Cards;
+    public float PercentGap;
 }

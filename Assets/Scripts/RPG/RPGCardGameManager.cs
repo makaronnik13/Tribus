@@ -41,11 +41,7 @@ public class RPGCardGameManager : Photon.MonoBehaviour
 
     public void Damage(WarriorObject p, int value)
     {
-        PlayersWarrior(PhotonNetwork.player).Animate(()=>
-        {
-            p.RecieveDamage(value);
-        });
-        
+        PlayersWarrior(PhotonNetwork.player).DealDamage(p, value);
     }
 
     private WarriorObject PlayersWarrior(PhotonPlayer player)

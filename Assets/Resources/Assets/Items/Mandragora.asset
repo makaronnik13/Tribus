@@ -14,4 +14,5 @@ MonoBehaviour:
   ItemName: Mandragora
   Cost: 23
   ItemSprite: {fileID: 21300036, guid: 157ffe78f8ce34338919111f17f05054, type: 3}
-  level: 6
+  level: 54
+  ItemDescription: 

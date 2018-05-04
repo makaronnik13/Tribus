@@ -136,6 +136,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   warrior: {fileID: 0}
+  line: {fileID: 224917652709449008}
+  circle: {fileID: 114127102321177048}
+  portraitTransform: {fileID: 224308291043139298}
 --- !u!114 &114629989336099542
 MonoBehaviour:
   m_ObjectHideFlags: 1

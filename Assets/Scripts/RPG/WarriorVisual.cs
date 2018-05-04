@@ -87,7 +87,17 @@ public class WarriorVisual : MonoBehaviour, ISkillAim
 					return true;
 				}
 
-				if (cardEffect.cardAim == CardEffect.CardAim.Enemy && Warrior.Player == null)
+                if (cardEffect.cardAim == CardEffect.CardAim.Allies && Warrior.Player != null)
+                {
+                    return true;
+                }
+
+                if (cardEffect.cardAim == CardEffect.CardAim.Ally  && Warrior.Player != null)
+                {
+                    return true;
+                }
+
+                if (cardEffect.cardAim == CardEffect.CardAim.Enemy && Warrior.Player == null)
 				{
 					return true;
 				}
@@ -151,12 +161,7 @@ public class WarriorVisual : MonoBehaviour, ISkillAim
 
 			if (cardEffect != null)
 			{
-				if (cardEffect.cardAim == CardEffect.CardAim.Any)
-				{
-					CardsPlayer.Instance.SelectAim(this);
-				}
-
-				if (cardEffect.cardAim == CardEffect.CardAim.Enemy && Warrior.Player == null)
+				if (IsAwaliable(CardsPlayer.Instance.ActiveCard.CardAsset))
 				{
 					CardsPlayer.Instance.SelectAim(this);
 				}

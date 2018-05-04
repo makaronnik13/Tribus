@@ -30,3 +30,5 @@ MonoBehaviour:
     Value: 4
     addingEffect: {fileID: 0}
     duration: 0
+  MoneyCost: 0
+  Level: 2

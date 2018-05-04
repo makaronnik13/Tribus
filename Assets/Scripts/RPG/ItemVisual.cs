@@ -3,60 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+using Tribus;
 
 public class ItemVisual : MonoBehaviour {
 
-	private List<PhotonPlayer> players = new List<PhotonPlayer>();
+	public List<PhotonPlayer> players = new List<PhotonPlayer>();
+
+    public object item;
 
 	public Image ItemImage;
 	public TextMeshProUGUI Counter;
 
-	public System.Action<ItemVisual> OnMouseEnter = (ItemVisual iv)=>{};
-	public System.Action<ItemVisual> OnMouseExit = (ItemVisual iv)=>{};
-	public System.Action<ItemVisual> OnMouseClick = (ItemVisual iv)=>{};
-
 	public void MouseEnter()
 	{
+        GetComponentInParent<ChestPanel>().ItemHovered(this);
 		Highlught (true);
 	}
 
 	public void MouseExit()
 	{
-		Highlught (false);
+        GetComponentInParent<ChestPanel>().ItemUnHovered(this);
+        Highlught (false);
 	}
 
 	public void MouseClick()
 	{
 		if (players.Contains (PhotonNetwork.player)) 
 		{
-			players.Remove (PhotonNetwork.player);
+            //GetComponentInParent<ChestPanel>().ItemClicked(this, false);
+            players.Remove (PhotonNetwork.player);
 			Choose (false);
 		} else 
 		{
 			players.Add (PhotonNetwork.player);
 			Choose (true);
-		}
+            //GetComponentInParent<ChestPanel>().ItemClicked(this, true);
+        }
 	}
 
 	public void Init(Card card)
 	{
+        item = card;
 		Counter.enabled = false;
-		ItemImage.sprite = (Sprite)Resources.Load ("Sprites/RPG/Card");
-	}
+		ItemImage.sprite = Resources.Load<Sprite>("Sprites/RPG/Card");
+        ItemImage.material = new Material(ItemImage.material);
+    }
 
 	public void Init(int gold)
 	{
+        item = gold;
 		Counter.text = gold.ToString ();
-		ItemImage.sprite = (Sprite)Resources.Load ("Sprites/RPG/Gold");
+		ItemImage.sprite = Resources.Load<Sprite>("Sprites/RPG/Gold");
 		Counter.enabled = true;
-	}
+        ItemImage.material = new Material(ItemImage.material);
+    }
 
 	public void Init(Item item)
 	{
+        this.item = item;
 		Counter.enabled = false;
 		ItemImage.sprite = item.ItemSprite;
-	}
-
+        ItemImage.material = new Material(ItemImage.material);
+    }
 
 	private void Highlught(bool v)
 	{
@@ -92,4 +101,30 @@ public class ItemVisual : MonoBehaviour {
 		ItemImage.material.SetFloat ("_OutlineSize", 1);
 
 	}
+
+    public void GiveToPlayer(PhotonPlayer winer)
+    {
+        Vector3 aimPosition = MapCanvas.Instance.InventoryButton.transform.position;
+        if (winer!=PhotonNetwork.player)
+        {
+            aimPosition = MapCanvas.Instance.OutTransform.position;
+        }
+
+        StartCoroutine(MoveItemTo(aimPosition, 1));
+    }
+
+    private IEnumerator MoveItemTo(Vector3 aimPosition, int v)
+    {
+        transform.SetParent(GetComponentInParent<Canvas>().transform);
+        float time = 0;
+        while (time <= v)
+        {
+            transform.position = Vector3.Lerp(transform.position, aimPosition, time/v);
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, time / v);
+            time += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        Destroy(gameObject);
+        yield return null;
+    }
 }

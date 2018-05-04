@@ -14,4 +14,5 @@ MonoBehaviour:
   ItemName: Rune of Bar
   Cost: 34
   ItemSprite: {fileID: 21300020, guid: 157ffe78f8ce34338919111f17f05054, type: 3}
-  level: 4
+  level: 12
+  ItemDescription: 

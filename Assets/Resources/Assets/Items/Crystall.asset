@@ -14,4 +14,5 @@ MonoBehaviour:
   ItemName: Crystall
   Cost: 12
   ItemSprite: {fileID: 21300002, guid: 157ffe78f8ce34338919111f17f05054, type: 3}
-  level: 2
+  level: 20
+  ItemDescription: 

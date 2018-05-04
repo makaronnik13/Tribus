@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb2c4096741f9f46a2e51ebf780690c, type: 3}
+  m_Name: Carapace
+  m_EditorClassIdentifier: 
+  effectImage: {fileID: 21300006, guid: 75cfdefc8742a4a88a817933b476b25d, type: 3}
+  addHpEveryTurn: 0
+  multiplyOnLength: 0
+  extraBlock: 5
+  extraDamage: 0

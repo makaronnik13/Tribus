@@ -14,4 +14,5 @@ MonoBehaviour:
   ItemName: Tom of knowlege
   Cost: 7
   ItemSprite: {fileID: 21300016, guid: 157ffe78f8ce34338919111f17f05054, type: 3}
-  level: 3
+  level: 53
+  ItemDescription: 

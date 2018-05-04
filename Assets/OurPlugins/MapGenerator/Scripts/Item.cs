@@ -9,4 +9,5 @@ public class Item : ScriptableObject
 	public int Cost;
 	public Sprite ItemSprite;
 	public int level;
+    public string ItemDescription;
 }

@@ -45,9 +45,11 @@ public class CardsPlayer : Singleton<CardsPlayer>
                                 aims.Add(w);
                                 break;
                             case CardEffect.CardAim.Allies:
-							if (w.Warrior.Player != null)
+                                Debug.Log("allies");
+							    if (w.Warrior.Player != null)
                                 {
-								aims.Add(w);
+                                    Debug.Log("add");
+                                    aims.Add(w);
                                 }
                                 break;
                             case CardEffect.CardAim.Ally:
