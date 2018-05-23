@@ -112,20 +112,21 @@ public class RPGCardGameManager : Photon.MonoBehaviour
 			CreatePlayer(pp.playerName,  new Color(pp.playerColor[0], pp.playerColor[1], pp.playerColor[2], 1), pp.spriteId, pp.photonPlayer, pp.cardsIds);
 		}
 
-
-        //add cards at start
-        /*
+		StartBattle ();
+	}
+		
+	private void StartBattle()
+	{
 		foreach (ServerPlayer pp in playersQueue.Reverse()) 
 		{
-			for (int i = 0; i < 5; i++) {
-
+			for (int i = 0; i < 5; i++) 
+			{
 				PlayerGetCard (pp.photonPlayer);
 			}
-		}*/
+		}
 
 		BattleField.Instance.StartBattle (FindObjectsOfType<PlayerVisual>().ToList());
 	}
-		
 
 	public void StartPlayerTurn(PhotonPlayer player)
 	{

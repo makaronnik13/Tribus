@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
 
-[CreateAssetMenu(menuName = "Warrior")]
+[CreateAssetMenu(menuName = "Tribus/Global/Warrior")]
 public class Warrior : ScriptableObject {
 
 	public Sprite sprite;

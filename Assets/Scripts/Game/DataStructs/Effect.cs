@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName= "Effect")]
+[CreateAssetMenu(menuName= "Tribus/Battle/Effect")]
 public class Effect : ScriptableObject 
 {
 	public Sprite effectImage;

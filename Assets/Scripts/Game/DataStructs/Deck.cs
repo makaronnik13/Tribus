@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Deck")]
+[CreateAssetMenu(menuName = "Tribus/Cards/Deck")]
 public class Deck : ScriptableObject
 {
 	[SerializeField]

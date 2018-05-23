@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "LevelSettings")]
+[CreateAssetMenu(menuName = "Tribus/Global/LevelSettings")]
 public class LevelSettingsAsset : ScriptableObject
 {
     public LevelSettings LevelSettings;
@@ -30,4 +30,5 @@ public class LevelSettingsAsset : ScriptableObject
 	public List<Item> Items;
     public List<Card> Cards;
     public float PercentGap;
+	public float ShopPercentGap = 0.3f;
 }

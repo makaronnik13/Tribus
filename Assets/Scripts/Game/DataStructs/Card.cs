@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
 
-[CreateAssetMenu(menuName = "Card")]
+[CreateAssetMenu(menuName = "Tribus/Cards/Card")]
 public class Card : ScriptableObject
 {
 	[FoldoutGroup("Card info")]
@@ -21,6 +21,5 @@ public class Card : ScriptableObject
 
 	public List<CardEffect> CardEffects = new List<CardEffect>();
 
-	public int MoneyCost;
 	public int Level;
 }

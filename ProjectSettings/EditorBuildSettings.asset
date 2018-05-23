@@ -12,5 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/TestOnlineScene.unity
     guid: 53944d753a6c44a5088092348a9071a9
   - enabled: 1
+    path: Assets/Scenes/Map.unity
+    guid: fa04af55282864ac29690e1bad729163
+  - enabled: 1
     path: Assets/Scenes/Rpg.unity
-    guid: 36396bb33aeb1483c8122607be98f5b6
+    guid: 89eeb7cb52285df45b07355bed3b72f5

@@ -8,7 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc3284eace5a64d4bb516df7d7effdb9, type: 3}
-  m_Name: PunSceneSettingsFile
+  m_Script: {fileID: 11500000, guid: 19201610a7bdb7045980178539932c00, type: 3}
+  m_Name: MotherOfGods
   m_EditorClassIdentifier: 
-  MinViewIdPerScene: []
+  ChalengeName: Mother of gods
+  HardLvl: 7
+  StartState: {fileID: 11400000, guid: 7b6604bb5396a414f8f3f976cd43eb95, type: 2}

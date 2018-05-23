@@ -27,6 +27,7 @@ public class BattlePanel : MonoBehaviour {
 
     private void ShowPanel(Battle battle)
     {
+	   //PhotonNetwork.LoadLevelAsync(3);
         visual.SetActive(true);
     }
 

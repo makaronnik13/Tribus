@@ -23,6 +23,8 @@ namespace Tribus
 
         public int testLevel;
 
+		private  Dictionary<PhotonPlayer, List<ItemVisual>> playersItems = new Dictionary<PhotonPlayer, List<ItemVisual>>();
+
         // Use this for initialization
         void Start()
         {
@@ -70,6 +72,10 @@ namespace Tribus
 
         private void ShowPanel()
         {
+			foreach(PhotonPlayer pp in FindObjectOfType<RoomMap>().Players)
+			{
+				playersItems.Add (pp, new List<ItemVisual>());
+			}
             timeSlider.maxValue = choosingTime;
             timeSlider.value = choosingTime;
             Visual.SetActive(true);
@@ -81,39 +87,17 @@ namespace Tribus
         {
             //give items to players
 
-            Dictionary<PhotonPlayer, float> playersWeights = new Dictionary<PhotonPlayer, float>();
-
-            Dictionary<PhotonPlayer, List<ItemVisual>> playersItems = new Dictionary<PhotonPlayer, List<ItemVisual>>();
-
-
-            foreach (PhotonPlayer pp in FindObjectOfType<RoomMap>().Players)
-            {
-                    playersItems.Add(pp, new List<ItemVisual>());
-            }
-
-            foreach (ItemVisual iv in GetComponentsInChildren<ItemVisual>())
-            {
-                foreach (PhotonPlayer pp in iv.players)
-                {
-                    if (playersWeights.ContainsKey(pp))
-                    {
-                        playersWeights[pp] += 1;
-                    }
-                    else
-                    {
-                        playersWeights.Add(pp, 1);
-                    }
-                }  
-            }
-
             foreach (ItemVisual iv in GetComponentsInChildren<ItemVisual>())
             {
                 Dictionary<PhotonPlayer, float> playerChances = new Dictionary<PhotonPlayer, float>();
                 float globalChance = 0;
-                foreach (PhotonPlayer pp in iv.players)
+				foreach (KeyValuePair<PhotonPlayer, List<ItemVisual>> pair in playersItems)
                 {
-                    globalChance += 1f / playersWeights[pp];
-                    playerChances.Add(pp, 1f/playersWeights[pp]);
+					if(pair.Value.Contains(iv))
+					{
+						globalChance += 1f / pair.Value.Count();
+						playerChances.Add(pair.Key, 1f/pair.Value.Count());
+					}
                 }
 
                 if (playerChances.Count > 0)
@@ -147,8 +131,9 @@ namespace Tribus
                 GiveItemToPlayer(pair.Value, pair.Key);
             }
 
-            StopCoroutine(Tick(choosingTime));
+			StopAllCoroutines ();
             Invoke("HideAllPanel", 1.5f);
+			playersItems.Clear ();
         }
 
         private void HideAllPanel()
@@ -158,7 +143,6 @@ namespace Tribus
 
         private void GiveItemToPlayer(List<ItemVisual> items, PhotonPlayer winer)
         {
-            Debug.Log(items.Count);
             foreach (ItemVisual iv in items)
             {
                 iv.GiveToPlayer(winer);
@@ -167,7 +151,8 @@ namespace Tribus
 
         private void CreateItems()
         {
-            List<Item> avaliableItems = FindObjectOfType<RoomMap>().LevelSettingsAsset.Items;
+			List<Item> avaliableItems = new List<Item>(FindObjectOfType<RoomMap>().LevelSettingsAsset.Items);
+			List<object> items = new List<object>();
 
             //temp fake. collect items from all players
             foreach (PlayerStats ps in FindObjectsOfType<PlayerStats>())
@@ -191,7 +176,7 @@ namespace Tribus
             
 
             Item item = avaliableItems.OrderBy(i => Mathf.Abs(i.level - itemValue)).First();
-            value = Mathf.Clamp(value - item.level, 0, value);
+			items.Add (item);
 
             List<Card> cards = FindObjectOfType<RoomMap>().LevelSettingsAsset.Cards;
 
@@ -199,34 +184,45 @@ namespace Tribus
 
             for (int i = 0; i < 3; i++)
             {
-                choosedCards.Add(cards.OrderBy(c => Mathf.Abs(c.Level - cardsValues[i])).First());
+				items.Add(cards.OrderBy(c => Mathf.Abs(c.Level - cardsValues[i])).First());
             }
 
-            float money = 1f - value / 3 - cardsValues[0] - cardsValues[1] - cardsValues[2];
+			int money = Mathf.RoundToInt(value - itemValue - cardsValues[0] - cardsValues[1] - cardsValues[2]);
             money = Mathf.Clamp(money, UnityEngine.Random.Range(5,10), money);
+
+			items.Add (money);
 
             List<GameObject> createdItems = new List<GameObject>();
 
-            GameObject go = Instantiate(ItemPrefab);
-            go.GetComponent<ItemVisual>().Init(item);
-            createdItems.Add(go);
-
-            GameObject go2 = Instantiate(ItemPrefab);
-            go2.GetComponent<ItemVisual>().Init(Mathf.RoundToInt(money));
-            createdItems.Add(go2);
-
-            GameObject go3 = Instantiate(ItemPrefab);
-            go3.GetComponent<ItemVisual>().Init(choosedCards[0]);
-            createdItems.Add(go3);
-
-            GameObject go4 = Instantiate(ItemPrefab);
-            go4.GetComponent<ItemVisual>().Init(choosedCards[1]);
-            createdItems.Add(go4);
-
-            GameObject go5 = Instantiate(ItemPrefab);
-            go5.GetComponent<ItemVisual>().Init(choosedCards[2]);
-            createdItems.Add(go5);
-
+			foreach(object ite in items)
+			{
+				GameObject go = Instantiate(ItemPrefab);
+				go.GetComponent<ItemVisual>().Init(ite, 
+					(ItemVisual iv)=>{ItemHovered(iv);iv.SetColor(1);},
+					(ItemVisual iv)=>{
+						ItemUnHovered(iv);
+						if (!playersItems[PhotonNetwork.player].Contains (iv)) 
+						{
+							iv.SetColor (0);
+						} else 
+						{
+							iv.SetColor(2);
+						}	
+					},
+					(ItemVisual iv)=>{
+						if(!playersItems[PhotonNetwork.player].Contains(iv.item))
+						{
+							iv.SetColor(2);
+							playersItems[PhotonNetwork.player].Add(iv);
+						}
+						else
+						{
+							playersItems[PhotonNetwork.player].Remove(iv);
+							iv.SetColor(1);
+						}
+					});
+				createdItems.Add(go);
+			}
             chestVisual.ShowItems(createdItems);
         }
 

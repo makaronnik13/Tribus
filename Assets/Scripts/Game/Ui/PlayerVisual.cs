@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using TMPro;
 
 public class PlayerVisual : Photon.MonoBehaviour 
 {
@@ -12,6 +13,11 @@ public class PlayerVisual : Photon.MonoBehaviour
 	public List<string> Hand = new List<string>();
 	public Stack<string> Drop = new Stack<string>();
 	public Queue<string> Pile = new Queue<string>();
+
+
+	public TextMeshProUGUI PlayerNameField;
+	public Image PlayerWarriorPortrait;
+	public HpSlider PlayerHpSlider;
 
 	private Warrior warrior;
 	public Warrior Warrior
@@ -58,9 +64,24 @@ public class PlayerVisual : Photon.MonoBehaviour
         transform.localScale = Vector3.one;
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector3.zero;
+		PlayerNameField.text = PlayerName;
+		PlayerWarriorPortrait.sprite = warrior.sprite;
+		PlayerHpSlider.Init (warrior.hp);
     }
 		
-
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+		if (stream.isWriting)
+		{
+			//string pName = PlayerName;
+			//stream.Serialize(ref pName);
+		}
+		else
+		{
+			//Vector3 pos = Vector3.zero;
+			//stream.Serialize(ref pos);  // pos gets filled-in. must be used somewhere
+		}
+	}
 	
 
 	public void RemoveCardsFromPile(List<string> cardsIds)

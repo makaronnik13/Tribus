@@ -202,3 +202,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7d9b770e34a35844bb84e5a732421c1b, type: 2}
   - {fileID: 11400000, guid: afb72bcd72a356d43b194e388f47c406, type: 2}
   PercentGap: 0.2
+  ShopPercentGap: 0.3

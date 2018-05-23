@@ -8,98 +8,92 @@ using Tribus;
 
 public class ItemVisual : MonoBehaviour {
 
-	public List<PhotonPlayer> players = new List<PhotonPlayer>();
-
     public object item;
-
 	public Image ItemImage;
 	public TextMeshProUGUI Counter;
+	private Action<ItemVisual> OnHovered, OnUnhovered, OnClick;
+	public int currentCost;
 
 	public void MouseEnter()
 	{
-        GetComponentInParent<ChestPanel>().ItemHovered(this);
-		Highlught (true);
+		if (OnHovered!=null) 
+		{
+			OnHovered (this);
+		}
 	}
 
 	public void MouseExit()
 	{
-        GetComponentInParent<ChestPanel>().ItemUnHovered(this);
-        Highlught (false);
+		if(OnUnhovered!=null)
+		{
+			OnUnhovered (this);
+		}
 	}
 
 	public void MouseClick()
 	{
-		if (players.Contains (PhotonNetwork.player)) 
+		if(OnClick!=null)
 		{
-            //GetComponentInParent<ChestPanel>().ItemClicked(this, false);
-            players.Remove (PhotonNetwork.player);
-			Choose (false);
-		} else 
-		{
-			players.Add (PhotonNetwork.player);
-			Choose (true);
-            //GetComponentInParent<ChestPanel>().ItemClicked(this, true);
-        }
+			OnClick (this);
+		}
 	}
+		
 
-	public void Init(Card card)
+	public void Init(object item, Action<ItemVisual> onHovered, Action<ItemVisual> onUnhovered, Action<ItemVisual> onClick, int cost = 0)
 	{
-        item = card;
-		Counter.enabled = false;
-		ItemImage.sprite = Resources.Load<Sprite>("Sprites/RPG/Card");
-        ItemImage.material = new Material(ItemImage.material);
-    }
+		this.OnClick += onClick;
+		this.OnHovered += onHovered;
+		this.OnUnhovered += onUnhovered;
+		this.item = item;
 
-	public void Init(int gold)
-	{
-        item = gold;
-		Counter.text = gold.ToString ();
-		ItemImage.sprite = Resources.Load<Sprite>("Sprites/RPG/Gold");
-		Counter.enabled = true;
-        ItemImage.material = new Material(ItemImage.material);
-    }
-
-	public void Init(Item item)
-	{
-        this.item = item;
-		Counter.enabled = false;
-		ItemImage.sprite = item.ItemSprite;
-        ItemImage.material = new Material(ItemImage.material);
-    }
-
-	private void Highlught(bool v)
-	{
-		if (v) 
+		if(item.GetType()==typeof(Card))
 		{
-			ItemImage.material.SetFloat ("_OutlineSize", 1);
-			ItemImage.material.SetColor ("_OutlineColor", new Color (1, 1, 0, 0.75f));	
-		} 
-		else 
-		{
-			if (players.Contains (PhotonNetwork.player)) 
+			currentCost = cost;
+			Counter.enabled = cost!=0;
+			Counter.text = cost+"";
+			if (cost>PlayerStats.Instance.PlayerMoney) 
 			{
-				ItemImage.material.SetColor ("_OutlineColor", new Color (1, 0, 0, 0.75f));
-			} else 
-			{
-				ItemImage.material.SetFloat ("_OutlineSize", 0);
+				Counter.color = Color.red * 0.6f;
 			}
+			ItemImage.sprite = Resources.Load<Sprite>("Sprites/RPG/Card");		
 		}
-
-		//selector.material.SetColor ("_OutlineColor", new Color(1,0,0,0.75f));
-	}
-
-	private void Choose(bool v)
+		if(item.GetType()==typeof(int))
+		{
+			Counter.text = item.ToString ();
+			ItemImage.sprite = Resources.Load<Sprite>("Sprites/RPG/Gold");
+			Counter.enabled = true;	
+		}
+		if(item.GetType()==typeof(Item))
+		{
+			currentCost = cost;
+			Counter.text = cost+"";
+			Counter.enabled = cost!=0;
+			if (cost>PlayerStats.Instance.PlayerMoney) 
+			{
+				Counter.color = Color.red * 0.6f;
+			}
+			ItemImage.sprite = ((Item)item).ItemSprite;
+		}
+       
+        ItemImage.material = new Material(ItemImage.material);
+    }
+		
+	public void SetColor(int i)
 	{
-		if (v) 
+		switch(i)
 		{
-			ItemImage.material.SetColor ("_OutlineColor", new Color(1,0,0,0.75f));
-		} 
-		else 
-		{
+		case 0:
+			ItemImage.material.SetFloat ("_OutlineSize", 0);
+			break;
+		case 1:
 			ItemImage.material.SetColor ("_OutlineColor", new Color(1,1,0,0.75f));
+			ItemImage.material.SetFloat ("_OutlineSize", 1);
+			break;
+		case 2:
+			ItemImage.material.SetColor ("_OutlineColor", new Color(1,0,0,0.75f));
+			ItemImage.material.SetFloat ("_OutlineSize", 1);
+			break;
 		}
-		ItemImage.material.SetFloat ("_OutlineSize", 1);
-
 	}
 
     public void GiveToPlayer(PhotonPlayer winer)
@@ -110,6 +104,21 @@ public class ItemVisual : MonoBehaviour {
             aimPosition = MapCanvas.Instance.OutTransform.position;
         }
 
+		if (item.GetType () == typeof(int)) 
+		{
+			PlayerStats.Instance.PlayerMoney += (int)item;
+		}
+
+		if (item.GetType () == typeof(Card)) 
+		{
+			PlayerStats.Instance.PlayerCards.Add((Card)item);
+		}
+
+		if (item.GetType () == typeof(Item)) 
+		{
+			PlayerStats.Instance.PlayerItems.Add((Item)item);
+		}
+			
         StartCoroutine(MoveItemTo(aimPosition, 1));
     }
 
