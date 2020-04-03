@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbbad6d20855a114daf146a0eb9084e0, type: 3}
+  m_Name: BigSlime
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300104, guid: 79b22dfe088f04baab054caad40cf91e, type: 3}
+  initiative: 6
+  hp: 200
+  damage: 5
+  visual: {fileID: 1887652127134562, guid: 20a30481f35ef46d691e25bb08ab01ff, type: 2}
+  WarriorName: Huge slime
+  Enemy: 1
+  startingDeck: {fileID: 0}

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2202a1589d814196b93e800e2d813e2, type: 3}
+  m_Name: ShamanDeck
+  m_EditorClassIdentifier: 
+  DeckStruct:
+    DeckName: ShamanDeck
+    Cards:
+    - {fileID: 11400000, guid: 3cb809a6a2ea3454ea0eea9aef8f7292, type: 2}
+    - {fileID: 11400000, guid: 7e4bfd1a0e6e6244987e6ea41540f4f2, type: 2}
+    - {fileID: 11400000, guid: 7d9b770e34a35844bb84e5a732421c1b, type: 2}
+    - {fileID: 11400000, guid: ba37d96525e68994dad8a1942e785abc, type: 2}
+    - {fileID: 11400000, guid: a213f030246cf7843ac5c03c187a9043, type: 2}
+    - {fileID: 11400000, guid: ea674b4a89938d64d8f0047ce382e3cf, type: 2}
+    - {fileID: 11400000, guid: ddb19c72e729b9643b39a2c592711276, type: 2}
+    - {fileID: 11400000, guid: 9cdd22bc18264594482b8c973e5ab093, type: 2}
+    - {fileID: 11400000, guid: a213f030246cf7843ac5c03c187a9043, type: 2}
+    - {fileID: 11400000, guid: 9cdd22bc18264594482b8c973e5ab093, type: 2}
+    - {fileID: 11400000, guid: 9cdd22bc18264594482b8c973e5ab093, type: 2}
+    - {fileID: 11400000, guid: afb72bcd72a356d43b194e388f47c406, type: 2}

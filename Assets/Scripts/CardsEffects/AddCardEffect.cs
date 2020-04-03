@@ -12,7 +12,7 @@ public class AddCardEffect : ICardEffect
 
         foreach (CardEffect addCardsEffect in addCardsEffects)
         {
-            if (addCardsEffect.cardAim != CardEffect.CardAim.Player || addCardsEffect.playerActionType != CardEffect.PlayerActionType.AddCards)
+            if (addCardsEffect.cardAim == CardEffect.CardAim.None || addCardsEffect.playerActionType != CardEffect.CardsActionType.AddCards)
             {
                 continue;
             }
@@ -62,13 +62,13 @@ public class AddCardEffect : ICardEffect
                 switch (cardAim)
                 {
                     case CardEffect.CardsAimType.Hand:
-					NetworkCardGameManager.sInstance.AddCardsToHand(addedCards, ((PlayerVisual)aim).Player, animationAim, true, dontWait);
+					RPGCardGameManager.sInstance.AddCardsToHand(addedCards, ((PlayerVisual)aim).Player, animationAim, true, dontWait);
                         break;
                     case CardEffect.CardsAimType.Drop:
-					NetworkCardGameManager.sInstance.AddCardsToDrop(addedCards, ((PlayerVisual)aim).Player, animationAim, true, dontWait);
+					RPGCardGameManager.sInstance.AddCardsToDrop(addedCards, ((PlayerVisual)aim).Player, animationAim, true, dontWait);
                         break;
                     case CardEffect.CardsAimType.Pile:         
-					NetworkCardGameManager.sInstance.AddCardsToPile(addedCards, ((PlayerVisual)aim).Player, animationAim, true, dontWait);
+					RPGCardGameManager.sInstance.AddCardsToPile(addedCards, ((PlayerVisual)aim).Player, animationAim, true, dontWait);
                         break;
                 }
             }

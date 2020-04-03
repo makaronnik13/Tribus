@@ -33,93 +33,50 @@ public class CardsPlayer : Singleton<CardsPlayer>
             }
 
 			if (activeCard) {
-				CardEffect playerAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Player);
+				CardEffect playerAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim != CardEffect.CardAim.None);
 				if (playerAimedCard != null) 
 				{
-					foreach (PlayerVisual pv in FindObjectsOfType<PlayerVisual>()) {
-						if (pv.Player == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer && playerAimedCard.playerAimType == CardEffect.PlayerAimType.You) 
-						{
-							SelectAim(pv);
-						}
+                    List<ISkillAim> aims = new List<ISkillAim>();
+					foreach (WarriorVisual w in FindObjectsOfType<WarriorVisual>())
+                    {
+                        switch (playerAimedCard.cardAim)
+                        {
+                            case CardEffect.CardAim.All:      
+                                aims.Add(w);
+                                break;
+                            case CardEffect.CardAim.Allies:
+                                Debug.Log("allies");
+							    if (w.Warrior.Player != null)
+                                {
+                                    Debug.Log("add");
+                                    aims.Add(w);
+                                }
+                                break;
+                            case CardEffect.CardAim.Ally:
+                                break;
+                            case CardEffect.CardAim.Any:
+                                break;
+                            case CardEffect.CardAim.Enemies:
+								if (w.Warrior.Player == null)
+                                {
+									aims.Add(w);
+                                }
+                                break;
+                            case CardEffect.CardAim.Enemy:
+                                break;
+                            case CardEffect.CardAim.You:
+							if (w.Warrior.Player == PhotonNetwork.player)
+                                {
+									aims.Add(w);
+                                }
+                                break;
+                        }	
 					}
-
-					if (playerAimedCard.playerAimType == CardEffect.PlayerAimType.All) 
-					{
-						ISkillAim[] aims = FindObjectsOfType<PlayerVisual> ();
-						SelectAims (aims);
-					}
-
-					if (playerAimedCard.playerAimType == CardEffect.PlayerAimType.Enemies) 
-					{
-						ISkillAim[] aims = FindObjectsOfType<PlayerVisual> ().Where(pv=>pv.Player!= NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer).ToArray();
-						SelectAims (aims);
-					}
-				}
-
-				CardEffect cellAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Cell);
-				if (cellAimedCard != null) 
-				{
-					if(cellAimedCard.cellAimType == CardEffect.CellAimType.All  || cellAimedCard.cellAimType == CardEffect.CellAimType.Random)
-					{
-						ISkillAim[] aims = FindObjectsOfType<Block> ().Where(b=>BlockOwnerAlowed(b, cellAimedCard)).ToArray();
-						SelectAims (aims);
-					}
-				}
+                    SelectAims(aims.ToArray());
+                }
 			}
         }
     }
-
-	private bool BlockOwnerAlowed(Block block, CardEffect ce)
-	{
-		if(ce.cellOwnership == CardEffect.CellOwnership.Neutral && block.Owner != null)
-		{
-			return false;
-		}
-		if(ce.cellOwnership == CardEffect.CellOwnership.Player && block.Owner != NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-		{
-			return false;
-		}
-		if(ce.cellOwnership == CardEffect.CellOwnership.Oponent && (block.Owner == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer || block.Owner == null))
-		{
-			return false;
-		}
-		if(ce.cellOwnership == CardEffect.CellOwnership.PlayerAndNeutral && (block.Owner != NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer && block.Owner!=null))
-		{
-			return false;
-		}
-
-		if(ce.cellOwnership == CardEffect.CellOwnership.OponentAndNeutral && block.Owner == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-		{
-			return false;
-		}
-
-		if(ce.biomsFilter.Contains(block.Biom))
-		{
-			return false;
-		}
-
-		if(ce.statesFilter.Contains(block.State))
-		{
-			return false;
-		}
-
-		if (ce.cellActionType == CardEffect.CellActionType.Evolve) 
-		{
-			if(block.State == null)
-			{
-				return false;
-			}
-			foreach (Combination comb in block.State.Combinations) {
-				if (comb.skill == ce.EvolveType && comb.skillLevel == ce.EvolveLevel) 
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
-		return true;
-	}
 
 	public List<ISkillAim> focusedAims = new List<ISkillAim> ();
 
@@ -149,20 +106,10 @@ public class CardsPlayer : Singleton<CardsPlayer>
 
     private void PlayCard(CardVisual card, List<ISkillAim> aims)
     {
-        CardEffect cellAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault(ce => ce.cardAim == CardEffect.CardAim.Cell);
-        if (cellAimedCard != null)
-        {
-            if (cellAimedCard.cellAimType == CardEffect.CellAimType.Random)
-            {
-                ISkillAim[] shuffledAims = aims.OrderBy(a => Guid.NewGuid()).ToArray();
-                SelectAims(shuffledAims.Take(Mathf.Min(cellAimedCard.NumberOfCells, shuffledAims.Length)).ToArray());
-                aims = this.focusedAims;
-            }
-        }
-
+        
         ActiveCard = null;
 
-        NetworkCardGameManager.sInstance.RemoveCardFromHand(card.CardAsset, PhotonNetwork.player);
+		RPGCardGameManager.sInstance.RemoveCardFromHand(card.CardAsset, PhotonNetwork.player);
 
         if (card.CardAsset.DestroyAfterPlay)
         {
@@ -170,7 +117,7 @@ public class CardsPlayer : Singleton<CardsPlayer>
         }
         else
         {
-            NetworkCardGameManager.sInstance.AddCardToDrop(card.CardAsset, PhotonNetwork.player, LocalPlayerVisual.CardAnimationAim.Hand, false);
+			RPGCardGameManager.sInstance.AddCardToDrop(card.CardAsset, PhotonNetwork.player, LocalPlayerVisual.CardAnimationAim.Hand, false);
             CardsManager.Instance.DropCard(card);
         }
 
@@ -185,54 +132,9 @@ public class CardsPlayer : Singleton<CardsPlayer>
 	public void SelectAim(ISkillAim aim)
 	{
 		ISkillAim[] aims = new ISkillAim[]{ aim };
-		if(activeCard)
-		{
-			CardEffect cellAimedCard = activeCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Cell);
-		if (cellAimedCard != null) 
-		{
-			if(cellAimedCard.cellAimType == CardEffect.CellAimType.Circle)
-			{
-					List<ISkillAim> targetBlocks = new List<ISkillAim> ();
-				aims = BlocksField.Instance.GetBlocksInRadius (aim as Block, cellAimedCard.Radius).ToArray();
-					foreach(Block bf in aims)
-					{
-						if(CellAllowed(cellAimedCard, bf))
-						{
-							targetBlocks.Add (bf);
-						}
-					}
-					aims = targetBlocks.ToArray();
-			}
-		}
-		}
 		SelectAims (aims);
 	}
-
-	private bool CellAllowed(CardEffect ce, Block block)
-	{
-		if(ce.biomsFilter.Contains(block.Biom))
-		{
-			return false;
-		}
-
-		if(ce.statesFilter.Contains(block.State))
-		{
-			return false;
-		}
-
-		if (ce.cellActionType == CardEffect.CellActionType.Evolve) {
-			if (block.State == null) {
-				return false;
-			}
-			foreach (Combination comb in block.State.Combinations) {
-				if (comb.skill == ce.EvolveType && comb.skillLevel == ce.EvolveLevel) {
-					return true;
-				}
-			}
-			return false;
-		}
-		return true;
-	}
+		
 
 	public void SelectAims(ISkillAim[] aims)
 	{
@@ -268,21 +170,16 @@ public class CardsPlayer : Singleton<CardsPlayer>
 
 	void Start()
 	{
-		//base
-		cardEffects.Add (new ChangeStateEffect());
-		cardEffects.Add (new ChangeBiomEffect());
-		cardEffects.Add (new DestroyStateEffect());
-		cardEffects.Add (new MakeNeutralCardEffect());
-		cardEffects.Add (new MakeOwnerEffect());
-		cardEffects.Add (new DeevolveEffect());
-
 		//cards
 		cardEffects.Add (new AddCardEffect());
 		cardEffects.Add (new TakeCardEffect());
-		cardEffects.Add (new ObserveEffect());
 		cardEffects.Add (new BurnEffect());
 		cardEffects.Add (new DropEffect());
-		cardEffects.Add (new StillEffect());
+
+        //warriors
+        cardEffects.Add(new DamageEffect());
+        cardEffects.Add(new BlockEffect());
+        cardEffects.Add(new AddModifierEffect());
 
 		//additional
 		cardEffects.Add (new ChooseEffect());

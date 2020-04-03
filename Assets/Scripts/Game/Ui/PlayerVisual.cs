@@ -4,26 +4,36 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using TMPro;
 
-public class PlayerVisual : Photon.MonoBehaviour, ISkillAim 
+public class PlayerVisual : Photon.MonoBehaviour 
 {
-	public Image selector;
-	public Image avatar;
-	public Image border;
-	public GameObject playerInfo;
-	public GameObject portrait;
-
     public string PlayerName;
 
 	public List<string> Hand = new List<string>();
 	public Stack<string> Drop = new Stack<string>();
 	public Queue<string> Pile = new Queue<string>();
 
+
+	public TextMeshProUGUI PlayerNameField;
+	public Image PlayerWarriorPortrait;
+	public HpSlider PlayerHpSlider;
+
+	private Warrior warrior;
+	public Warrior Warrior
+	{
+		get
+		{
+			return warrior;
+		}
+	}
+
+	private Color color;
     public Color Color
     {
         get
         {
-            return border.color;
+            return color;
         }
     }
 
@@ -37,186 +47,42 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
 
 	public void Init(string name, float[] playerColor, int v, string[] cards, bool activePlayer)
 	{
-        GetComponent<PhotonView>().RPC("InitOnClient", PhotonTargets.AllBuffered, new object[] {name,  playerColor,v, cards, activePlayer});
+		GetComponent<PhotonView>().RPC("InitOnClient", PhotonTargets.AllBuffered, new object[] {name,  playerColor,v, cards, activePlayer});
 	}
 
     [PunRPC]
 	private void InitOnClient(string name, float[] c, int v, string[] cards, bool activePlayer)
     {
+		warrior = DefaultResourcesManager.Warriors[v];
 		foreach (string cardId in cards)
         {
             Pile.Enqueue(cardId);
         }
         PlayerName = name;
-        Color playerColor = new Color(c[0], c[1], c[2]);
-        avatar.sprite = DefaultResourcesManager.Avatars[v];
-        selector.enabled = false;
-        border.color = playerColor;
-        selector.material = new Material(selector.material);
+		color = new Color(c[0], c[1], c[2]);
         transform.SetParent(LocalPlayerLogic.Instance.visual.playersVisualiser.transform);
         transform.localScale = Vector3.one;
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector3.zero;
-        if (activePlayer)
-        {
-            portrait.transform.localScale = Vector3.one * 1.5f;
-        }
+		PlayerNameField.text = PlayerName;
+		PlayerWarriorPortrait.sprite = warrior.sprite;
+		PlayerHpSlider.Init (warrior.hp);
     }
-
-	public void SetActivePlayer(bool v)
+		
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
-		if (v) 
+		if (stream.isWriting)
 		{
-			transform.SetAsLastSibling ();
-			portrait.transform.localScale = Vector3.one * 1.5f;
-		} else 
+			//string pName = PlayerName;
+			//stream.Serialize(ref pName);
+		}
+		else
 		{
-			transform.SetAsFirstSibling ();
-			portrait.transform.localScale = Vector3.one;
+			//Vector3 pos = Vector3.zero;
+			//stream.Serialize(ref pos);  // pos gets filled-in. must be used somewhere
 		}
 	}
-
-	public bool IsAwaliable(Card card)
-	{
-		if (card) 
-		{
-			CardEffect cardEffect = card.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Player);
-			if(cardEffect!=null)
-			{
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.All)
-				{
-					return true;
-				}
-
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Any)
-				{
-					return true;
-				}
-
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemies && Player!= NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-				{
-					return true;
-				}
-
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemy && Player!= NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-				{
-					return true;
-				}
-
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.You && Player== NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-				{
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	public void Highlight(Card card, bool v)
-	{
-		if (v) 
-		{
-			selector.enabled = true;
-			selector.material.color = Color.yellow;
-		} else 
-		{
-			selector.enabled = false;
-		}
-	}
-
-	public void HighlightSelected(Card card, bool v)
-	{
-		if (v && IsAwaliable (card)) 
-		{
-			selector.material.color = Color.red;	
-		}
-
-		if(!v)
-		{
-			if (IsAwaliable(card)) 
-			{
-				selector.material.color = Color.yellow;
-			} 
-			else 
-			{
-				selector.enabled = false;
-			}
-		}
-	}
-
-	public void HighlightSimple(bool v)
-	{
-		playerInfo.SetActive (v);
-	}
-
-	void OnMouseEnter()
-	{
-		if (CardsPlayer.Instance.ActiveCard == null) {
-			HighlightSimple (true);
-		} else 
-		{
-			CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Player);
-
-			if(cardEffect!=null)
-			{
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Any)
-				{
-
-					CardsPlayer.Instance.SelectAim(this);
-				}
-
-				if(cardEffect.playerAimType == CardEffect.PlayerAimType.Enemy && Player!= NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer)
-				{
-
-					CardsPlayer.Instance.SelectAim (this);
-				}
-			}
-
-			cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Cell);
-
-			if(cardEffect!=null)
-			{
-				if(cardEffect.cellAimType != CardEffect.CellAimType.All  && cardEffect.cellAimType != CardEffect.CellAimType.Random)
-				{
-
-					CardsPlayer.Instance.SelectAim(this);
-				}
-			}
-		}
-	}
-
-	void OnMouseExit()
-	{
-		HighlightSimple (false);
-
-		bool shouldDehighlight = true;
-
-		if (CardsPlayer.Instance.ActiveCard) {
-			CardEffect cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault (ce => ce.cardAim == CardEffect.CardAim.Player);
-			if (cardEffect != null) {
-				if (cardEffect.playerAimType == CardEffect.PlayerAimType.All || cardEffect.playerAimType == CardEffect.PlayerAimType.Enemies || cardEffect.playerAimType == CardEffect.PlayerAimType.You) {
-					shouldDehighlight = false;
-				}
-			}
-
-
-			cardEffect = CardsPlayer.Instance.ActiveCard.CardAsset.CardEffects.FirstOrDefault (ce=>ce.cardAim == CardEffect.CardAim.Cell);
-
-			if(cardEffect!=null)
-			{
-				if(cardEffect.cellAimType == CardEffect.CellAimType.All || cardEffect.cellAimType == CardEffect.CellAimType.Random)
-				{
-					shouldDehighlight = false;
-				}
-			}
-		}
-
-
-		if(shouldDehighlight)
-		{
-			CardsPlayer.Instance.SelectAim (null);
-		}
-	}
+	
 
 	public void RemoveCardsFromPile(List<string> cardsIds)
     {
@@ -277,7 +143,7 @@ public class PlayerVisual : Photon.MonoBehaviour, ISkillAim
         Drop.Push(cardId);
     }
 
-	public void RemoveCardsFromHand(List<string> cardsIds)
+	public void RemoveCardsFromHand(string[] cardsIds)
     {
 		foreach(string id in cardsIds)
 		{

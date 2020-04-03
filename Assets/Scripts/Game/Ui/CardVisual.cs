@@ -8,6 +8,7 @@ using System;
 
 public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    public bool Interactable = true;
 	private static float _movementSpeed = 0.3f;
     private static float _scaleSpeed = 0.2f;
     private Material _disolveMaterial;
@@ -80,7 +81,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         set
         {
-            _cardCanBePlayed = (State == CardState.Hand || State == CardState.Hovered || State == CardState.Dragging || State == CardState.ChosingAim || State == CardState.Chosed) && ResourcesManager.Instance.CardAvailability(_cardAsset) && PhotonNetwork.player == NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer;
+			_cardCanBePlayed = (State == CardState.Hand || State == CardState.Hovered || State == CardState.Dragging || State == CardState.ChosingAim || State == CardState.Chosed) && ResourcesManager.Instance.CardAvailability(_cardAsset) && RPGCardGameManager.sInstance.CurrentPlayer!=null && PhotonNetwork.player == RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer;
             
 			if(State!= CardState.Choosing && State!= CardState.Chosed && State!= CardState.HoveredInChoose)
 			{
@@ -98,7 +99,7 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #endregion
 
     #region privateMethods
-    private void UpdateAvaliablility()
+	public void UpdateAvaliablility()
     {
         ResourceChanged(null, 0);
     }
@@ -147,8 +148,9 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 });
                 break;
 		case CardState.Hand:
-			Vector3 startPosition = transform.position;
-			CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
+            Vector3 startPosition = transform.position;
+            transform.SetParent(CardsManager.Instance.handTransform);
+            CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
 			CardsPlayer.Instance.DraggingCard = null;
 			CardsManager.Instance.HandCardsLayout.AddCardToLayout (this);
 			transform.position = startPosition;
@@ -238,7 +240,10 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #region LifeCycle
     void Awake()
     {
-        ResourcesManager.Instance.OnResourceValueChanged += ResourceChanged;
+        if (Interactable)
+        {
+            ResourcesManager.Instance.OnResourceValueChanged += ResourceChanged;
+        }
     }
     public void Init(Card card)
     {
@@ -258,6 +263,8 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             newVisualiser.GetComponent<Image>().sprite = ink.resource.sprite;
             newVisualiser.GetComponentInChildren<TextMeshProUGUI>().text = "" + ink.value;
         }
+
+        UpdateAvaliablility();
 		_state = CardVisual.CardState.None;
     }
     void Update()
@@ -270,18 +277,21 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     }
     void OnDestroy()
     {
-		if(CardsManager.Instance && CardsManager.Instance.ChoseCardsLayout.Cards.Contains(this))
-		{
-			CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout (this);
-		}
-		if(CardsManager.Instance && CardsManager.Instance.HandCardsLayout.Cards.Contains(this))
-		{
-			CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout (this);
-		}
-
-        if (ResourcesManager.Instance)
+        if (Interactable)
         {
-            ResourcesManager.Instance.OnResourceValueChanged -= ResourceChanged;
+            if (CardsManager.Instance && CardsManager.Instance.ChoseCardsLayout.Cards.Contains(this))
+            {
+                CardsManager.Instance.ChoseCardsLayout.RemoveCardFromLayout(this);
+            }
+            if (CardsManager.Instance && CardsManager.Instance.HandCardsLayout.Cards.Contains(this))
+            {
+                CardsManager.Instance.HandCardsLayout.RemoveCardFromLayout(this);
+            }
+
+            if (ResourcesManager.Instance)
+            {
+                ResourcesManager.Instance.OnResourceValueChanged -= ResourceChanged;
+            }
         }
     }
     #endregion
@@ -289,89 +299,106 @@ public class CardVisual : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     #region Interaction implementation
     public void OnBeginDrag(PointerEventData eventData)
     {
-		if (CardsPlayer.Instance.DraggingCard || CardsManager.Instance.ChooseManager.Choosing)
+        if (Interactable)
         {
-            return;
-        }
-        if (LocalPlayerLogic.Instance.MyTurn && _state == CardState.Hovered)
-        {
-            SetState(CardState.Dragging);
+            if (CardsPlayer.Instance.DraggingCard || CardsManager.Instance.ChooseManager.Choosing || !CardCanBePlayed)
+            {
+                return;
+            }
+            if (LocalPlayerLogic.Instance.MyTurn && _state == CardState.Hovered)
+            {
+                SetState(CardState.Dragging);
+            }
         }
     }
     public void OnDrag(PointerEventData eventData)
     {
-        if (_state == CardState.Dragging && CardsPlayer.Instance.DraggingCard)
+        if (Interactable)
         {
-            if (LocalPlayerLogic.Instance.MyTurn && eventData.pointerEnter)
+            if (_state == CardState.Dragging && CardsPlayer.Instance.DraggingCard)
             {
-                Vector3 globalMousePos;
-                if (RectTransformUtility.ScreenPointToWorldPointInRectangle(eventData.pointerEnter.transform as RectTransform, eventData.position, guiCamera, out globalMousePos))
+                if (LocalPlayerLogic.Instance.MyTurn && eventData.pointerEnter)
                 {
-                    aimPosition = globalMousePos;
+                    Vector3 globalMousePos;
+                    if (RectTransformUtility.ScreenPointToWorldPointInRectangle(eventData.pointerEnter.transform as RectTransform, eventData.position, guiCamera, out globalMousePos))
+                    {
+                        aimPosition = globalMousePos;
+                    }
                 }
             }
         }
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-		if (CardsManager.Instance.ChooseManager.Choosing)
-		{
-			return;
-		}
+        if (Interactable)
+        {
+            if (CardsManager.Instance.ChooseManager.Choosing)
+            {
+                return;
+            }
 
-        if (_state == CardState.ChosingAim)
-        {
-            CardsPlayer.Instance.PlayCard(this);
-        }
-		else if(State!= CardState.Choosing && State!=CardState.Chosed && State!=CardState.HoveredInChoose)
-        {
-            SetState(CardState.Hand);
+            if (_state == CardState.ChosingAim)
+            {
+                CardsPlayer.Instance.PlayCard(this);
+            }
+            else if (State != CardState.Choosing && State != CardState.Chosed && State != CardState.HoveredInChoose)
+            {
+                SetState(CardState.Hand);
+            }
         }
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-		if (State == CardState.Choosing || State == CardState.Chosed)
-		{
-			SetState(CardState.HoveredInChoose);
-		}
+        if (Interactable)
+        {
+            if (State == CardState.Choosing || State == CardState.Chosed)
+            {
+                SetState(CardState.HoveredInChoose);
+            }
 
-        if(CardsPlayer.Instance.DraggingCard || CardsPlayer.Instance.ActiveCard)
-        {
-            return;
+            if (CardsPlayer.Instance.DraggingCard || CardsPlayer.Instance.ActiveCard)
+            {
+                return;
+            }
+            if (State == CardState.Hand)
+            {
+                SetState(CardState.Hovered);
+            }
         }
-        if (State == CardState.Hand)
-        {
-            SetState(CardState.Hovered);
-        }
-       
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-		if (_state == CardState.HoveredInChoose)
-		{
-			if (GetComponentInParent<ChooseManager>().chosedCards.Contains(this))
-			{
-				SetState(CardState.Chosed);
-			}
-			else
-			{
-				SetState(CardState.Choosing);
-			}
-		}
-
-        if (CardsPlayer.Instance.DraggingCard || CardsPlayer.Instance.ActiveCard)
+        if (Interactable)
         {
-            return;
-        }
+            if (_state == CardState.HoveredInChoose)
+            {
+                if (GetComponentInParent<ChooseManager>().chosedCards.Contains(this))
+                {
+                    SetState(CardState.Chosed);
+                }
+                else
+                {
+                    SetState(CardState.Choosing);
+                }
+            }
 
-        if (_state == CardState.Hovered)
-        {
-            SetState(CardState.Hand);
+            if (CardsPlayer.Instance.DraggingCard || CardsPlayer.Instance.ActiveCard)
+            {
+                return;
+            }
+
+            if (_state == CardState.Hovered)
+            {
+                SetState(CardState.Hand);
+            }
         }
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        OnCardVisualClicked.Invoke(this);
+        if (Interactable)
+        {
+            OnCardVisualClicked.Invoke(this);
+        }
     }
     #endregion
 

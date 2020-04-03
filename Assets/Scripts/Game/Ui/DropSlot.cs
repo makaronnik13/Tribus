@@ -37,8 +37,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
 
 	public void DropCard(CardVisual visual)
     { 
-		NetworkCardGameManager.sInstance.AddCardToDrop(visual.CardAsset, PhotonNetwork.player, LocalPlayerVisual.CardAnimationAim.Hand, false);
-		NetworkCardGameManager.sInstance.RemoveCardFromHand(visual.CardAsset, PhotonNetwork.player);
+		RPGCardGameManager.sInstance.AddCardToDrop(visual.CardAsset, PhotonNetwork.player, LocalPlayerVisual.CardAnimationAim.Hand, false);
+		RPGCardGameManager.sInstance.RemoveCardFromHand(visual.CardAsset, PhotonNetwork.player);
 		CardsManager.Instance.DropCard(visual);
         awaliableDrops--;
     }

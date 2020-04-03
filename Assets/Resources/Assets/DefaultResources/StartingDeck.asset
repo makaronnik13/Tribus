@@ -14,8 +14,10 @@ MonoBehaviour:
   DeckStruct:
     DeckName: StartingDeck
     Cards:
-    - {fileID: 11400000, guid: 9319ce558bafc9644a2853279b80ec6e, type: 2}
-    - {fileID: 11400000, guid: 9319ce558bafc9644a2853279b80ec6e, type: 2}
-    - {fileID: 11400000, guid: 9319ce558bafc9644a2853279b80ec6e, type: 2}
-    - {fileID: 11400000, guid: 9319ce558bafc9644a2853279b80ec6e, type: 2}
-    - {fileID: 11400000, guid: 9319ce558bafc9644a2853279b80ec6e, type: 2}
+    - {fileID: 11400000, guid: c2c9489503d074d688b733df0cccc1d3, type: 2}
+    - {fileID: 11400000, guid: c2c9489503d074d688b733df0cccc1d3, type: 2}
+    - {fileID: 11400000, guid: c2c9489503d074d688b733df0cccc1d3, type: 2}
+    - {fileID: 11400000, guid: c2c9489503d074d688b733df0cccc1d3, type: 2}
+    - {fileID: 11400000, guid: c2c9489503d074d688b733df0cccc1d3, type: 2}
+    - {fileID: 11400000, guid: c2c9489503d074d688b733df0cccc1d3, type: 2}
+    - {fileID: 11400000, guid: c2c9489503d074d688b733df0cccc1d3, type: 2}

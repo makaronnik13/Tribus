@@ -17,7 +17,6 @@ namespace Prototype.NetworkLobby
         public Image colorCircle;
         public Image playerAvatar;
         public TextMeshProUGUI playerNameField;
-        public TMP_Dropdown deckDropdown;
         public Button readyButton;
         public Button waitingPlayerButton;
         public Button removePlayerButton;
@@ -45,28 +44,15 @@ namespace Prototype.NetworkLobby
             playerNameField.text = name;
             if (player != PhotonNetwork.player)
             {
-                deckDropdown.gameObject.SetActive(false);
+               
             }
             else
             {
                 readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "join";
                 readyButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
-
-                deckDropdown.gameObject.SetActive(true);
-                deckDropdown.ClearOptions();
-                deckDropdown.AddOptions(LobbyPlayerIdentity.Instance.player.Decks.Where(d => d.Awaliable).Select(d => d.DeckName).ToList());
-                if (!LobbyPlayerIdentity.Instance.player.Decks.Where(d => d.Awaliable).ToList().Contains(LobbyPlayerIdentity.Instance.player.CurrentDeck))
-                {
-                    LobbyPlayerIdentity.Instance.player.CurrentDeck = LobbyPlayerIdentity.Instance.player.Decks.Where(d => d.Awaliable).ToList()[deckDropdown.value];
-                }
-                else
-                {
-                    deckDropdown.value = LobbyPlayerIdentity.Instance.player.Decks.Where(d => d.Awaliable).ToList().IndexOf(LobbyPlayerIdentity.Instance.player.CurrentDeck);
-                }
             }
 
-            deckDropdown.onValueChanged.AddListener(DeckDropdownChanged);
-
+   
             if (player == PhotonNetwork.player)
             {
                 readyButton.onClick.AddListener(ReadyButtonClicked);
@@ -208,15 +194,6 @@ namespace Prototype.NetworkLobby
             QuitRoom();
         }
 
-        private void DeckDropdownChanged(int v)
-        {
-            LobbyPlayerIdentity.Instance.player.CurrentDeck = LobbyPlayerIdentity.Instance.player.Decks.Where(d => d.Awaliable).ToList()[v];
-            string cards = "";
-            foreach (string c in LobbyPlayerIdentity.Instance.player.CurrentDeck.Cards)
-            {
-				cards += c + ",";
-            }
-        }
 
         public void StartGame()
         {

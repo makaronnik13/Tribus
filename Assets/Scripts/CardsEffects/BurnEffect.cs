@@ -15,7 +15,7 @@ public class BurnEffect :ICardEffect
 		effects = observeEffects;
 		foreach(CardEffect observeEffect in observeEffects)
 		{
-			if(observeEffect.cardAim!=CardEffect.CardAim.Player || observeEffect.playerActionType!=CardEffect.PlayerActionType.BurnCards)
+			if(observeEffect.cardAim == CardEffect.CardAim.None || observeEffect.playerActionType!=CardEffect.CardsActionType.BurnCards)
 			{
 				continue;
 			}
@@ -76,16 +76,16 @@ public class BurnEffect :ICardEffect
 		switch(aim)
 		{
 		case CardEffect.CardsAimType.Drop:
-			NetworkCardGameManager.sInstance.RemoveCardsFromDrop (chosenCards, owner, true);
+			RPGCardGameManager.sInstance.RemoveCardsFromDrop (chosenCards, owner, true);
 			break;
 		case CardEffect.CardsAimType.Hand:
-			NetworkCardGameManager.sInstance.RemoveCardsFromHand(chosenCards, owner, true);
+			RPGCardGameManager.sInstance.RemoveCardsFromHand(chosenCards, owner, true);
             break;
 		case CardEffect.CardsAimType.Pile:
-			NetworkCardGameManager.sInstance.RemoveCardsFromPile(chosenCards, owner, true);
+			RPGCardGameManager.sInstance.RemoveCardsFromPile(chosenCards, owner, true);
             break;
 		case CardEffect.CardsAimType.All:
-			NetworkCardGameManager.sInstance.RemoveCardsFromPlayer(chosenCards, owner, true);
+			RPGCardGameManager.sInstance.RemoveCardsFromPlayer(chosenCards, owner, true);
             break;
 		}
 
@@ -97,16 +97,16 @@ public class BurnEffect :ICardEffect
 		switch(aim)
 		{
 		case CardEffect.CardsAimType.Drop:
-            cards = NetworkCardGameManager.sInstance.GetPlayerDrop(owner);
+			cards = RPGCardGameManager.sInstance.GetPlayerDrop(owner);
 			break;
 		case CardEffect.CardsAimType.Hand:
-                cards = NetworkCardGameManager.sInstance.GetPlayerHand(owner);
+			cards = RPGCardGameManager.sInstance.GetPlayerHand(owner);
                 break;
 		case CardEffect.CardsAimType.Pile:
-                cards = NetworkCardGameManager.sInstance.GetPlayerPile(owner);
+			cards = RPGCardGameManager.sInstance.GetPlayerPile(owner);
                 break;
 		case CardEffect.CardsAimType.All:
-                cards = NetworkCardGameManager.sInstance.GetPlayerCards(owner);
+			cards = RPGCardGameManager.sInstance.GetPlayerCards(owner);
                 break;
 		}
 

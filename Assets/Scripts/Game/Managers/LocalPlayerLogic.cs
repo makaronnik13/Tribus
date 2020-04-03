@@ -11,7 +11,7 @@ public class LocalPlayerLogic : MonoBehaviour {
     {
         get
         {
-            return NetworkCardGameManager.sInstance.CurrentPlayer.photonPlayer == PhotonNetwork.player;
+			return RPGCardGameManager.sInstance.CurrentPlayer!=null && RPGCardGameManager.sInstance.CurrentPlayer.photonPlayer == PhotonNetwork.player;
         }
     }
 
@@ -21,16 +21,16 @@ public class LocalPlayerLogic : MonoBehaviour {
         Instance = this;
         float[] playerColor = new float[3] { LobbyPlayerIdentity.Instance.player.PlayerColor.r, LobbyPlayerIdentity.Instance.player.PlayerColor.g, LobbyPlayerIdentity.Instance.player.PlayerColor.b};
 		List<string> cardsIds = new List<string>();
-        foreach (string c in LobbyPlayerIdentity.Instance.player.CurrentDeck.Cards)
+        foreach (Card c in LobbyPlayerIdentity.Instance.player.CurrentDeck)
         {
-			cardsIds.Add(c);
+			cardsIds.Add(c.name);
         }
-        NetworkCardGameManager.sInstance.GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.MasterClient, new object[] { LobbyPlayerIdentity.Instance.player.PlayerName, playerColor, LobbyPlayerIdentity.Instance.player.PlayerAvatarId, PhotonNetwork.player, cardsIds.ToArray()});
+		RPGCardGameManager.sInstance.GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.MasterClient, new object[] { LobbyPlayerIdentity.Instance.player.PlayerName, playerColor, LobbyPlayerIdentity.Instance.player.PlayerAvatarId, PhotonNetwork.player, cardsIds.ToArray()});
     }
 
     public void OnEndTurnPush()
     {
-        NetworkCardGameManager.sInstance.EndTurn();
+		RPGCardGameManager.sInstance.EndTurn();
     }
 
     public void EndTurn()
@@ -41,7 +41,7 @@ public class LocalPlayerLogic : MonoBehaviour {
 
     public void StartTurn()
     {
-        NetworkCardGameManager.sInstance.PlayerStartTurn(PhotonNetwork.player);
+		RPGCardGameManager.sInstance.PlayerStartTurn(PhotonNetwork.player);
         ResourcesManager.Instance.StartTurn();
         visual.StartTurn();
     }

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 public class AvatarChooser : MonoBehaviour {
 
 	public Image Image;
+	public TextMeshProUGUI classText;
 
 	private Sprite[] Avatars
 	{
@@ -58,6 +60,7 @@ public class AvatarChooser : MonoBehaviour {
 	private void UpdateAvatar()
 	{
 		Image.sprite = Avatars [id];
+		classText.text = DefaultResourcesManager.Warriors[id].WarriorName;
 		LobbyPlayerIdentity.Instance.player.PlayerAvatarId = Id;
 	}
 }

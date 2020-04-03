@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "String collection")]
+[CreateAssetMenu(menuName = "Tribus/Global/String collection")]
 public class StringsCollection : ScriptableObject
 {
 	public List<string> Names;

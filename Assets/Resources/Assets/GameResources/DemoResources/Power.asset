@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Priority: 0
   resName: Power
-  sprite: {fileID: 21300010, guid: 75cfdefc8742a4a88a817933b476b25d, type: 3}
+  sprite: {fileID: 21300336, guid: 71ae9cf2cbddbbf46afcc9b7c0ab1d27, type: 3}
   showInPanel: 1

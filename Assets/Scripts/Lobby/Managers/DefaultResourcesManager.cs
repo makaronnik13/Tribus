@@ -12,8 +12,20 @@ public static class DefaultResourcesManager
 	private static string ColorsAssetPath = "Assets/DefaultResources/PlayerColors";
 	private static string DeckAssetPath = "Assets/DefaultResources/StartingDeck";
 	private static string AllCardsAssetPath = "Assets/DefaultResources/AllCards";
-    private static string StatesPath = "Assets/DefaultResources/AllStatesList";
+	private static string WarriorsPath = "Assets/DefaultResources/Warriors";
 
+	private static Warrior[] warriors;
+	public static Warrior[] Warriors
+	{
+		get
+		{
+			if (warriors == null) 
+			{
+				warriors = Resources.Load<WarriorsList> (WarriorsPath).Warriors.ToArray();
+			}
+			return warriors;
+		}
+	}
 
 	private static Card[] allCards;
 	public static Card[] AllCards
@@ -80,7 +92,7 @@ public static class DefaultResourcesManager
 		{
 			if(avatars.Length == 0)
 			{
-				avatars = Resources.LoadAll<Sprite>(AtlasPath);
+				avatars = Warriors.ToList().Select(w=>w.sprite).ToArray();
 			}
 			return avatars;
 		}
@@ -100,34 +112,7 @@ public static class DefaultResourcesManager
 	{
 		return Colors[UnityEngine.Random.Range(0, Colors.Length-1)];
 	}
-
-    public static StatesList AllStatesList
-    {
-        get
-        {
-            return Resources.Load<StatesList>(StatesPath);
-        }
-    }
-
-    public static List<CellState> PreviousStates(CellState state)
-    {
-        List<CellState> result = new List<CellState>();
-
-        foreach (CellState cs in AllStatesList.States)
-        {
-            if (cs== null)
-            {
-                continue;
-            }
-            Combination comb = cs.Combinations.FirstOrDefault(c => c.ResultState == state);
-            if (comb != null)
-            {
-                result.Add(cs);
-            }
-        }
-
-        return result;
-    }
+		
 
 	public static Card GetCardById(string id)
 	{

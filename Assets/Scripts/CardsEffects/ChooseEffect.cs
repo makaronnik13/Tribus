@@ -10,7 +10,7 @@ public class ChooseEffect :ICardEffect
 	{
 		foreach(CardEffect observeEffect in observeEffects)
 		{
-			if(observeEffect.cardAim!=CardEffect.CardAim.None || observeEffect.noneType != CardEffect.NoneType.Choose)
+			if(observeEffect.cardAim!=CardEffect.CardAim.None)
 			{
 				continue;
 			}

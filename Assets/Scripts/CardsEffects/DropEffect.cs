@@ -15,7 +15,7 @@ public class DropEffect :ICardEffect
 		effects = observeEffects;
 		foreach(CardEffect observeEffect in observeEffects)
 		{
-			if(observeEffect.cardAim!=CardEffect.CardAim.Player || observeEffect.playerActionType!=CardEffect.PlayerActionType.DropCards)
+			if(observeEffect.cardAim == CardEffect.CardAim.None || observeEffect.playerActionType!=CardEffect.CardsActionType.DropCards)
 			{
 				continue;
 			}
@@ -70,13 +70,13 @@ public class DropEffect :ICardEffect
 
 	private void BurnCards(PhotonPlayer owner, List<Card> chosenCards)
 	{
-		NetworkCardGameManager.sInstance.DropCards (owner, chosenCards);
+		RPGCardGameManager.sInstance.DropCards (owner, chosenCards);
 	}
 
 	private List<Card> GetCards(PhotonPlayer owner, int count)
 	{
 		List<Card> cards = new List<Card> ();
-		cards = NetworkCardGameManager.sInstance.GetPlayerHand(owner);
+		cards = RPGCardGameManager.sInstance.GetPlayerHand(owner);
 		cards = cards.OrderBy(x => Guid.NewGuid()).ToList();
 		cards = cards.Take (Mathf.Min(cards.Count, count)).ToList();
 		return cards;
